@@ -1,6 +1,6 @@
 #pragma once
 
-struct PlatformMath{
+struct PlatformMath {
 
   template<typename Type>
   Type

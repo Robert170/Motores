@@ -8,11 +8,9 @@
     <Filter Include="Source Files\Prerequisites">
       <UniqueIdentifier>{8491ab01-03be-4d74-af67-3364b84bd5a1}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\deleteme.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{2ad5a986-cc76-4be1-9990-78babbf1661a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcPlatformDefines.h">
@@ -21,8 +19,22 @@
     <ClInclude Include="include\xcPlatformTypes.h">
       <Filter>Source Files\Prerequisites</Filter>
     </ClInclude>
-    <ClInclude Include="include\xcPlatformMath.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\xcVector2.h">
+      <Filter>Source Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcPlatformMath.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVectorI2.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\xcVector2.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVectorI2.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
