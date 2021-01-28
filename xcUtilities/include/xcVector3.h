@@ -1,18 +1,20 @@
 #pragma once
 
-#include "xcPlatformTypes.h"
+#include "xcVector2.h"
 
-using xcEngineSDK::int32;
+class Vector3 {
 
-class VectorI2 {
-public:
-	VectorI2(int32 x, int32 y = 0)
-		       :m_x(x), m_y(y) { };
+ public:
+  Vector3(float x, float y = 0.f, float z = 0.0f)
+		      :m_x(x), m_y(y), m_z(z) { };
 
-	VectorI2() 
-		       :m_x(0), m_y(0) { };
+	Vector3(Vector2 v, float z = 0.0f)
+		      :m_x(v.m_x), m_y(v.m_y), m_z(z) { };
 
-	~VectorI2() = default;
+	Vector3()  
+		      :m_x(0), m_y(0), m_z(0) { };
+
+	~Vector3() = default;
 
 	/**
 		* @brief      + operator overload
@@ -20,8 +22,8 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns sum of two vectors
 	*/
-	VectorI2
-	operator + (const VectorI2& V);
+	Vector3
+	operator + (const Vector3 & V);
 
 	/**
 		* @brief      - operator overload
@@ -29,8 +31,8 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns rest of two vectors
 	*/
-	VectorI2
-	operator - (const VectorI2& V);
+	Vector3
+	operator - (const Vector3 & V);
 
 	/**
 		* @brief      * operator overload
@@ -38,8 +40,8 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns multiplication of two vectors
 	*/
-	VectorI2
-	operator * (const VectorI2& V);
+	Vector3
+	operator * (const Vector3 & V);
 
 	/**
 		* @brief      / operator overload
@@ -47,8 +49,8 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns division of two vectors
 	*/
-	VectorI2
-	operator / (const VectorI2& V);
+	Vector3
+	operator / (const Vector3 & V);
 
 	/**
 		* @brief      + operator overload
@@ -57,43 +59,43 @@ public:
 		* @return     Returns true if both vectors are equal
 	*/
 	bool
-	operator == (const VectorI2& V);
+	operator == (const Vector3 & V);
 
 	/**
 		* @brief      + operator overload
 		* @param      V parameter one, number for sum
 		* @bug	    No know Bugs
-		* @return     Returns sum between a vector and a int32
+		* @return     Returns sum between a vector and a float
 	*/
-	VectorI2
-	operator + (const int32& V);
+	Vector3
+	operator + (const float& V);
 
 	/**
 		* @brief      + operator overload
 		* @param      V parameter one, number for rest
 		* @bug	    No know Bugs
-		* @return     Returns rest between a vector and a int32
+		* @return     Returns rest between a vector and a float
 	*/
-	VectorI2
-	operator - (const int32& V);
+	Vector3
+	operator - (const float& V);
 
 	/**
 		* @brief      + operator overload
 		* @param      V parameter one, number for multiply
 		* @bug	    No know Bugs
-		* @return     Returns multiplication between a vector and a int32
+		* @return     Returns multiplication between a vector and a float
 	*/
-	VectorI2
-	operator * (const int32& V);
+  Vector3
+	operator * (const float& V);
 
 	/**
 		* @brief      + operator overload
 		* @param      V parameter one, number for divide
 		* @bug	    No know Bugs
-		* @return     Returns division between a vector and a int32
+		* @return     Returns division between a vector and a float
 	*/
-	VectorI2
-	operator / (const int32& V);
+	Vector3
+		operator / (const float& V);
 
 	/**
 		* @brief      += operator overload
@@ -102,8 +104,8 @@ public:
 		* @return     Returns the value of the sum of
 		*             your vector whit pother
 	*/
-	VectorI2
-	operator += (const VectorI2& V);
+	Vector3
+	operator += (const Vector3 & V);
 
 	/**
 		* @brief      -= operator overload
@@ -112,8 +114,8 @@ public:
 		* @return     Returns the value of the rest of
 		*             your vector whit pother
 	*/
-	VectorI2
-	operator -= (const VectorI2& V);
+	Vector3
+	operator -= (const Vector3 & V);
 
 	/**
 		* @brief      *= operator overload
@@ -122,8 +124,8 @@ public:
 		* @return     Returns the value of the multiplication of
 		*             your vector whit pother
 	*/
-	VectorI2
-	operator *= (const VectorI2& V);
+	Vector3
+	operator *= (const Vector3 & V);
 
 	/**
 		* @brief      /= operator overload
@@ -132,8 +134,8 @@ public:
 		* @return     Returns the value of the division of
 		*             your vector whit pother
 	*/
-	VectorI2
-	operator /= (const VectorI2& V);
+	Vector3
+	operator /= (const Vector3 & V);
 
 
 public:
@@ -144,13 +146,17 @@ public:
 	/**
 		* @Variable m_x
 	*/
-	int32 m_x;
+	float m_x;
 
 	/**
 		* @Variable m_y
 	*/
-	int32 m_y;
+	float m_y;
+
+	/**
+		* @Variable m_z
+	*/
+	float m_z;
 
 };
-
 

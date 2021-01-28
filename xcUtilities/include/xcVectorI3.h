@@ -4,15 +4,15 @@
 
 using xcEngineSDK::int32;
 
-class VectorI2 {
-public:
-	VectorI2(int32 x, int32 y = 0)
-		       :m_x(x), m_y(y) { };
+class VectorI3 {
+ public:
+  VectorI3(int32 x, int32 y = 0, int32 z = 0)
+		       :m_x(x), m_y(y), m_z(z) { };
 
-	VectorI2() 
-		       :m_x(0), m_y(0) { };
+	VectorI3()
+		       :m_x(0), m_y(0), m_z(0) { };
 
-	~VectorI2() = default;
+	~VectorI3() = default;
 
 	/**
 		* @brief      + operator overload
@@ -20,8 +20,8 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns sum of two vectors
 	*/
-	VectorI2
-	operator + (const VectorI2& V);
+	VectorI3
+	operator + (const VectorI3& V);
 
 	/**
 		* @brief      - operator overload
@@ -29,8 +29,8 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns rest of two vectors
 	*/
-	VectorI2
-	operator - (const VectorI2& V);
+	VectorI3
+	operator - (const VectorI3& V);
 
 	/**
 		* @brief      * operator overload
@@ -38,8 +38,8 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns multiplication of two vectors
 	*/
-	VectorI2
-	operator * (const VectorI2& V);
+	VectorI3
+	operator * (const VectorI3& V);
 
 	/**
 		* @brief      / operator overload
@@ -47,8 +47,8 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns division of two vectors
 	*/
-	VectorI2
-	operator / (const VectorI2& V);
+	VectorI3
+	operator / (const VectorI3& V);
 
 	/**
 		* @brief      + operator overload
@@ -57,7 +57,7 @@ public:
 		* @return     Returns true if both vectors are equal
 	*/
 	bool
-	operator == (const VectorI2& V);
+	operator == (const VectorI3& V);
 
 	/**
 		* @brief      + operator overload
@@ -65,7 +65,7 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns sum between a vector and a int32
 	*/
-	VectorI2
+	VectorI3
 	operator + (const int32& V);
 
 	/**
@@ -74,7 +74,7 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns rest between a vector and a int32
 	*/
-	VectorI2
+	VectorI3
 	operator - (const int32& V);
 
 	/**
@@ -83,7 +83,7 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns multiplication between a vector and a int32
 	*/
-	VectorI2
+	VectorI3
 	operator * (const int32& V);
 
 	/**
@@ -92,7 +92,7 @@ public:
 		* @bug	    No know Bugs
 		* @return     Returns division between a vector and a int32
 	*/
-	VectorI2
+	VectorI3
 	operator / (const int32& V);
 
 	/**
@@ -102,8 +102,8 @@ public:
 		* @return     Returns the value of the sum of
 		*             your vector whit pother
 	*/
-	VectorI2
-	operator += (const VectorI2& V);
+	VectorI3
+	operator += (const VectorI3& V);
 
 	/**
 		* @brief      -= operator overload
@@ -112,8 +112,8 @@ public:
 		* @return     Returns the value of the rest of
 		*             your vector whit pother
 	*/
-	VectorI2
-	operator -= (const VectorI2& V);
+	VectorI3
+	operator -= (const VectorI3& V);
 
 	/**
 		* @brief      *= operator overload
@@ -122,8 +122,8 @@ public:
 		* @return     Returns the value of the multiplication of
 		*             your vector whit pother
 	*/
-	VectorI2
-	operator *= (const VectorI2& V);
+	VectorI3
+	operator *= (const VectorI3& V);
 
 	/**
 		* @brief      /= operator overload
@@ -132,8 +132,8 @@ public:
 		* @return     Returns the value of the division of
 		*             your vector whit pother
 	*/
-	VectorI2
-	operator /= (const VectorI2& V);
+	VectorI3
+	operator /= (const VectorI3& V);
 
 
 public:
@@ -151,6 +151,9 @@ public:
 	*/
 	int32 m_y;
 
+	/**
+		* @Variable m_y
+	*/
+	int32 m_z;
+
 };
-
-

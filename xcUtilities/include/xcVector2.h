@@ -3,11 +3,10 @@
 class Vector2 {
  public:
 	Vector2(float x, float y = 0.f)
-		      :m_x(x), m_y(y)
-	{
+		      :m_x(x), m_y(y) { };
+	Vector2() 
+		      :m_x(0.f), m_y(0.f) { };
 
-	};
-	Vector2() = default;
 	~Vector2() = default;
 
 	/**
