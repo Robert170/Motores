@@ -32,7 +32,10 @@
       <Filter>Source Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="include\xcVectorI3.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVector4.h">
+      <Filter>Source Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +46,12 @@
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\xcVector3.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVector4.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVectorI3.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>

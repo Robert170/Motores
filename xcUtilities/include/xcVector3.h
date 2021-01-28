@@ -12,7 +12,7 @@ class Vector3 {
 		      :m_x(v.m_x), m_y(v.m_y), m_z(z) { };
 
 	Vector3()  
-		      :m_x(0), m_y(0), m_z(0) { };
+		      :m_x(0.f), m_y(0.f), m_z(0.f) { };
 
 	~Vector3() = default;
 
