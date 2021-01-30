@@ -62,31 +62,31 @@ VectorI2::operator / (const int32& V) {
 VectorI2 
 VectorI2::operator += (const VectorI2& V) {
 
-  m_x = m_x + V.m_x;
-  m_y = m_y + V.m_y;
+  m_x += V.m_x;
+  m_y += V.m_y;
   return *this;
 }
 
 VectorI2 
 VectorI2::operator -= (const VectorI2& V) 
 {
-  m_x = m_x - V.m_x;
-  m_y = m_y - V.m_y;
+  m_x -= V.m_x;
+  m_y -= V.m_y;
   return *this;
 }
 
 VectorI2 
 VectorI2::operator *= (const VectorI2& V) {
 
-  m_x = m_x * V.m_x;
-  m_y = m_y * V.m_y;
+  m_x *= V.m_x;
+  m_y *= V.m_y;
   return *this;
 }
 
 VectorI2 
 VectorI2::operator /= (const VectorI2& V) {
 
-  m_x = m_x / V.m_x;
-  m_y = m_y / V.m_y;
+  m_x /= V.m_x;
+  m_y /= V.m_y;
   return *this;
 }

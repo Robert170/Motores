@@ -62,35 +62,35 @@ Vector3::operator / (const float& V) {
 Vector3 
 Vector3::operator += (const Vector3& V) {
   
-  m_x = m_x + V.m_x;
-  m_y = m_y + V.m_y;
-  m_z = m_z + V.m_z;
+  m_x += V.m_x;
+  m_y += V.m_y;
+  m_z += V.m_z;
   return *this;
 }
 
 Vector3 
 Vector3::operator -= (const Vector3& V) {
   
-  m_x = m_x - V.m_x;
-  m_y = m_y - V.m_y;
-  m_z = m_z - V.m_z;
+  m_x -= V.m_x;
+  m_y -= V.m_y;
+  m_z -= V.m_z;
   return *this;
 }
 
 Vector3 
 Vector3::operator *= (const Vector3& V) {
   
-  m_x = m_x * V.m_x;
-  m_y = m_y * V.m_y;
-  m_z = m_z * V.m_z;
+  m_x *= V.m_x;
+  m_y *= V.m_y;
+  m_z *= V.m_z;
   return *this;
 }
 
 Vector3 
 Vector3::operator /= (const Vector3& V) {
 
-  m_x = m_x / V.m_x;
-  m_y = m_y / V.m_y;
-  m_z = m_z / V.m_z;
+  m_x /= V.m_x;
+  m_y /= V.m_y;
+  m_z /= V.m_z;
   return *this;
 }

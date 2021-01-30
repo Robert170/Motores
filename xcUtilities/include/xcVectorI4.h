@@ -1,18 +1,21 @@
 #pragma once
-
-#include "xcPlatformTypes.h"
+#include "xcVectorI3.h"
 
 using xcEngineSDK::int32;
 
-class VectorI3 {
+class VectorI4 {
+
  public:
-  VectorI3(int32 x, int32 y = 0, int32 z = 0)
-		       :m_x(x), m_y(y), m_z(z) { };
+	VectorI4(int32 x, int32 y = 0, int32 z = 0, int32 w = 0)
+		       :m_x(x), m_y(y), m_z(z), m_w(w) { };
 
-	VectorI3()
-		       :m_x(0), m_y(0), m_z(0) { };
+	VectorI4(VectorI3 v, int32 w = 0)
+		       :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
 
-	~VectorI3() = default;
+	VectorI4()
+		       :m_x(0.f), m_y(0.f), m_z(0.f), m_w(0.f) { };
+
+	~VectorI4() = default;
 
 	/**
 		* @brief      + operator overload
@@ -20,8 +23,8 @@ class VectorI3 {
 		* @bug	      No know Bugs
 		* @return     Returns sum of two vectors
 	*/
-	VectorI3
-	operator + (const VectorI3& V);
+	VectorI4
+	operator + (const VectorI4& V);
 
 	/**
 		* @brief      - operator overload
@@ -29,8 +32,8 @@ class VectorI3 {
 		* @bug	      No know Bugs
 		* @return     Returns rest of two vectors
 	*/
-	VectorI3
-	operator - (const VectorI3& V);
+	VectorI4
+	operator - (const VectorI4& V);
 
 	/**
 		* @brief      * operator overload
@@ -38,8 +41,8 @@ class VectorI3 {
 		* @bug	      No know Bugs
 		* @return     Returns multiplication of two vectors
 	*/
-	VectorI3
-	operator * (const VectorI3& V);
+	VectorI4
+	operator * (const VectorI4& V);
 
 	/**
 		* @brief      / operator overload
@@ -47,8 +50,8 @@ class VectorI3 {
 		* @bug	      No know Bugs
 		* @return     Returns division of two vectors
 	*/
-	VectorI3
-	operator / (const VectorI3& V);
+	VectorI4
+	operator / (const VectorI4& V);
 
 	/**
 		* @brief      + operator overload
@@ -57,43 +60,43 @@ class VectorI3 {
 		* @return     Returns true if both vectors are equal
 	*/
 	bool
-	operator == (const VectorI3& V);
+	operator == (const VectorI4& V);
 
 	/**
 		* @brief      + operator overload
 		* @param      V parameter one, number for sum
 		* @bug	      No know Bugs
-		* @return     Returns sum between a vector and a int32
+		* @return     Returns sum between a vector and a float
 	*/
-	VectorI3
-	operator + (const int32& V);
+	VectorI4
+	operator + (const float& V);
 
 	/**
 		* @brief      + operator overload
 		* @param      V parameter one, number for rest
 		* @bug	      No know Bugs
-		* @return     Returns rest between a vector and a int32
+		* @return     Returns rest between a vector and a float
 	*/
-	VectorI3
-	operator - (const int32& V);
+	VectorI4
+	operator - (const float& V);
 
 	/**
 		* @brief      + operator overload
 		* @param      V parameter one, number for multiply
 		* @bug	      No know Bugs
-		* @return     Returns multiplication between a vector and a int32
+		* @return     Returns multiplication between a vector and a float
 	*/
-	VectorI3
-	operator * (const int32& V);
+	VectorI4
+	operator * (const float& V);
 
 	/**
 		* @brief      + operator overload
 		* @param      V parameter one, number for divide
 		* @bug	      No know Bugs
-		* @return     Returns division between a vector and a int32
+		* @return     Returns division between a vector and a float
 	*/
-	VectorI3
-	operator / (const int32& V);
+	VectorI4
+	operator / (const float& V);
 
 	/**
 		* @brief      += operator overload
@@ -102,8 +105,8 @@ class VectorI3 {
 		* @return     Returns the value of the sum of
 		*             your vector whit pother
 	*/
-	VectorI3
-	operator += (const VectorI3& V);
+	VectorI4
+	operator += (const VectorI4& V);
 
 	/**
 		* @brief      -= operator overload
@@ -112,8 +115,8 @@ class VectorI3 {
 		* @return     Returns the value of the rest of
 		*             your vector whit pother
 	*/
-	VectorI3
-	operator -= (const VectorI3& V);
+	VectorI4
+	operator -= (const VectorI4& V);
 
 	/**
 		* @brief      *= operator overload
@@ -122,8 +125,8 @@ class VectorI3 {
 		* @return     Returns the value of the multiplication of
 		*             your vector whit pother
 	*/
-	VectorI3
-	operator *= (const VectorI3& V);
+	VectorI4
+	operator *= (const VectorI4& V);
 
 	/**
 		* @brief      /= operator overload
@@ -132,8 +135,8 @@ class VectorI3 {
 		* @return     Returns the value of the division of
 		*             your vector whit pother
 	*/
-	VectorI3
-	operator /= (const VectorI3& V);
+	VectorI4
+	operator /= (const VectorI4& V);
 
 
  public:
@@ -152,8 +155,13 @@ class VectorI3 {
 	int32 m_y;
 
 	/**
-		* @Variable m_y
+		* @Variable m_z
 	*/
 	int32 m_z;
+
+	/**
+		* @Variable m_z
+	*/
+	int32 m_w;
 
 };

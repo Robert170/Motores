@@ -181,6 +181,8 @@
     <ClInclude Include="include\xcVector4.h" />
     <ClInclude Include="include\xcVectorI2.h" />
     <ClInclude Include="include\xcVectorI3.h" />
+    <ClInclude Include="include\xcVectorI4.h" />
+    <ClInclude Include="include\xcVectorIN.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcVector2.cpp" />
@@ -188,6 +190,8 @@
     <ClCompile Include="src\xcVector4.cpp" />
     <ClCompile Include="src\xcVectorI2.cpp" />
     <ClCompile Include="src\xcVectorI3.cpp" />
+    <ClCompile Include="src\xcVectorI4.cpp" />
+    <ClCompile Include="src\xcVectorIN.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

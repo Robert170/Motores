@@ -5,7 +5,7 @@
 using xcEngineSDK::int32;
 
 class VectorI2 {
-public:
+ public:
 	VectorI2(int32 x, int32 y = 0)
 		       :m_x(x), m_y(y) { };
 
@@ -136,7 +136,7 @@ public:
 	operator /= (const VectorI2& V);
 
 
-public:
+ public:
 	/**
 		* @brief Public variable member
 	*/

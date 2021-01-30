@@ -62,31 +62,31 @@ Vector2::operator / (const float& V) {
 Vector2 
 Vector2::operator += (const Vector2& V) {
 
-	m_x = m_x + V.m_x;
-	m_y = m_y + V.m_y;
+	m_x += V.m_x;
+	m_y += V.m_y;
 	return *this;
 }
 
 Vector2 
 Vector2::operator -= (const Vector2& V) {
 	
-	m_x = m_x - V.m_x;
-	m_y = m_y - V.m_y;
+	m_x -= V.m_x;
+	m_y -= V.m_y;
 	return *this;
 }
 
 Vector2 
 Vector2::operator *= (const Vector2& V) {
 
-	m_x = m_x * V.m_x;
-	m_y = m_y * V.m_y;
+	m_x *= V.m_x;
+	m_y *= V.m_y;
 	return *this;
 }
 
 Vector2 
 Vector2::operator /= (const Vector2& V) {
 
-	m_x = m_x / V.m_x;
-	m_y = m_y / V.m_y;
+	m_x /= V.m_x;
+	m_y /= V.m_y;
 	return *this;
 }

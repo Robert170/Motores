@@ -138,7 +138,7 @@ class Vector3 {
 	operator /= (const Vector3 & V);
 
 
-public:
+ public:
 	/**
 		* @brief Public variable member
 	*/

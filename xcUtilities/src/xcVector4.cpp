@@ -62,39 +62,39 @@ Vector4::operator / (const float& V) {
 Vector4 
 Vector4::operator += (const Vector4& V) {
   
-  m_x = m_x + V.m_x;
-  m_y = m_y + V.m_y;
-  m_z = m_z + V.m_z;
-  m_w = m_w + V.m_w;
+  m_x += V.m_x;
+  m_y += V.m_y;
+  m_z += V.m_z;
+  m_w += V.m_w;
   return *this;
 }
 
 Vector4 
 Vector4::operator -= (const Vector4& V) {
 
-  m_x = m_x - V.m_x;
-  m_y = m_y - V.m_y;
-  m_z = m_z - V.m_z;
-  m_w = m_w - V.m_w;
+  m_x -= V.m_x;
+  m_y -= V.m_y;
+  m_z -= V.m_z;
+  m_w -= V.m_w;
   return *this;
 }
 
 Vector4 
 Vector4::operator *= (const Vector4& V) {
 
-  m_x = m_x * V.m_x;
-  m_y = m_y * V.m_y;
-  m_z = m_z * V.m_z;
-  m_w = m_w * V.m_w;
+  m_x *= V.m_x;
+  m_y *= V.m_y;
+  m_z *= V.m_z;
+  m_w *= V.m_w;
   return *this;
 }
 
 Vector4 
 Vector4::operator /= (const Vector4& V) {
 
-  m_x = m_x / V.m_x;
-  m_y = m_y / V.m_y;
-  m_z = m_z / V.m_z;
-  m_w = m_w / V.m_w;
+  m_x /= V.m_x;
+  m_y /= V.m_y;
+  m_z /= V.m_z;
+  m_w /= V.m_w;
   return *this;
 }

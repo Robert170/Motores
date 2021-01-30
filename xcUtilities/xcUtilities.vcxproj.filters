@@ -37,6 +37,12 @@
     <ClInclude Include="include\xcVector4.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcVectorI4.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVectorIN.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcVector2.cpp">
@@ -52,6 +58,12 @@
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\xcVectorI3.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVectorI4.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVectorIN.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>
