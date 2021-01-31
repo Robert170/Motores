@@ -43,6 +43,21 @@
     <ClInclude Include="include\xcVectorIN.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcWindowsMath.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcLinuxMath.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcMath.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcRadias.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcDegrees.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcVector2.cpp">

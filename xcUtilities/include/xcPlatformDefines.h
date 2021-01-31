@@ -186,9 +186,9 @@
 
 //IF we are on a DEBUG build
 # if defined(_DEBUG) || defined(DEBUG)
-# define GE_DEBUG_MODE 1
+# define XC_DEBUG_MODE 1
 # else 
-#   define GE_DEBUG_MODE 0 
+#   define XC_DEBUG_MODE 0 
 # endif
 # if XC_COMPILER == XC_COMPILER_INTEL
 #    define GE_THREADLOCAL __thread
