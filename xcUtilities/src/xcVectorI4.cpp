@@ -36,25 +36,25 @@ VectorI4::operator == (const VectorI4& V) {
 }
 
 VectorI4 
-VectorI4::operator + (const float& V) {
+VectorI4::operator + (const int32& V) {
   
   return VectorI4(m_x + V, m_y + V, m_z + V, m_w + V);
 }
 
 VectorI4 
-VectorI4::operator - (const float& V) {
+VectorI4::operator - (const int32& V) {
   
   return VectorI4(m_x - V, m_y - V, m_z - V, m_w - V);
 }
 
 VectorI4 
-VectorI4::operator * (const float& V) {
+VectorI4::operator * (const int32& V) {
   
   return VectorI4(m_x * V, m_y * V, m_z * V, m_w * V);
 }
 
 VectorI4 
-VectorI4::operator / (const float& V) {
+VectorI4::operator / (const int32& V) {
   
   return VectorI4(m_x / V, m_y / V, m_z / V, m_w / V);
 }

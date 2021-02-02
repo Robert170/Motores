@@ -17,13 +17,13 @@ namespace xcEngineSDK {
   using std::int64_t;
 
   //basic unsigned types
-  using uint8  = uint8_t; //8-bit unsig
+  using uint8  = uint8_t; //8-bit using
   using uint16 = uint16_t;
   using uint32 = uint32_t;
   using uint64 = uint64_t;
 
   //basic signed types
-  using int8  = int8_t; //8-bit unsig
+  using int8  = int8_t; //8-bit using
   using int16 = int16_t;
   using int32 = int32_t;
   using int64 = int64_t;
