@@ -24,7 +24,15 @@ VectorI3::operator / (const VectorI3& V) {
   return VectorI3(m_x / V.m_x, m_y / V.m_y, m_z / V.m_z);
 }
 
-bool 
+VectorI3 
+VectorI3::operator = (const VectorI3& V) {
+  m_x = V.m_x;
+  m_y = V.m_y;
+  m_z = V.m_z;
+  return *this;
+}
+
+bool
 VectorI3::operator == (const VectorI3& V) {
   
   if (m_x == V.m_x && m_y == V.m_y && m_z == V.m_z) {
@@ -61,35 +69,35 @@ VectorI3 VectorI3::operator / (const int32& V) {
 VectorI3 
 VectorI3::operator += (const VectorI3& V) {
   
-  m_x = m_x + V.m_x;
-  m_y = m_y + V.m_y;
-  m_z = m_z + V.m_z;
+  m_x += V.m_x;
+  m_y += V.m_y;
+  m_z += V.m_z;
   return *this;
 }
 
 VectorI3 
 VectorI3::operator -= (const VectorI3& V) {
   
-  m_x = m_x - V.m_x;
-  m_y = m_y - V.m_y;
-  m_z = m_z - V.m_z;
+  m_x -= V.m_x;
+  m_y -= V.m_y;
+  m_z -= V.m_z;
   return *this;
 }
 
 VectorI3 
 VectorI3::operator *= (const VectorI3& V) {
   
-  m_x = m_x * V.m_x;
-  m_y = m_y * V.m_y;
-  m_z = m_z * V.m_z;
+  m_x *= V.m_x;
+  m_y *= V.m_y;
+  m_z *= V.m_z;
   return *this;
 }
 
 VectorI3 
 VectorI3::operator /= (const VectorI3& V) {
   
-  m_x = m_x / V.m_x;
-  m_y = m_y / V.m_y;
-  m_z = m_z / V.m_z;
+  m_x /= V.m_x;
+  m_y /= V.m_y;
+  m_z /= V.m_z;
   return *this;
 }

@@ -24,7 +24,14 @@ Vector2::operator / (const Vector2& V) {
 	return Vector2(m_x / V.m_x, m_y / V.m_y);
 }
 
-bool 
+Vector2 
+Vector2::operator = (const Vector2& V) {
+  m_x = V.m_x;
+  m_y = V.m_y;
+  return *this;
+}
+
+bool
 Vector2::operator == (const Vector2& V) {
 
 	if (m_x == V.m_x && m_y == V.m_y) {

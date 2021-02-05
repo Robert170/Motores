@@ -1,6 +1,13 @@
 #include "xcDegrees.h"
+#include "xcRadians.h"
 
-Degrees 
+Degrees::Degrees(Radians& angle) {
+
+  m_angle = angle.getRadiansIntoDegrees();
+
+}
+
+Degrees
 Degrees::operator+(const Degrees& Deg) {
   return Degrees(m_angle + Deg.m_angle);
 }
@@ -81,5 +88,59 @@ Degrees::operator *= (const Degrees& Deg) {
 Degrees 
 Degrees::operator /= (const Degrees& Deg) {
   m_angle /= Deg.m_angle;
+  return *this;
+}
+
+Degrees 
+Degrees::operator + (Radians& Rad) {
+  return Degrees(m_angle + Rad.getRadiansIntoDegrees());
+}
+
+Degrees 
+Degrees::operator - (Radians& Rad) {
+  return Degrees(m_angle - Rad.getRadiansIntoDegrees());
+}
+
+Degrees 
+Degrees::operator * (Radians& Rad) {
+  return Degrees(m_angle * Rad.getRadiansIntoDegrees());
+}
+
+Degrees 
+Degrees::operator / (Radians& Rad) {
+  return Degrees(m_angle / Rad.getRadiansIntoDegrees());
+}
+
+bool 
+Degrees::operator == (Radians& Rad) {
+  if (m_angle == Rad.getRadiansIntoDegrees()) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+Degrees 
+Degrees::operator += (Radians& Rad) {
+  m_angle += Rad.getRadiansIntoDegrees();
+  return *this;
+}
+
+Degrees 
+Degrees::operator -= (Radians& Rad) {
+  m_angle -= Rad.getRadiansIntoDegrees();
+  return *this;
+}
+
+Degrees 
+Degrees::operator *=(Radians& Rad) {
+  m_angle *= Rad.getRadiansIntoDegrees();
+  return *this;
+}
+
+Degrees 
+Degrees::operator/=(Radians& Rad) {
+  m_angle /= Rad.getRadiansIntoDegrees();
   return *this;
 }

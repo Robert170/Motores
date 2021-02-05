@@ -1,5 +1,7 @@
 #pragma once
 
+class Radians;
+
 class Degrees
 {
 public:
@@ -8,7 +10,9 @@ public:
 
   Degrees(float angle) 
 		       :m_angle(angle) {};
-    
+  
+	Degrees(Radians& angle);
+
   ~Degrees() = default;
 
   float
@@ -150,6 +154,108 @@ public:
 	 */
 	Degrees
 	operator /= (const Degrees& Deg);
+
+
+	/**
+	 * @brief      /= operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the division of
+	 *             your degrees whit pother
+	 */
+	Degrees
+	operator /= (const Degrees& Deg);
+
+	/**
+	 * Sections to degree using radians
+	 */
+
+	/**
+	 * @brief      + operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns sum of two degrees
+	 */
+	Degrees
+	operator + (Radians& Rad);
+
+	/**
+	 * @brief      - operator overload
+	 * @param      Deg parameter one, degrees for rest
+	 * @bug	       No know Bugs
+	 * @return     Returns rest of two degrees
+	 */
+	Degrees
+	operator - (Radians& Rad);
+
+	/**
+	 * @brief      * operator overload
+	 * @param      Deg parameter one, degrees for multiply
+	 * @bug	       No know Bugs
+	 * @return     Returns multiplication of two degrees
+	 */
+	Degrees
+	operator * (Radians& Rad);
+
+	/**
+	 * @brief      / operator overload
+	 * @param      Deg parameter one, degrees for divide
+	 * @bug	       No know Bugs
+	 * @return     Returns division of two degrees
+	 */
+	Degrees
+	operator / (Radians& Rad);
+
+	/**
+	 * @brief      + operator overload
+	 * @param      Deg parameter one, degrees for comparative
+	 * @bug	       No know Bugs
+	 * @return     Returns true if both degrees are equal
+	 */
+	bool
+	operator == (Radians& Rad);
+
+
+	/**
+	 * @brief      += operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the sum of
+	 *             your degrees whit pother
+	 */
+	Degrees
+	operator += (Radians& Rad);
+
+	/**
+	 * @brief      -= operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the rest of
+	 *             your degrees whit pother
+	 */
+	Degrees
+	operator -= (Radians& Rad);
+
+	/**
+	 * @brief      *= operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the multiplication of
+	 *             your degrees whit pother
+	 */
+	Degrees
+	operator *= (Radians& Rad);
+
+	/**
+	 * @brief      /= operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the division of
+	 *             your degrees whit pother
+	 */
+	Degrees
+	operator /= (Radians& Rad);
+
 
 protected:
 

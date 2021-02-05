@@ -56,6 +56,16 @@ class Vector4 {
 	operator / (const Vector4& V);
 
 	/**
+	 * @brief      = operator overload
+	 * @param      V parameter one, vector for equal
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the equal of
+	 *             your vector whit other
+	 */
+	Vector4
+	operator = (const Vector4& V);
+
+	/**
 	 * @brief      + operator overload
 	 * @param      V parameter one, vector for comparative
 	 * @bug	       No know Bugs

@@ -1,5 +1,7 @@
 #pragma once
 
+class Degrees;
+
 class Radians
 {
  public:
@@ -9,6 +11,9 @@ class Radians
 
 	Radians(float angle)
 		      :m_angle(angle) { };
+
+	Radians(Degrees& angle);
+
   ~Radians() = default;
 
   float
@@ -151,6 +156,92 @@ class Radians
 	 */
 	Radians
 	operator /= (const Radians& Rad);
+
+	/**
+	 * Sections to degree using radians
+	 */
+
+	/**
+	 * @brief      + operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns sum of radians whit degree
+	 */
+	Radians
+	operator + (Degrees& Deg);
+
+	/**
+	 * @brief      - operator overload
+	 * @param      Deg parameter one, degrees for rest
+	 * @bug	       No know Bugs
+	 * @return     Returns rest of radians whit degree
+	 */
+	Radians
+	operator - (Degrees& Deg);
+
+	/**
+	 * @brief      * operator overload
+	 * @param      Deg parameter one, degrees for multiply
+	 * @bug	       No know Bugs
+	 * @return     Returns multiplication of radians whit degree
+	 */
+	Radians
+	operator * (Degrees& Deg);
+
+	/**
+	 * @brief      / operator overload
+	 * @param      Deg parameter one, degrees for divide
+	 * @bug	       No know Bugs
+	 * @return     Returns division of radians whit degree
+	 */
+	Radians
+	operator / (Degrees& Deg);
+
+	/**
+	 * @brief      + operator overload
+	 * @param      Deg parameter one, degrees for comparative
+	 * @bug	       No know Bugs
+	 * @return     Returns true if radians whit degree are equal
+	 */
+	bool
+	operator == (Degrees& Deg);
+
+
+	/**
+	 * @brief      += operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the sum radians whit degree
+	 */
+	Radians
+	operator += (Degrees& Deg);
+
+	/**
+	 * @brief      -= operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the rest radians whit degree
+	 */
+	Radians
+	operator -= (Degrees& Deg);
+
+	/**
+	 * @brief      *= operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the multiplication radians whit degree
+	 */
+	Radians
+	operator *= (Degrees& Deg);
+
+	/**
+	 * @brief      /= operator overload
+	 * @param      Deg parameter one, degrees for sum
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the division radians whit degree
+	 */
+	Radians
+	operator /= (Degrees& Deg);
 
 
  protected:

@@ -58,6 +58,18 @@ class Vector3 {
 	 * @bug	       No know Bugs
 	 * @return     Returns true if both vectors are equal
 	 */
+
+	/**
+	 * @brief      = operator overload
+	 * @param      V parameter one, vector for equal
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the equal of
+	 *             your vector whit other
+	 */
+	Vector3
+	operator = (const Vector3& V);
+
+
 	bool
 	operator == (const Vector3& V);
 

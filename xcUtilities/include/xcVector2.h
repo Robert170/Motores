@@ -45,6 +45,17 @@ class Vector2 {
 	Vector2 
 	operator / (const Vector2& V);
 
+
+	/**
+	 * @brief      = operator overload
+	 * @param      V parameter one, vector for equal
+	 * @bug	       No know Bugs
+	 * @return     Returns the value of the equal of
+	 *             your vector whit other
+	 */
+	Vector2
+	operator = (const Vector2& V);
+
 	/**
 	 * @brief      + operator overload
 	 * @param      V parameter one, vector for comparative
@@ -129,6 +140,7 @@ class Vector2 {
 	 */
 	Vector2
 	operator /= (const Vector2& V);
+
 
 
  public:
