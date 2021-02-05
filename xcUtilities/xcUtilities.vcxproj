@@ -191,6 +191,7 @@
     <ClInclude Include="include\xcWindowsMath.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\xcDegrees.cpp" />
     <ClCompile Include="src\xcRadians.cpp" />
     <ClCompile Include="src\xcVector2.cpp" />
     <ClCompile Include="src\xcVector3.cpp" />

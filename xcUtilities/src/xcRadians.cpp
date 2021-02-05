@@ -2,22 +2,22 @@
 
 Radians 
 Radians::operator + (const Radians& Rad) {
-  return m_angle + Rad.m_angle;
+  return Radians(m_angle + Rad.m_angle);
 }
 
 Radians 
 Radians::operator - (const Radians& Rad) {
-  return m_angle - Rad.m_angle;
+  return Radians(m_angle - Rad.m_angle);
 }
 
 Radians 
 Radians::operator * (const Radians& Rad) {
-  return m_angle * Rad.m_angle;
+  return Radians(m_angle * Rad.m_angle);
 }
 
 Radians 
 Radians::operator / (const Radians& Rad) {
-  return m_angle / Rad.m_angle;
+  return Radians(m_angle / Rad.m_angle);
 }
 
 
@@ -43,22 +43,22 @@ Radians::operator == (const float& Value) {
 
 Radians 
 Radians::operator + (const float& Value) {
-  return m_angle + Value;
+  return Radians(m_angle + Value);
 }
 
 Radians 
 Radians::operator - (const float& Value) {
-  return m_angle - Value;
+  return Radians(m_angle - Value);
 }
 
 Radians 
 Radians::operator * (const float& Value) {
-  return m_angle * Value;
+  return Radians(m_angle * Value);
 }
 
 Radians 
 Radians::operator / (const float& Value) {
-  return m_angle / Value;
+  return Radians(m_angle / Value);
 }
 
 
