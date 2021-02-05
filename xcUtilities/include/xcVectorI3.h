@@ -1,6 +1,7 @@
 #pragma once
 
 #include "xcPlatformTypes.h"
+#include "xcVectorI2.h"
 
 using xcEngineSDK::int32;
 
@@ -8,6 +9,9 @@ class VectorI3 {
  public:
   VectorI3(int32 x, int32 y = 0, int32 z = 0)
 		       :m_x(x), m_y(y), m_z(z) { };
+
+  VectorI3(VectorI2 v, int32 z = 0)
+          :m_x(v.m_x), m_y(v.m_y), m_z(z) { };
 
 	VectorI3()
 		       :m_x(0), m_y(0), m_z(0) { };

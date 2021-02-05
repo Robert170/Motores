@@ -52,14 +52,14 @@
     <ClInclude Include="include\xcMath.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="include\xcRadias.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
     <ClInclude Include="include\xcDegrees.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="include\xcPlane.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcRadians.h">
+      <Filter>Source Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +82,9 @@
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\xcVectorIN.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcRadians.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>

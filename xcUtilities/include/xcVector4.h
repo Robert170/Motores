@@ -8,6 +8,9 @@ class Vector4 {
   Vector4(float x, float y = 0.f, float z = 0.0f, float w = 0.0f)
 		      :m_x(x), m_y(y), m_z(z), m_w(w) { };
 
+  Vector4(Vector2 v, float z = 0.0f, float w = 0.0f)
+         :m_x(v.m_x), m_y(v.m_y), m_z(z), m_w(w) { };
+
 	Vector4(Vector3 v, float w = 0.0f)
 		      :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
 

@@ -9,6 +9,9 @@ class VectorI4 {
 	VectorI4(int32 x, int32 y = 0, int32 z = 0, int32 w = 0)
 		       :m_x(x), m_y(y), m_z(z), m_w(w) { };
 
+  VectorI4(VectorI2 v, int32 z = 0, int32 w = 0)
+           :m_x(v.m_x), m_y(v.m_y), m_z(z), m_w(w) { };
+
 	VectorI4(VectorI3 v, int32 w = 0)
 		       :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
 
