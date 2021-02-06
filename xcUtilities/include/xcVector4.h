@@ -150,6 +150,32 @@ class Vector4 {
 	Vector4
 	operator /= (const Vector4& V);
 
+	/**
+	 * @brief      normalize function
+	 * @bug	       No know Bugs
+	 * @return     Returns normalize vector
+	 */
+	Vector4
+	normalize();
+
+	/**
+	 * @brief      magnitud function
+	 * @bug	       No know Bugs
+	 * @return     Returns magnitud of a vector
+	 */
+	float
+	magnitud();
+
+	/**
+	 * @brief      proyection function
+	 * @param      VectorA parameter one, for dot product
+	 * @param      VetorB parameter two, for dot product
+	 * @bug	       No know Bugs
+	 * @return     Returns a perpendicular vector
+	 */
+	Vector4
+	proyection(Vector4& VectorA, Vector4& VetorB);
+
  public:
 	/**
 	 * @brief Public variable member

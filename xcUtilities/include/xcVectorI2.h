@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cmath>
 #include "xcPlatformTypes.h"
 
 using xcEngineSDK::int32;
@@ -144,6 +144,32 @@ class VectorI2 {
 	 */
 	VectorI2
 	operator /= (const VectorI2& V);
+
+	/**
+	 * @brief      normalize function
+	 * @bug	       No know Bugs
+	 * @return     Returns normalize vector
+	 */
+	VectorI2
+	normalize();
+
+	/**
+	 * @brief      magnitud function
+	 * @bug	       No know Bugs
+	 * @return     Returns magnitud of a vector
+	 */
+	int32
+	magnitud();
+
+	/**
+	 * @brief      proyection function
+	 * @param      VectorA parameter one, for dot product
+	 * @param      VetorB parameter two, for dot product
+	 * @bug	       No know Bugs
+	 * @return     Returns a perpendicular vector
+	 */
+	VectorI2
+	proyection(VectorI2& VectorA, VectorI2& VetorB);
 
 
  public:

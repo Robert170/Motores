@@ -103,3 +103,26 @@ Vector3::operator /= (const Vector3& V) {
   m_z /= V.m_z;
   return *this;
 }
+
+Vector3
+Vector3::normalize() {
+  float Temp = this->magnitud();
+
+  if (Temp != 0){
+    //divide the vector whit temp
+    return Vector3(m_x / Temp, m_y / Temp, m_z / Temp);
+  }
+  else {
+    return Vector3();
+  }
+}
+
+float 
+Vector3::magnitud() {
+  return sqrtf(powf(m_x, 2) + powf(m_y, 2) + powf(m_z, 2));
+}
+
+Vector3 
+Vector3::proyection(Vector3& VectorA, Vector3& VetorB) {
+  return ((VectorA * VetorB) / powf(VetorB.magnitud(), 2) * VetorB);
+}

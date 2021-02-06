@@ -149,6 +149,33 @@ class Vector3 {
 	Vector3
 	operator /= (const Vector3& V);
 
+  /**
+	 * @brief      normalize function
+	 * @bug	       No know Bugs
+	 * @return     Returns normalize vector
+	 */
+	Vector3
+	normalize();
+
+	/**
+	 * @brief      magnitud function
+	 * @bug	       No know Bugs
+	 * @return     Returns magnitud of a vector
+	 */
+	float 
+	magnitud();
+
+	/**
+	 * @brief      proyection function
+	 * @param      VectorA parameter one, for dot product
+	 * @param      VetorB parameter two, for dot product
+	 * @bug	       No know Bugs
+	 * @return     Returns a perpendicular vector
+	 */
+	Vector3
+	proyection(Vector3& VectorA, Vector3& VetorB);
+
+
 
  public:
 	/**

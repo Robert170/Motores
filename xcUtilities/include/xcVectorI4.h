@@ -16,7 +16,7 @@ class VectorI4 {
 		       :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
 
 	VectorI4()
-		       :m_x(0.f), m_y(0.f), m_z(0.f), m_w(0.f) { };
+		       :m_x(0), m_y(0), m_z(0), m_w(0) { };
 
 	~VectorI4() = default;
 
@@ -150,6 +150,32 @@ class VectorI4 {
 	 */
 	VectorI4
 	operator /= (const VectorI4& V);
+
+	/**
+	 * @brief      normalize function
+	 * @bug	       No know Bugs
+	 * @return     Returns normalize vector
+	 */
+  VectorI4
+	normalize();
+
+	/**
+	 * @brief      magnitud function
+	 * @bug	       No know Bugs
+	 * @return     Returns magnitud of a vector
+	 */
+	int32
+	magnitud();
+
+	/**
+	 * @brief      proyection function
+	 * @param      VectorA parameter one, for dot product
+	 * @param      VetorB parameter two, for dot product
+	 * @bug	       No know Bugs
+	 * @return     Returns a perpendicular vector
+	 */
+  VectorI4
+  proyection(VectorI4& VectorA, VectorI4& VetorB);
 
 
  public:

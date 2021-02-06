@@ -157,16 +157,6 @@ public:
 
 
 	/**
-	 * @brief      /= operator overload
-	 * @param      Deg parameter one, degrees for sum
-	 * @bug	       No know Bugs
-	 * @return     Returns the value of the division of
-	 *             your degrees whit pother
-	 */
-	Degrees
-	operator /= (const Degrees& Deg);
-
-	/**
 	 * Sections to degree using radians
 	 */
 

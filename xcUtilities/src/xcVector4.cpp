@@ -107,3 +107,27 @@ Vector4::operator /= (const Vector4& V) {
   m_w /= V.m_w;
   return *this;
 }
+
+Vector4 
+Vector4::normalize() {
+  float Temp = this->magnitud();
+
+  if (Temp != 0) {
+    //divide the vector whit temp
+    return Vector4(m_x / Temp, m_y / Temp, m_z / Temp, m_w / Temp);
+  }
+  else {
+    return Vector4();
+  }
+}
+
+float 
+Vector4::magnitud() {
+  return sqrtf(powf(m_x, 2) + powf(m_y, 2) + powf(m_z, 2));
+}
+
+Vector4 
+Vector4::proyection(Vector4& VectorA, Vector4& VetorB) {
+
+  return ((VectorA * VetorB) / powf(VetorB.magnitud(), 2) * VetorB);
+}

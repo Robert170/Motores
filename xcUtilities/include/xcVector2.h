@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 class Vector2 {
  public:
@@ -140,6 +141,33 @@ class Vector2 {
 	 */
 	Vector2
 	operator /= (const Vector2& V);
+
+
+	/**
+	 * @brief      normalize function
+	 * @bug	    No know Bugs
+	 * @return     Returns normalize vector
+	 */
+	Vector2 
+	normalize();
+
+	/**
+	 * @brief      magnitud function
+	 * @bug	    No know Bugs
+	 * @return     Returns magnitud of a vector
+	 */
+	float 
+	magnitud();
+
+	/**
+	 * @brief      proyection function
+	 * @param      VectorA parameter one, for dot product
+	 * @param      VetorB parameter two, for dot product
+	 * @bug	      No know Bugs
+	 * @return     Returns a perpendicular vector
+	 */
+	Vector2 
+	proyection(Vector2& VectorA, Vector2& VetorB);
 
 
 
