@@ -181,6 +181,7 @@
     <ClInclude Include="include\xcPlatformTypes.h" />
     <ClInclude Include="include\xcPlatformDefines.h" />
     <ClInclude Include="include\xcRadians.h" />
+    <ClInclude Include="include\xcSphere.h" />
     <ClInclude Include="include\xcVector2.h" />
     <ClInclude Include="include\xcVector3.h" />
     <ClInclude Include="include\xcVector4.h" />

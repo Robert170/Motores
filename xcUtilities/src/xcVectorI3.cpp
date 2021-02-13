@@ -1,5 +1,7 @@
 #include "xcVectorI3.h"
 
+using xcEngineSDK::VectorI3;
+
 VectorI3 
 VectorI3::operator + (const VectorI3& V) {
     

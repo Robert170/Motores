@@ -1,5 +1,7 @@
 #include "xcVectorI2.h"
 
+using xcEngineSDK::VectorI2;
+
 VectorI2 
 VectorI2::operator + (const VectorI2& V) {
 

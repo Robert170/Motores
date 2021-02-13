@@ -1,5 +1,7 @@
 #include "xcVector4.h"
 
+using xcEngineSDK::Vector4;
+
 Vector4 
 Vector4::operator + (const Vector4& V) {
 
