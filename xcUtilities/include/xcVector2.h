@@ -4,7 +4,7 @@
 namespace xcEngineSDK {
 
 	class Vector2 {
-	public:
+	 public:
 		Vector2(float x, float y = 0.f)
 			      :m_x(x), m_y(y) { };
 		Vector2()

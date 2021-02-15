@@ -176,6 +176,8 @@
     <ClInclude Include="include\xcDegrees.h" />
     <ClInclude Include="include\xcLinuxMath.h" />
     <ClInclude Include="include\xcMath.h" />
+    <ClInclude Include="include\xcMatrix3x3.h" />
+    <ClInclude Include="include\xcMatrix4x4.h" />
     <ClInclude Include="include\xcPlane.h" />
     <ClInclude Include="include\xcPlatformMath.h" />
     <ClInclude Include="include\xcPlatformTypes.h" />
@@ -192,7 +194,9 @@
     <ClInclude Include="include\xcWindowsMath.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\xcMatrix4x4.cpp" />
     <ClCompile Include="src\xcDegrees.cpp" />
+    <ClCompile Include="src\xcMatrix3x3.cpp" />
     <ClCompile Include="src\xcRadians.cpp" />
     <ClCompile Include="src\xcVector2.cpp" />
     <ClCompile Include="src\xcVector3.cpp" />
