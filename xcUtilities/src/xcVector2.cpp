@@ -2,124 +2,135 @@
 
 using xcEngineSDK::Vector2;
 
-Vector2 
-Vector2::operator + (const Vector2& V) {
-	
-	return Vector2(m_x + V.m_x, m_y + V.m_y);
-}
+namespace xcEngineSDK {
+	Vector2
+	Vector2::operator + (const Vector2& V) {
 
-Vector2 
-Vector2::operator - (const Vector2& V) {
-
-  return Vector2(m_x - V.m_x, m_y - V.m_y);
-}
-
-Vector2 
-Vector2::operator * (const Vector2& V) {
-
-	return Vector2(m_x * V.m_x, m_y * V.m_y);
-}
-
-Vector2 
-Vector2::operator / (const Vector2& V) {
-
-	return Vector2(m_x / V.m_x, m_y / V.m_y);
-}
-
-Vector2 
-Vector2::operator = (const Vector2& V) {
-  m_x = V.m_x;
-  m_y = V.m_y;
-  return *this;
-}
-
-bool
-Vector2::operator == (const Vector2& V) {
-
-	if (m_x == V.m_x && m_y == V.m_y) {
-		return true;
+		return Vector2(m_x + V.m_x, m_y + V.m_y);
 	}
-	else {
-		return false;
+
+	Vector2
+	Vector2::operator - (const Vector2& V) {
+
+		return Vector2(m_x - V.m_x, m_y - V.m_y);
 	}
-}
 
-Vector2 
-Vector2::operator + (const float& V) {
+	Vector2
+	Vector2::operator * (const Vector2& V) {
 
-	return Vector2(m_x + V, m_y + V);
-}
+		return Vector2(m_x * V.m_x, m_y * V.m_y);
+	}
 
-Vector2 
-Vector2::operator - (const float& V) {
+	Vector2
+	Vector2::operator / (const Vector2& V) {
 
-	return Vector2(m_x - V, m_y - V);
-}
+		return Vector2(m_x / V.m_x, m_y / V.m_y);
+	}
 
-Vector2 
-Vector2::operator * (const float& V) {
+	Vector2
+	Vector2::operator = (const Vector2& V) {
+		m_x = V.m_x;
+		m_y = V.m_y;
+		return *this;
+	}
 
-	return Vector2(m_x * V, m_y * V);
-}
+	bool
+	Vector2::operator == (const Vector2& V) {
 
-Vector2 
-Vector2::operator / (const float& V) {
+		if (m_x == V.m_x && m_y == V.m_y) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
-	return Vector2(m_x / V, m_y / V);
-}
+	Vector2
+	Vector2::operator + (const float& V) {
 
-Vector2 
-Vector2::operator += (const Vector2& V) {
+		return Vector2(m_x + V, m_y + V);
+	}
 
-	m_x += V.m_x;
-	m_y += V.m_y;
-	return *this;
-}
+	Vector2
+	Vector2::operator - (const float& V) {
 
-Vector2 
-Vector2::operator -= (const Vector2& V) {
-	
-	m_x -= V.m_x;
-	m_y -= V.m_y;
-	return *this;
-}
+		return Vector2(m_x - V, m_y - V);
+	}
 
-Vector2 
-Vector2::operator *= (const Vector2& V) {
+	Vector2
+	Vector2::operator * (const float& V) {
 
-	m_x *= V.m_x;
-	m_y *= V.m_y;
-	return *this;
-}
+		return Vector2(m_x * V, m_y * V);
+	}
 
-Vector2 
-Vector2::operator /= (const Vector2& V) {
+	Vector2
+	Vector2::operator / (const float& V) {
 
-	m_x /= V.m_x;
-	m_y /= V.m_y;
-	return *this;
-}
+		return Vector2(m_x / V, m_y / V);
+	}
 
-Vector2 Vector2::normalize()
-{
-  float Temp = this->magnitud();
+	Vector2&
+	Vector2::operator += (const Vector2& V) {
 
-  if (Temp != 0) {
-    //divide the vector whit temp
-		return Vector2(m_x / Temp, m_y / Temp);
-  }
-  else {
-		return Vector2();
-  }
-}
+		m_x += V.m_x;
+		m_y += V.m_y;
+		return *this;
+	}
 
-float Vector2::magnitud()
-{
-	return sqrtf(powf(m_x, 2) + powf(m_y, 2));
-}
+	Vector2&
+	Vector2::operator -= (const Vector2& V) {
 
-Vector2 
-Vector2::proyection(Vector2& VectorA, Vector2& VetorB) {
+		m_x -= V.m_x;
+		m_y -= V.m_y;
+		return *this;
+	}
 
-	return ((VectorA * VetorB) / powf(VetorB.magnitud(), 2) * VetorB);
+	Vector2&
+	Vector2::operator *= (const Vector2& V) {
+
+		m_x *= V.m_x;
+		m_y *= V.m_y;
+		return *this;
+	}
+
+	Vector2&
+	Vector2::operator /= (const Vector2& V) {
+
+		m_x /= V.m_x;
+		m_y /= V.m_y;
+		return *this;
+	}
+
+	Vector2& 
+	Vector2::normalize() {
+		float Temp = this->magnitud();
+
+		if (Temp != 0) {
+			//divide the vector whit temp
+			this->m_x = m_x / Temp;
+			this->m_y = m_y / Temp;
+			return *this;
+		}
+		else {
+			return *this;
+		}
+	}
+
+	float Vector2::magnitud() {
+		return sqrtf(powf(m_x, 2) + powf(m_y, 2));
+	}
+
+	Vector2
+	Vector2::proyection(Vector2& VectorA, 
+		                  Vector2& VetorB) {
+
+		return ((VectorA * VetorB) / powf(VetorB.magnitud(), 2) * VetorB);
+	}
+
+	float 
+	Vector2::Dot(Vector2& VectorA, 
+		           Vector2& VetorB) {
+
+		return (VectorA.m_x * VetorB.m_x) + (VectorA.m_y * VetorB.m_y);
+	}
 }

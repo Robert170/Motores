@@ -4,26 +4,29 @@
 
 
 using xcEngineSDK::Vector3;
-namespace xcEngineSDK {
-  class AABB;
 
-  class Sphere 
+namespace xcEngineSDK {
+
+class Sphere;
+class AABB;
+
+  class XC_UTILITY_EXPORT Ray 
   {
    public:
-    Sphere();
-    ~Sphere();
+    Ray();
+    ~Ray();
 
     Vector3 m_position;
 
-    float m_radio;
+    Vector3 m_direccion;
 
    public:
 
     bool
-    intersec(Vector3 vector);
+    intersec(Sphere& sphere);
 
     bool
-    intersec(AABB vector);
+    intersec(AABB& box);
 
   };
 }

@@ -1,9 +1,13 @@
 #pragma once
 
+#include "xcPlatformDefines.h"
+
+
 #include "xcVector2.h"
 namespace xcEngineSDK {
 
-	class Vector3 {
+	class XC_UTILITY_EXPORT Vector3 
+	{
 
 	 public:
 		Vector3(float x, float y = 0.f, float z = 0.0f)
@@ -155,7 +159,7 @@ namespace xcEngineSDK {
 		 * @bug	       No know Bugs
 		 * @return     Returns normalize vector
 		 */
-		Vector3
+		Vector3&
 		normalize();
 
 		/**
@@ -175,6 +179,17 @@ namespace xcEngineSDK {
 		 */
 		Vector3
 		proyection(Vector3& VectorA, Vector3& VetorB);
+
+		/**
+		 * @brief      Dot function
+		 * @param      VectorA parameter one, for dot product
+		 * @param      VetorB parameter two, for dot product
+		 * @bug	       No know Bugs
+		 * @return     Returns a scalar
+		 */
+		float
+		Dot(Vector3& VectorA,
+				Vector3& VetorB);
 
 
 

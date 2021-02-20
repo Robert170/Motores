@@ -5,33 +5,36 @@
 
 using xcEngineSDK::int32;
 
-class Plane {
- public: 
-  Plane() = default;
-  ~Plane() = default;
+namespace xcEngineSDK {
 
-  Plane(int32 x, int32 y = 0, int32 z = 0, int32 d = 0)
-        :m_x(x), m_y(y), m_z(z), m_d(d) { };
+  class XC_UTILITY_EXPORT Plane {
+  public:
+    Plane() = default;
+    ~Plane() = default;
 
-  Plane(VectorI2 v, int32 z = 0, int32 d = 0)
-        :m_x(v.m_x), m_y(v.m_y), m_z(z), m_d(d) { };
+    Plane(int32 x, int32 y = 0, int32 z = 0, int32 d = 0)
+      :m_x(x), m_y(y), m_z(z), m_d(d) { };
 
-  Plane(VectorI3 v, int32 d = 0)
-        :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_d(d) { };
+    Plane(VectorI2 v, int32 z = 0, int32 d = 0)
+      :m_x(v.m_x), m_y(v.m_y), m_z(z), m_d(d) { };
 
-  Plane(VectorI4 v)
-        :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_d(v.m_w) { };
+    Plane(VectorI3 v, int32 d = 0)
+      :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_d(d) { };
 
-  Plane()
-        :m_x(0.f), m_y(0.f), m_z(0.f), m_d(0.f) { };
+    Plane(VectorI4 v)
+      :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_d(v.m_w) { };
 
-  ~Plane() = default;
+    Plane()
+      :m_x(0.f), m_y(0.f), m_z(0.f), m_d(0.f) { };
 
- private:
+    ~Plane() = default;
 
-   int32 m_x;
-   int32 m_y;
-   int32 m_z;
-   int32 m_d;
+  private:
 
-};
+    int32 m_x;
+    int32 m_y;
+    int32 m_z;
+    int32 m_d;
+
+  };
+}

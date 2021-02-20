@@ -1,9 +1,13 @@
 #pragma once
 #include <cmath>
 
+#include "xcPlatformTypes.h"
+
 namespace xcEngineSDK {
 
-	class Vector2 {
+	class XC_UTILITY_EXPORT Vector2 
+	{
+
 	 public:
 		Vector2(float x, float y = 0.f)
 			      :m_x(x), m_y(y) { };
@@ -111,7 +115,7 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the sum of
 		 *             your vector whit pother
 		 */
-		Vector2
+		Vector2&
 		operator += (const Vector2& V);
 
 		/**
@@ -121,7 +125,7 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the rest of
 		 *             your vector whit pother
 		 */
-		Vector2
+		Vector2&
 		operator -= (const Vector2& V);
 
 		/**
@@ -131,7 +135,7 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the multiplication of
 		 *             your vector whit pother
 		 */
-		Vector2
+		Vector2&
 		operator *= (const Vector2& V);
 
 		/**
@@ -141,7 +145,7 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the division of
 		 *             your vector whit pother
 		 */
-		Vector2
+		Vector2&
 		operator /= (const Vector2& V);
 
 
@@ -150,7 +154,7 @@ namespace xcEngineSDK {
 		 * @bug	    No know Bugs
 		 * @return     Returns normalize vector
 		 */
-		Vector2
+		Vector2&
 		normalize();
 
 		/**
@@ -170,6 +174,17 @@ namespace xcEngineSDK {
 		 */
 		Vector2
 		proyection(Vector2& VectorA, Vector2& VetorB);
+
+		/**
+		 * @brief      Dot function
+		 * @param      VectorA parameter one, for dot product
+		 * @param      VetorB parameter two, for dot product
+		 * @bug	       No know Bugs
+		 * @return     Returns a scalar
+		 */
+		float
+		Dot(Vector2& VectorA,
+				Vector2& VetorB);
 
 
 

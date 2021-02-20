@@ -151,7 +151,7 @@
 #     endif
 #   endif
 # endif
-# define GE_UTILITY_HIDDEN
+# define XC_UTILITY_HIDDEN
 #else //linux/Mac setting
 # define XC_UTILITY_EXPORT __attribute__ ((visibility ("default")))
 # define XC_UTILITY_HIDDEN __attribute__ ((visibility ("hidden")))
@@ -171,16 +171,16 @@
 //windows specific settings
 #if XC_PLATFORM == XC_PLATFORM_WIN32
 # if defined(_DEBUG) || defined(DEBUG)
-# define GE_DEBUG_MODE 1
+# define XC_DEBUG_MODE 1
 # else 
-#   define GE_DEBUG_MODE 0 
+#   define XC_DEBUG_MODE 0 
 # endif
 # if XC_COMPILER == XC_COMPILER_INTEL
-#    define GE_THREADLOCAL __declspec(thread)
+#    define XC_THREADLOCAL __declspec(thread)
 # endif
 #endif 
 
-//settings specific linux/apple 
+//settings specific Linux/apple 
 #if XC_PLATFORM == XC_PLATFORM_LINUX 
 # define stricmp strcasecmp
 
@@ -191,7 +191,7 @@
 #   define XC_DEBUG_MODE 0 
 # endif
 # if XC_COMPILER == XC_COMPILER_INTEL
-#    define GE_THREADLOCAL __thread
+#    define XC_THREADLOCAL __thread
 # endif
 #endif 
 

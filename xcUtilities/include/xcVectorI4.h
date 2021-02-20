@@ -1,10 +1,15 @@
 #pragma once
 #include "xcVectorI3.h"
 
-using xcEngineSDK::int32;
-namespace xcEngineSDK {
+#include "xcPlatformTypes.h"
 
-	class VectorI4 {
+
+namespace xcEngineSDK {
+	
+	using xcEngineSDK::int32;
+
+	class XC_UTILITY_EXPORT VectorI4 
+	{
 
 	 public:
 		VectorI4(int32 x, int32 y = 0, int32 z = 0, int32 w = 0)
@@ -16,8 +21,7 @@ namespace xcEngineSDK {
 		VectorI4(VectorI3 v, int32 w = 0)
 			       :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
 
-		VectorI4()
-			       :m_x(0), m_y(0), m_z(0), m_w(0) { };
+		VectorI4() = default;
 
 		~VectorI4() = default;
 
@@ -157,7 +161,7 @@ namespace xcEngineSDK {
 		 * @bug	       No know Bugs
 		 * @return     Returns normalize vector
 		 */
-		VectorI4
+		VectorI4&
 		normalize();
 
 		/**
@@ -176,7 +180,19 @@ namespace xcEngineSDK {
 		 * @return     Returns a perpendicular vector
 		 */
 		VectorI4
-		proyection(VectorI4& VectorA, VectorI4& VetorB);
+		proyection(VectorI4& VectorA, 
+			         VectorI4& VetorB);
+
+		/**
+		 * @brief      Dot function
+		 * @param      VectorA parameter one, for dot product
+		 * @param      VetorB parameter two, for dot product
+		 * @bug	       No know Bugs
+		 * @return     Returns a scalar
+		 */
+		int32
+		Dot(VectorI4& VectorA,
+			  VectorI4& VetorB);
 
 
 	public:

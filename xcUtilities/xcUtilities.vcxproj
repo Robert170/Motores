@@ -173,6 +173,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\xcAABB.h" />
     <ClInclude Include="include\xcDegrees.h" />
     <ClInclude Include="include\xcLinuxMath.h" />
     <ClInclude Include="include\xcMath.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="include\xcPlatformTypes.h" />
     <ClInclude Include="include\xcPlatformDefines.h" />
     <ClInclude Include="include\xcRadians.h" />
+    <ClInclude Include="include\xcRay.h" />
     <ClInclude Include="include\xcSphere.h" />
     <ClInclude Include="include\xcVector2.h" />
     <ClInclude Include="include\xcVector3.h" />
@@ -195,9 +197,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\xcMatrix4x4.cpp" />
+    <ClCompile Include="src\xcAABB.cpp" />
     <ClCompile Include="src\xcDegrees.cpp" />
     <ClCompile Include="src\xcMatrix3x3.cpp" />
     <ClCompile Include="src\xcRadians.cpp" />
+    <ClCompile Include="src\xcRay.cpp" />
+    <ClCompile Include="src\xcSphere.cpp" />
     <ClCompile Include="src\xcVector2.cpp" />
     <ClCompile Include="src\xcVector3.cpp" />
     <ClCompile Include="src\xcVector4.cpp" />

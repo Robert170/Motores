@@ -4,7 +4,8 @@
 
 namespace xcEngineSDK {
 
-	class Vector4 {
+	class XC_UTILITY_EXPORT Vector4 
+	{
 
 	 public:
 		Vector4(float x, float y = 0.f, float z = 0.0f, float w = 0.0f)
@@ -157,7 +158,7 @@ namespace xcEngineSDK {
 		 * @bug	       No know Bugs
 		 * @return     Returns normalize vector
 		 */
-		Vector4
+		Vector4&
 		normalize();
 
 		/**
@@ -177,6 +178,17 @@ namespace xcEngineSDK {
 		 */
 		Vector4
 		proyection(Vector4& VectorA, Vector4& VetorB);
+
+		/**
+		 * @brief      Dot function
+		 * @param      VectorA parameter one, for dot product
+		 * @param      VetorB parameter two, for dot product
+		 * @bug	       No know Bugs
+		 * @return     Returns a scalar
+		 */
+		float
+		Dot(Vector4& VectorA,
+				Vector4& VetorB);
 
 	public:
 		/**

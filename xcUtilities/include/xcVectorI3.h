@@ -7,7 +7,8 @@ using xcEngineSDK::int32;
 
 namespace xcEngineSDK {
 
-	class VectorI3 {
+	class XC_UTILITY_EXPORT VectorI3 
+	{
 	 public:
 	  VectorI3(int32 x, int32 y = 0, int32 z = 0)
 			       :m_x(x), m_y(y), m_z(z) { };
@@ -118,7 +119,7 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the sum of
 		 *             your vector whit pother
 		 */
-		VectorI3
+		VectorI3&
 		operator += (const VectorI3& V);
 
 		/**
@@ -128,7 +129,7 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the rest of
 		 *             your vector whit pother
 		 */
-		VectorI3
+		VectorI3&
 		operator -= (const VectorI3& V);
 
 		/**
@@ -138,7 +139,7 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the multiplication of
 		 *             your vector whit pother
 		 */
-		VectorI3
+		VectorI3&
 		operator *= (const VectorI3& V);
 
 		/**
@@ -148,7 +149,7 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the division of
 		 *             your vector whit pother
 		 */
-		VectorI3
+		VectorI3&
 		operator /= (const VectorI3& V);
 
 		/**
@@ -156,7 +157,7 @@ namespace xcEngineSDK {
 		 * @bug	       No know Bugs
 		 * @return     Returns normalize vector
 		 */
-		VectorI3
+		VectorI3&
 		normalize();
 
 		/**
@@ -175,7 +176,19 @@ namespace xcEngineSDK {
 		 * @return     Returns a perpendicular vector
 		 */
 		VectorI3
-		proyection(VectorI3& VectorA, VectorI3& VetorB);
+		proyection(VectorI3& VectorA, 
+			         VectorI3& VetorB);
+
+		/**
+		 * @brief      Dot function
+		 * @param      VectorA parameter one, for dot product
+		 * @param      VetorB parameter two, for dot product
+		 * @bug	       No know Bugs
+		 * @return     Returns a scalar
+		 */
+		int32
+		Dot(VectorI3& VectorA,
+				VectorI3& VetorB);
 
 
 	public:
