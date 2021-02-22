@@ -76,6 +76,12 @@
     <ClInclude Include="include\xcRay.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcPrerequisitesUtilities.h">
+      <Filter>Source Files\Prerequisites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcStdHeaders.h">
+      <Filter>Source Files\Prerequisites</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcVector2.cpp">

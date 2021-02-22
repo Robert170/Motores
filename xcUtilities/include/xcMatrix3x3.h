@@ -14,7 +14,7 @@ namespace xcEngineSDK {
 
     Matrix3x3(Vector3 upRow, Vector3 medRow, Vector3 downRow);
 
-    Matrix3x3();
+    Matrix3x3() = default;
 
     ~Matrix3x3() = default;
 
@@ -65,7 +65,12 @@ namespace xcEngineSDK {
 
   public:
 
-    float m_matrix[3][3];
+    union
+    {
+      float m[9];
+      float _m[3][3];
+      Vector3 mv[3];
+    }m_matrix;
 
   };
 }

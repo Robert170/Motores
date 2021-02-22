@@ -4,6 +4,7 @@
 
 
 using xcEngineSDK::Vector3;
+
 namespace xcEngineSDK {
   class AABB;
 
@@ -20,10 +21,10 @@ namespace xcEngineSDK {
    public:
 
     bool
-    intersec(Vector3 vector);
+    intersec(Vector3& vector);
 
     bool
-    intersec(AABB vector);
+    intersec(AABB& vector);
 
   };
 }
