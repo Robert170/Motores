@@ -1,5 +1,6 @@
 #pragma once
-#include "xcPlatformDefines.h"
+
+#include "xcPrerequisitesUtilities.h"
 
 
 namespace xcEngineSDK {

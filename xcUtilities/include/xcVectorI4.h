@@ -1,7 +1,8 @@
 #pragma once
 #include "xcVectorI3.h"
 
-#include "xcPlatformTypes.h"
+
+#include "xcPrerequisitesUtilities.h"
 
 
 namespace xcEngineSDK {

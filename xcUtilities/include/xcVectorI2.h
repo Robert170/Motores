@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
-#include "xcPlatformTypes.h"
+
+#include "xcPrerequisitesUtilities.h"
 
 using xcEngineSDK::int32;
 namespace xcEngineSDK {

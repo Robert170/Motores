@@ -1,9 +1,9 @@
 #pragma once
 
-#include "xcPlatformDefines.h"
 
-
+#include "xcPrerequisitesUtilities.h"
 #include "xcVector2.h"
+
 namespace xcEngineSDK {
 
 	class XC_UTILITY_EXPORT Vector3 
@@ -28,7 +28,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum of two vectors
 		 */
 		Vector3
-		operator + (const Vector3& V);
+		operator+(const Vector3& V);
 
 		/**
 		 * @brief      - operator overload
@@ -37,7 +37,7 @@ namespace xcEngineSDK {
 		 * @return     Returns rest of two vectors
 		 */
 		Vector3
-		operator - (const Vector3& V);
+		operator-(const Vector3& V);
 
 		/**
 		 * @brief      * operator overload
@@ -46,7 +46,7 @@ namespace xcEngineSDK {
 		 * @return     Returns multiplication of two vectors
 		 */
 		Vector3
-		operator * (const Vector3& V);
+		operator*(const Vector3& V);
 
 		/**
 		 * @brief      / operator overload
@@ -55,7 +55,7 @@ namespace xcEngineSDK {
 		 * @return     Returns division of two vectors
 		 */
 		Vector3
-		operator / (const Vector3& V);
+		operator/(const Vector3& V);
 
 		/**
 		 * @brief      + operator overload
@@ -72,11 +72,11 @@ namespace xcEngineSDK {
 		 *             your vector whit other
 		 */
 		Vector3
-		operator = (const Vector3& V);
+		operator=(const Vector3& V);
 
 
 		bool
-		operator == (const Vector3& V);
+		operator==(const Vector3& V);
 
 		/**
 		 * @brief      + operator overload
@@ -85,7 +85,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum between a vector and a float
 		 */
 		Vector3
-		operator + (const float& V);
+		operator+(const float& V);
 
 		/**
 		 * @brief      + operator overload
@@ -94,7 +94,7 @@ namespace xcEngineSDK {
 		 * @return     Returns rest between a vector and a float
 		 */
 		Vector3
-		operator - (const float& V);
+		operator-(const float& V);
 
 		/**
 		 * @brief      + operator overload
@@ -103,7 +103,7 @@ namespace xcEngineSDK {
 		 * @return     Returns multiplication between a vector and a float
 		 */
 		Vector3
-		operator * (const float& V);
+		operator*(const float& V);
 
 		/**
 		 * @brief      + operator overload
@@ -112,7 +112,7 @@ namespace xcEngineSDK {
 		 * @return     Returns division between a vector and a float
 		 */
 		Vector3
-		operator / (const float& V);
+		operator/(const float& V);
 
 		/**
 		 * @brief      += operator overload
@@ -122,7 +122,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		Vector3
-		operator += (const Vector3& V);
+		operator+=(const Vector3& V);
 
 		/**
 		 * @brief      -= operator overload
@@ -132,7 +132,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		Vector3
-		operator -= (const Vector3& V);
+		operator-=(const Vector3& V);
 
 		/**
 		 * @brief      *= operator overload

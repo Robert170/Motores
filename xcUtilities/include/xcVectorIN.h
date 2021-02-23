@@ -2,7 +2,8 @@
 
 #include <iostream>
 
-#include "xcPlatformTypes.h"
+
+#include "xcPrerequisitesUtilities.h"
 
 using std::memset;
 

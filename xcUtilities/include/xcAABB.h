@@ -1,7 +1,8 @@
 #pragma once
 
+
+#include "xcPrerequisitesUtilities.h"
 #include "xcVector3.h"
-#include "xcPlatformTypes.h"
 
 
 

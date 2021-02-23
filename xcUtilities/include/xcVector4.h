@@ -1,8 +1,10 @@
 #pragma once
 
+#include "xcPrerequisitesUtilities.h"
 #include "xcVector3.h"
 
 namespace xcEngineSDK {
+
 
 	class XC_UTILITY_EXPORT Vector4 
 	{

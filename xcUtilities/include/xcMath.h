@@ -1,6 +1,7 @@
 #pragma once
 
-#include "xcPlatformDefines.h"
+
+#include "xcPrerequisitesUtilities.h"
 #include "xcPlatformMath.h"
 #include "xcWindowsMath.h"
 #include "xcLinuxMath.h"

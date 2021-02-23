@@ -1,7 +1,8 @@
 #pragma once
 
-#include "xcVector3.h"
 
+#include "xcPrerequisitesUtilities.h"
+#include "xcVector3.h"
 
 using xcEngineSDK::Vector3;
 
