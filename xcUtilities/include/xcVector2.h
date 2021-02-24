@@ -152,7 +152,7 @@ namespace xcEngineSDK {
 
 		/**
 		 * @brief      normalize function
-		 * @bug	    No know Bugs
+		 * @bug	       No know Bugs
 		 * @return     Returns normalize vector
 		 */
 		Vector2&

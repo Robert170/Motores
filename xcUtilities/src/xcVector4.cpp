@@ -23,7 +23,7 @@ namespace xcEngineSDK {
   Vector4
   Vector4::operator / (const Vector4& V) {
 
-    return Vector4(m_x / V.m_x, m_y / V.m_y, m_z / V.m_z, m_w * V.m_w);
+    return Vector4(m_x / V.m_x, m_y / V.m_y, m_z / V.m_z, m_w / V.m_w);
   }
 
   Vector4
@@ -49,25 +49,37 @@ namespace xcEngineSDK {
   Vector4
   Vector4::operator + (const float& V) {
 
-    return Vector4(m_x + V, m_y + V, m_z + V, m_w + V);
+    return Vector4(m_x + V, 
+                   m_y + V, 
+                   m_z + V,
+                   m_w + V);
   }
 
   Vector4
   Vector4::operator - (const float& V) {
 
-    return Vector4(m_x - V, m_y - V, m_z - V, m_w - V);
+    return Vector4(m_x - V, 
+                   m_y - V, 
+                   m_z - V,
+                   m_w - V);
   }
 
   Vector4
   Vector4::operator * (const float& V) {
 
-    return Vector4(m_x * V, m_y * V, m_z * V, m_w * V);
+    return Vector4(m_x * V, 
+                   m_y * V, 
+                   m_z * V, 
+                   m_w * V);
   }
 
   Vector4
   Vector4::operator / (const float& V) {
 
-    return Vector4(m_x / V, m_y / V, m_z / V, m_w / V);
+    return Vector4(m_x / V, 
+                   m_y / V, 
+                   m_z / V,
+                   m_w / V);
   }
 
   Vector4
@@ -142,9 +154,9 @@ namespace xcEngineSDK {
   Vector4::Dot(Vector4& VectorA, 
                Vector4& VetorB) {
     return (VectorA.m_x * VetorB.m_x) +
-      (VectorA.m_y * VetorB.m_y) +
-      (VectorA.m_z * VetorB.m_z) +
-      (VectorA.m_w * VetorB.m_z);
+           (VectorA.m_y * VetorB.m_y) +
+           (VectorA.m_z * VetorB.m_z) +
+           (VectorA.m_w * VetorB.m_z);
   }
 }
 
