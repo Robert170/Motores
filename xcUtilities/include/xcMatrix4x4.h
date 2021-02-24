@@ -40,7 +40,7 @@ namespace xcEngineSDK {
      * @return     Returns sum of two matrix 4x4
      */
     Matrix4x4
-    operator + (const Matrix4x4& M);
+    operator+(const Matrix4x4& M);
 
     /**
      * @brief      - operator overload
@@ -49,7 +49,7 @@ namespace xcEngineSDK {
      * @return     Returns rest of two matrix 4x4
      */
     Matrix4x4
-    operator - (const Matrix4x4& M);
+    operator-(const Matrix4x4& M);
 
     /**
      * @brief      / operator overload
@@ -58,7 +58,7 @@ namespace xcEngineSDK {
      * @return     Returns divide of two matrix 4x4
      */
     Matrix4x4
-    operator / (const Matrix4x4& M);
+    operator/(const Matrix4x4& M);
 
 
     /**
@@ -68,7 +68,7 @@ namespace xcEngineSDK {
      * @return     Returns multiple of two matrix 4x4
      */
     Matrix4x4
-    operator * (const Matrix4x4& M);
+    operator*(const Matrix4x4& M);
 
     /**
      * @brief      = operator overload

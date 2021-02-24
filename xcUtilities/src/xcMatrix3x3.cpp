@@ -28,7 +28,6 @@ namespace xcEngineSDK {
     m_matrix[0] = XVector;
     m_matrix[1] = YVector;
     m_matrix[2] = ZVector;
-
   }
 
   Matrix3x3& 
@@ -71,15 +70,15 @@ namespace xcEngineSDK {
   }
 
   Matrix3x3 
-  Matrix3x3::operator*( Matrix3x3 M) {
+  Matrix3x3::operator*(Matrix3x3& M) {
 
     Vector3 A (m_matrix[0].m_x,
                m_matrix[1].m_x,
                m_matrix[2].m_x);
 
-    Vector3 B (m_matrix[0].m_x,
-               m_matrix[1].m_x,
-               m_matrix[2].m_x);
+    Vector3 B (M.m_matrix[0].m_x,
+               M.m_matrix[1].m_x,
+               M.m_matrix[2].m_x);
 
     float _00 = m_matrix->Dot(A,B);
 
@@ -87,9 +86,9 @@ namespace xcEngineSDK {
          m_matrix[1].m_x,
          m_matrix[2].m_x);
 
-    B = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y);
+    B = (M.m_matrix[0].m_y,
+         M.m_matrix[1].m_y,
+         M.m_matrix[2].m_y);
 
     float _01 = m_matrix->Dot(A,B);
 
@@ -97,9 +96,9 @@ namespace xcEngineSDK {
          m_matrix[1].m_x,
          m_matrix[2].m_x);
 
-    B = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z);
+    B = (M.m_matrix[0].m_z,
+         M.m_matrix[1].m_z,
+         M.m_matrix[2].m_z);
 
     float _02 = m_matrix->Dot(A, B);
 
@@ -107,9 +106,9 @@ namespace xcEngineSDK {
          m_matrix[1].m_y,
          m_matrix[2].m_y);
 
-    B = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x);
+    B = (M.m_matrix[0].m_x,
+         M.m_matrix[1].m_x,
+         M.m_matrix[2].m_x);
 
     float _10 = m_matrix->Dot(A, B);
 
@@ -117,9 +116,9 @@ namespace xcEngineSDK {
          m_matrix[1].m_y,
          m_matrix[2].m_y);
 
-    B = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y);
+    B = (M.m_matrix[0].m_y,
+         M.m_matrix[1].m_y,
+         M.m_matrix[2].m_y);
 
     float _11 = m_matrix->Dot(A, B);
 
@@ -127,9 +126,9 @@ namespace xcEngineSDK {
          m_matrix[1].m_y,
          m_matrix[2].m_y);
 
-    B = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z);
+    B = (M.m_matrix[0].m_z,
+         M.m_matrix[1].m_z,
+         M.m_matrix[2].m_z);
 
     float _12 = m_matrix->Dot(A, B);
 
@@ -137,9 +136,9 @@ namespace xcEngineSDK {
          m_matrix[1].m_z,
          m_matrix[2].m_z);
 
-    B = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x);
+    B = (M.m_matrix[0].m_x,
+         M.m_matrix[1].m_x,
+         M.m_matrix[2].m_x);
 
     float _20 = m_matrix->Dot(A, B);
 
@@ -148,9 +147,9 @@ namespace xcEngineSDK {
          m_matrix[1].m_z,
          m_matrix[2].m_z);
 
-    B = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y);
+    B = (M.m_matrix[0].m_y,
+         M.m_matrix[1].m_y,
+         M.m_matrix[2].m_y);
 
     float _21 = m_matrix->Dot(A, B);
 
@@ -158,9 +157,9 @@ namespace xcEngineSDK {
          m_matrix[1].m_z,
          m_matrix[2].m_z);
 
-    B = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z);
+    B = (M.m_matrix[0].m_z,
+         M.m_matrix[1].m_z,
+         M.m_matrix[2].m_z);
 
 
     float _22 = m_matrix->Dot(A, B);
@@ -177,6 +176,20 @@ namespace xcEngineSDK {
     m_matrix[1] = M.m_matrix[1];
     m_matrix[2] = M.m_matrix[2];
     return *this;
+  }
+
+  bool
+  Matrix3x3::operator==(const Matrix3x3& M) {
+
+    if (m_matrix[0] == M.m_matrix[0] &&
+        m_matrix[1] == M.m_matrix[1] &&
+        m_matrix[2] == M.m_matrix[2]) {
+
+      return true; 
+    }
+    else {
+      return false;
+    }
   }
 
   Matrix3x3& 

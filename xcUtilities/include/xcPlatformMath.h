@@ -135,4 +135,6 @@ struct PlatformMath {
 
 
   const float PI = static_cast<float>(4.0f * std::atan(1.0f));
+
+  const float E = 2.718;
 };

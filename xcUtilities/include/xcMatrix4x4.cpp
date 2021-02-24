@@ -93,10 +93,10 @@ namespace xcEngineSDK {
                m_matrix[2].m_x,
                m_matrix[3].m_x);
 
-    Vector4 B (m_matrix[0].m_x,
-               m_matrix[1].m_x,
-               m_matrix[2].m_x,
-                m_matrix[3].m_x);
+    Vector4 B (M.m_matrix[0].m_x,
+               M.m_matrix[1].m_x,
+               M.m_matrix[2].m_x,
+               M.m_matrix[3].m_x);
 
     float _00 = m_matrix->Dot(A,B);
 
@@ -105,10 +105,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_x,
          m_matrix[3].m_x);
 
-    B = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y,
-         m_matrix[3].m_y);
+    B = (M.m_matrix[0].m_y,
+         M.m_matrix[1].m_y,
+         M.m_matrix[2].m_y,
+         M.m_matrix[3].m_y);
 
     float _01 = m_matrix->Dot(A,B);
 
@@ -117,10 +117,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_x,
          m_matrix[3].m_x);
 
-    B = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z,
-         m_matrix[3].m_z);
+    B = (M.m_matrix[0].m_z,
+         M.m_matrix[1].m_z,
+         M.m_matrix[2].m_z,
+         M.m_matrix[3].m_z);
 
     float _02 = m_matrix->Dot(A, B);
 
@@ -129,10 +129,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_x,
          m_matrix[3].m_x);
 
-    B = (m_matrix[0].m_w,
-         m_matrix[1].m_w,
-         m_matrix[2].m_w,
-         m_matrix[3].m_w);
+    B = (M.m_matrix[0].m_w,
+         M.m_matrix[1].m_w,
+         M.m_matrix[2].m_w,
+         M.m_matrix[3].m_w);
 
     float _03 = m_matrix->Dot(A, B);
 
@@ -143,10 +143,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_y,
          m_matrix[3].m_y);
 
-    B = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x,
-         m_matrix[3].m_x);
+    B = (M.m_matrix[0].m_x,
+         M.m_matrix[1].m_x,
+         M.m_matrix[2].m_x,
+         M.m_matrix[3].m_x);
 
     float _10 = m_matrix->Dot(A, B);
 
@@ -155,10 +155,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_y,
          m_matrix[3].m_y);
 
-    B = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y,
-         m_matrix[3].m_y);
+    B = (M.m_matrix[0].m_y,
+         M.m_matrix[1].m_y,
+         M.m_matrix[2].m_y,
+         M.m_matrix[3].m_y);
 
     float _11 = m_matrix->Dot(A, B);
 
@@ -167,10 +167,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_y,
          m_matrix[3].m_y);
 
-    B = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z,
-         m_matrix[3].m_z);
+    B = (M.m_matrix[0].m_z,
+         M.m_matrix[1].m_z,
+         M.m_matrix[2].m_z,
+         M.m_matrix[3].m_z);
 
     float _12 = m_matrix->Dot(A, B);
 
@@ -179,10 +179,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_y,
          m_matrix[3].m_y);
 
-    B = (m_matrix[0].m_w,
-         m_matrix[1].m_w,
-         m_matrix[2].m_w,
-         m_matrix[3].m_w);
+    B = (M.m_matrix[0].m_w,
+         M.m_matrix[1].m_w,
+         M.m_matrix[2].m_w,
+         M.m_matrix[3].m_w);
 
     float _13 = m_matrix->Dot(A, B);
 
@@ -193,10 +193,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_z,
          m_matrix[3].m_z);
 
-    B = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x,
-         m_matrix[3].m_x);
+    B = (M.m_matrix[0].m_x,
+         M.m_matrix[1].m_x,
+         M.m_matrix[2].m_x,
+         M.m_matrix[3].m_x);
 
     float _20 = m_matrix->Dot(A, B);
 
@@ -206,22 +206,22 @@ namespace xcEngineSDK {
          m_matrix[2].m_z,
          m_matrix[3].m_z);
 
-    B = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y,
-         m_matrix[3].m_y);
+    B = (M.m_matrix[0].m_y,
+         M.m_matrix[1].m_y,
+         M.m_matrix[2].m_y,
+         M.m_matrix[3].m_y);
 
     float _21 = m_matrix->Dot(A, B);
 
-     A = (m_matrix[0].m_z,
-          m_matrix[1].m_z,
-          m_matrix[2].m_z,
-          m_matrix[3].m_z);
-
-    B = (m_matrix[0].m_z,
+    A = (m_matrix[0].m_z,
          m_matrix[1].m_z,
          m_matrix[2].m_z,
          m_matrix[3].m_z);
+
+    B = (M.m_matrix[0].m_z,
+         M.m_matrix[1].m_z,
+         M.m_matrix[2].m_z,
+         M.m_matrix[3].m_z);
 
 
     float _22 = m_matrix->Dot(A, B);
@@ -232,10 +232,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_z,
          m_matrix[3].m_z);
 
-    B = (m_matrix[0].m_w,
-         m_matrix[1].m_w,
-         m_matrix[2].m_w,
-         m_matrix[3].m_w);
+    B = (M.m_matrix[0].m_w,
+         M.m_matrix[1].m_w,
+         M.m_matrix[2].m_w,
+         M.m_matrix[3].m_w);
 
     float _23 = m_matrix->Dot(A, B);
 
@@ -246,10 +246,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_w,
          m_matrix[3].m_w);
 
-    B = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x,
-         m_matrix[3].m_x);
+    B = (M.m_matrix[0].m_x,
+         M.m_matrix[1].m_x,
+         M.m_matrix[2].m_x,
+         M.m_matrix[3].m_x);
 
     float _30 = m_matrix->Dot(A, B);
 
@@ -259,22 +259,22 @@ namespace xcEngineSDK {
          m_matrix[2].m_w,
          m_matrix[3].m_w);
 
-    B = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y,
-         m_matrix[3].m_y);
+    B = (M.m_matrix[0].m_y,
+         M.m_matrix[1].m_y,
+         M.m_matrix[2].m_y,
+         M.m_matrix[3].m_y);
 
     float _31 = m_matrix->Dot(A, B);
 
-     A = (m_matrix[0].m_w,
-          m_matrix[1].m_w,
-          m_matrix[2].m_w,
-          m_matrix[3].m_w);
+    A = (m_matrix[0].m_w,
+         m_matrix[1].m_w,
+         m_matrix[2].m_w,
+         m_matrix[3].m_w);
 
-    B = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z,
-         m_matrix[3].m_z);
+    B = (M.m_matrix[0].m_z,
+         M.m_matrix[1].m_z,
+         M.m_matrix[2].m_z,
+         M.m_matrix[3].m_z);
 
 
     float _32 = m_matrix->Dot(A, B);
@@ -285,10 +285,10 @@ namespace xcEngineSDK {
          m_matrix[2].m_w,
          m_matrix[3].m_w);
 
-    B = (m_matrix[0].m_w,
-         m_matrix[1].m_w,
-         m_matrix[2].m_w,
-         m_matrix[3].m_w);
+    B = (M.m_matrix[0].m_w,
+         M.m_matrix[1].m_w,
+         M.m_matrix[2].m_w,
+         M.m_matrix[3].m_w);
 
     float _33 = m_matrix->Dot(A, B);
 

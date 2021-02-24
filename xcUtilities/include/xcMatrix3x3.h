@@ -87,7 +87,7 @@ namespace xcEngineSDK {
      * @return     Returns multiple of two matrix 3x3
      */
     Matrix3x3
-    operator * (Matrix3x3 M);
+    operator * (Matrix3x3& M);
 
     /**
      * @brief      = operator overload
@@ -97,6 +97,15 @@ namespace xcEngineSDK {
      */
     Matrix3x3&
     operator = (const Matrix3x3& M);
+
+    /**
+     * @brief      = operator overload
+     * @param      M parameter one, matrix equal
+     * @bug	       No know Bugs
+     * @return     Returns a equals between matrix
+     */
+    bool
+    operator == (const Matrix3x3& M);
 
     /**
      * @brief      = operator overload
