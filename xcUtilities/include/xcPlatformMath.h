@@ -34,6 +34,12 @@ struct PlatformMath {
     return std::powf(val, ex);
   }
 
+  template<typename Type>
+  static Type
+  abs(Type val) {
+    return std::abs(val);
+  }
+
   //sin and float sin 
   template<typename Type>
   static Type
@@ -128,5 +134,5 @@ struct PlatformMath {
   }
 
 
-
+  const float PI = static_cast<float>(4.0f * std::atan(1.0f));
 };
