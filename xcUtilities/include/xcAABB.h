@@ -15,7 +15,7 @@ namespace xcEngineSDK {
   class XC_UTILITY_EXPORT AABB 
   {
    public:
-    AABB();
+    AABB() = default;
     ~AABB() = default;
 
     Vector3 m_min;
@@ -25,10 +25,10 @@ namespace xcEngineSDK {
    public:
 
     bool
-    intersec(Vector3 vector);
+    intersec(Vector3& vector);
 
     bool
-    intersec(Sphere sphere);
+    intersec(Sphere& sphere);
 
   };
 }

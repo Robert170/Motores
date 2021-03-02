@@ -29,7 +29,7 @@ namespace xcEngineSDK {
 
 		float
 		getRadiansIntoDegrees() {
-			return m_angle * 180.0f / 3.1416f;
+			return m_angle * 3.1416f / 180.0f;
 		}
 
 

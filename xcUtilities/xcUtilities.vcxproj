@@ -206,6 +206,7 @@
     <ClCompile Include="src\xcAABB.cpp" />
     <ClCompile Include="src\xcDegrees.cpp" />
     <ClCompile Include="src\xcMatrix3x3.cpp" />
+    <ClCompile Include="src\xcPlatformMath.cpp" />
     <ClCompile Include="src\xcRadians.cpp" />
     <ClCompile Include="src\xcRay.cpp" />
     <ClCompile Include="src\xcSphere.cpp" />

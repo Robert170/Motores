@@ -142,7 +142,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		Vector3
-		operator *= (const Vector3& V);
+		operator*=(const Vector3& V);
 
 		/**
 		 * @brief      /= operator overload
@@ -152,7 +152,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		Vector3
-		operator /= (const Vector3& V);
+		operator/=(const Vector3& V);
 
 		/**
 		 * @brief      normalize function

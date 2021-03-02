@@ -3,22 +3,22 @@
 namespace xcEngineSDK {
   
 
-  Matrix3x3::Matrix3x3(float _00, float _01, float _02, 
-                       float _10, float _11, float _12, 
-                       float _20, float _21, float _22) {
+  Matrix3x3::Matrix3x3(float _xx, float _yx, float _zx,
+                       float _xy, float _yy, float _zy,
+                       float _xz, float _yz, float _zz) {
 
 
-    m_matrix[0].m_x = _00;
-    m_matrix[0].m_y = _01;
-    m_matrix[0].m_z = _02;
+    m_matrix[0].m_x = _xx;
+    m_matrix[0].m_y = _xy;
+    m_matrix[0].m_z = _xz;
 
-    m_matrix[1].m_x = _10;
-    m_matrix[1].m_y = _11;
-    m_matrix[1].m_z = _12;
+    m_matrix[1].m_x = _yx;
+    m_matrix[1].m_y = _yy;
+    m_matrix[1].m_z = _yz;
 
-    m_matrix[2].m_x = _20;
-    m_matrix[2].m_y = _21;
-    m_matrix[2].m_z = _22;
+    m_matrix[2].m_x = _zx;
+    m_matrix[2].m_y = _zy;
+    m_matrix[2].m_z = _zz;
   }
 
   Matrix3x3::Matrix3x3(const Vector3& XVector, 
@@ -61,7 +61,7 @@ namespace xcEngineSDK {
 
   Matrix3x3 
   Matrix3x3::operator/(const Matrix3x3& M) {
-
+    //TODO eliminar o revisar posibles diviciones contra 0
     Vector3 x = m_matrix[0] / M.m_matrix[0];
     Vector3 y = m_matrix[1] / M.m_matrix[1];
     Vector3 z = m_matrix[2] / M.m_matrix[2];
@@ -70,103 +70,24 @@ namespace xcEngineSDK {
   }
 
   Matrix3x3 
-  Matrix3x3::operator*(Matrix3x3& M) {
+  Matrix3x3::operator*(const Matrix3x3& M) {
 
-    Vector3 A (m_matrix[0].m_x,
-               m_matrix[1].m_x,
-               m_matrix[2].m_x);
+    //si se transpone la matriz con la que se multiplica solo es dot entre matrices
+    //M.transpose();
 
-    Vector3 B (M.m_matrix[0].m_x,
-               M.m_matrix[1].m_x,
-               M.m_matrix[2].m_x);
+    Matrix3x3 Temp = M;
 
-    float _00 = m_matrix->Dot(A,B);
+    Temp.transpose();
 
-    A = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x);
-
-    B = (M.m_matrix[0].m_y,
-         M.m_matrix[1].m_y,
-         M.m_matrix[2].m_y);
-
-    float _01 = m_matrix->Dot(A,B);
-
-    A = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x);
-
-    B = (M.m_matrix[0].m_z,
-         M.m_matrix[1].m_z,
-         M.m_matrix[2].m_z);
-
-    float _02 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y);
-
-    B = (M.m_matrix[0].m_x,
-         M.m_matrix[1].m_x,
-         M.m_matrix[2].m_x);
-
-    float _10 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y);
-
-    B = (M.m_matrix[0].m_y,
-         M.m_matrix[1].m_y,
-         M.m_matrix[2].m_y);
-
-    float _11 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y);
-
-    B = (M.m_matrix[0].m_z,
-         M.m_matrix[1].m_z,
-         M.m_matrix[2].m_z);
-
-    float _12 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z);
-
-    B = (M.m_matrix[0].m_x,
-         M.m_matrix[1].m_x,
-         M.m_matrix[2].m_x);
-
-    float _20 = m_matrix->Dot(A, B);
-
-
-    A = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z);
-
-    B = (M.m_matrix[0].m_y,
-         M.m_matrix[1].m_y,
-         M.m_matrix[2].m_y);
-
-    float _21 = m_matrix->Dot(A, B);
-
-     A = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z);
-
-    B = (M.m_matrix[0].m_z,
-         M.m_matrix[1].m_z,
-         M.m_matrix[2].m_z);
-
-
-    float _22 = m_matrix->Dot(A, B);
-
-    return Matrix3x3(_00, _01, _02,
-                     _10, _11, _12,
-                     _20, _21, _22);
+    return Matrix3x3(m_matrix->Dot(m_matrix[0], Temp.m_matrix[0]), 
+                     m_matrix->Dot(m_matrix[1], Temp.m_matrix[0]), 
+                     m_matrix->Dot(m_matrix[2], Temp.m_matrix[0]),
+                     m_matrix->Dot(m_matrix[0], Temp.m_matrix[1]), 
+                     m_matrix->Dot(m_matrix[1], Temp.m_matrix[1]), 
+                     m_matrix->Dot(m_matrix[2], Temp.m_matrix[1]),
+                     m_matrix->Dot(m_matrix[0], Temp.m_matrix[2]), 
+                     m_matrix->Dot(m_matrix[1], Temp.m_matrix[2]), 
+                     m_matrix->Dot(m_matrix[2], Temp.m_matrix[2]));
   }
 
   Matrix3x3& 
@@ -181,45 +102,49 @@ namespace xcEngineSDK {
   bool
   Matrix3x3::operator==(const Matrix3x3& M) {
 
+    //agregar una funcion que revise si son iguales en un rago de error
     if (m_matrix[0] == M.m_matrix[0] &&
         m_matrix[1] == M.m_matrix[1] &&
         m_matrix[2] == M.m_matrix[2]) {
 
       return true; 
     }
-    else {
-      return false;
-    }
+    
+    return false;
+    
   }
 
   Matrix3x3& 
   Matrix3x3::operator+=(const Matrix3x3& M) {
-    m_matrix[0] += M.m_matrix[0];
-    m_matrix[1] += M.m_matrix[1];
-    m_matrix[2] += M.m_matrix[2];
+    *this = this->operator+(M);
     return *this;
   }
 
   Matrix3x3& 
   Matrix3x3::operator-=(const Matrix3x3& M) {
-    m_matrix[0] -= M.m_matrix[0];
-    m_matrix[1] -= M.m_matrix[1];
-    m_matrix[2] -= M.m_matrix[2];
+    *this = this->operator-(M);
     return *this;
   }
 
   Matrix3x3& 
   Matrix3x3::operator/=(const Matrix3x3& M) {
-    m_matrix[0] *= M.m_matrix[0];
-    m_matrix[1] *= M.m_matrix[1];
-    m_matrix[2] *= M.m_matrix[2];
+    *this = this->operator/(M);
     return *this;
   }
 
   Matrix3x3& 
   Matrix3x3::operator*=(const Matrix3x3& M) {
-    // TODO: insert return statement here
+   
+    *this = this->operator*(M);
+    
     return *this;
+  }
+
+  bool 
+  Matrix3x3::operator!=(const Matrix3x3& M) {
+
+    return !this->operator==(M);
+
   }
 
 

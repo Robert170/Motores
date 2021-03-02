@@ -135,6 +135,12 @@ namespace xcEngineSDK {
     return *this;
   }
 
+  Degrees& 
+  Degrees::operator=(Radians& Rad){
+    m_angle = Rad.getRadiansIntoDegrees();
+    return *this;
+  }
+
   Degrees&
   Degrees::operator -= (Radians& Rad) {
     m_angle -= Rad.getRadiansIntoDegrees();

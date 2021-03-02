@@ -85,40 +85,32 @@ namespace xcEngineSDK {
   Vector4
   Vector4::operator += (const Vector4& V) {
 
-    m_x += V.m_x;
-    m_y += V.m_y;
-    m_z += V.m_z;
-    m_w += V.m_w;
+    *this = this->operator+(V);
+
     return *this;
   }
 
   Vector4
   Vector4::operator -= (const Vector4& V) {
 
-    m_x -= V.m_x;
-    m_y -= V.m_y;
-    m_z -= V.m_z;
-    m_w -= V.m_w;
+    *this = this->operator-(V);
+
     return *this;
   }
 
   Vector4
-  Vector4::operator *= (const Vector4& V) {
+  Vector4::operator*=(const Vector4& V) {
 
-    m_x *= V.m_x;
-    m_y *= V.m_y;
-    m_z *= V.m_z;
-    m_w *= V.m_w;
+    *this = this->operator*(V);
+
     return *this;
   }
 
   Vector4
-  Vector4::operator /= (const Vector4& V) {
+  Vector4::operator/=(const Vector4& V) {
 
-    m_x /= V.m_x;
-    m_y /= V.m_y;
-    m_z /= V.m_z;
-    m_w /= V.m_w;
+    *this = this->operator/(V);
+
     return *this;
   }
 
@@ -156,7 +148,7 @@ namespace xcEngineSDK {
     return (VectorA.m_x * VetorB.m_x) +
            (VectorA.m_y * VetorB.m_y) +
            (VectorA.m_z * VetorB.m_z) +
-           (VectorA.m_w * VetorB.m_z);
+           (VectorA.m_w * VetorB.m_w);
   }
 }
 

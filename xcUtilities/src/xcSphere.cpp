@@ -4,6 +4,8 @@
 namespace xcEngineSDK {
 
   Sphere::Sphere() {
+
+    m_radio = 0;
   }
 
   Sphere::~Sphere() {

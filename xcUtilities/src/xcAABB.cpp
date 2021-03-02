@@ -3,12 +3,12 @@
 
 namespace xcEngineSDK {
   bool
-    AABB::intersec(Vector3 vector) {
+    AABB::intersec(Vector3& vector) {
     return false;
   }
 
   bool
-    AABB::intersec(Sphere sphere) {
+    AABB::intersec(Sphere& sphere) {
     return false;
   }
 }

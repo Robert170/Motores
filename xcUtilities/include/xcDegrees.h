@@ -26,7 +26,7 @@ namespace xcEngineSDK {
 		}
 
 		float
-			getDegreesIntoRadians() {
+		getDegreesIntoRadians() {
 			return m_angle * 3.1416f / 180.0f;
 		}
 
@@ -67,7 +67,7 @@ namespace xcEngineSDK {
 		operator / (const Degrees& Deg) const;
 
 		/**
-		 * @brief      + operator overload
+		 * @brief      == operator overload
 		 * @param      Deg parameter one, degrees for comparative
 		 * @bug	       No know Bugs
 		 * @return     Returns true if both degrees are equal
@@ -76,7 +76,7 @@ namespace xcEngineSDK {
 		operator == (const Degrees& Deg) const;
 
 		/**
-		 * @brief      + operator overload
+		 * @brief      == operator overload
 		 * @param      Value parameter one, degrees for comparative
 		 * @bug	       No know Bugs
 		 * @return     Returns true if both degrees are equal
@@ -219,7 +219,16 @@ namespace xcEngineSDK {
 		 *             your degrees whit pother
 		 */
 		Degrees&
-		operator += (Radians& Rad);
+		operator+=(Radians& Rad);
+
+		/**
+		 * @brief      = operator overload
+		 * @param      Value parameter one, degrees for comparative
+		 * @bug	       No know Bugs
+		 * @return     Returns the same degrees but equal to radians
+		 */
+		Degrees&
+		operator=(Radians& Rad);
 
 		/**
 		 * @brief      -= operator overload

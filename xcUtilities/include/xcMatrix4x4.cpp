@@ -1,28 +1,29 @@
 #include "xcMatrix4x4.h"
 namespace xcEngineSDK {
-  Matrix4x4::Matrix4x4(float _00, float _01, float _02, float _03,
-                       float _10, float _11, float _12, float _13,
-                       float _20, float _21, float _22, float _23,
-                       float _30, float _31, float _32, float _33) {
-    m_matrix[0].m_x = _00;
-    m_matrix[0].m_y = _01;
-    m_matrix[0].m_z = _02;
-    m_matrix[0].m_w = _03;
+  Matrix4x4::Matrix4x4(float _xx, float _yx, float _zx, float _wx,
+                       float _xy, float _yy, float _zy, float _wy,
+                       float _xz, float _yz, float _zz, float _wz,
+                       float _xw, float _yw, float _zw, float _ww) {
 
-    m_matrix[1].m_x = _10;
-    m_matrix[1].m_y = _11;
-    m_matrix[1].m_z = _12;
-    m_matrix[1].m_w = _13;
+    m_matrix[0].m_x = _xx;
+    m_matrix[0].m_y = _xy;
+    m_matrix[0].m_z = _xz;
+    m_matrix[0].m_w = _xw;
 
-    m_matrix[2].m_x = _20;
-    m_matrix[2].m_y = _21;
-    m_matrix[2].m_z = _22;
-    m_matrix[2].m_w = _23;
+    m_matrix[1].m_x = _yx;
+    m_matrix[1].m_y = _yy;
+    m_matrix[1].m_z = _yz;
+    m_matrix[1].m_w = _yw;
 
-    m_matrix[3].m_x = _30;
-    m_matrix[3].m_y = _31;
-    m_matrix[3].m_z = _32;
-    m_matrix[3].m_w = _33;
+    m_matrix[2].m_x = _zx;
+    m_matrix[2].m_y = _zy;
+    m_matrix[2].m_z = _zz;
+    m_matrix[2].m_w = _zw;
+
+    m_matrix[3].m_x = _wx;
+    m_matrix[3].m_y = _wy;
+    m_matrix[3].m_z = _wz;
+    m_matrix[3].m_w = _ww;
 
   }
 
@@ -46,6 +47,7 @@ namespace xcEngineSDK {
     std::swap(m_matrix[0].m_y, m_matrix[1].m_x);
     std::swap(m_matrix[0].m_z, m_matrix[2].m_x);
     std::swap(m_matrix[0].m_w, m_matrix[3].m_x);
+
     std::swap(m_matrix[1].m_z, m_matrix[2].m_y);
     std::swap(m_matrix[1].m_w, m_matrix[3].m_y);
     std::swap(m_matrix[2].m_w, m_matrix[3].m_z);
@@ -88,214 +90,28 @@ namespace xcEngineSDK {
   Matrix4x4
   Matrix4x4::operator*(const Matrix4x4& M) {
 
-    Vector4 A (m_matrix[0].m_x,
-               m_matrix[1].m_x,
-               m_matrix[2].m_x,
-               m_matrix[3].m_x);
+    
+    Matrix4x4 Temp = M;
 
-    Vector4 B (M.m_matrix[0].m_x,
-               M.m_matrix[1].m_x,
-               M.m_matrix[2].m_x,
-               M.m_matrix[3].m_x);
+    Temp.transpose();
+    
 
-    float _00 = m_matrix->Dot(A,B);
-
-    A = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x,
-         m_matrix[3].m_x);
-
-    B = (M.m_matrix[0].m_y,
-         M.m_matrix[1].m_y,
-         M.m_matrix[2].m_y,
-         M.m_matrix[3].m_y);
-
-    float _01 = m_matrix->Dot(A,B);
-
-    A = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x,
-         m_matrix[3].m_x);
-
-    B = (M.m_matrix[0].m_z,
-         M.m_matrix[1].m_z,
-         M.m_matrix[2].m_z,
-         M.m_matrix[3].m_z);
-
-    float _02 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_x,
-         m_matrix[1].m_x,
-         m_matrix[2].m_x,
-         m_matrix[3].m_x);
-
-    B = (M.m_matrix[0].m_w,
-         M.m_matrix[1].m_w,
-         M.m_matrix[2].m_w,
-         M.m_matrix[3].m_w);
-
-    float _03 = m_matrix->Dot(A, B);
-
-    /////////////////////////////////////////
-
-    A = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y,
-         m_matrix[3].m_y);
-
-    B = (M.m_matrix[0].m_x,
-         M.m_matrix[1].m_x,
-         M.m_matrix[2].m_x,
-         M.m_matrix[3].m_x);
-
-    float _10 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y,
-         m_matrix[3].m_y);
-
-    B = (M.m_matrix[0].m_y,
-         M.m_matrix[1].m_y,
-         M.m_matrix[2].m_y,
-         M.m_matrix[3].m_y);
-
-    float _11 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y,
-         m_matrix[3].m_y);
-
-    B = (M.m_matrix[0].m_z,
-         M.m_matrix[1].m_z,
-         M.m_matrix[2].m_z,
-         M.m_matrix[3].m_z);
-
-    float _12 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_y,
-         m_matrix[1].m_y,
-         m_matrix[2].m_y,
-         m_matrix[3].m_y);
-
-    B = (M.m_matrix[0].m_w,
-         M.m_matrix[1].m_w,
-         M.m_matrix[2].m_w,
-         M.m_matrix[3].m_w);
-
-    float _13 = m_matrix->Dot(A, B);
-
-    ///////////////////////////////////////
-
-    A = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z,
-         m_matrix[3].m_z);
-
-    B = (M.m_matrix[0].m_x,
-         M.m_matrix[1].m_x,
-         M.m_matrix[2].m_x,
-         M.m_matrix[3].m_x);
-
-    float _20 = m_matrix->Dot(A, B);
-
-
-    A = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z,
-         m_matrix[3].m_z);
-
-    B = (M.m_matrix[0].m_y,
-         M.m_matrix[1].m_y,
-         M.m_matrix[2].m_y,
-         M.m_matrix[3].m_y);
-
-    float _21 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z,
-         m_matrix[3].m_z);
-
-    B = (M.m_matrix[0].m_z,
-         M.m_matrix[1].m_z,
-         M.m_matrix[2].m_z,
-         M.m_matrix[3].m_z);
-
-
-    float _22 = m_matrix->Dot(A, B);
-
-
-    A = (m_matrix[0].m_z,
-         m_matrix[1].m_z,
-         m_matrix[2].m_z,
-         m_matrix[3].m_z);
-
-    B = (M.m_matrix[0].m_w,
-         M.m_matrix[1].m_w,
-         M.m_matrix[2].m_w,
-         M.m_matrix[3].m_w);
-
-    float _23 = m_matrix->Dot(A, B);
-
-    ///////////////////////////////////////
-
-    A = (m_matrix[0].m_w,
-         m_matrix[1].m_w,
-         m_matrix[2].m_w,
-         m_matrix[3].m_w);
-
-    B = (M.m_matrix[0].m_x,
-         M.m_matrix[1].m_x,
-         M.m_matrix[2].m_x,
-         M.m_matrix[3].m_x);
-
-    float _30 = m_matrix->Dot(A, B);
-
-
-    A = (m_matrix[0].m_w,
-         m_matrix[1].m_w,
-         m_matrix[2].m_w,
-         m_matrix[3].m_w);
-
-    B = (M.m_matrix[0].m_y,
-         M.m_matrix[1].m_y,
-         M.m_matrix[2].m_y,
-         M.m_matrix[3].m_y);
-
-    float _31 = m_matrix->Dot(A, B);
-
-    A = (m_matrix[0].m_w,
-         m_matrix[1].m_w,
-         m_matrix[2].m_w,
-         m_matrix[3].m_w);
-
-    B = (M.m_matrix[0].m_z,
-         M.m_matrix[1].m_z,
-         M.m_matrix[2].m_z,
-         M.m_matrix[3].m_z);
-
-
-    float _32 = m_matrix->Dot(A, B);
-
-
-    A = (m_matrix[0].m_w,
-         m_matrix[1].m_w,
-         m_matrix[2].m_w,
-         m_matrix[3].m_w);
-
-    B = (M.m_matrix[0].m_w,
-         M.m_matrix[1].m_w,
-         M.m_matrix[2].m_w,
-         M.m_matrix[3].m_w);
-
-    float _33 = m_matrix->Dot(A, B);
-
-    return Matrix4x4(_00, _01, _02, _03,
-                     _10, _11, _12, _13,
-                     _20, _21, _22, _23,
-                     _30, _31, _32, _33);
+    return Matrix4x4(m_matrix->Dot(m_matrix[0], Temp.m_matrix[0]), 
+                     m_matrix->Dot(m_matrix[1], Temp.m_matrix[0]), 
+                     m_matrix->Dot(m_matrix[2], Temp.m_matrix[0]), 
+                     m_matrix->Dot(m_matrix[3], Temp.m_matrix[0]),
+                     m_matrix->Dot(m_matrix[0], Temp.m_matrix[1]), 
+                     m_matrix->Dot(m_matrix[1], Temp.m_matrix[1]), 
+                     m_matrix->Dot(m_matrix[2], Temp.m_matrix[1]), 
+                     m_matrix->Dot(m_matrix[3], Temp.m_matrix[1]),
+                     m_matrix->Dot(m_matrix[0], Temp.m_matrix[2]), 
+                     m_matrix->Dot(m_matrix[1], Temp.m_matrix[2]), 
+                     m_matrix->Dot(m_matrix[2], Temp.m_matrix[2]), 
+                     m_matrix->Dot(m_matrix[3], Temp.m_matrix[2]),
+                     m_matrix->Dot(m_matrix[0], Temp.m_matrix[3]), 
+                     m_matrix->Dot(m_matrix[1], Temp.m_matrix[3]), 
+                     m_matrix->Dot(m_matrix[2], Temp.m_matrix[3]), 
+                     m_matrix->Dot(m_matrix[3], Temp.m_matrix[3]));
   }
 
   Matrix4x4& 
@@ -308,38 +124,54 @@ namespace xcEngineSDK {
     return *this;
   }
 
+  bool Matrix4x4::operator==(const Matrix4x4& M) {
+    if (m_matrix[0] == M.m_matrix[0] &&
+        m_matrix[1] == M.m_matrix[1] &&
+        m_matrix[2] == M.m_matrix[2] &&
+        m_matrix[3] == M.m_matrix[3]) {
+
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   Matrix4x4& 
   Matrix4x4::operator+=(const Matrix4x4& M) {
 
-    m_matrix[0] += M.m_matrix[0];
-    m_matrix[1] += M.m_matrix[1];
-    m_matrix[2] += M.m_matrix[2];
-    m_matrix[3] += M.m_matrix[3];
+    *this = this->operator+(M);
+
     return *this;
   }
 
   Matrix4x4& 
   Matrix4x4::operator-=(const Matrix4x4& M) {
 
-    m_matrix[0] -= M.m_matrix[0];
-    m_matrix[1] -= M.m_matrix[1];
-    m_matrix[2] -= M.m_matrix[2];
-    m_matrix[3] -= M.m_matrix[3];
+    *this = this->operator-(M);
+
     return *this;
   }
 
   Matrix4x4& 
   Matrix4x4::operator/=(const Matrix4x4& M) {
 
-    m_matrix[0] /= M.m_matrix[0];
-    m_matrix[1] /= M.m_matrix[1];
-    m_matrix[2] /= M.m_matrix[2];
-    m_matrix[3] /= M.m_matrix[3];
+    *this = this->operator/(M);
+
     return *this;
   }
 
   Matrix4x4& 
   Matrix4x4::operator*=(const Matrix4x4& M) {
+    *this = this->operator*(M);
+
     return *this;
+  }
+
+  bool 
+  Matrix4x4::operator!=(const Matrix4x4& M) {
+
+    return !this->operator==(M);
+
   }
 }

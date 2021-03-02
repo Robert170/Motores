@@ -81,36 +81,32 @@ namespace xcEngineSDK {
   Vector3
   Vector3::operator += (const Vector3& V) {
 
-    m_x += V.m_x;
-    m_y += V.m_y;
-    m_z += V.m_z;
+    *this = this->operator+(V);
+
     return *this;
   }
 
   Vector3
   Vector3::operator -= (const Vector3& V) {
 
-    m_x -= V.m_x;
-    m_y -= V.m_y;
-    m_z -= V.m_z;
+    *this = this->operator-(V);
+
     return *this;
   }
 
   Vector3
   Vector3::operator *= (const Vector3& V) {
 
-    m_x *= V.m_x;
-    m_y *= V.m_y;
-    m_z *= V.m_z;
+    *this = this->operator*(V);
+
     return *this;
   }
 
   Vector3
   Vector3::operator /= (const Vector3& V) {
 
-    m_x /= V.m_x;
-    m_y /= V.m_y;
-    m_z /= V.m_z;
+    *this = this->operator/(V);
+
     return *this;
   }
 

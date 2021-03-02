@@ -15,10 +15,10 @@ namespace xcEngineSDK {
 
     ~Matrix4x4() = default;
 
-    Matrix4x4(float _00, float _01, float _02, float _03,
-              float _10, float _11, float _12, float _13,
-              float _20, float _21, float _22, float _23,
-              float _30, float _31, float _32, float _33);
+    Matrix4x4(float _xx, float _yx, float _zx, float _wx,
+              float _xy, float _yy, float _zy, float _wy,
+              float _xz, float _yz, float _zz, float _wz,
+              float _xw, float _yw, float _zw, float _ww);
 
     Matrix4x4(Vector4 XVector, 
               Vector4 YVector,
@@ -80,6 +80,15 @@ namespace xcEngineSDK {
     operator=(const Matrix4x4& M);
 
     /**
+     * @brief      == operator overload
+     * @param      M parameter one, matrix equal
+     * @bug	       No know Bugs
+     * @return     Returns if two matrix are equals
+     */
+    bool
+    operator == (const Matrix4x4& M);
+
+    /**
      * @brief      = operator overload
      * @param      M parameter one, matrix equal
      * @bug	       No know Bugs
@@ -114,6 +123,9 @@ namespace xcEngineSDK {
      */
     Matrix4x4&
     operator*=(const Matrix4x4 & M);
+
+    bool
+    operator!=(const Matrix4x4& M);
 
    public:
 
