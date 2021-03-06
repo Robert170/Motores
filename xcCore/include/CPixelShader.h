@@ -14,13 +14,16 @@
  */
 #pragma once
 #include <iostream>
-class CPixelShader
-{
-public:
-	/// Default Constructor
-	CPixelShader() = default;
 
-	/// Destructor
-	virtual ~CPixelShader() = default;
-};
+namespace xcEngineSDK {
+	class CPixelShader
+	{
+	 public:
+		/// Default Constructor
+		CPixelShader() = default;
+
+		/// Destructor
+		virtual ~CPixelShader() = default;
+	};
+}
 

@@ -6,12 +6,24 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcUtilities", "xcUtilities\xcUtilities.vcxproj", "{6DB4E493-456C-4C5E-9A53-D701BD62B114}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcUtilities_UnitTest", "xcUtilities_UnitTest\xcUtilities_UnitTest.vcxproj", "{90A5D6CE-A7C9-41EB-B469-742803C3062C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6DB4E493-456C-4C5E-9A53-D701BD62B114} = {6DB4E493-456C-4C5E-9A53-D701BD62B114}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcCore", "xcCore\xcCore.vcxproj", "{AB405C0E-08A3-4D28-A841-056BA07D408D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6DB4E493-456C-4C5E-9A53-D701BD62B114} = {6DB4E493-456C-4C5E-9A53-D701BD62B114}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcDirectX", "xcDirectX\xcDirectX.vcxproj", "{55DBAF74-1B28-41C9-938B-C53D9039FE1C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB405C0E-08A3-4D28-A841-056BA07D408D} = {AB405C0E-08A3-4D28-A841-056BA07D408D}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcOpenGL", "xcOpenGL\xcOpenGL.vcxproj", "{C76DA0FE-56B4-4440-BBEF-C50901B9D983}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB405C0E-08A3-4D28-A841-056BA07D408D} = {AB405C0E-08A3-4D28-A841-056BA07D408D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

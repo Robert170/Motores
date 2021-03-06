@@ -13,14 +13,17 @@
  * @bug	No know Bugs
  */
 #pragma once
-class CIndexBuffer
-{
-public:
+
+namespace xcEngineSDK {
+  class CIndexBuffer
+  {
+   public:
 
     /// Default Constructor
     CIndexBuffer() = default;
 
     /// Destructor
     virtual ~CIndexBuffer() = default;
-};
+  };
+}
 

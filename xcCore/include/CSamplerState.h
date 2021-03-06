@@ -14,13 +14,15 @@
  * @bug	No know Bugs
  */
 #pragma once
-class CSamplerState
-{
-public:
-	/// Default Constructor
-	CSamplerState() = default;
 
-	/// Destructor
-	virtual ~CSamplerState() = default;
-};
+namespace xcEngineSDK {
+	class CSamplerState
+	{
+	 public:
+		/// Default Constructor
+		CSamplerState() = default;
 
+		/// Destructor
+		virtual ~CSamplerState() = default;
+	};
+}

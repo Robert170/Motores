@@ -8,7 +8,7 @@
 
 namespace xcEngineSDK {
   #if XC_PLATFORM == XC_PLATFORM_WIN32
-    using Math = WindowsMath;
+    using Math = PlatformMath;
   #elif XC_PLATFORM == XC_PLATFORM_LINUX
     using Math = LinuxMath;
   #else

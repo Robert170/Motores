@@ -13,13 +13,16 @@
  * @bug	No know Bugs
  */
 #pragma once
-class CConstantBuffer
-{
-public:
+
+namespace xcEngineSDK {
+  class CConstantBuffer
+  {
+   public:
     /// Default Constructor
     CConstantBuffer() = default;
 
     /// Destructor
     virtual ~CConstantBuffer() = default;
-};
+  };
+}
 

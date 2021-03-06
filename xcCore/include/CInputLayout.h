@@ -14,14 +14,17 @@
  */
 #pragma once
 #include "CGraphiAPI.h"
-class CInputLayout
-{
-public:
-	/// Default Constructor
-	CInputLayout() = default;
-    /// Destructor
-	virtual ~CInputLayout() = default;
-	
-	
-};
+
+namespace xcEngineSDK {
+	class CInputLayout
+	{
+	 public:
+		/// Default Constructor
+		CInputLayout() = default;
+		/// Destructor
+		virtual ~CInputLayout() = default;
+
+
+	};
+}
 

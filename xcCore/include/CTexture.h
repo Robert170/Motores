@@ -14,12 +14,14 @@
  */
 #pragma once
 
-class CTexture
-{
-public:
-	/// Default Constructor
-	CTexture() = default;
+namespace xcEngineSDK {
+	class CTexture
+	{
+	 public:
+		/// Default Constructor
+		CTexture() = default;
 
-	/// Destructor
-	virtual ~CTexture() = default;
-};
+		/// Destructor
+		virtual ~CTexture() = default;
+	};
+}

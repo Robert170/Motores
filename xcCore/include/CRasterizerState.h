@@ -14,13 +14,16 @@
  * @bug	No know Bugs
  */
 #pragma once
-class CRasterizerState
-{
-public:
-	/// Default Constructor
-	CRasterizerState() = default;
 
-	/// Destructor
-	virtual ~CRasterizerState() = default;
-};
+namespace xcEngineSDK {
+	class CRasterizerState
+	{
+	 public:
+		/// Default Constructor
+		CRasterizerState() = default;
+
+		/// Destructor
+		virtual ~CRasterizerState() = default;
+	};
+}
 

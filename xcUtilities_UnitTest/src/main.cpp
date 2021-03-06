@@ -43,7 +43,7 @@ TEST(xcUtilities, Basic_Type_Size) {
    EXPECT_EQ(sizeof(float), 4);
    EXPECT_EQ(sizeof(double), 8);
 
-   //EXPECT_NEAR(Math::PI, 3.141592f, Math::SMALL_NUMBER);
+   EXPECT_NEAR(Math::PI, 3.141592f, Math::SMALL_NUMBER);
 }
 
 

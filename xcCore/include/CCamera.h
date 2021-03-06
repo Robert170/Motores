@@ -1,5 +1,7 @@
 #pragma once
-class CCamera
-{
-};
 
+namespace xcEngineSDK {
+  class CCamera
+  {
+  };
+}
