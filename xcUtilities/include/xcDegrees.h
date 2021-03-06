@@ -1,6 +1,7 @@
 #pragma once
 
 #include "xcPrerequisitesUtilities.h"
+#include "xcMath.h"
 
 
 namespace xcEngineSDK {
@@ -37,7 +38,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum of two degrees
 		 */
 		Degrees
-		operator + (const Degrees& Deg) const;
+		operator+(const Degrees& Deg) const;
 
 		/**
 		 * @brief      - operator overload

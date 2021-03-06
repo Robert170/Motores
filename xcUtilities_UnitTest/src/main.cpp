@@ -2,18 +2,18 @@
 #define GTEST_HAS_TR1_TUPLE 0
 #define GTEST_USE_OWN_TR1_TUPLE 0
 #include <gtest/gtest.h>
-#include "xcMath.h"
-#include "xcVector2.h"
-#include "xcVectorI2.h"
-#include "xcVector3.h"
-#include "xcVectorI3.h"
-#include "xcVector4.h"
-#include "xcVectorI4.h"
-#include "xcMatrix3x3.h"
-#include "xcMatrix4x4.h"
-#include "xcDegrees.h"
-#include "xcRadians.h"
-#include "xcPrerequisitesUtilities.h"
+#include <xcMath.h>
+#include <xcVector2.h>
+#include <xcVectorI2.h>
+#include <xcVector3.h>
+#include <xcVectorI3.h>
+#include <xcVector4.h>
+#include <xcVectorI4.h>
+#include <xcMatrix3x3.h>
+#include <xcMatrix4x4.h>
+#include <xcDegrees.h>
+#include <xcRadians.h>
+#include <xcPrerequisitesUtilities.h>
 
 
 using namespace xcEngineSDK;
@@ -28,22 +28,22 @@ main(int argc, char** argv) {
 
 TEST(xcUtilities, Basic_Type_Size) {
 
-   EXPECT_EQ(sizeof(unsigned char), 1U);
-   EXPECT_EQ(sizeof(uint8), 1U);
-   EXPECT_EQ(sizeof(uint16), 2U);
-   EXPECT_EQ(sizeof(uint32), 4U);
-   EXPECT_EQ(sizeof(uint64), 8U);
+  EXPECT_EQ(sizeof(unsigned char), 1U);
+  EXPECT_EQ(sizeof(uint8), 1U);
+  EXPECT_EQ(sizeof(uint16), 2U);
+  EXPECT_EQ(sizeof(uint32), 4U);
+  EXPECT_EQ(sizeof(uint64), 8U);
 
-   EXPECT_EQ(sizeof(char), 1);
-   EXPECT_EQ(sizeof(int8), 1);
-   EXPECT_EQ(sizeof(int16), 2);
-   EXPECT_EQ(sizeof(int32), 4);
-   EXPECT_EQ(sizeof(int64), 8);
+  EXPECT_EQ(sizeof(char), 1);
+  EXPECT_EQ(sizeof(int8), 1);
+  EXPECT_EQ(sizeof(int16), 2);
+  EXPECT_EQ(sizeof(int32), 4);
+  EXPECT_EQ(sizeof(int64), 8);
 
-   EXPECT_EQ(sizeof(float), 4);
-   EXPECT_EQ(sizeof(double), 8);
+  EXPECT_EQ(sizeof(float), 4);
+  EXPECT_EQ(sizeof(double), 8);
 
-   EXPECT_NEAR(Math::PI, 3.141592f, Math::SMALL_NUMBER);
+  EXPECT_NEAR(Math::PI, 3.141592f, Math::SMALL_NUMBER);
 }
 
 
@@ -52,14 +52,14 @@ TEST(xcUtilities, Trigonometrics) {
   EXPECT_FLOAT_EQ(Math::sin(0.f), 0.0f);
   EXPECT_FLOAT_EQ(Math::cos(0.f), 1.0f);
   EXPECT_FLOAT_EQ(Math::tan(0.f), 0.0f);
- 
+
 }
 
 
 TEST(xcUtilities, Math_Basic) {
 
   EXPECT_FLOAT_EQ(Math::sqrt(9.0f), 3.0f);
-  EXPECT_FLOAT_EQ(Math::pow(2.0f,2), 4.0f);
+  EXPECT_FLOAT_EQ(Math::pow(2.0f, 2), 4.0f);
   EXPECT_FLOAT_EQ(Math::abs(-1.0f), 1.0f);
   EXPECT_FLOAT_EQ(Math::log(1.0f), 0.0f);
 }
@@ -447,14 +447,14 @@ TEST(xcUtilities, VectorI4_Math) {
 
 
 TEST(xcUtilities, Matrix3x3_Math) {
-  
+
   Matrix3x3 A(1.0f, 4.0f, 7.0f,
-              2.0f, 5.0f, 8.0f,
-              3.0f, 6.0f, 9.0f);
-                     
+    2.0f, 5.0f, 8.0f,
+    3.0f, 6.0f, 9.0f);
+
   Matrix3x3 B(1.0f, 4.0f, 7.0f,
-              2.0f, 5.0f, 8.0f,
-              3.0f, 6.0f, 9.0f);
+    2.0f, 5.0f, 8.0f,
+    3.0f, 6.0f, 9.0f);
 
   EXPECT_TRUE(A == B);
 
@@ -532,14 +532,14 @@ TEST(xcUtilities, Matrix3x3_Math) {
 TEST(xcUtilities, Matrix4x4_Math) {
 
   Matrix4x4 A(1.0f, 5.0f, 9.0f, 13.0f,
-              2.0f, 6.0f, 10.0f, 14.0f,
-              3.0f, 7.0f, 11.0f, 15.0f,
-              4.0f, 8.0f, 12.0f, 16.0f);
-   
+    2.0f, 6.0f, 10.0f, 14.0f,
+    3.0f, 7.0f, 11.0f, 15.0f,
+    4.0f, 8.0f, 12.0f, 16.0f);
+
   Matrix4x4 B(1.0f, 5.0f, 9.0f, 13.0f,
-              2.0f, 6.0f, 10.0f, 14.0f,
-              3.0f, 7.0f, 11.0f, 15.0f,
-              4.0f, 8.0f, 12.0f, 16.0f);
+    2.0f, 6.0f, 10.0f, 14.0f,
+    3.0f, 7.0f, 11.0f, 15.0f,
+    4.0f, 8.0f, 12.0f, 16.0f);
 
   EXPECT_TRUE(A == B);
 
@@ -633,7 +633,7 @@ TEST(xcUtilities, Matrix4x4_Math) {
   EXPECT_FLOAT_EQ(C.m_matrix[3].m_y, 14.0f);
   EXPECT_FLOAT_EQ(C.m_matrix[3].m_z, 15.0f);
   EXPECT_FLOAT_EQ(C.m_matrix[3].m_w, 16.0f);
-  
+
   C = A * B;
   EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 90.0f);
   EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 100.0f);
@@ -658,10 +658,10 @@ TEST(xcUtilities, Degrees_Math) {
 
   Degrees D = 10.0f;
   Degrees D2 = 20.0f;
- 
+
   Degrees D3 = D + D2;
 
-  
+
   //EXPECT_NEAR(D3.getDegreesIntoRadians(), 30.0f * Math::DEG2RAD, Math::SMALL_NUMBER);
   //EXPECT_FLOAT_EQ(D3.getDegreesIntoRadians(), 0.523599f);
   EXPECT_FLOAT_EQ(D3.getDegrees(), 30.0f);
