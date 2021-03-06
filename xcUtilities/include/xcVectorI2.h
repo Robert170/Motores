@@ -24,7 +24,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum of two vectors
 		 */
 		VectorI2
-		operator + (const VectorI2& V);
+		operator+(const VectorI2& V);
 
 		/**
 		 * @brief      - operator overload
@@ -33,7 +33,7 @@ namespace xcEngineSDK {
 		 * @return     Returns rest of two vectors
 		 */
 		VectorI2
-		operator - (const VectorI2& V);
+		operator-(const VectorI2& V);
 
 		/**
 		 * @brief      * operator overload
@@ -42,16 +42,7 @@ namespace xcEngineSDK {
 		 * @return     Returns multiplication of two vectors
 		 */
 		VectorI2
-		operator * (const VectorI2& V);
-
-		/**
-		 * @brief      / operator overload
-		 * @param      V parameter one, vector for divide
-		 * @bug	       No know Bugs
-		 * @return     Returns division of two vectors
-		 */
-		VectorI2
-			operator / (const VectorI2& V);
+		operator*(const VectorI2& V);
 
 		/**
 		 * @brief      = operator overload
@@ -61,7 +52,7 @@ namespace xcEngineSDK {
 		 *             your vector whit other
 		 */
 		VectorI2
-		operator = (const VectorI2& V);
+		operator=(const VectorI2& V);
 
 		/**
 		 * @brief      + operator overload
@@ -70,7 +61,7 @@ namespace xcEngineSDK {
 		 * @return     Returns true if both vectors are equal
 		 */
 		bool
-		operator == (const VectorI2& V);
+		operator==(const VectorI2& V);
 
 		/**
 		 * @brief      + operator overload
@@ -79,7 +70,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum between a vector and a float
 		 */
 		VectorI2
-		operator + (const int32& V);
+		operator+(const int32& V);
 
 		/**
 		 * @brief      + operator overload
@@ -88,7 +79,7 @@ namespace xcEngineSDK {
 		 * @return     Returns rest between a vector and a float
 		 */
 		VectorI2
-		operator - (const int32& V);
+		operator-(const int32& V);
 
 		/**
 		 * @brief      + operator overload
@@ -97,7 +88,7 @@ namespace xcEngineSDK {
 		 * @return     Returns multiplication between a vector and a float
 		 */
 		VectorI2
-		operator * (const int32& V);
+		operator*(const int32& V);
 
 		/**
 		 * @brief      + operator overload
@@ -106,7 +97,7 @@ namespace xcEngineSDK {
 		 * @return     Returns division between a vector and a float
 		 */
 		VectorI2
-		operator / (const int32& V);
+		operator/(const int32& V);
 
 		/**
 		 * @brief      += operator overload
@@ -116,7 +107,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		VectorI2&
-		operator += (const VectorI2& V);
+		operator+=(const VectorI2& V);
 
 		/**
 		 * @brief      -= operator overload
@@ -126,7 +117,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		VectorI2&
-		operator -= (const VectorI2& V);
+		operator-=(const VectorI2& V);
 
 		/**
 		 * @brief      *= operator overload
@@ -136,18 +127,18 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		VectorI2&
-		operator *= (const VectorI2& V);
+		operator*=(const VectorI2& V);
 
 		/**
-		 * @brief      /= operator overload
-		 * @param      V parameter one, vector for sum
+		 * @brief      != operator overload
+		 * @param      V parameter one, matrix equal
 		 * @bug	       No know Bugs
-		 * @return     Returns the value of the division of
-		 *             your vector whit pother
+		 * @return     Returns a true if the vectors are different
 		 */
-		VectorI2&
-		operator /= (const VectorI2& V);
+		bool
+		operator!=(const VectorI2& V);
 
+		
 		/**
 		 * @brief      normalize function
 		 * @bug	       No know Bugs

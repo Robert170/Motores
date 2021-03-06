@@ -60,16 +60,6 @@ namespace xcEngineSDK {
   }
 
   Matrix3x3 
-  Matrix3x3::operator/(const Matrix3x3& M) {
-    //TODO eliminar o revisar posibles diviciones contra 0
-    Vector3 x = m_matrix[0] / M.m_matrix[0];
-    Vector3 y = m_matrix[1] / M.m_matrix[1];
-    Vector3 z = m_matrix[2] / M.m_matrix[2];
-
-    return Matrix3x3(x, y, z);
-  }
-
-  Matrix3x3 
   Matrix3x3::operator*(const Matrix3x3& M) {
 
     //si se transpone la matriz con la que se multiplica solo es dot entre matrices
@@ -123,12 +113,6 @@ namespace xcEngineSDK {
   Matrix3x3& 
   Matrix3x3::operator-=(const Matrix3x3& M) {
     *this = this->operator-(M);
-    return *this;
-  }
-
-  Matrix3x3& 
-  Matrix3x3::operator/=(const Matrix3x3& M) {
-    *this = this->operator/(M);
     return *this;
   }
 

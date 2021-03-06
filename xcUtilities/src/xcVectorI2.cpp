@@ -23,12 +23,6 @@ namespace xcEngineSDK {
   }
 
   VectorI2
-  VectorI2::operator / (const VectorI2& V) {
-
-    return VectorI2(m_x / V.m_x, m_y / V.m_y);
-  }
-
-  VectorI2
   VectorI2::operator = (const VectorI2& V) {
     m_x = V.m_x;
     m_y = V.m_y;
@@ -94,12 +88,9 @@ namespace xcEngineSDK {
     return *this;
   }
 
-  VectorI2&
-  VectorI2::operator /= (const VectorI2& V) {
-
-    m_x /= V.m_x;
-    m_y /= V.m_y;
-    return *this;
+  bool 
+  VectorI2::operator!=(const VectorI2& V) {
+    return !this->operator==(V);
   }
 
   VectorI2&

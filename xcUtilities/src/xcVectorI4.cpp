@@ -23,12 +23,6 @@ namespace xcEngineSDK {
   }
 
   VectorI4
-  VectorI4::operator / (const VectorI4& V) {
-
-    return VectorI4(m_x / V.m_x, m_y / V.m_y, m_z / V.m_z, m_w / V.m_w);
-  }
-
-  VectorI4
   VectorI4::operator=(const VectorI4& V) {
     m_x = V.m_x;
     m_y = V.m_y;
@@ -75,41 +69,32 @@ namespace xcEngineSDK {
   VectorI4
   VectorI4::operator += (const VectorI4& V) {
 
-    m_x += V.m_x;
-    m_y += V.m_y;
-    m_z += V.m_z;
-    m_w += V.m_w;
+    *this = this->operator+(V);
+
     return *this;
   }
 
   VectorI4
   VectorI4::operator -= (const VectorI4& V) {
 
-    m_x -= V.m_x;
-    m_y -= V.m_y;
-    m_z -= V.m_z;
-    m_w -= V.m_w;
+    *this = this->operator-(V);
+
     return *this;
   }
 
   VectorI4
   VectorI4::operator *= (const VectorI4& V) {
 
-    m_x *= V.m_x;
-    m_y *= V.m_y;
-    m_z *= V.m_z;
-    m_w *= V.m_w;
+    *this = this->operator*(V);
+
     return *this;
   }
 
-  VectorI4
-  VectorI4::operator /= (const VectorI4& V) {
+  bool 
+  VectorI4::operator!=(const VectorI4& V) {
 
-    m_x /= V.m_x;
-    m_y /= V.m_y;
-    m_z /= V.m_z;
-    m_w /= V.m_w;
-    return *this;
+    return !this->operator==(V);
+
   }
 
   VectorI4&

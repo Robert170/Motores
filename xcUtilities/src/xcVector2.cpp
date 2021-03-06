@@ -10,25 +10,20 @@ namespace xcEngineSDK {
 	}
 
 	Vector2
-	Vector2::operator - (const Vector2& V) {
+	Vector2::operator-(const Vector2& V) {
 
 		return Vector2(m_x - V.m_x, m_y - V.m_y);
 	}
 
 	Vector2
-	Vector2::operator * (const Vector2& V) {
+	Vector2::operator*(const Vector2& V) {
 
 		return Vector2(m_x * V.m_x, m_y * V.m_y);
 	}
 
-	Vector2
-	Vector2::operator / (const Vector2& V) {
 
-		return Vector2(m_x / V.m_x, m_y / V.m_y);
-	}
-
-	Vector2
-	Vector2::operator = (const Vector2& V) {
+	Vector2&
+	Vector2::operator=(const Vector2& V) {
 		m_x = V.m_x;
 		m_y = V.m_y;
 		return *this;
@@ -90,14 +85,6 @@ namespace xcEngineSDK {
 
 		m_x *= V.m_x;
 		m_y *= V.m_y;
-		return *this;
-	}
-
-	Vector2&
-	Vector2::operator /= (const Vector2& V) {
-
-		m_x /= V.m_x;
-		m_y /= V.m_y;
 		return *this;
 	}
 

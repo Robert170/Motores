@@ -49,29 +49,13 @@ namespace xcEngineSDK {
 		operator*(const Vector3& V);
 
 		/**
-		 * @brief      / operator overload
-		 * @param      V parameter one, vector for divide
-		 * @bug	       No know Bugs
-		 * @return     Returns division of two vectors
-		 */
-		Vector3
-		operator/(const Vector3& V);
-
-		/**
-		 * @brief      + operator overload
-		 * @param      V parameter one, vector for comparative
-		 * @bug	       No know Bugs
-		 * @return     Returns true if both vectors are equal
-		 */
-
-		/**
 		 * @brief      = operator overload
 		 * @param      V parameter one, vector for equal
 		 * @bug	       No know Bugs
 		 * @return     Returns the value of the equal of
 		 *             your vector whit other
 		 */
-		Vector3
+		Vector3&
 		operator=(const Vector3& V);
 
 
@@ -143,16 +127,6 @@ namespace xcEngineSDK {
 		 */
 		Vector3
 		operator*=(const Vector3& V);
-
-		/**
-		 * @brief      /= operator overload
-		 * @param      V parameter one, vector for sum
-		 * @bug	       No know Bugs
-		 * @return     Returns the value of the division of
-		 *             your vector whit pother
-		 */
-		Vector3
-		operator/=(const Vector3& V);
 
 		/**
 		 * @brief      normalize function

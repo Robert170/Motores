@@ -52,16 +52,6 @@ namespace xcEngineSDK {
     operator-(const Matrix4x4& M);
 
     /**
-     * @brief      / operator overload
-     * @param      M parameter one, matrix for divide
-     * @bug	       No know Bugs
-     * @return     Returns divide of two matrix 4x4
-     */
-    Matrix4x4
-    operator/(const Matrix4x4& M);
-
-
-    /**
      * @brief      * operator overload
      * @param      M parameter one, matrix for multiple
      * @bug	       No know Bugs
@@ -86,7 +76,7 @@ namespace xcEngineSDK {
      * @return     Returns if two matrix are equals
      */
     bool
-    operator == (const Matrix4x4& M);
+    operator==(const Matrix4x4& M);
 
     /**
      * @brief      = operator overload
@@ -113,17 +103,14 @@ namespace xcEngineSDK {
      * @return     Returns a equals between matrix
      */
     Matrix4x4&
-    operator/=(const Matrix4x4& M);
-
-    /**
-     * @brief      = operator overload
-     * @param      M parameter one, matrix equal
-     * @bug	       No know Bugs
-     * @return     Returns a equals between matrix
-     */
-    Matrix4x4&
     operator*=(const Matrix4x4 & M);
 
+    /**
+    * @brief      != operator overload
+    * @param      M parameter one, matrix equal
+    * @bug	       No know Bugs
+    * @return     Returns a true if the matrix are different
+    */
     bool
     operator!=(const Matrix4x4& M);
 

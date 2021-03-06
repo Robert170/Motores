@@ -77,17 +77,6 @@ namespace xcEngineSDK {
   }
 
   Matrix4x4
-  Matrix4x4::operator/(const Matrix4x4& M) {
-
-    Vector4 x = m_matrix[0] / M.m_matrix[0];
-    Vector4 y = m_matrix[1] / M.m_matrix[1];
-    Vector4 z = m_matrix[2] / M.m_matrix[2];
-    Vector4 w = m_matrix[3] / M.m_matrix[3];
-
-    return Matrix4x4(x, y, z, w);
-  }
-
-  Matrix4x4
   Matrix4x4::operator*(const Matrix4x4& M) {
 
     
@@ -149,14 +138,6 @@ namespace xcEngineSDK {
   Matrix4x4::operator-=(const Matrix4x4& M) {
 
     *this = this->operator-(M);
-
-    return *this;
-  }
-
-  Matrix4x4& 
-  Matrix4x4::operator/=(const Matrix4x4& M) {
-
-    *this = this->operator/(M);
 
     return *this;
   }

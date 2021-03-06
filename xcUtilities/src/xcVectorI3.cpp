@@ -21,13 +21,7 @@ namespace xcEngineSDK {
     return VectorI3(m_x * V.m_x, m_y * V.m_y, m_z * V.m_z);
   }
 
-  VectorI3
-  VectorI3::operator / (const VectorI3& V) {
-
-    return VectorI3(m_x / V.m_x, m_y / V.m_y, m_z / V.m_z);
-  }
-
-  VectorI3
+  VectorI3&
   VectorI3::operator = (const VectorI3& V) {
     m_x = V.m_x;
     m_y = V.m_y;
@@ -73,37 +67,32 @@ namespace xcEngineSDK {
   VectorI3&
   VectorI3::operator += (const VectorI3& V) {
 
-    m_x += V.m_x;
-    m_y += V.m_y;
-    m_z += V.m_z;
+    *this = this->operator+(V);
+
     return *this;
   }
 
   VectorI3&
   VectorI3::operator -= (const VectorI3& V) {
 
-    m_x -= V.m_x;
-    m_y -= V.m_y;
-    m_z -= V.m_z;
+    *this = this->operator-(V);
+
     return *this;
   }
 
   VectorI3&
   VectorI3::operator *= (const VectorI3& V) {
 
-    m_x *= V.m_x;
-    m_y *= V.m_y;
-    m_z *= V.m_z;
+    *this = this->operator*(V);
+
     return *this;
   }
 
-  VectorI3&
-  VectorI3::operator /= (const VectorI3& V) {
 
-    m_x /= V.m_x;
-    m_y /= V.m_y;
-    m_z /= V.m_z;
-    return *this;
+  bool 
+  VectorI3::operator!=(const VectorI3& V) {
+
+    return !this->operator==(V);
   }
 
   VectorI3&

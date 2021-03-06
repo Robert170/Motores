@@ -54,15 +54,6 @@ namespace xcEngineSDK {
 		operator * (const VectorI4& V);
 
 		/**
-		 * @brief      / operator overload
-		 * @param      V parameter one, vector for divide
-		 * @bug	       No know Bugs
-		 * @return     Returns division of two vectors
-		 */
-		VectorI4
-		operator / (const VectorI4& V);
-
-		/**
 		 * @brief      = operator overload
 		 * @param      V parameter one, vector for equal
 		 * @bug	       No know Bugs
@@ -148,14 +139,13 @@ namespace xcEngineSDK {
 		operator *= (const VectorI4& V);
 
 		/**
-		 * @brief      /= operator overload
-		 * @param      V parameter one, vector for sum
-		 * @bug	       No know Bugs
-		 * @return     Returns the value of the division of
-		 *             your vector whit pother
-		 */
-		VectorI4
-		operator /= (const VectorI4& V);
+     * @brief      != operator overload
+     * @param      V parameter one, matrix equal
+     * @bug	       No know Bugs
+     * @return     Returns a true if the vectors are different
+     */
+    bool
+    operator!=(const VectorI4& V);
 
 		/**
 		 * @brief      normalize function

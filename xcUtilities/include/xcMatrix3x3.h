@@ -70,15 +70,6 @@ namespace xcEngineSDK {
     Matrix3x3
     operator-(const Matrix3x3& M);
 
-    /**
-     * @brief      / operator overload
-     * @param      M parameter one, matrix for divide
-     * @bug	       No know Bugs
-     * @return     Returns divide of two matrix 3x3
-     */
-    Matrix3x3
-    operator/(const Matrix3x3& M);
-
 
     /**
      * @brief      * operator overload
@@ -132,18 +123,14 @@ namespace xcEngineSDK {
      * @return     Returns a equals between matrix
      */
     Matrix3x3&
-    operator/=(const Matrix3x3& M);
-
-    /**
-     * @brief      = operator overload
-     * @param      M parameter one, matrix equal
-     * @bug	       No know Bugs
-     * @return     Returns a equals between matrix
-     */
-    Matrix3x3&
     operator*=(const Matrix3x3& M);
 
-
+    /**
+     * @brief      != operator overload
+     * @param      M parameter one, matrix
+     * @bug	       No know Bugs
+     * @return     Returns a true if the matrix are different 
+     */
     bool
     operator!=(const Matrix3x3& M);
 

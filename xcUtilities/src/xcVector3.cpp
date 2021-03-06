@@ -26,16 +26,8 @@ namespace xcEngineSDK {
                    m_z * V.m_z);
   }
 
-  Vector3
-  Vector3::operator / (const Vector3& V) {
-
-    return Vector3(m_x / V.m_x, 
-                   m_y / V.m_y, 
-                   m_z / V.m_z);
-  }
-
-  Vector3
-  Vector3::operator = (const Vector3& V) {
+  Vector3&
+  Vector3::operator=(const Vector3& V) {
 
     m_x = V.m_x;
     m_y = V.m_y;
@@ -44,7 +36,7 @@ namespace xcEngineSDK {
   }
 
   bool
-  Vector3::operator == (const Vector3& V) {
+  Vector3::operator==(const Vector3& V) {
 
     if (m_x == V.m_x && m_y == V.m_y && m_z == V.m_z) {
       return true;
@@ -102,13 +94,6 @@ namespace xcEngineSDK {
     return *this;
   }
 
-  Vector3
-  Vector3::operator /= (const Vector3& V) {
-
-    *this = this->operator/(V);
-
-    return *this;
-  }
 
   Vector3&
   Vector3::normalize() {

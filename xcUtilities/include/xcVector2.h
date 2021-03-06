@@ -10,12 +10,14 @@ namespace xcEngineSDK {
 	{
 
 	 public:
+
+		 Vector2() = default;
+     ~Vector2() = default;
+
+
 		Vector2(float x, float y = 0.f)
 			      :m_x(x), m_y(y) { };
-		Vector2()
-			     :m_x(0.f), m_y(0.f) { };
 
-		~Vector2() = default;
 
 		/**
 		 * @brief      + operator overload
@@ -24,7 +26,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum of two vectors
 		 */
 		Vector2
-		operator + (const Vector2& V);
+		operator+(const Vector2& V);
 
 		/**
 		 * @brief      - operator overload
@@ -33,7 +35,7 @@ namespace xcEngineSDK {
 		 * @return     Returns rest of two vectors
 		 */
 		Vector2
-		operator - (const Vector2& V);
+		operator-(const Vector2& V);
 
 		/**
 		 * @brief      * operator overload
@@ -42,17 +44,7 @@ namespace xcEngineSDK {
 		 * @return     Returns multiplication of two vectors
 		 */
 		Vector2
-		operator * (const Vector2& V);
-
-		/**
-		 * @brief      / operator overload
-		 * @param      V parameter one, vector for divide
-		 * @bug	       No know Bugs
-		 * @return     Returns division of two vectors
-		 */
-		Vector2
-		operator / (const Vector2& V);
-
+		operator*(const Vector2& V);
 
 		/**
 		 * @brief      = operator overload
@@ -61,8 +53,8 @@ namespace xcEngineSDK {
 		 * @return     Returns the value of the equal of
 		 *             your vector whit other
 		 */
-		Vector2
-		operator = (const Vector2& V);
+		Vector2&
+		operator=(const Vector2& V);
 
 		/**
 		 * @brief      + operator overload
@@ -71,7 +63,7 @@ namespace xcEngineSDK {
 		 * @return     Returns true if both vectors are equal
 		 */
 		bool
-		operator == (const Vector2& V);
+		operator==(const Vector2& V);
 
 		/**
 		 * @brief      + operator overload
@@ -80,7 +72,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum between a vector and a float
 		 */
 		Vector2
-		operator + (const float& V);
+		operator+(const float& V);
 
 		/**
 		 * @brief      + operator overload
@@ -89,7 +81,7 @@ namespace xcEngineSDK {
 		 * @return     Returns rest between a vector and a float
 		 */
 		Vector2
-		operator - (const float& V);
+		operator-(const float& V);
 
 		/**
 		 * @brief      + operator overload
@@ -98,7 +90,7 @@ namespace xcEngineSDK {
 		 * @return     Returns multiplication between a vector and a float
 		 */
 		Vector2
-		operator * (const float& V);
+		operator*(const float& V);
 
 		/**
 		 * @brief      + operator overload
@@ -117,7 +109,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		Vector2&
-		operator += (const Vector2& V);
+		operator+=(const Vector2& V);
 
 		/**
 		 * @brief      -= operator overload
@@ -127,7 +119,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		Vector2&
-		operator -= (const Vector2& V);
+		operator-=(const Vector2& V);
 
 		/**
 		 * @brief      *= operator overload
@@ -137,17 +129,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		Vector2&
-		operator *= (const Vector2& V);
-
-		/**
-		 * @brief      /= operator overload
-		 * @param      V parameter one, vector for sum
-		 * @bug	       No know Bugs
-		 * @return     Returns the value of the division of
-		 *             your vector whit pother
-		 */
-		Vector2&
-		operator /= (const Vector2& V);
+		operator*=(const Vector2& V);
 
 
 		/**

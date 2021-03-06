@@ -20,13 +20,7 @@ namespace xcEngineSDK {
     return Vector4(m_x * V.m_x, m_y * V.m_y, m_z * V.m_z, m_w * V.m_w);
   }
 
-  Vector4
-  Vector4::operator / (const Vector4& V) {
-
-    return Vector4(m_x / V.m_x, m_y / V.m_y, m_z / V.m_z, m_w / V.m_w);
-  }
-
-  Vector4
+  Vector4&
   Vector4::operator = (const Vector4& V) {
     m_x = V.m_x;
     m_y = V.m_y;
@@ -106,13 +100,6 @@ namespace xcEngineSDK {
     return *this;
   }
 
-  Vector4
-  Vector4::operator/=(const Vector4& V) {
-
-    *this = this->operator/(V);
-
-    return *this;
-  }
 
   Vector4&
   Vector4::normalize() {
