@@ -6,4 +6,74 @@
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CConstantBufferDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CDepthStencilViewDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CDXGraphiAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CIndexBufferDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CInputLayoutDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CPixelShaderDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CRasterizerStateDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CSamplerStateDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CTextureDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CVertexBufferDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CVertexShaderDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\CConstantBufferDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CDepthStencilViewDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CDXGraphiAPI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CIndexBufferDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CInputLayoutDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CPixelShaderDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CRasterizerStateDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CSamplerStateDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CTextureDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CVertexBufferDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CVertexShaderDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

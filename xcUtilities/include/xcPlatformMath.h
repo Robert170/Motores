@@ -11,71 +11,71 @@ namespace xcEngineSDK {
     //square root and float square root 
     template<typename Type>
     static Type
-      sqrt(Type val) {
+    sqrt(Type val) {
       return std::sqrt(val);
     }
 
     template<>
     static float
-      sqrt(float val) {
+    sqrt(float val) {
       return std::sqrtf(val);
     }
 
     //pow root and float pow 
-    template<typename Type>
+    template<typename Type, typename Type2>
     static Type
-      pow(Type val, int32 ex) {
+    pow(Type val, Type2 ex) {
       return std::pow(val, ex);
     }
 
     template<>
     static float
-      pow(float val, int32 ex) {
+    pow(float val, float ex) {
       return std::powf(val, ex);
     }
 
     template<typename Type>
     static Type
-      abs(Type val) {
+    abs(Type val) {
       return std::abs(val);
     }
 
     //sin and float sin 
     template<typename Type>
     static Type
-      sin(Type val) {
+    sin(Type val) {
       return std::sin(val);
     }
 
     template<>
     static float
-      sin(float val) {
+    sin(float val) {
       return std::sinf(val);
     }
 
     //sinh and float sinh 
     template<typename Type>
     static Type
-      sinh(Type val) {
+    sinh(Type val) {
       return std::sinh(val);
     }
 
     template<>
     static float
-      sinh(float val) {
+    sinh(float val) {
       return std::sinhf(val);
     }
 
     //cos and float cos
     template<typename Type>
     static Type
-      cos(Type val) {
+    cos(Type val) {
       return std::cos(val);
     }
 
     template<>
     static float
-      cos(float val) {
+    cos(float val) {
       return std::cosh(val);
     }
 
@@ -83,39 +83,39 @@ namespace xcEngineSDK {
     //cos and float cosh
     template<typename Type>
     static Type
-      cosh(Type val) {
+    cosh(Type val) {
       return std::cosh(val);
     }
 
     template<>
     static float
-      cosh(float val) {
+    cosh(float val) {
       return std::coshf(val);
     }
 
     //tan and float tan
     template<typename Type>
     static Type
-      tan(Type val) {
+    tan(Type val) {
       return std::tan(val);
     }
 
     template<>
     static float
-      tan(float val) {
+    tan(float val) {
       return std::tanf(val);
     }
 
     //tanh and float tanh
     template<typename Type>
     static Type
-      tanh(Type val) {
+    tanh(Type val) {
       return std::tanh(val);
     }
 
     template<>
     static float
-      tanh(float val) {
+    tanh(float val) {
       return std::tanhf(val);
     }
 
@@ -123,13 +123,13 @@ namespace xcEngineSDK {
     //log and float log
     template<typename Type>
     static Type
-      log(Type val) {
+    log(Type val) {
       return std::log(val);
     }
 
     template<>
     static float
-      log(float val) {
+    log(float val) {
       return std::logf(val);
     }
 

@@ -662,7 +662,7 @@ TEST(xcUtilities, Degrees_Math) {
   Degrees D3 = D + D2;
 
 
-  //EXPECT_NEAR(D3.getDegreesIntoRadians(), 30.0f * Math::DEG2RAD, Math::SMALL_NUMBER);
+  EXPECT_NEAR(D3.getDegreesIntoRadians(), 30.0f * Math::DEG2RAD, Math::SMALL_NUMBER);
   //EXPECT_FLOAT_EQ(D3.getDegreesIntoRadians(), 0.523599f);
   EXPECT_FLOAT_EQ(D3.getDegrees(), 30.0f);
 
