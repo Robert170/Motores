@@ -11,7 +11,7 @@ namespace xcEngineSDK {
   {
    public:
 
-    Matrix4x4() = default;
+    Matrix4x4();
 
     ~Matrix4x4() = default;
 
@@ -116,7 +116,9 @@ namespace xcEngineSDK {
 
    public:
 
-     Vector4 m_matrix[4];
+    Vector4 m_matrix[4];
+
+    static const Matrix4x4 IDENTITY_MATRIX;
 
   };
 }

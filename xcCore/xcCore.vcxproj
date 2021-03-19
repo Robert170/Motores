@@ -18,6 +18,41 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\xcCamera.cpp" />
+    <ClCompile Include="src\xcConstantBuffer.cpp" />
+    <ClCompile Include="src\xcDepthStencilView.cpp" />
+    <ClCompile Include="src\xcGraphiAPI.cpp" />
+    <ClCompile Include="src\xcIndexBuffer.cpp" />
+    <ClCompile Include="src\xcInputLayout.cpp" />
+    <ClCompile Include="src\xcMesh.cpp" />
+    <ClCompile Include="src\xcModel.cpp" />
+    <ClCompile Include="src\xcPixelShader.cpp" />
+    <ClCompile Include="src\xcRasterizerState.cpp" />
+    <ClCompile Include="src\xcSamplerState.cpp" />
+    <ClCompile Include="src\xcShaderProgram.cpp" />
+    <ClCompile Include="src\xcTexture.cpp" />
+    <ClCompile Include="src\xcVertexBuffer.cpp" />
+    <ClCompile Include="src\xcVertexShader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\xcCamera.h" />
+    <ClInclude Include="include\xcConstantBuffer.h" />
+    <ClInclude Include="include\xcDepthStencilView.h" />
+    <ClInclude Include="include\xcGraphiAPI.h" />
+    <ClInclude Include="include\xcIndexBuffer.h" />
+    <ClInclude Include="include\xcInputLayout.h" />
+    <ClInclude Include="include\xcMesh.h" />
+    <ClInclude Include="include\xcModel.h" />
+    <ClInclude Include="include\xcPixelShader.h" />
+    <ClInclude Include="include\xcRasterizerState.h" />
+    <ClInclude Include="include\xcSamplerState.h" />
+    <ClInclude Include="include\xcShaderProgram.h" />
+    <ClInclude Include="include\xcTexture.h" />
+    <ClInclude Include="include\xcVertexBuffer.h" />
+    <ClInclude Include="include\xcVertexShader.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -100,7 +135,7 @@
       <ConformanceMode>Default</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -120,7 +155,7 @@
       <ConformanceMode>Default</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -140,14 +175,14 @@
       <ConformanceMode>Default</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>xcUtilities_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)/Assimp\Librerias x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>xcUtilities_d.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
@@ -160,7 +195,7 @@
       <ConformanceMode>Default</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -169,38 +204,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>xcUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xcUtilities.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\CCamera.cpp" />
-    <ClCompile Include="src\CConstantBuffer.cpp" />
-    <ClCompile Include="src\CDepthStencilView.cpp" />
-    <ClCompile Include="src\CGraphiAPI.cpp" />
-    <ClCompile Include="src\CIndexBuffer.cpp" />
-    <ClCompile Include="src\CInputLayout.cpp" />
-    <ClCompile Include="src\CPixelShader.cpp" />
-    <ClCompile Include="src\CRasterizerState.cpp" />
-    <ClCompile Include="src\CSamplerState.cpp" />
-    <ClCompile Include="src\CTexture.cpp" />
-    <ClCompile Include="src\CVertexBuffer.cpp" />
-    <ClCompile Include="src\CVertexShader.cpp" />
-    <ClCompile Include="src\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\CCamera.h" />
-    <ClInclude Include="include\CConstantBuffer.h" />
-    <ClInclude Include="include\CDepthStencilView.h" />
-    <ClInclude Include="include\CGraphiAPI.h" />
-    <ClInclude Include="include\CIndexBuffer.h" />
-    <ClInclude Include="include\CInputLayout.h" />
-    <ClInclude Include="include\CPixelShader.h" />
-    <ClInclude Include="include\CRasterizerState.h" />
-    <ClInclude Include="include\CSamplerState.h" />
-    <ClInclude Include="include\CTexture.h" />
-    <ClInclude Include="include\CVertexBuffer.h" />
-    <ClInclude Include="include\CVertexShader.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

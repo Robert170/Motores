@@ -1,6 +1,10 @@
 #include "xcMatrix4x4.h"
 namespace xcEngineSDK {
-  Matrix4x4::Matrix4x4(float _xx, float _yx, float _zx, float _wx,
+    Matrix4x4::Matrix4x4() {
+
+      
+    }
+    Matrix4x4::Matrix4x4(float _xx, float _yx, float _zx, float _wx,
                        float _xy, float _yy, float _zy, float _wy,
                        float _xz, float _yz, float _zz, float _wz,
                        float _xw, float _yw, float _zw, float _ww) {

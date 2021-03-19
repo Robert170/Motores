@@ -18,6 +18,34 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\xcConstantBufferOGL.h" />
+    <ClInclude Include="include\xcDepthStencilViewOGL.h" />
+    <ClInclude Include="include\xcIndexBufferOGL.h" />
+    <ClInclude Include="include\xcInputLayoutOGL.h" />
+    <ClInclude Include="include\xcOGLGraphiAPI.h" />
+    <ClInclude Include="include\xcPixelShaderOGL.h" />
+    <ClInclude Include="include\xcRasterizerStateOGL.h" />
+    <ClInclude Include="include\xcSamplerStateOGL.h" />
+    <ClInclude Include="include\xcShaderProgramOGL.h" />
+    <ClInclude Include="include\xcTextureOGL.h" />
+    <ClInclude Include="include\xcVertexBufferOGL.h" />
+    <ClInclude Include="include\xcVertexShaderOGL.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\xcConstantBufferOGL.cpp" />
+    <ClCompile Include="src\xcDepthStencilViewOGL.cpp" />
+    <ClCompile Include="src\xcIndexBufferOGL.cpp" />
+    <ClCompile Include="src\xcInputLayoutOGL.cpp" />
+    <ClCompile Include="src\xcOGLGraphiAPI.cpp" />
+    <ClCompile Include="src\xcPixelShaderOGL.cpp" />
+    <ClCompile Include="src\xcRasterizerStateOGL.cpp" />
+    <ClCompile Include="src\xcSamplerStateOGL.cpp" />
+    <ClCompile Include="src\xcShaderProgramOGL.cpp" />
+    <ClCompile Include="src\xcTextureOGL.cpp" />
+    <ClCompile Include="src\xcVertexBufferOGL.cpp" />
+    <ClCompile Include="src\xcVertexShaderOGL.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -99,7 +127,7 @@
       <PreprocessorDefinitions>XC_UTILITY_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(SolutionDir)xcCore/include/glfw-3.3.2.bin.WIN32/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/OpenGL/glad;$(DEVLIBS)/OpenGL/KHR;$(SolutionDir)xcCore/include;$(DEVLIBS)/OpenGL/glfw-3.3.2.bin.WIN32/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,7 +145,7 @@
       <PreprocessorDefinitions>XC_UTILITY_EXPORTS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(SolutionDir)xcCore/include/glfw-3.3.2.bin.WIN32/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/OpenGL/glad;$(DEVLIBS)/OpenGL/KHR;$(SolutionDir)xcCore/include;$(DEVLIBS)/OpenGL/glfw-3.3.2.bin.WIN32/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,7 +163,7 @@
       <PreprocessorDefinitions>XC_UTILITY_EXPORTS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(SolutionDir)xcCore/include/glfw-3.3.2.bin.WIN64/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/OpenGL/glad;$(DEVLIBS)/OpenGL/KHR;$(SolutionDir)xcCore/include;$(DEVLIBS)/OpenGL/glfw-3.3.2.bin.WIN64/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,7 +181,7 @@
       <PreprocessorDefinitions>XC_UTILITY_EXPORTS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(SolutionDir)xcCore/include/glfw-3.3.2.bin.WIN64/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/OpenGL/glad;$(DEVLIBS)/OpenGL/KHR;$(SolutionDir)xcCore/include;$(DEVLIBS)/OpenGL/glfw-3.3.2.bin.WIN64/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,32 +192,6 @@
       <AdditionalDependencies>xcUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\CConstantBufferOGL.cpp" />
-    <ClCompile Include="src\CDepthStencilViewOGL.cpp" />
-    <ClCompile Include="src\CIndexBufferOGL.cpp" />
-    <ClCompile Include="src\CInputLayoutOGL.cpp" />
-    <ClCompile Include="src\COGLGraphiAPI.cpp" />
-    <ClCompile Include="src\CPixelShaderOGL.cpp" />
-    <ClCompile Include="src\CRasterizerStateOGL.cpp" />
-    <ClCompile Include="src\CSamplerStateOGL.cpp" />
-    <ClCompile Include="src\CTextureOGL.cpp" />
-    <ClCompile Include="src\CVertexBufferOGL.cpp" />
-    <ClCompile Include="src\CVertexShaderOGL.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\CConstantBufferOGL.h" />
-    <ClInclude Include="include\CDepthStencilViewOGL.h" />
-    <ClInclude Include="include\CIndexBufferOGL.h" />
-    <ClInclude Include="include\CInputLayoutOGL.h" />
-    <ClInclude Include="include\COGLGraphiAPI.h" />
-    <ClInclude Include="include\CPixelShaderOGL.h" />
-    <ClInclude Include="include\CRasterizerStateOGL.h" />
-    <ClInclude Include="include\CSamplerStateOGL.h" />
-    <ClInclude Include="include\CTextureOGL.h" />
-    <ClInclude Include="include\CVertexBufferOGL.h" />
-    <ClInclude Include="include\CVertexShaderOGL.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

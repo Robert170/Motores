@@ -5,75 +5,84 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\Prerequisites">
+      <UniqueIdentifier>{abf441f0-cef9-4f11-ac85-d529b49b9e0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\CConstantBufferOGL.cpp">
+    <ClInclude Include="include\xcConstantBufferOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CDepthStencilViewOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcDepthStencilViewOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CIndexBufferOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcIndexBufferOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CInputLayoutOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcInputLayoutOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\COGLGraphiAPI.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcOGLGraphiAPI.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CPixelShaderOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcPixelShaderOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CRasterizerStateOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcRasterizerStateOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CSamplerStateOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcSamplerStateOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CTextureOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcShaderProgramOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CVertexBufferOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcTextureOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CVertexShaderOGL.cpp">
+    </ClInclude>
+    <ClInclude Include="include\xcVertexBufferOGL.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
+    </ClInclude>
+    <ClInclude Include="include\xcVertexShaderOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\CConstantBufferOGL.h">
+    <ClCompile Include="src\xcConstantBufferOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CDepthStencilViewOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcDepthStencilViewOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CIndexBufferOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcIndexBufferOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CInputLayoutOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcInputLayoutOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\COGLGraphiAPI.h">
+    </ClCompile>
+    <ClCompile Include="src\xcOGLGraphiAPI.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CPixelShaderOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcPixelShaderOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CRasterizerStateOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcRasterizerStateOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CSamplerStateOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcSamplerStateOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CTextureOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcShaderProgramOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CVertexBufferOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcTextureOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CVertexShaderOGL.h">
+    </ClCompile>
+    <ClCompile Include="src\xcVertexBufferOGL.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
+    </ClCompile>
+    <ClCompile Include="src\xcVertexShaderOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

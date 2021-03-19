@@ -1,7 +1,9 @@
 //#include "CGraphiAPI.h"
 //#include "COGLGraphiAPI.h"
 //#include "CDXGraphiAPI.h"
+//#include "CModel.h"
 //#include <windows.h>
+//
 //
 //CGraphiAPI* API = new CDXGraphiAPI();
 ////CGraphiAPI* API = new COGLGraphiAPI();
@@ -20,12 +22,12 @@
 ////Shader
 //CVertexShader* g_pVertexShader = nullptr;
 //CPixelShader* g_pPixelShader = nullptr;
-//
+//CShaderProgram* g_pShaderProgram = nullptr;
 //CInputLayout* g_pInputLayout = nullptr;
 //
 ////Buffers
-//CVertexBuffer* g_pVertexBuffer = nullptr;
-//CIndexBuffer* g_pIndexBuffer = nullptr;
+////CVertexBuffer* g_pVertexBuffer = nullptr;
+////CIndexBuffer* g_pIndexBuffer = nullptr;
 //CConstantBuffer* g_pCBNeverChanges = nullptr;
 //
 ////Sampler
@@ -42,6 +44,7 @@
 //
 //InputLayout_Desc g_InpLayDesc;
 //
+//CModel* g_Model;
 //
 //
 //struct CBNeverChanges
@@ -54,26 +57,7 @@
 //
 //CBNeverChanges g_ConstantBuffer;
 //
-//std::vector<uint32_t> indices =
-//{
-//	3,1,0,
-//	2,1,3,
 //
-//	6,4,5,
-//	7,4,6,
-//
-//	11,9,8,
-//	10,9,11,
-//
-//	14,12,13,
-//	15,12,14,
-//
-//	19,17,16,
-//	18,17,19,
-//
-//	22,20,21,
-//	23,20,22
-//};
 //
 //void Init()
 //{
@@ -91,41 +75,61 @@
 //	glm::vec3 At = { 0.0f, 1.0f, 0.0f };
 //	glm::vec3 Up = { 0.0f, 1.0f, 0.0f };
 //
+//	/*std::vector<uint32_t> indices =
+//	{
+//		3,1,0,
+//		2,1,3,
+//
+//		6,4,5,
+//		7,4,6,
+//
+//		11,9,8,
+//		10,9,11,
+//
+//		14,12,13,
+//		15,12,14,
+//
+//		19,17,16,
+//		18,17,19,
+//
+//		22,20,21,
+//		23,20,22
+//	};*/
 //	
 //
-//	std::vector<SimpleVertex> vertices =
-//	{
-//		// positions                    // texture coords
-//		{glm::vec3(-1.0f, 1.0f, -1.0f),  glm::vec2(0.0f, 0.0f) },
-//		{glm::vec3(1.0f, 1.0f, -1.0f),   glm::vec2(1.0f, 0.0f) },
-//		{glm::vec3(1.0f, 1.0f, 1.0f),    glm::vec2(1.0f, 1.0f) },
-//		{glm::vec3(-1.0f, 1.0f, 1.0f),   glm::vec2(0.0f, 1.0f) },
+//	//std::vector<SimpleVertex> vertices =
+//	//{
+//	//	// positions                    // texture coords
+//	//	{glm::vec3(-1.0f, 1.0f, -1.0f),  glm::vec2(0.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, 1.0f, -1.0f),   glm::vec2(1.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, 1.0f, 1.0f),    glm::vec2(1.0f, 1.0f) },
+//	//	{glm::vec3(-1.0f, 1.0f, 1.0f),   glm::vec2(0.0f, 1.0f) },
 //
-//		{glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec2(0.0f, 0.0f) },
-//		{glm::vec3(1.0f, -1.0f, -1.0f),  glm::vec2(1.0f, 0.0f) },
-//		{glm::vec3(1.0f, -1.0f, 1.0f),   glm::vec2(1.0f, 1.0f) },
-//		{glm::vec3(-1.0f, -1.0f, 1.0f),  glm::vec2(0.0f, 1.0f) },
+//	//	{glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec2(0.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, -1.0f, -1.0f),  glm::vec2(1.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, -1.0f, 1.0f),   glm::vec2(1.0f, 1.0f) },
+//	//	{glm::vec3(-1.0f, -1.0f, 1.0f),  glm::vec2(0.0f, 1.0f) },
 //
-//		{glm::vec3(-1.0f, -1.0f, 1.0f),  glm::vec2(0.0f, 0.0f) },
-//		{glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec2(1.0f, 0.0f) },
-//		{glm::vec3(-1.0f, 1.0f, -1.0f),  glm::vec2(1.0f, 1.0f) },
-//		{glm::vec3(-1.0f, 1.0f, 1.0f),   glm::vec2(0.0f, 1.0f) },
+//	//	{glm::vec3(-1.0f, -1.0f, 1.0f),  glm::vec2(0.0f, 0.0f) },
+//	//	{glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec2(1.0f, 0.0f) },
+//	//	{glm::vec3(-1.0f, 1.0f, -1.0f),  glm::vec2(1.0f, 1.0f) },
+//	//	{glm::vec3(-1.0f, 1.0f, 1.0f),   glm::vec2(0.0f, 1.0f) },
 //
-//		{glm::vec3(1.0f, -1.0f, 1.0f),   glm::vec2(0.0f, 0.0f) },
-//		{glm::vec3(1.0f, -1.0f, -1.0f),  glm::vec2(1.0f, 0.0f) },
-//		{glm::vec3(1.0f, 1.0f, -1.0f),   glm::vec2(1.0f, 1.0f) },
-//		{glm::vec3(1.0f, 1.0f, 1.0f),    glm::vec2(0.0f, 1.0f) },
+//	//	{glm::vec3(1.0f, -1.0f, 1.0f),   glm::vec2(0.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, -1.0f, -1.0f),  glm::vec2(1.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, 1.0f, -1.0f),   glm::vec2(1.0f, 1.0f) },
+//	//	{glm::vec3(1.0f, 1.0f, 1.0f),    glm::vec2(0.0f, 1.0f) },
 //
-//		{glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec2(0.0f, 0.0f) },
-//		{glm::vec3(1.0f, -1.0f, -1.0f),  glm::vec2(1.0f, 0.0f) },
-//		{glm::vec3(1.0f, 1.0f, -1.0f),   glm::vec2(1.0f, 1.0f) },
-//		{glm::vec3(-1.0f, 1.0f, -1.0f),  glm::vec2(0.0f, 1.0f) },
+//	//	{glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec2(0.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, -1.0f, -1.0f),  glm::vec2(1.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, 1.0f, -1.0f),   glm::vec2(1.0f, 1.0f) },
+//	//	{glm::vec3(-1.0f, 1.0f, -1.0f),  glm::vec2(0.0f, 1.0f) },
 //
-//		{glm::vec3(-1.0f, -1.0f, 1.0f),  glm::vec2(0.0f, 0.0f) },
-//		{glm::vec3(1.0f, -1.0f, 1.0f),   glm::vec2(1.0f, 0.0f) },
-//		{glm::vec3(1.0f, 1.0f, 1.0f),    glm::vec2(1.0f, 1.0f) },
-//		{glm::vec3(-1.0f, 1.0f, 1.0f),   glm::vec2(0.0f, 1.0f) },
-//	};
+//	//	{glm::vec3(-1.0f, -1.0f, 1.0f),  glm::vec2(0.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, -1.0f, 1.0f),   glm::vec2(1.0f, 0.0f) },
+//	//	{glm::vec3(1.0f, 1.0f, 1.0f),    glm::vec2(1.0f, 1.0f) },
+//	//	{glm::vec3(-1.0f, 1.0f, 1.0f),   glm::vec2(0.0f, 1.0f) },
+//	//};
 //
 //
 //	g_MeshColor.x = 1;
@@ -162,16 +166,26 @@
 //
 //	g_vShaderResources.push_back(g_pShaderResource);*/
 //
+//
+//	g_pShaderProgram = API->CreateShaderProgram("VS", 
+//		                                        "PS", 
+//		                                        "VS", 
+//		                                        "PS", 
+//		                                        "vs_4_0", 
+//		                                        "ps_4_0", 
+//		                                        1,
+//		                                        1);
 //	// Create the vertex shader
-//	g_pVertexShader = API->CreateVertexShaders("Tutorial07.fx",
-//			                                    "VS",
-//			                                    "vs_4_0",
-//			                                     1);
+//	/*g_pVertexShader = API->CreateVertexShaders("VS",
+//			                                   "VS",
+//			                                   "vs_4_0",
+//			                                    1);*/
 //
 //    /*g_pVertexShader = API->CreateVertexShaders("Tutorial07.fx",
 //			                                   "VS",
 //			                                   "vs_4_0", 
 //		                                        1);*/
+//
 //
 //	//Set semantic 
 //	g_InpLayDesc.Semantics.push_back("POSITION");
@@ -180,15 +194,22 @@
 //	g_InpLayDesc.Formats.push_back(TF_R32G32B32_FLOAT);
 //	g_InpLayDesc.Formats.push_back(TF_R32G32_FLOAT);
 //
+//	g_Model = new CModel();
+//	g_Model->Init("Modelo/Scene.fbx", 
+//		          API, 
+//		          g_InpLayDesc);
+//	
+//
+//
 //	// Create the input layout
-//	g_pInputLayout = API->CreateInputLayout(*g_pVertexShader,
+//	g_pInputLayout = API->CreateInputLayout(*g_pShaderProgram,
 //		                                    g_InpLayDesc,1);
 //
 //	// Create the pixel shader
-//	g_pPixelShader = API->CreatePixelShaders("Tutorial07.fx",
+//	/*g_pPixelShader = API->CreatePixelShaders("PS",
 //		                                     "PS",
 //		                                     "ps_4_0",
-//		                                     1);
+//		                                     1);*/
 //	/*g_pPixelShader = API->CreatePixelShaders("Tutorial07.fx",
 //		                                     "PS",
 //		                                     "ps_4_0", 
@@ -196,16 +217,37 @@
 //
 //	// Create vertex buffer
 //
-//	g_pVertexBuffer = API->CreateVertexBuffer(vertices,
-//		                                      vertices.size(),1);
+//	/*g_pVertexBuffer = API->CreateVertexBuffer(vertices,
+//		                                      vertices.size(),1);*/
 //
 //	// Create index buffer
-//	g_pIndexBuffer = API->CreateIndexBuffer(indices,
-//		                                    indices.size(),1);
+//	/*g_pIndexBuffer = API->CreateIndexBuffer(indices,
+//		                                    indices.size(),
+//		                                    1);*/
 //
 //	// Create the constant buffers
 //
-//	g_pCBNeverChanges = API->CreateConstantBuffer(sizeof(CBNeverChanges),1, &g_ConstantBuffer);
+//	
+//
+//	g_ConstantBuffer.mView = API->InitMatrixView(g_View,
+//		                                         Eye,
+//		                                         At,
+//		                                         Up);
+//
+//	g_ConstantBuffer.mProjection = API->InitMatrixProjection(g_Projection,
+//		                                                     Data.Fov,
+//		                                                     Data.H,
+//		                                                     Data.W,
+//		                                                     Data.Near,
+//		                                                     Data.Far);
+//
+//	g_ConstantBuffer.mWorld = API->InitMatrixWorld(g_World);
+//	
+//	g_ConstantBuffer.vMeshColor = g_MeshColor;
+//
+//	g_pCBNeverChanges = API->CreateConstantBuffer(sizeof(CBNeverChanges),
+//		                                          1, 
+//		                                          &g_ConstantBuffer);
 //
 //	g_vConstantBuffers.push_back(g_pCBNeverChanges);
 //
@@ -215,33 +257,11 @@
 //
 //	//g_vSamplers.push_back(g_pSamplerState);
 //
-//	////Init World Matrix
-//	g_World = glm::mat4(1.0);
-//
-//	////init view matrix
-//	g_View = glm::lookAtLH(Eye, 
-//		                   At,
-//		                   Up);
-//
-//	
-//
-//	////init projection matrix
-//	g_Projection = glm::perspectiveFovLH(Data.Fov,
-//		                                 Data.H,
-//		                                 Data.W,
-//		                                 Data.Near,
-//		                                 Data.Far);
-//	
-//	
 //}
 //
 //void Update()
 //{
-//	//g_ConstantBuffer.mView = glm::transpose(g_View);
-//	g_ConstantBuffer.mView = glm::transpose(g_View);
-//	g_ConstantBuffer.mProjection = glm::transpose(g_Projection);
-//	g_ConstantBuffer.mWorld = glm::transpose(g_World);
-//	g_ConstantBuffer.vMeshColor = g_MeshColor;
+//	
 //
 //	API->UpdateSubresource(&g_ConstantBuffer,
 //		                   *g_pCBNeverChanges);
@@ -274,15 +294,15 @@
 //	API->SetInputLayout(g_pInputLayout);
 //
 //	//set vertex buffer
-//	API->SetVertexBuffer(g_pVertexBuffer,
-//		                 0,
-//		                 1,
-//		                 sizeof(SimpleVertex),
-//		                 0);
+//	//API->SetVertexBuffer(g_pVertexBuffer,
+//	//	                 0,
+//	//	                 1,
+//	//	                 sizeof(SimpleVertex),
+//	//	                 0);
 //
-//	//set index buffer
-//	API->SetIndexBuffer(g_pIndexBuffer, 
-//		                0);
+//	////set index buffer
+//	//API->SetIndexBuffer(g_pIndexBuffer, 
+//	//	                0);
 //
 //	// Set primitive topology
 //	API->SetPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -297,10 +317,11 @@
 //
 //	API->ClearDefaultRenderTargetAndDepthStencil(Color);
 //
-//	
+//	//shader program
+//	API->SetShaderProgram(g_pShaderProgram);
 //
 //	//set vertex shader
-//	API->SetVertexShaders(g_pVertexShader);
+//	//API->SetVertexShaders(g_pVertexShader);
 //
 //	//set all vertex shader constant buffer
 //
@@ -311,7 +332,7 @@
 //	
 //
 //	//set pixel shader
-//	API->SetPixelShaders(g_pPixelShader);
+//	//API->SetPixelShaders(g_pPixelShader);
 //
 //	//set pixel shader constant buffer
 //
@@ -324,11 +345,11 @@
 //
 //	/*API->SetSamplerState(g_vSamplers,
 //		                 0);*/
-//
-//	API->DrawIndexed(36,
+//	g_Model->Draw(*g_pShaderProgram, API);
+//	/*API->DrawIndexed(36,
 //		             0,
 //		             0,
-//		             &indices);
+//		             nullptr);*/
 //	API->Present();
 //}
 //
@@ -362,10 +383,10 @@
 //	}
 //
 //	//vertex buffer
-//	delete g_pVertexBuffer;
+//	//delete g_pVertexBuffer;
 //
 //	//index buffer
-//	delete g_pIndexBuffer;
+//	//delete g_pIndexBuffer;
 //
 //	//input layout
 //	delete g_pInputLayout;

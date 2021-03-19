@@ -18,6 +18,34 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\xcConstantBufferDX.h" />
+    <ClInclude Include="include\xcDepthStencilViewDX.h" />
+    <ClInclude Include="include\xcDXGraphiAPI.h" />
+    <ClInclude Include="include\xcIndexBufferDX.h" />
+    <ClInclude Include="include\xcInputLayoutDX.h" />
+    <ClInclude Include="include\xcPixelShaderDX.h" />
+    <ClInclude Include="include\xcRasterizerStateDX.h" />
+    <ClInclude Include="include\xcSamplerStateDX.h" />
+    <ClInclude Include="include\xcShaderProgramDX.h" />
+    <ClInclude Include="include\xcTextureDX.h" />
+    <ClInclude Include="include\xcVertexBufferDX.h" />
+    <ClInclude Include="include\xcVertexShaderDX.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\xcConstantBufferDX.cpp" />
+    <ClCompile Include="src\xcDepthStencilViewDX.cpp" />
+    <ClCompile Include="src\xcDXGraphiAPI.cpp" />
+    <ClCompile Include="src\xcIndexBufferDX.cpp" />
+    <ClCompile Include="src\xcInputLayoutDX.cpp" />
+    <ClCompile Include="src\xcPixelShaderDX.cpp" />
+    <ClCompile Include="src\xcRasterizerStateDX.cpp" />
+    <ClCompile Include="src\xcSamplerStateDX.cpp" />
+    <ClCompile Include="src\xcShaderProgramDX.cpp" />
+    <ClCompile Include="src\xcTextureDX.cpp" />
+    <ClCompile Include="src\xcVertexBufferDX.cpp" />
+    <ClCompile Include="src\xcVertexShaderDX.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -164,32 +192,6 @@
       <AdditionalDependencies>xcUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\CConstantBufferDX.cpp" />
-    <ClCompile Include="src\CDepthStencilViewDX.cpp" />
-    <ClCompile Include="src\CDXGraphiAPI.cpp" />
-    <ClCompile Include="src\CIndexBufferDX.cpp" />
-    <ClCompile Include="src\CInputLayoutDX.cpp" />
-    <ClCompile Include="src\CPixelShaderDX.cpp" />
-    <ClCompile Include="src\CRasterizerStateDX.cpp" />
-    <ClCompile Include="src\CSamplerStateDX.cpp" />
-    <ClCompile Include="src\CTextureDX.cpp" />
-    <ClCompile Include="src\CVertexBufferDX.cpp" />
-    <ClCompile Include="src\CVertexShaderDX.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\CConstantBufferDX.h" />
-    <ClInclude Include="include\CDepthStencilViewDX.h" />
-    <ClInclude Include="include\CDXGraphiAPI.h" />
-    <ClInclude Include="include\CIndexBufferDX.h" />
-    <ClInclude Include="include\CInputLayoutDX.h" />
-    <ClInclude Include="include\CPixelShaderDX.h" />
-    <ClInclude Include="include\CRasterizerStateDX.h" />
-    <ClInclude Include="include\CSamplerStateDX.h" />
-    <ClInclude Include="include\CTextureDX.h" />
-    <ClInclude Include="include\CVertexBufferDX.h" />
-    <ClInclude Include="include\CVertexShaderDX.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
