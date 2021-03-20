@@ -333,6 +333,7 @@ namespace xcEngineSDK {
 		virtual void 
 		init(uint32 width,
 			   uint32 height) {
+
 			initWindow(width, height);
 			createDeviceandSwap();
 		}

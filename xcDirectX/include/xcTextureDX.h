@@ -20,7 +20,7 @@
 
 
 namespace xcEngineSDK {
-	class TextureDX : public Texture
+	class TextureDX : public TextureB
 	{
 	 public:
 		/// Destructor

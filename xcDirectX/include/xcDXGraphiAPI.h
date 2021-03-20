@@ -53,9 +53,9 @@ namespace xcEngineSDK {
 
 
 
-		Texture* m_BackBuffer;
+		TextureB* m_BackBuffer;
 
-		Texture* m_DepthStencil;
+		TextureB* m_DepthStencil;
 
 
 	protected:
@@ -222,7 +222,7 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CTexture
 		 */
-		Texture* 
+		TextureB*
 		createTexture2D(uint32 width,
 			              uint32 height,
 			              uint32 numberTexture, //deberia estar en la clase texture
@@ -436,7 +436,7 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setDepthStencil(Texture* pDSTex) override; ///necesita recibir una textura
+		setDepthStencil(TextureB* pDSTex) override; ///necesita recibir una textura
 
 		/**
 		 * @brief      setRasterizerState function, to set rasteraizer state
@@ -456,8 +456,8 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setRenderTarget(const std::vector<Texture*>& pRTTex,
-			              Texture* pDSTex = nullptr) override;
+		setRenderTarget(const std::vector<TextureB*>& pRTTex,
+			              TextureB* pDSTex = nullptr) override;
 
 		/**
 		 * @brief      setShaderResouerce function, to set shader resource
@@ -468,7 +468,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setShaderResource(const std::vector<Texture*>& pRTTex,
+		setShaderResource(const std::vector<TextureB*>& pRTTex,
 			                uint32 StartSlot = 0) override;
 
 		/**
@@ -516,7 +516,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		clearRenderTarget(Texture* RT,
+		clearRenderTarget(TextureB* RT,
 			                ColorStruct Color) override;
 
 		/**
@@ -529,7 +529,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
 		void 
-		clearDepthStencil(Texture* RT,
+		clearDepthStencil(TextureB* RT,
 			                uint32 ClerFlag = CLEAR_DEPTH,
 			                float Depth = 1.0f,
 			                uint32 Stencil = 0) override;

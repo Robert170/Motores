@@ -37,8 +37,8 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void
-		initWindow(uint32 width,
-				       uint32 height) override;
+		initWindow(unsigned int width,
+				       unsigned int height) override;
 
 		/**
 		 * @brief      createDeviceandSwap function, to create device and swap chain
@@ -137,8 +137,8 @@ namespace xcEngineSDK {
 
 		VertexBuffer* 
 		createVertexBuffer(const std::vector <SimpleVertex>& Ver,
-			                 uint32 BufferSize,
-			                 uint32 NumBuffer = 0) override;
+			                 unsigned int BufferSize,
+			                 unsigned int NumBuffer = 0) override;
 
 		/**
 		 * @brief      createIndexBuffer function, to create index buffer
@@ -149,9 +149,9 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CBuffer
 		 */
 		IndexBuffer* 
-		createIndexBuffer(const std::vector<uint32_t>& Ind,
-			                uint32 BufferSize,
-			                uint32 NumBuffer = 0) override;
+		createIndexBuffer(const std::vector<unsigned int>& Ind,
+			                unsigned int BufferSize,
+			                unsigned int NumBuffer = 0) override;
 
 		/**
 		 * @brief      createConstantBuffer function, to create constant buffer
@@ -163,8 +163,8 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CBuffer
 		 */
 		ConstantBuffer* 
-		createConstantBuffer(uint32 BufferSize,
-			                   uint32 NumBuffer = 0,
+		createConstantBuffer(unsigned int BufferSize,
+			                   unsigned int NumBuffer = 0,
 			                   const void* Data = nullptr) override;
 
 
@@ -187,12 +187,12 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CTexture
 		 */
-		Texture* 
-		createTexture2D(uint32 width,
-			              uint32 height,
-			              uint32 numberTexture, //deberia estar en la clase texture
+		TextureB*
+		createTexture2D(unsigned int width,
+			              unsigned int height,
+			              unsigned int numberTexture, //deberia estar en la clase texture
 			              TEXTURE_FORMAT format = TF_R8G8B8A8_UNORM,
-			              uint32 bindFlags = TEXTURE_BIND_SHADER_RESOURCE,
+			              unsigned int bindFlags = TEXTURE_BIND_SHADER_RESOURCE,
 			              TYPE_USAGE Usage = TYPE_USAGE_DEFAULT) override;
 
 		/**
@@ -267,7 +267,7 @@ namespace xcEngineSDK {
 		InputLayout* 
 		createInputLayout(ShaderProgram& Vertex,
 			                InputLayout_Desc& LayoutDesc,
-			                uint32 NumInputLayout = 0) override; //no va
+			                unsigned int NumInputLayout = 0) override; //no va
 
 		/**
      * @brief      createSamplerState function, to create the sampler state
@@ -276,7 +276,7 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CSamplerState
      */
 		SamplerState* 
-		createSamplerState(uint32 NumSamplerState = 0) override; //no va
+		createSamplerState(unsigned int NumSamplerState = 0) override; //no va
 
 		/**
 		 * @brief      createRasterizerState function, to create the sampler state
@@ -301,10 +301,10 @@ namespace xcEngineSDK {
 		 */
 		void 
 		setVertexBuffer(VertexBuffer* VerBuff,
-			              uint32 StartSlot,
-			              uint32 NumBuffers,
-			              uint32 stride, //deben estar en la clase buffer
-			              uint32 offset) override; //deben estar en la clase buffer
+			              unsigned int StartSlot,
+			              unsigned int NumBuffers,
+			              unsigned int stride, //deben estar en la clase buffer
+			              unsigned int offset) override; //deben estar en la clase buffer
 
     /**
 	   * @brief      setIndexBuffer function, to set index buffer
@@ -315,7 +315,7 @@ namespace xcEngineSDK {
      */
 		void 
 		setIndexBuffer(IndexBuffer* IndBuff,
-			             uint32 offset) override; //deben estar en la clase buffer
+			             unsigned int offset) override; //deben estar en la clase buffer
 
 
 		/**
@@ -329,8 +329,8 @@ namespace xcEngineSDK {
      */
 		void 
 		setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			                            uint32 StartSlot,
-			                            uint32 NumBuffers) override;
+			                            unsigned int StartSlot,
+			                            unsigned int NumBuffers) override;
 
 		/**
 		 * @brief      setPixelShaderConstantBuffer function, to set constant
@@ -343,8 +343,8 @@ namespace xcEngineSDK {
 		 */
 		void 
 		setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			                           uint32 StartSlot,
-			                           uint32 NumBuffers) override;
+			                           unsigned int StartSlot,
+			                           unsigned int NumBuffers) override;
 
 		/**
 		 * @brief      setShaderProgram function, to set pixel and vertex shader
@@ -393,7 +393,7 @@ namespace xcEngineSDK {
 		 */
 		void 
 		setSamplerState(const std::vector<SamplerState*>& Sam,
-			              uint32 StartSlot) override; //
+			              unsigned int StartSlot) override; //
 
     /**
 	   * @brief      setDepthStencil function, to set depth stencil
@@ -401,7 +401,7 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setDepthStencil(Texture* pDSTex) override; ///necesita recibir una textura
+		setDepthStencil(TextureB* pDSTex) override; ///necesita recibir una textura
 
 		/**
 		 * @brief      setRasterizerState function, to set rasteraizer state
@@ -421,8 +421,8 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setRenderTarget(const std::vector<Texture*>& pRTTex,
-			              Texture* pDSTex = nullptr) override;
+		setRenderTarget(const std::vector<TextureB*>& pRTTex,
+			              TextureB* pDSTex = nullptr) override;
 
 		/**
 		 * @brief      setShaderResouerce function, to set shader resource
@@ -433,8 +433,8 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setShaderResource(const std::vector<Texture*>& pRTTex,
-			                uint32 StartSlot = 0) override;
+		setShaderResource(const std::vector<TextureB*>& pRTTex,
+			                unsigned int StartSlot = 0) override;
 
 		/**
 		 * @brief      setViewport function, to set viewport
@@ -447,7 +447,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setViewport(uint32 NumViewport,
+		setViewport(unsigned int NumViewport,
 			          float Width,
 			          float Height,
 			          float TopLeftX = 0,
@@ -481,7 +481,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		clearRenderTarget(Texture* RT,
+		clearRenderTarget(TextureB* RT,
 			                ColorStruct Color) override;
 
 		/**
@@ -494,10 +494,10 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
 		void 
-		clearDepthStencil(Texture* RT,
-			                uint32 ClerFlag = CLEAR_DEPTH,
+		clearDepthStencil(TextureB* RT,
+			                unsigned int ClerFlag = CLEAR_DEPTH,
 			                float Depth = 1.0f,
-			                uint32 Stencil = 0) override;
+			                unsigned int Stencil = 0) override;
 
 		/**
 		 * @brief      clearDefaultRenderTargetAndDepthStencil function, to
@@ -543,9 +543,9 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		drawIndexed(uint32 NumIndex,
-			          uint32 StartindexLocation,
-			          uint32 BaseVertexLocation,
+		drawIndexed(unsigned int NumIndex,
+			          unsigned int StartindexLocation,
+			          unsigned int BaseVertexLocation,
 			          const void* Index) override;
 
 		/**
@@ -559,10 +559,10 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-	  drawInstanced(uint32 VertexCountPerInstance,
-			            uint32 InstanceCount,
-			            uint32 StartVertexLocation,
-			            uint32 StartInstanceLocation) override;
+	  drawInstanced(unsigned int VertexCountPerInstance,
+			            unsigned int InstanceCount,
+			            unsigned int StartVertexLocation,
+			            unsigned int StartInstanceLocation) override;
 
 		/**
 		 * @brief      draw function, to draw
@@ -573,8 +573,8 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		draw(uint32 VertexCount,
-			   uint32 StartVertexLocation) override;
+		draw(unsigned int VertexCount,
+			   unsigned int StartVertexLocation) override;
 
 		//swap
 
