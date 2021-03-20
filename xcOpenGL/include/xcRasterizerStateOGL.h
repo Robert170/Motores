@@ -13,22 +13,24 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CRasterizerState.h"
-class CRasterizerStateOGL : public CRasterizerState
-{
-protected:
-	/**
-	  * @brief protected functions
-	*/
+#include "xcRasterizerState.h"
+namespace xcEngineSDK {
+	class RasterizerStateOGL : public RasterizerState
+	{
+	 protected:
+		/**
+			* @brief protected functions
+		*/
 
-	/// Default Constructor
-	CRasterizerStateOGL() = default;
+		/// Default Constructor
+		RasterizerStateOGL() = default;
 
-	/// Destructor
-	~CRasterizerStateOGL() = default;
+		/// Destructor
+		~RasterizerStateOGL() = default;
 
 
 
-	friend class COGLGraphiAPI;
-};
+		friend class OGLGraphiAPI;
+	};
 
+}

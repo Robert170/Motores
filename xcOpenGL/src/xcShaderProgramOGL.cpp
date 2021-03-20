@@ -1,5 +1,5 @@
-#include "CShaderProgramOGL.h"
-
-CShaderProgramOGL::~CShaderProgramOGL()
-{
+#include "xcShaderProgramOGL.h"
+namespace xcEngineSDK {
+  ShaderProgramOGL::~ShaderProgramOGL() {
+  }
 }

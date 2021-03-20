@@ -13,28 +13,29 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CSamplerState.h"
-class CSamplerStateOGL : public CSamplerState
-{
-protected:
+#include "xcSamplerState.h"
+namespace xcEngineSDK {
+	class SamplerStateOGL : public SamplerState
+	{
+	 protected:
 
-	/**
-	  * @brief protected functions
-	*/
+		/**
+		 * @brief protected functions
+		 */
 
-	/// Default Constructor
-	CSamplerStateOGL() = default;
-	~CSamplerStateOGL() = default;
+		/// Default Constructor
+		SamplerStateOGL() = default;
+		~SamplerStateOGL() = default;
 
-	/**
-	  * @brief protected variables member
-	*/
+		/**
+		 * @brief protected variables member
+		 */
 
-	/**
-	  * @Variable m_SamSt, unsigned int for the sampler state
-	*/
-	unsigned int m_SamSt;
+		/**
+		 * @Variable m_SamSt, unsigned int for the sampler state
+		 */
+		unsigned int m_samSt;
 
-	friend class COGLGraphiAPI;
-};
-
+		friend class OGLGraphiAPI;
+	};
+}

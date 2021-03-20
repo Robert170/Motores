@@ -13,25 +13,26 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CVertexBuffer.h"
-class CVertexBufferOGL : public CVertexBuffer
-{
-	/// Default Constructor
-	CVertexBufferOGL() = default;
+#include "xcVertexBuffer.h"
+namespace xcEngineSDK {
+	class VertexBufferOGL : public VertexBuffer
+	{
+		/// Default Constructor
+		VertexBufferOGL() = default;
 
-	/// Destructor
-	~CVertexBufferOGL() = default;
+		/// Destructor
+		~VertexBufferOGL() = default;
 
-	/**
-	  * @brief protected variables member
-	*/
+		/**
+			* @brief protected variables member
+		*/
 
-	/**
-	  * @Variable m_VBO, is for a vertex buffer
-	*/
-	unsigned int m_VBO;
+		/**
+			* @Variable m_VBO, is for a vertex buffer
+		*/
+		unsigned int m_vBO;
 
-	friend class COGLGraphiAPI;
+		friend class OGLGraphiAPI;
 
-};
-
+	};
+}

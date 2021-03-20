@@ -22,7 +22,7 @@
 
 namespace xcEngineSDK {
 
-	class Texture;
+	class TextureB;
 	class IndexBuffer;
 	class VertexBuffer;
 	class ConstantBuffer;
@@ -362,16 +362,16 @@ namespace xcEngineSDK {
 			             Vector3& Up) = 0;
 
 		/**
-			* @brief      initMatrixProjection function, to init the view matrix
-			* @param      MatrixProjection parameter one, a matrix projection to modification
-			* @param      Fov parameter one,feel of view for the matrix
-			* @param      Height parameter one, Height for the matrix
-			* @param      Width parameter one, Width for the matrix
-			* @param      Near parameter one, Near for the matrix
-			* @param      Far parameter one, Far for the matrix
-			* @bug		    No know Bugs
-			* @return     Returns a view matrix initialize
-		*/
+     * @brief      initMatrixProjection function, to init the view matrix
+     * @param      MatrixProjection parameter one, a matrix projection to modification
+     * @param      Fov parameter one,feel of view for the matrix
+     * @param      Height parameter one, Height for the matrix
+     * @param      Width parameter one, Width for the matrix
+     * @param      Near parameter one, Near for the matrix
+     * @param      Far parameter one, Far for the matrix
+     * @bug		    No know Bugs
+     * @return     Returns a view matrix initialize
+		 */
 		virtual Matrix4x4 
 		initMatrixProjection(Matrix4x4& MatrixProjection,
 			                   float& Fov,
@@ -456,7 +456,7 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CTexture
 		 */
-		virtual Texture* 
+		virtual TextureB*
 		createTexture2D(uint32 width,
 			              uint32 height,
 			              uint32 numberTexture, //deberia estar en la clase texture
@@ -669,7 +669,7 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		virtual void 
-		setDepthStencil(Texture* pDSTex) = 0; ///necesita recibir una textura
+		setDepthStencil(TextureB* pDSTex) = 0; ///necesita recibir una textura
 
 		/**
 		 * @brief      setRasterizerState function, to set rasteraizer state
@@ -689,8 +689,8 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		virtual void 
-		setRenderTarget(const std::vector<Texture*>& pRTTex,
-			              Texture* pDSTex = nullptr) = 0;
+		setRenderTarget(const std::vector<TextureB*>& pRTTex,
+			              TextureB* pDSTex = nullptr) = 0;
 
 		/**
 		 * @brief      setShaderResouerce function, to set shader resource
@@ -701,7 +701,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		virtual void 
-		setShaderResource(const std::vector<Texture*>& pRTTex,
+		setShaderResource(const std::vector<TextureB*>& pRTTex,
 			                uint32 StartSlot = 0) = 0;
 
 		/**
@@ -749,7 +749,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		virtual void 
-		clearRenderTarget(Texture* RT,
+		clearRenderTarget(TextureB* RT,
 			                ColorStruct Color) = 0;
 
     /**
@@ -762,7 +762,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
 		virtual void 
-		clearDepthStencil(Texture* RT,
+		clearDepthStencil(TextureB* RT,
 			                uint32 ClerFlag = CLEAR_DEPTH,
 			                float Depth = 1.0f,
 			                uint32 Stencil = 0) = 0;

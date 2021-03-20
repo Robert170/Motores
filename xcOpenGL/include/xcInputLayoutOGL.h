@@ -13,43 +13,44 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CInputLayout.h"
+#include "xcInputLayout.h"
 #include <map>
-class CInputLayoutOGL : public CInputLayout
-{
-protected:
-	/// Default Constructor
-	CInputLayoutOGL();
+namespace xcEngineSDK {
+	class InputLayoutOGL : public InputLayout
+	{
+	 protected:
+		/// Default Constructor
+		InputLayoutOGL();
 
-	/// Destructor
-	~CInputLayoutOGL() = default;
+		/// Destructor
+		~InputLayoutOGL() = default;
 
-	/**
-	  * @brief protected variables member
-	*/
+		/**
+			* @brief protected variables member
+		*/
 
-	/**
-	  * @Variable m_IPLA, unsigned int for the input layout
-	*/
-	unsigned int m_IPLA = 0;
+		/**
+			* @Variable m_IPLA, unsigned int for the input layout
+		*/
+		unsigned int m_iPLA = 0;
 
-	/**
-	  * @Variable m_Size, size, depent of the format
-	*/
-	unsigned int m_Size = 0;
+		/**
+			* @Variable m_Size, size, depent of the format
+		*/
+		unsigned int m_size = 0;
 
-	/**
-	  * @Variable m_Offset, offset for each element 
-	*/
-	unsigned int m_Offset = 0;
+		/**
+			* @Variable m_Offset, offset for each element
+		*/
+		unsigned int m_offset = 0;
 
-	/**
-	  * @Variable m_mFormatSize, map whit the size of formats
-	*/
-	std::map<unsigned int, unsigned int> m_mFormatSize;
+		/**
+			* @Variable m_mFormatSize, map whit the size of formats
+		*/
+		std::map<unsigned int, unsigned int> m_mFormatSize;
 
-	unsigned int GetSize(unsigned int Format);
+		unsigned int getSize(unsigned int Format);
 
-	friend class COGLGraphiAPI;
-};
-
+		friend class OGLGraphiAPI;
+	};
+}

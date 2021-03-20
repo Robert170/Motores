@@ -13,50 +13,52 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CTexture.h"
-class CTextureOGL : public CTexture
-{
-protected:
-	/**
-	  * @brief protected functions
-	*/
+#include "xcTexture.h"
+namespace xcEngineSDK {
+	class TextureOGL : public Texture
+	{
+	 protected:
+		/**
+		 * @brief protected functions
+		 */
 
-	/// Default Constructor
-	CTextureOGL() = default;
+		/// Default Constructor
+		TextureOGL() = default;
 
-	/// Destructor
-	~CTextureOGL() = default;
+		/// Destructor
+		~TextureOGL() = default;
 
-	/**
-	  * @brief protected variables member
-	*/
+		/**
+		 * @brief protected variables member
+		 */
 
-	/**
-	  * @Variable m_texture, unsigned int for the texture
-	*/
-	unsigned int m_Texture = 0;
+		/**
+		 * @Variable m_texture, unsigned int for the texture
+		 */
+		unsigned int m_texture = 0;
 
-	/**
-	  * @Variable m_RTV, unsigned int for the render target view
-	*/
-	unsigned int m_RTV = 0;
+		/**
+		 * @Variable m_rTV, unsigned int for the render target view
+		 */
+		unsigned int m_rTV = 0;
 
-	/**
-	  * @Variable m_DSV, unsigned int for the depth stencil view
-	*/
-	unsigned int m_DSV = 0;
+		/**
+		 * @Variable m_dSV, unsigned int for the depth stencil view
+		 */
+		unsigned int m_dSV = 0;
 
-	/**
-	  * @Variable m_UAV, unsigned int for the unordered access view
-	*/
-	unsigned int m_UAV = 0;
+		/**
+		 * @Variable m_uAV, unsigned int for the unordered access view
+		 */
+		unsigned int m_uAV = 0;
 
-	/**
-	  * @Variable m_SRV, unsigned int for the shader resource view
-	*/
-	unsigned int m_SRV = 0;
+		/**
+		 * @Variable m_sRV, unsigned int for the shader resource view
+		 */
+		unsigned int m_sRV = 0;
 
-	friend class COGLGraphiAPI;
-    
-};
+		friend class OGLGraphiAPI;
 
+	};
+
+}

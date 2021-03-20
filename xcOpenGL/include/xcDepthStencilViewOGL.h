@@ -1,7 +1,8 @@
 #pragma once
-#include "CDepthStencilView.h"
-class CDepthStencilViewOGL :
-    public CDepthStencilView
-{
-};
+#include "xcDepthStencilView.h"
 
+namespace xcEngineSDK {
+  class DepthStencilViewOGL : public DepthStencilView
+  {
+  };
+}

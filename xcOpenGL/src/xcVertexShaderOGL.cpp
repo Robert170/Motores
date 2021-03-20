@@ -1,26 +1,26 @@
-#include "CVertexShaderOGL.h"
+#include "xcVertexShaderOGL.h"
+namespace xcEngineSDK {
+  std::string 
+  VertexShaderOGL::readFile(std::string FileName) {
 
-std::string CVertexShaderOGL::ReadFile(std::string FileName)
-{
-    m_VertexShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    try
-    {
+    m_vertexShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    try {
 
-        //open file
-        m_VertexShaderFile.open(FileName);
-        // read file's buffer contents into streams
-        m_VertexShaderStream << m_VertexShaderFile.rdbuf();
-        // close file handlers
-        m_VertexShaderFile.close();
-        // convert stream into string
-        m_VertexCode = m_VertexShaderStream.str();
+      //open file
+      m_vertexShaderFile.open(FileName);
+      // read file's buffer contents into streams
+      m_vertexShaderStream << m_vertexShaderFile.rdbuf();
+      // close file handlers
+      m_vertexShaderFile.close();
+      // convert stream into string
+      m_vertexCode = m_vertexShaderStream.str();
 
-        return m_VertexCode;
+      return m_vertexCode;
     }
-    catch (std::ifstream::failure& e)
-    {
-        //error
-        return " ";
+    catch (std::ifstream::failure& e) {
+      //error
+      return " ";
     }
+  }
+
 }
-

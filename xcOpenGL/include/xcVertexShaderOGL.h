@@ -13,58 +13,59 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CVertexShader.h"
+#include "xcVertexShader.h"
 #include <fstream>
 #include <sstream>
-class CVertexShaderOGL : public CVertexShader
-{
-protected:
+namespace xcEngineSDK {
+	class VertexShaderOGL : public VertexShader
+	{
+	 protected:
 
-	/**
-	  * @brief protected functions
-	*/
+		/**
+			* @brief protected functions
+		*/
 
-	/// Default Constructor
-	CVertexShaderOGL() = default;
+		/// Default Constructor
+		VertexShaderOGL() = default;
 
-	/// Destructor
-	~CVertexShaderOGL() = default;
+		/// Destructor
+		~VertexShaderOGL() = default;
 
-	/**
-	 * @brief      ReadFile function, to read a file
-	 * @param      FileName parameter one, name of the file with the shader
-	 * @bug		   No know Bugs
-	 * @return     Returns nothing
-	*/
-	std::string ReadFile(std::string FileName);
-
-
-	/**
-	  * @brief protected variables member
-	*/
-
-	/**
-	  * @Variable m_VertexCode, string where we save te code of the pixel shade
-	*/
-	std::string m_VertexCode;
-
-	/**
-	  * @Variable m_VertexShaderFile, for open file, take exepcions
-	*/
-	std::ifstream m_VertexShaderFile;
-
-	/**
-	  * @Variable m_VertexShaderStream, this is temp for transfor in string
-	*/
-	std::stringstream m_VertexShaderStream;
-
-	/**
-	  * @Variable m_VertexShader, unsigned int for the vertex shader
-	*/
-	unsigned int m_VertexShader;
+		/**
+		 * @brief      ReadFile function, to read a file
+		 * @param      FileName parameter one, name of the file with the shader
+		 * @bug		   No know Bugs
+		 * @return     Returns nothing
+		*/
+		std::string readFile(std::string FileName);
 
 
+		/**
+			* @brief protected variables member
+		*/
 
-	friend class COGLGraphiAPI;
-};
+		/**
+			* @Variable m_VertexCode, string where we save te code of the pixel shade
+		*/
+		std::string m_vertexCode;
 
+		/**
+			* @Variable m_VertexShaderFile, for open file, take exepcions
+		*/
+		std::ifstream m_vertexShaderFile;
+
+		/**
+			* @Variable m_VertexShaderStream, this is temp for transfor in string
+		*/
+		std::stringstream m_vertexShaderStream;
+
+		/**
+			* @Variable m_VertexShader, unsigned int for the vertex shader
+		*/
+		unsigned int m_vertexShader;
+
+
+
+		friend class OGLGraphiAPI;
+	};
+}

@@ -13,25 +13,27 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CIndexBuffer.h"
-class CIndexBufferOGL : public CIndexBuffer
-{
+#include "xcIndexBuffer.h"
 
-	/// Default Constructor
-	CIndexBufferOGL() = default;
+namespace xcEngineSDK {
+	class IndexBufferOGL : public IndexBuffer
+	{
 
-	/// Destructor
-	~CIndexBufferOGL() = default;
+		/// Default Constructor
+		IndexBufferOGL() = default;
 
-	/**
-	  * @brief protected variables member
-	*/
+		/// Destructor
+		~IndexBufferOGL() = default;
 
-	/**
-	  * @Variable m_IBO, is for a index buffer
-	*/
-	unsigned int m_IBO;
+		/**
+			* @brief protected variables member
+		*/
 
-	friend class COGLGraphiAPI;
-};
+		/**
+			* @Variable m_IBO, is for a index buffer
+		*/
+		unsigned int m_IBO;
 
+		friend class OGLGraphiAPI;
+	};
+}

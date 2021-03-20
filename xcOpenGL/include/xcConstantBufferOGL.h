@@ -13,24 +13,25 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CConstantBuffer.h"
-class CConstantBufferOGL: public CConstantBuffer
-{
-	/// Default Constructor
-	CConstantBufferOGL() = default;
+#include "xcConstantBuffer.h"
+namespace xcEngineSDK {
+	class ConstantBufferOGL : public ConstantBuffer
+	{
+		/// Default Constructor
+		ConstantBufferOGL() = default;
 
-	/// Destructor
-	~CConstantBufferOGL() = default;
+		/// Destructor
+		~ConstantBufferOGL() = default;
 
-	/**
-	  * @brief protected variables member
-	*/
+		/**
+			* @brief protected variables member
+		*/
 
-	/**
-	  * @Variable m_CBO, is for a Constant buffer
-	*/
-	unsigned int m_CBO = 0;
+		/**
+			* @Variable m_CBO, is for a Constant buffer
+		*/
+		unsigned int m_CBO = 0;
 
-	friend class COGLGraphiAPI;
-};
-
+		friend class OGLGraphiAPI;
+	};
+}

@@ -36,7 +36,7 @@ namespace xcEngineSDK {
 		 */
 		ID3D11InputLayout* m_pInputLayout = nullptr;//
 
-		friend class CDXGraphiAPI;
+		friend class DXGraphiAPI;
 	};
 
 }

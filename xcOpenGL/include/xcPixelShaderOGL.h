@@ -13,56 +13,58 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "CPixelShader.h"
+#include "xcPixelShader.h"
 #include <fstream>
 #include <sstream>
-class CPixelShaderOGL : public CPixelShader
-{
-protected:
-	/**
-	  * @brief protected functions
-	*/
+namespace xcEngineSDK {
+	class PixelShaderOGL : public PixelShader
+	{
+	 protected:
+		/**
+			* @brief protected functions
+		*/
 
-	/// Default Constructor
-	CPixelShaderOGL() = default;
+		/// Default Constructor
+		PixelShaderOGL() = default;
 
-	/// Destructor
-	~CPixelShaderOGL() = default;
+		/// Destructor
+		~PixelShaderOGL() = default;
 
-	/**
-	 * @brief      ReadFile function, to read a file
-	 * @param      FileName parameter one, name of the file with the shader
-	 * @bug		   No know Bugs
-	 * @return     Returns nothing
-	*/
-	std::string ReadFile(std::string FileName);
+		/**
+		 * @brief      ReadFile function, to read a file
+		 * @param      FileName parameter one, name of the file with the shader
+		 * @bug		   No know Bugs
+		 * @return     Returns nothing
+		*/
+		std::string readFile(std::string FileName);
 
-	/**
-	  * @brief protected variables member
-	*/
+		/**
+			* @brief protected variables member
+		*/
 
-	/**
-	  * @Variable m_PixelCode, string where we save te code of the pixel shade
-	*/
-	std::string m_PixelCode;
+		/**
+			* @Variable m_PixelCode, string where we save te code of the pixel shade
+		*/
+		std::string m_pixelCode;
 
-	/**
-	  * @Variable m_PixelShaderFile, for open file, take exepcions 
-	*/
-	std::ifstream m_PixelShaderFile;
+		/**
+			* @Variable m_PixelShaderFile, for open file, take exepcions
+		*/
+		std::ifstream m_pixelShaderFile;
 
-	/**
-      * @Variable m_PixelShaderStream, this is temp for transfor in string
-    */ 
-	std::stringstream m_PixelShaderStream;
+		/**
+				* @Variable m_PixelShaderStream, this is temp for transfor in string
+			*/
+		std::stringstream m_pixelShaderStream;
 
-	/**
-	  * @Variable m_PixelShader, unsigned int for the pixel shader
-	*/
-	unsigned int m_PixelShader;
+		/**
+			* @Variable m_PixelShader, unsigned int for the pixel shader
+		*/
+		unsigned int m_pixelShader;
 
 
 
-	friend class COGLGraphiAPI;
-};
+		friend class OGLGraphiAPI;
+	};
 
+}

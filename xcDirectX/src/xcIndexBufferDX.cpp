@@ -1,9 +1,10 @@
-#include "CIndexBufferDX.h"
-
-CIndexBufferDX::~CIndexBufferDX()
-{
-	if (m_pIndexBuffer)
+#include "xcIndexBufferDX.h"
+namespace xcEngineSDK {
+	IndexBufferDX::~IndexBufferDX()
 	{
-		m_pIndexBuffer->Release();
+		if (m_pIndexBuffer)
+		{
+			m_pIndexBuffer->Release();
+		}
 	}
 }
