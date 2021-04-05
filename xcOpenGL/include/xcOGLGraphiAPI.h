@@ -201,7 +201,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		createTexture3D() = 0;
+		createTexture3D();
 
 		/**
 		 * @brief      createShaderProgram function, to create shader program

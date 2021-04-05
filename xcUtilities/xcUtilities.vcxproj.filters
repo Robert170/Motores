@@ -82,6 +82,9 @@
     <ClInclude Include="include\xcStdHeaders.h">
       <Filter>Source Files\Prerequisites</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcModule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcVector2.cpp">

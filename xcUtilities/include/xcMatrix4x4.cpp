@@ -1,10 +1,13 @@
 #include "xcMatrix4x4.h"
 namespace xcEngineSDK {
-    Matrix4x4::Matrix4x4() {
 
-      
-    }
-    Matrix4x4::Matrix4x4(float _xx, float _yx, float _zx, float _wx,
+  const Matrix4x4 Matrix4x4::IDENTITY_MATRIX = Matrix4x4(1, 0, 0, 0,
+                                                         0, 1, 0, 0, 
+                                                         0, 0, 1, 0, 
+                                                         0, 0, 0, 1);
+
+
+  Matrix4x4::Matrix4x4(float _xx, float _yx, float _zx, float _wx,
                        float _xy, float _yy, float _zy, float _wy,
                        float _xz, float _yz, float _zz, float _wz,
                        float _xw, float _yw, float _zw, float _ww) {
@@ -56,6 +59,12 @@ namespace xcEngineSDK {
     std::swap(m_matrix[1].m_w, m_matrix[3].m_y);
     std::swap(m_matrix[2].m_w, m_matrix[3].m_z);
     return *this;
+  }
+
+  Matrix4x4
+  Matrix4x4::identity() {
+
+    return IDENTITY_MATRIX;
   }
 
   Matrix4x4

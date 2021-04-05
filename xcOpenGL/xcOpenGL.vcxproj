@@ -25,6 +25,7 @@
     <ClInclude Include="include\xcInputLayoutOGL.h" />
     <ClInclude Include="include\xcOGLGraphiAPI.h" />
     <ClInclude Include="include\xcPixelShaderOGL.h" />
+    <ClInclude Include="include\xcPrerequisitesOGL.h" />
     <ClInclude Include="include\xcRasterizerStateOGL.h" />
     <ClInclude Include="include\xcSamplerStateOGL.h" />
     <ClInclude Include="include\xcShaderProgramOGL.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="include\xcVertexShaderOGL.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\xcBaseProgramOGL.cpp" />
     <ClCompile Include="src\xcConstantBufferOGL.cpp" />
     <ClCompile Include="src\xcDepthStencilViewOGL.cpp" />
     <ClCompile Include="src\xcIndexBufferOGL.cpp" />

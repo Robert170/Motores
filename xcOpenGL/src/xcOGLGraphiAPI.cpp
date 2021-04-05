@@ -193,12 +193,12 @@ namespace xcEngineSDK {
 	}
 
 	TextureB*
-		OGLGraphiAPI::createTexture2D(unsigned int width,
-			unsigned int height,
-			unsigned int numberTexture,
-			TEXTURE_FORMAT format,
-			unsigned int bindFlags,
-			TYPE_USAGE Usage) {
+	OGLGraphiAPI::createTexture2D(unsigned int width,
+			                          unsigned int height,
+			                          unsigned int numberTexture,
+			                          TEXTURE_FORMAT format,
+			                          unsigned int bindFlags,
+			                          TYPE_USAGE Usage) {
 
 		auto texture = new TextureOGL();
 

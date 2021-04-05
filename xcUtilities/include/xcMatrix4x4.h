@@ -11,7 +11,7 @@ namespace xcEngineSDK {
   {
    public:
 
-    Matrix4x4();
+     Matrix4x4() = default;
 
     ~Matrix4x4() = default;
 
@@ -32,6 +32,14 @@ namespace xcEngineSDK {
      */
     Matrix4x4&
     transpose();
+
+    /**
+     * @brief      transpose  function, to transpose a matrix
+     * @bug	       No know Bugs
+     * @return     Returns a transpose matrix
+     */
+    Matrix4x4
+    identity();
 
     /**
      * @brief      + operator overload

@@ -5,6 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\Prerequisites">
+      <UniqueIdentifier>{b79d1ba4-d5f7-42f0-a374-ee2552a8830d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcConstantBufferDX.h">
@@ -43,6 +46,9 @@
     <ClInclude Include="include\xcVertexShaderDX.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcPrerequisitesDX.h">
+      <Filter>Source Files\Prerequisites</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcConstantBufferDX.cpp">
@@ -79,6 +85,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\xcVertexShaderDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcBaseProgramDX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

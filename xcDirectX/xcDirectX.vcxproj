@@ -25,6 +25,7 @@
     <ClInclude Include="include\xcIndexBufferDX.h" />
     <ClInclude Include="include\xcInputLayoutDX.h" />
     <ClInclude Include="include\xcPixelShaderDX.h" />
+    <ClInclude Include="include\xcPrerequisitesDX.h" />
     <ClInclude Include="include\xcRasterizerStateDX.h" />
     <ClInclude Include="include\xcSamplerStateDX.h" />
     <ClInclude Include="include\xcShaderProgramDX.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="include\xcVertexShaderDX.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\xcBaseProgramDX.cpp" />
     <ClCompile Include="src\xcConstantBufferDX.cpp" />
     <ClCompile Include="src\xcDepthStencilViewDX.cpp" />
     <ClCompile Include="src\xcDXGraphiAPI.cpp" />

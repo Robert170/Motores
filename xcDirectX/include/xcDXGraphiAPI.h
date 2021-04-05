@@ -223,11 +223,11 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CTexture
 		 */
 		TextureB*
-		createTexture2D(uint32 width,
-			              uint32 height,
-			              uint32 numberTexture, //deberia estar en la clase texture
+		createTexture2D(unsigned int width,
+			              unsigned int height,
+			              unsigned int numberTexture, //deberia estar en la clase texture
 			              TEXTURE_FORMAT format = TF_R8G8B8A8_UNORM,
-			              uint32 bindFlags = TEXTURE_BIND_SHADER_RESOURCE,
+			              unsigned int bindFlags = TEXTURE_BIND_SHADER_RESOURCE,
 			              TYPE_USAGE Usage = TYPE_USAGE_DEFAULT) override;
 
 		/**
@@ -236,7 +236,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		createTexture3D() = 0;
+		createTexture3D();
 
 		/**
 		 * @brief      createShaderProgram function, to create shader program

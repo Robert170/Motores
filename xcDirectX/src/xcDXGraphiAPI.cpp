@@ -1,3 +1,7 @@
+#include <xcMatrix4x4.h>
+#include <vector>
+
+
 #include "xcDXGraphiAPI.h"
 //#include "TextureDX.h"
 #include "xcInputLayoutDX.h"
@@ -9,7 +13,6 @@
 #include "xcPixelShaderDX.h"
 #include "xcSamplerStateDX.h"
 #include "xcRasterizerStateDX.h"
-#include <vector>
 #include "resource.h"
 
 
@@ -50,9 +53,10 @@ namespace xcEngineSDK {
   DXGraphiAPI::~DXGraphiAPI() {
   }
 
-  Matrix4x4 DXGraphiAPI::initMatrixWorld(Matrix4x4& MatrixWorld)
-  {
-    MatrixWorld = MatrixWorld.IDENTITY_MATRIX;
+  Matrix4x4 
+  DXGraphiAPI::initMatrixWorld(Matrix4x4& MatrixWorld) {
+
+    MatrixWorld = MatrixWorld.identity();
 
     return MatrixWorld.transpose();
   }
@@ -431,9 +435,9 @@ namespace xcEngineSDK {
 
   }
 
-  void 
+  void
   DXGraphiAPI::createTexture3D() {
-  } //falta
+  } 
 
   ShaderProgram* 
   DXGraphiAPI::createShaderProgram(const std::string& FileNameVS,
@@ -444,6 +448,7 @@ namespace xcEngineSDK {
                                    const std::string& ShaderModelPS,
                                    int32 NumVertexShader,
                                    int32 NumPixelShader) {
+
     auto ShaderProgram = new ShaderProgramDX();
 
     //vertexShder

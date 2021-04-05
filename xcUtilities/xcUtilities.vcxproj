@@ -170,6 +170,7 @@
     <ClInclude Include="include\xcMath.h" />
     <ClInclude Include="include\xcMatrix3x3.h" />
     <ClInclude Include="include\xcMatrix4x4.h" />
+    <ClInclude Include="include\xcModule.h" />
     <ClInclude Include="include\xcPlane.h" />
     <ClInclude Include="include\xcPlatformMath.h" />
     <ClInclude Include="include\xcPlatformTypes.h" />
