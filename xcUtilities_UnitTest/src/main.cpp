@@ -115,6 +115,14 @@ TEST(xcUtilities, Vector2_Math) {
   z *= x;
   EXPECT_FLOAT_EQ(z.m_x, 16.0f);
   EXPECT_FLOAT_EQ(z.m_y, 16.0f);
+
+  Vector2 a(1.0f, 2.0f);
+  Vector2 b(1.0f, 5.0f);
+  float c = b.cross(a, b);
+
+  EXPECT_FLOAT_EQ(c, 3);
+
+
 }
 
 TEST(xcUtilities, Vector3_Math) {
@@ -178,6 +186,14 @@ TEST(xcUtilities, Vector3_Math) {
   EXPECT_FLOAT_EQ(z.m_x, 16.0f);
   EXPECT_FLOAT_EQ(z.m_y, 16.0f);
   EXPECT_FLOAT_EQ(z.m_z, 16.0f);
+
+  Vector3 a(1.0f, 2.0f, 3.0f);
+  Vector3 b(1.0f, 5.0f, 7.0f);
+  Vector3 c = c.cross(a, b);
+
+  EXPECT_FLOAT_EQ(c.m_x, -1.0f);
+  EXPECT_FLOAT_EQ(c.m_y, -4.0f);
+  EXPECT_FLOAT_EQ(c.m_z, 3.0f);
 }
 
 TEST(xcUtilities, Vector4_Math) {
@@ -449,12 +465,12 @@ TEST(xcUtilities, VectorI4_Math) {
 TEST(xcUtilities, Matrix3x3_Math) {
 
   Matrix3x3 A(1.0f, 4.0f, 7.0f,
-    2.0f, 5.0f, 8.0f,
-    3.0f, 6.0f, 9.0f);
+             2.0f, 5.0f, 8.0f,
+             3.0f, 6.0f, 9.0f);
 
   Matrix3x3 B(1.0f, 4.0f, 7.0f,
-    2.0f, 5.0f, 8.0f,
-    3.0f, 6.0f, 9.0f);
+              2.0f, 5.0f, 8.0f,
+              3.0f, 6.0f, 9.0f);
 
   EXPECT_TRUE(A == B);
 

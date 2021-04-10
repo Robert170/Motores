@@ -122,11 +122,21 @@ namespace xcEngineSDK {
     return ((VectorA * VetorB) / powf(VetorB.magnitud(), 2) * VetorB);
   }
 
-  float Vector3::Dot(Vector3& VectorA, 
-                     Vector3& VetorB) {
+  float 
+  Vector3::dot(Vector3& VectorA, 
+               Vector3& VetorB) {
 
     return (VectorA.m_x * VetorB.m_x) +
            (VectorA.m_y * VetorB.m_y) +
            (VectorA.m_z * VetorB.m_z);
+  }
+
+  Vector3
+  Vector3::cross(Vector3& VectorA, 
+                 Vector3& VectorB) {
+
+    return Vector3(((VectorA.m_y * VectorB.m_z) - (VectorA.m_z* VectorB.m_y)),
+                   ((VectorA.m_z * VectorB.m_x) - (VectorA.m_x* VectorB.m_z)),
+                   ((VectorA.m_x * VectorB.m_y) - (VectorA.m_y * VectorB.m_x)));
   }
 }

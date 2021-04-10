@@ -126,7 +126,7 @@ namespace xcEngineSDK {
   }
 
   int32
-  VectorI3::Dot(VectorI3& VectorA,
+  VectorI3::dot(VectorI3& VectorA,
                 VectorI3& VetorB) {
     return (VectorA.m_x * VetorB.m_x) +
            (VectorA.m_y * VetorB.m_y) +

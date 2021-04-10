@@ -13,12 +13,13 @@
  * @bug	No know Bugs
  */
 #pragma once
-
+#include <xcPrerequisitesCore.h>
 #include <windows.h>
 #include <iostream>
 #include <vector>
 #include <xcVector4.h>
 #include <xcMatrix4x4.h>
+#include <xcModule.h>
 
 namespace xcEngineSDK {
 
@@ -274,7 +275,7 @@ namespace xcEngineSDK {
 		float Fov;
 	};
 
-	class GraphiAPI
+	class GraphiAPI : public Module<GraphiAPI>
 	{
 	 protected:
 		/**
@@ -875,3 +876,5 @@ namespace xcEngineSDK {
 		unsigned int m_height = 600;
 	};
 }
+
+

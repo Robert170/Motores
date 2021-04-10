@@ -20,8 +20,9 @@
 //TODO: Chequeo de errores
 using std::vector;
 namespace xcEngineSDK {
-  LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-  {
+
+  LRESULT CALLBACK 
+  WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     PAINTSTRUCT ps;
     HDC hdc;
 
@@ -840,6 +841,7 @@ namespace xcEngineSDK {
                                                 pRTTex.size(),
                                                 &pRTDX->m_pSRV);
     }
+
   }
 
   //fuction to set a viewport 

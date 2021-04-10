@@ -11,7 +11,7 @@ namespace xcEngineSDK {
   {
    public:
 
-     Matrix4x4() = default;
+    Matrix4x4() = default;
 
     ~Matrix4x4() = default;
 
@@ -116,11 +116,26 @@ namespace xcEngineSDK {
     /**
     * @brief      != operator overload
     * @param      M parameter one, matrix equal
-    * @bug	       No know Bugs
+    * @bug	      No know Bugs
     * @return     Returns a true if the matrix are different
     */
     bool
     operator!=(const Matrix4x4& M);
+
+    /**
+    * @brief      lookAtLH function name
+    * @param      M parameter one, matrix equal
+    * @param      M parameter two, matrix equal
+    * @param      M parameter three, matrix equal
+    * @bug	      No know Bugs
+    * @return     Returns a matrix for look at
+    */
+    Matrix4x4
+    lookAtLH(Vector3& Eye,
+             Vector3& At,
+             Vector3& Up);
+    Matrix4x4
+    perspectiveFovLH();
 
    public:
 

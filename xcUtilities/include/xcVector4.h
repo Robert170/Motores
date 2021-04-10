@@ -170,8 +170,8 @@ namespace xcEngineSDK {
 		 * @return     Returns a scalar
 		 */
 		float
-		Dot(Vector4& VectorA,
-				Vector4& VetorB);
+		dot(Vector4& VectorA,
+				Vector4& VectorB);
 
 	public:
 		/**

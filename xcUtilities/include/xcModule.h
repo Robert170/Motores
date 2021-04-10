@@ -81,7 +81,7 @@ namespace xcEngineSDK {
                  // "Trying to start an already started module.");
       }
 
-      _instance() = new <T>(std::forward<Args>(args)...);
+      _instance() = new T(std::forward<Args>(args)...);
       isStartedUp() = true;
 
       static_cast<Module*>(_instance())->onStartUp();
@@ -101,7 +101,7 @@ namespace xcEngineSDK {
         //GE_EXCEPT(InternalErrorException, "Trying to start an already started module.");
       }
 
-      _instance() = new <SubType>(std::forward<Args>(args)...);
+      _instance() = new SubType(std::forward<Args>(args)...);
       isStartedUp() = true;
 
       static_cast<Module*>(_instance())->onStartUp();

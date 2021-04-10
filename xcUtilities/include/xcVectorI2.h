@@ -174,7 +174,7 @@ namespace xcEngineSDK {
 		 * @return     Returns a scalar
 	   */
 		int32
-		Dot(VectorI2& VectorA,
+		dot(VectorI2& VectorA,
 			  VectorI2& VetorB);
 
 

@@ -3,7 +3,7 @@
 
 using namespace xcEngineSDK;
 
-int
+int32
 main() {
 
   HINSTANCE hInstance = LoadLibraryExA("Lib.dll",

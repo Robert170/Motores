@@ -162,8 +162,19 @@ namespace xcEngineSDK {
 		 * @return     Returns a scalar
 		 */
 		float
-		Dot(Vector3& VectorA,
+		dot(Vector3& VectorA,
 				Vector3& VetorB);
+
+		/**
+		 * @brief      cross function
+		 * @param      VectorA parameter one, for cross product
+		 * @param      VectorB parameter two, for cross product
+		 * @bug	       No know Bugs
+		 * @return     Returns a vector
+		 */
+		Vector3
+		cross(Vector3& VectorA,
+				  Vector3& VectorB);
 
 
 
