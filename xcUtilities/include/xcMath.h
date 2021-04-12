@@ -1,3 +1,16 @@
+/**
+ *
+ * @brief .h for math instance, depends on runtime environment 
+ *
+ * This is an instance of the math for the engine
+ *
+ * @author Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ *
+ * @date 1/30/2021
+ *
+ *
+ * @bug	No know Bugs
+ */
 #pragma once
 
 

@@ -192,7 +192,18 @@ namespace xcEngineSDK {
   }
 
   Matrix4x4 
-  Matrix4x4::perspectiveFovLH() {
-    return Matrix4x4();
+  Matrix4x4::perspectiveFovLH(float& Fov,
+                              float& Height,
+                              float& Width,
+                              float& Near,
+                              float& Far) {
+
+    float yScale = Math::cot(Fov / 2);
+    float xScale = yScale / (Width / Height);
+
+    return Matrix4x4(Vector4(xScale, 0.f, 0.f, 0.f),
+                     Vector4(0.f, yScale, 0.f, 0.f),
+                     Vector4(0.f, 0.f, Far / (Far - Near), 1.f),
+                     Vector4(0.f, 0.f, -Near * Far / (Far - Near), 0.f));
   }
 }

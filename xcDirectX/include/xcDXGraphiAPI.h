@@ -27,17 +27,17 @@ namespace xcEngineSDK {
 	private:
 
 		/**
-			* @brief private variables member
-		*/
+		 * @brief private variables member
+		 */
 
 		/**
-			* @Variable m_hWnd, a variable for a window
-		*/
+		 * @Variable m_hWnd, a variable for a window
+		 */
 		HWND m_hWnd;
 
 		/**
-			* @Variable m_pd3dDevice, pointer for the device
-		*/
+		 * @Variable m_pd3dDevice, pointer for the device
+		 */
 		ID3D11Device* m_pd3dDevice;
 
 

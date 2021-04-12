@@ -2,9 +2,11 @@
 
 
 #include "xcPrerequisitesUtilities.h"
+#include "xcMath.h"
 #include "xcVector4.h"
 
 using xcEngineSDK::Vector4;
+
 namespace xcEngineSDK {
 
   class XC_UTILITY_EXPORT Matrix4x4 
@@ -135,7 +137,11 @@ namespace xcEngineSDK {
              Vector3& At,
              Vector3& Up);
     Matrix4x4
-    perspectiveFovLH();
+    perspectiveFovLH(float& Fov,
+                     float& Height,
+                     float& Width,
+                     float& Near,
+                     float& Far);
 
    public:
 

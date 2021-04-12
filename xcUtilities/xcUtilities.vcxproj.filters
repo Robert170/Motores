@@ -85,6 +85,9 @@
     <ClInclude Include="include\xcModule.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcQuaternions.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcVector2.cpp">
@@ -130,6 +133,9 @@
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\xcPlatformMath.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcQuaternions.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>

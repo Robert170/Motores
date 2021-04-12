@@ -176,6 +176,7 @@
     <ClInclude Include="include\xcPlatformTypes.h" />
     <ClInclude Include="include\xcPlatformDefines.h" />
     <ClInclude Include="include\xcPrerequisitesUtilities.h" />
+    <ClInclude Include="include\xcQuaternions.h" />
     <ClInclude Include="include\xcRadians.h" />
     <ClInclude Include="include\xcRay.h" />
     <ClInclude Include="include\xcSphere.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="src\xcDegrees.cpp" />
     <ClCompile Include="src\xcMatrix3x3.cpp" />
     <ClCompile Include="src\xcPlatformMath.cpp" />
+    <ClCompile Include="src\xcQuaternions.cpp" />
     <ClCompile Include="src\xcRadians.cpp" />
     <ClCompile Include="src\xcRay.cpp" />
     <ClCompile Include="src\xcSphere.cpp" />

@@ -68,10 +68,9 @@ namespace xcEngineSDK {
                               Vector3& At,
                               Vector3& Up) {
     ////init view matrix TODO:
-    //MatrixView = glm::lookAtLH(Eye,
-      //At,
-      //Up);
-
+    MatrixView = MatrixView.lookAtLH(Eye,
+                                     At,
+                                     Up);
     return MatrixView.transpose();
   }
 
