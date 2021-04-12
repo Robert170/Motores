@@ -92,6 +92,86 @@ namespace xcEngineSDK {
 		Quaternion
 		operator*(const Quaternion& quaternion);
 
+		/**
+		 * @brief      * operator overload
+		 * @param      quaternion parameter one, scalar for multiply
+		 * @bug	       No know Bugs
+		 * @return     Returns multiplication of quaternion by a scalar
+		 */
+		Quaternion
+		operator*(const float& scalar);
+
+
+		/**
+		 * @brief      norm function, the norm of a quaternion
+		 * @bug	       No know Bugs
+		 * @return     Returns a float
+		 */
+		float
+		norm();
+
+		/**
+		 * @brief      normalized function, the normalize a quaternion
+		 * @bug	       No know Bugs
+		 * @return     Returns a normalize quaternion
+		 */
+		Quaternion&
+	  normalized();
+
+		/**
+		 * @brief      += operator overload
+		 * @param      quaternion parameter one, quaternion for sum
+		 * @bug	       No know Bugs
+		 * @return     Returns sum of two quaternion
+		 */
+		Quaternion&
+		operator+=(const Quaternion& quaternion);
+
+		/**
+		 * @brief      -= operator overload
+		 * @param      quaternion parameter one, quaternion for rest
+		 * @bug	       No know Bugs
+		 * @return     Returns rest of two quaternion
+		 */
+		Quaternion&
+		operator-=(const Quaternion& quaternion);
+
+		/**
+		 * @brief      *= operator overload
+		 * @param      quaternion parameter one, quaternion for multiply
+		 * @bug	       No know Bugs
+		 * @return     Returns multiplication of two quaternion
+		 */
+		Quaternion&
+		operator*=(const Quaternion& quaternion);
+
+		/**
+		 * @brief      *= operator overload
+		 * @param      quaternion parameter one, scalar for multiply
+		 * @bug	       No know Bugs
+		 * @return     Returns multiplication of quaternion by a scalar
+		 */
+		Quaternion&
+		operator*=(const float& scalar);
+
+		/**
+		 * @brief      = operator overload
+		 * @param      quaternion parameter one, quaternion to equal
+		 * @bug	       No know Bugs
+		 * @return     Returns a quaternion equal to other
+		 */
+		Quaternion&
+		operator=(const Quaternion& quaternion);
+
+		/**
+		 * @brief      == operator overload
+		 * @param      quaternion parameter one, quaternion to compare
+		 * @bug	       No know Bugs
+		 * @return     Returns a bool, true if are equals and false if are not equals
+		 */
+		bool
+		operator==(const Quaternion& quaternion);
+
 	 public:
 
 		/**
