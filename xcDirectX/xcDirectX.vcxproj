@@ -34,7 +34,6 @@
     <ClInclude Include="include\xcVertexShaderDX.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\xcBaseProgramDX.cpp" />
     <ClCompile Include="src\xcConstantBufferDX.cpp" />
     <ClCompile Include="src\xcDepthStencilViewDX.cpp" />
     <ClCompile Include="src\xcDXGraphiAPI.cpp" />
@@ -126,7 +125,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>XC_UTILITY_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>XC_CORE_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;</AdditionalIncludeDirectories>
@@ -162,7 +161,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>XC_UTILITY_EXPORTS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>XC_CORE_EXPORTS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;</AdditionalIncludeDirectories>

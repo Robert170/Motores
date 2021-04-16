@@ -14,7 +14,6 @@
  */
 
 #pragma once
-
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include "xcGraphiAPI.h"
@@ -626,4 +625,13 @@ namespace xcEngineSDK {
 		void 
 		destroy() override;
 	};
+
+  extern "C" XC_CORE_EXPORT GraphiAPI * createGraphisAPI() {
+
+		DXGraphiAPI* m_dxGraphiApi = new DXGraphiAPI();
+
+		return m_dxGraphiApi;
+
+  }
+
 }

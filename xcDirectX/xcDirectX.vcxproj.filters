@@ -87,8 +87,5 @@
     <ClCompile Include="src\xcVertexShaderDX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\xcBaseProgramDX.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

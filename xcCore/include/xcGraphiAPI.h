@@ -875,6 +875,11 @@ namespace xcEngineSDK {
 		 */
 		unsigned int m_height = 600;
 	};
+
+	using g_GraphiApi = GraphiAPI * (*)();
+
+	XC_CORE_EXPORT GraphiAPI& API();
+
 }
 
 

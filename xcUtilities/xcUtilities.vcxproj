@@ -175,6 +175,7 @@
     <ClInclude Include="include\xcPlatformMath.h" />
     <ClInclude Include="include\xcPlatformTypes.h" />
     <ClInclude Include="include\xcPlatformDefines.h" />
+    <ClInclude Include="include\xcPlugin.h" />
     <ClInclude Include="include\xcPrerequisitesUtilities.h" />
     <ClInclude Include="include\xcQuaternions.h" />
     <ClInclude Include="include\xcRadians.h" />

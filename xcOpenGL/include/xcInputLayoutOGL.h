@@ -16,7 +16,7 @@
 #include "xcInputLayout.h"
 #include <map>
 namespace xcEngineSDK {
-	class InputLayoutOGL : public InputLayout
+	class XC_CORE_EXPORT InputLayoutOGL : public InputLayout
 	{
 	 protected:
 		/// Default Constructor

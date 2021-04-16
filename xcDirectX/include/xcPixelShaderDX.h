@@ -21,6 +21,7 @@
 
 
 namespace xcEngineSDK {
+
 	class PixelShaderDX : public PixelShader
 	{
 	 public:

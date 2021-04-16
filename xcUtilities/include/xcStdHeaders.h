@@ -44,6 +44,10 @@
 #include <iomanip>
 #include <sstream>
 
+
+#include <windows.h>
+
+
 namespace xcEngineSDK {
 
   /**

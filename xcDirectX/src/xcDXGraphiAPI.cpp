@@ -82,12 +82,13 @@ namespace xcEngineSDK {
                                     float& Near,
                                     float& Far) {
     //TODO:
-    //MatrixProjection = glm::perspectiveFovLH(Fov,
-      //Height,
-      //Width,
-      //Near,
-      //Far);
+    MatrixProjection = MatrixProjection.perspectiveFovLH(Fov,
+                                                         Height,
+                                                         Width,
+                                                         Near,
+                                                         Far);
     return MatrixProjection.transpose();
+
   }
 
   Model* 

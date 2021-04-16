@@ -1,10 +1,24 @@
+/**
+ * @class OGLGraphiAPI
+ *
+ * @brief class for the api of opengl
+ *
+ * This class is the ejecutate opengl
+ *
+ * @author Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ *
+ * @date 9/24/2020
+ *
+ *
+ * @bug	No know Bugs
+ */
 #pragma once
 #include "glad.h"
 #include "GLFW/glfw3.h"
 #include "xcGraphiAPI.h"
 
 namespace xcEngineSDK {
-	class OGLGraphiAPI : public GraphiAPI
+	class XC_CORE_EXPORT OGLGraphiAPI : public GraphiAPI
 	{
 	 private:
 

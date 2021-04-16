@@ -87,8 +87,11 @@
     <ClCompile Include="src\xcVertexShaderOGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\xcBaseProgramOGL.cpp">
+    <ClCompile Include="src\xcExportOGL.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files\Prerequisites</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

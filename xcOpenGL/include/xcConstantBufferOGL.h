@@ -15,7 +15,7 @@
 #pragma once
 #include "xcConstantBuffer.h"
 namespace xcEngineSDK {
-	class ConstantBufferOGL : public ConstantBuffer
+	class  ConstantBufferOGL : public ConstantBuffer
 	{
 		/// Default Constructor
 		ConstantBufferOGL() = default;

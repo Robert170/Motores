@@ -88,6 +88,9 @@
     <ClInclude Include="include\xcQuaternions.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcPlugin.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcVector2.cpp">
