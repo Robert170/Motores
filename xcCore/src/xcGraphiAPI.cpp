@@ -3,7 +3,7 @@
 namespace xcEngineSDK {
 
   XC_CORE_EXPORT 
-  GraphiAPI& xcEngineSDK::API() {
+  GraphiAPI& xcEngineSDK::g_graphiAPI() {
 
     return GraphiAPI::instance();
 

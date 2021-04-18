@@ -6,8 +6,8 @@ namespace xcEngineSDK {
   int32
   BaseApp::run() {
 
-    //m_plugin = new Plugin();
-    m_plugin->loadPlugin("xcDirectX_d.dll");
+    initSystems();
+   // m_plugin->loadPlugin("xcDirectX_d.dll");
 
     createWindow();
 
@@ -70,7 +70,20 @@ namespace xcEngineSDK {
   }
 
   void 
-  BaseApp::intSystems() {
+  BaseApp::initSystems() {
+
+    if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
+
+      auto createGraphiApi = reinterpret_cast<funProtoGraphiApi>(
+                             m_plugin.getProcedureByName("createGraphiApi"));
+
+      GraphiAPI::startUp();
+      GraphiAPI* graphiApi = createGraphiApi();
+      g_graphiAPI().setObject(graphiApi);
+      m_graphiApi = &g_graphiAPI();
+      m_graphiApi->init(500, 500);
+    }
+
   }
 
   void 

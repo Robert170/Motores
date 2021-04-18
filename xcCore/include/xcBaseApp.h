@@ -16,11 +16,10 @@
 #pragma once
 
 #include <SFML/Window.hpp>
+#include <xcPlugin.h>
 
 #include "xcPrerequisitesCore.h"
 #include "xcGraphiAPI.h"
-
-class Plugin;
 
 using namespace xcEngineSDK;
 
@@ -89,7 +88,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
     void
-    intSystems();
+    initSystems();
 
 		/**
 		 * @brief      destroySystems function, to destroy systems
@@ -122,7 +121,10 @@ namespace xcEngineSDK {
 	 protected:
 
 		 sf::Window m_window;
-		 Plugin* m_plugin;
+		 Plugin m_plugin;
+		 GraphiAPI* m_graphiApi;
+
+		 
 
 	};
 
