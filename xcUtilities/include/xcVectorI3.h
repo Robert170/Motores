@@ -1,6 +1,18 @@
+/*****************************************************************************/
+/**
+ * @file    xcVectorI3.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/27
+ * @brief   Vector3 of int32
+ *
+ * This class has all necessary math for vector3 of int32, like sum, rest,
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
+
 #pragma once
-
-
 #include "xcPrerequisitesUtilities.h"
 #include "xcVectorI2.h"
 
@@ -11,16 +23,28 @@ namespace xcEngineSDK {
 	class XC_UTILITY_EXPORT VectorI3 
 	{
 	 public:
+
+		/**
+		 * @brief default constructor
+		 */
+		VectorI3() = default;
+
+		/**
+		 * @brief default destructor
+		 */
+		~VectorI3() = default;
+
+		/**
+		 * @brief constructor of  int32
+		 */
 	  VectorI3(int32 x, int32 y = 0, int32 z = 0)
 			       :m_x(x), m_y(y), m_z(z) { };
 
+		/**
+		 * @brief constructor of a VectorI2 and int32
+		 */
 		VectorI3(VectorI2 v, int32 z = 0)
 			       :m_x(v.m_x), m_y(v.m_y), m_z(z) { };
-
-		VectorI3()
-			       :m_x(0), m_y(0), m_z(0) { };
-
-		~VectorI3() = default;
 
 		/**
 		 * @brief      + operator overload

@@ -75,7 +75,7 @@ namespace xcEngineSDK {
     if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
 
       auto createGraphiApi = reinterpret_cast<funProtoGraphiApi>(
-                             m_plugin.getProcedureByName("createGraphiApi"));
+                             m_plugin.getProcedureByName("createGraphisAPI"));
 
       GraphiAPI::startUp();
       GraphiAPI* graphiApi = createGraphiApi();

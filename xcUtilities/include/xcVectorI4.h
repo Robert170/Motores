@@ -1,6 +1,19 @@
+/*****************************************************************************/
+/**
+ * @file    xcVectorI4.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/29
+ * @brief   Vector4 of int32
+ *
+ * This class has all necessary math for vector4 of int32, like sum, rest, 
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
+
 #pragma once
 #include "xcVectorI3.h"
-
 
 #include "xcPrerequisitesUtilities.h"
 
@@ -13,18 +26,38 @@ namespace xcEngineSDK {
 	{
 
 	 public:
+
+		/**
+		 * @brief default constructor
+		 */
+		VectorI4() = default;
+
+		/**
+		 * @brief default destructor
+		 */
+		~VectorI4() = default;
+
+		/**
+		 * @brief constructor of int32
+		 */
 		VectorI4(int32 x, int32 y = 0, int32 z = 0, int32 w = 0)
 		         :m_x(x), m_y(y), m_z(z), m_w(w) { };
 
+		/**
+		 * @brief constructor of a vectorI2 and int32
+		 */
 		VectorI4(VectorI2 v, int32 z = 0, int32 w = 0)
 			       :m_x(v.m_x), m_y(v.m_y), m_z(z), m_w(w) { };
 
+		/**
+		 * @brief constructor of a VectorI4 and int32
+		 */
 		VectorI4(VectorI3 v, int32 w = 0)
 			       :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
 
-		VectorI4() = default;
-
-		~VectorI4() = default;
+		/**
+		 * @brief public functions
+		 */
 
 		/**
 		 * @brief      + operator overload

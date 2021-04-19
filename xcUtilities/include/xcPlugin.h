@@ -24,20 +24,54 @@ namespace xcEngineSDK {
 	class Plugin
 	{
 	 public:
+		/**
+		 * @brief default constructor
+		 */
 		Plugin() = default;
+
+		/**
+		 * @brief default destructor
+		 */
 		~Plugin() = default;
 
+
+		/**
+		 * @brief public function
+		 */
+
+		/**
+		 * @brief      loadPlugin function, load the dll
+		 * @param      dllName parameter one, the name of dll
+		 * @return     Returns a bool
+		 */
 		bool
 	  loadPlugin(const String& dllName);
 
+		/**
+		 * @brief      getProcedureByName function, load the graphi api function
+		 * @param      name parameter one, name of the function
+		 * @return     Returns nothing
+		 */
 		void*
 		getProcedureByName(const String& name);
 		
+		/**
+		 * @brief      destroy function, to free the library
+		 * @return     Returns nothing
+		 */
 		void
 		destroy();
 
 	 public:
 
+
+		/**
+		 * @brief public members
+		 */
+
+		/**
+		 * @brief m_instance, instance of plugin
+		 */
 		void* m_instance = nullptr;
 
 
@@ -45,6 +79,11 @@ namespace xcEngineSDK {
 
 	};
 
+	/**
+	 * @brief      loadPlugin function, load the dll
+	 * @param      dllName parameter one, the name of dll
+	 * @return     Returns a bool
+	 */
   inline bool
   Plugin::loadPlugin(const String& dllName) { 
 	  m_instance = LoadLibraryExA(dllName.c_str(),
@@ -61,6 +100,11 @@ namespace xcEngineSDK {
     }
 	}
 
+	/**
+	 * @brief      getProcedureByName function, load the graphi api function
+	 * @param      name parameter one, name of the function
+	 * @return     Returns nothing
+	 */
 	inline void*
 	Plugin::getProcedureByName(const String& name) {
 
@@ -75,6 +119,11 @@ namespace xcEngineSDK {
 		return myGPNFunction;
 	}
 
+
+	/**
+	 * @brief      destroy function, to free the library
+	 * @return     Returns nothing
+	 */
 	inline void
 	Plugin::destroy() {
 

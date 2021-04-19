@@ -12,12 +12,13 @@ namespace xcEngineSDK {
 
   bool
   Ray::intersec(Sphere& sphere) {
-
+    sphere;
     return false;
   }
 
   bool
   Ray::intersec(AABB& box) {
+    box;
     return false;
   }
 }

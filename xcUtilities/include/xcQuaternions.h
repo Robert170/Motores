@@ -1,17 +1,16 @@
-/**
- * @class xcQuaternions
- *
- * @brief class for the math of the Quaternions
- *
- * This class is the Quaternions logic
- *
- * @author Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
- *
- * @date 4/11/2020
- *
- *
- * @bug	No know Bugs
- */
+
+ /*****************************************************************************/
+ /**
+	* @file    xcQuaternions.h
+	* @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+	* @date    2021/04/11
+	* @brief   class for the math of the Quaternions
+	*
+	* This class is the Quaternions logic
+	*
+	* @bug	    No known bugs.
+	*/
+	/*****************************************************************************/
 #pragma once
 
 #include "xcPrerequisitesUtilities.h"
@@ -29,16 +28,12 @@ namespace xcEngineSDK {
 		 */
 
 		/**
-		 * @brief      Quaternions, default constructor
-		 * @bug		     No know Bugs
-		 * @return     Returns nothing
+		 * @brief default constructor
 		 */
 		 Quaternion() = default;
 
 		/**
-		 * @brief      Quaternions, default destructor
-		 * @bug		     No know Bugs
-		 * @return     Returns nothing
+		 * @brief default destructor
 		 */
 		~Quaternion() = default;
 
@@ -175,9 +170,17 @@ namespace xcEngineSDK {
 	 public:
 
 		/**
-		 * @brief public variables member
+		 * @brief public variables member 
+		 */
+
+	 /**
+		 * @brief m_quaternionVector, the vector of the quaternion
 		 */
 	  Vector3 m_quaternionVector;
+
+		/**
+		 * @brief m_scalar, the scalar of the quaternion
+		 */
 		float m_scalar;
 
 	};

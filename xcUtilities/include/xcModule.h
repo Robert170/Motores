@@ -93,7 +93,7 @@ namespace xcEngineSDK {
      */
     template<class SubType, class... Args>
     static void
-    startUp(Args&& ...args) {
+    StartUp(Args&& ...args) {
       static_assert(std::is_base_of<T, SubType>::value,
                     "Provided type isn't derived from type the Module is initialized with.");
 

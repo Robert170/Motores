@@ -111,7 +111,7 @@ namespace xcEngineSDK {
 
   int32
   VectorI2::magnitud() {
-    return (sqrt(m_x * m_x + m_y * m_y));
+    return int32(sqrt(m_x * m_x + m_y * m_y));
   }
 
   VectorI2

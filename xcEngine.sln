@@ -26,6 +26,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcUtilities_UnitTest", "xcU
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcCore_UnitTest", "xcCore_UnitTest\xcCore_UnitTest.vcxproj", "{45BCCADD-24B0-4FF7-B6E9-CDF03053227D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{55DBAF74-1B28-41C9-938B-C53D9039FE1C} = {55DBAF74-1B28-41C9-938B-C53D9039FE1C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

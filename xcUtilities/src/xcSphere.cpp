@@ -3,22 +3,16 @@
 
 namespace xcEngineSDK {
 
-  Sphere::Sphere() {
-
-    m_radio = 0;
-  }
-
-  Sphere::~Sphere() {
-  }
-
   bool
   Sphere::intersec(Vector3& vector) {
+    vector;
     return false;
   }
 
 
   bool
   Sphere::intersec(AABB& box) {
+    box;
     return false;
   }
 }

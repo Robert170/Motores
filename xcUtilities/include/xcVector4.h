@@ -1,3 +1,16 @@
+/*****************************************************************************/
+/**
+ * @file    xcVector4.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/28
+ * @brief   Vector4 of float
+ *
+ * This class has all necessary math for vector4 of float, like sum, rest,
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
 #pragma once
 
 #include "xcPrerequisitesUtilities.h"
@@ -10,19 +23,34 @@ namespace xcEngineSDK {
 	{
 
 	 public:
+
+		/**
+		 * @brief default constructor
+		 */
+		Vector4() = default;
+
+		/**
+		 * @brief default destructor
+		 */
+		~Vector4() = default;
+
+		/**
+		 * @brief constructor of float
+		 */
 		Vector4(float x, float y = 0.f, float z = 0.0f, float w = 0.0f)
 			      :m_x(x), m_y(y), m_z(z), m_w(w) { };
 
+		/**
+		 * @brief constructor of a vectorI2 and float
+		 */
 		Vector4(Vector2 v, float z = 0.0f, float w = 0.0f)
 			      :m_x(v.m_x), m_y(v.m_y), m_z(z), m_w(w) { };
 
+		/**
+		 * @brief constructor of a VectorI4 and float
+		 */
 		Vector4(Vector3 v, float w = 0.0f)
 			      :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
-
-		Vector4()
-			      :m_x(0.f), m_y(0.f), m_z(0.f), m_w(0.f) { };
-
-		~Vector4() = default;
 
 		/**
 		 * @brief      + operator overload

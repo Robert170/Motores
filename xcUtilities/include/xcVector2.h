@@ -1,7 +1,19 @@
+/*****************************************************************************/
+/**
+ * @file    xcVector2.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/26
+ * @brief   Vector2 of float
+ *
+ * This class has all necessary math for vector42of float, like sum, rest,
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
+
 #pragma once
 #include <cmath>
-
-
 #include "xcPrerequisitesUtilities.h"
 
 namespace xcEngineSDK {
@@ -11,12 +23,22 @@ namespace xcEngineSDK {
 
 	 public:
 
-		 Vector2() = default;
-     ~Vector2() = default;
+		/**
+		 * @brief default constructor
+		 */
+	  Vector2() = default;
 
+		/**
+		 * @brief default destructor
+		 */
+	  ~Vector2() = default;
 
+		/**
+		 * @brief constructor of float
+		 */
 		Vector2(float x, float y = 0.f)
 			      :m_x(x), m_y(y) { };
+
 
 
 		/**

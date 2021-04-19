@@ -1,5 +1,18 @@
-#pragma once
+/*****************************************************************************/
+/**
+ * @file    xcRadians.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/31
+ * @brief   class for the math of the radians
+ *
+ * This class contain the math logic to use radians and is compatible whit
+ * degrees
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
 
+#pragma once
 
 #include "xcPrerequisitesUtilities.h"
 #include "xcMath.h"
@@ -12,23 +25,49 @@ namespace xcEngineSDK {
 	{
 	 public:
 
-	  Radians() = default;
+	  /**
+     * @brief default constructor
+     */
+    Radians() = default;
+
+    /**
+     * @brief default destructor
+     */
     ~Radians() = default;
 
-
+		/**
+		 * @brief constructor of float
+		 */
 		Radians(float angle)
 			      :m_angle(angle) { };
 
+		/**
+		 * @brief constructor of degrees
+		 */
 		Radians(Degrees& angle);
 
+		/**
+		 * @brief constructor of radians
+		 */
 		Radians(const Radians& angle);
 
 
+		/**
+		 * @brief      getRadians function, to get the angle of the radians
+		 * @bug	       No know Bugs
+		 * @return     Returns the angle
+		 */
 		float
 		getRadians() {
 			return m_angle;
 		}
 
+		/**
+		 * @brief      getRadiansIntoDegrees function, to get the radians transform into
+		 * 			       degrees
+		 * @bug	       No know Bugs
+		 * @return     Returns the angle
+		 */
 		float
 		getRadiansIntoDegrees() {
 			return m_angle * Math::RAD2DEG;
@@ -124,6 +163,14 @@ namespace xcEngineSDK {
 	 protected:
 
 	 private:
+
+		/**
+     * @brief private members
+     */
+
+    /**
+     * @brief m_angle, angle of the radian
+     */
 		float m_angle = 0;
 
 	};

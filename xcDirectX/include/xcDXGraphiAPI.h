@@ -21,6 +21,7 @@
 
 
 namespace xcEngineSDK {
+
 	class DXGraphiAPI : public GraphiAPI
 	{
 	private:
@@ -57,7 +58,7 @@ namespace xcEngineSDK {
 		TextureB* m_DepthStencil;
 
 
-	protected:
+	 protected:
 		/**
 			* @brief protected functions
 		*/
@@ -90,7 +91,7 @@ namespace xcEngineSDK {
 		void
 		createDeferredContext() override;
 
-	public:
+	 public:
 
 
 
@@ -235,7 +236,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		createTexture3D();
+		createTexture3D() override;
 
 		/**
 		 * @brief      createShaderProgram function, to create shader program
@@ -626,9 +627,9 @@ namespace xcEngineSDK {
 		destroy() override;
 	};
 
-  extern "C" XC_CORE_EXPORT GraphiAPI * createGraphisAPI() {
+  extern "C" XC_PLUGIN_EXPORT GraphiAPI * createGraphisAPI() {
 
-		DXGraphiAPI* m_dxGraphiApi = new DXGraphiAPI();
+		auto m_dxGraphiApi = new DXGraphiAPI();
 
 		return m_dxGraphiApi;
 

@@ -1,3 +1,16 @@
+/*****************************************************************************/
+/**
+ * @file    xcVectorI2.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/27
+ * @brief   Vector2 of int32
+ *
+ * This class has all necessary math for vector2 of int32, like sum, rest,
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
 #pragma once
 #include <cmath>
 
@@ -9,13 +22,22 @@ namespace xcEngineSDK {
 	class XC_UTILITY_EXPORT VectorI2 
 	{
 	 public:
+
+		/**
+		 * @brief default constructor
+		 */
+		VectorI2() = default;
+
+		/**
+		 * @brief default destructor
+		 */
+		~VectorI2() = default;
+
+		/**
+		 * @brief constructor of  int32
+		 */
 		VectorI2(int32 x, int32 y = 0)
 			       :m_x(x), m_y(y) { };
-
-		VectorI2()
-			       :m_x(0), m_y(0) { };
-
-		~VectorI2() = default;
 
 		/**
 		 * @brief      + operator overload
