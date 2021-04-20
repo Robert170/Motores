@@ -4,12 +4,6 @@
 
 namespace xcEngineSDK {
 
-  Ray::Ray() {
-  }
-
-  Ray::~Ray() {
-  }
-
   bool
   Ray::intersec(Sphere& sphere) {
     sphere;

@@ -135,8 +135,13 @@ namespace xcEngineSDK {
   Vector3::cross(Vector3& VectorA, 
                  Vector3& VectorB) {
 
-    return Vector3(((VectorA.m_y * VectorB.m_z) - (VectorA.m_z* VectorB.m_y)),
-                   ((VectorA.m_z * VectorB.m_x) - (VectorA.m_x* VectorB.m_z)),
+    return Vector3(((VectorA.m_y * VectorB.m_z) - (VectorA.m_z * VectorB.m_y)),
+                   ((VectorA.m_z * VectorB.m_x) - (VectorA.m_x * VectorB.m_z)),
                    ((VectorA.m_x * VectorB.m_y) - (VectorA.m_y * VectorB.m_x)));
+  }
+
+  Vector3 
+  Vector3::operator-() const {
+    return Vector3(-m_x, -m_y, -m_z);
   }
 }

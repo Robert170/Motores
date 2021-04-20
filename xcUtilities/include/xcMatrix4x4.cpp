@@ -174,7 +174,7 @@ namespace xcEngineSDK {
                       Vector3& At,
                       Vector3& Up) {
 
-    Vector3 zAxis = Eye - At;
+    Vector3 zAxis = At - Eye;
     zAxis.normalize();
 
     Vector3 xAxis = xAxis.cross(Up, zAxis);
@@ -182,14 +182,20 @@ namespace xcEngineSDK {
 
     Vector3 yAxis = yAxis.cross(zAxis, xAxis);
 
-
+    Vector3 negativeEye = -Eye;
     
-    return Matrix4x4(xAxis.m_x, yAxis.m_x, zAxis.m_x, 0,
+    /*return Matrix4x4(xAxis.m_x, yAxis.m_x, zAxis.m_x, 0,
                      xAxis.m_y, yAxis.m_y, zAxis.m_y, 0,
                      xAxis.m_z, yAxis.m_z, zAxis.m_z, 0,
-                     xAxis.dot(xAxis,Eye), yAxis.dot(yAxis,Eye), 
-                     zAxis.dot(zAxis,Eye), 1);
+                     xAxis.dot(xAxis, negativeEye), yAxis.dot(yAxis, negativeEye), 
+                     zAxis.dot(zAxis, negativeEye), 1);*/
+
+    return Matrix4x4(xAxis.m_x, xAxis.m_y, xAxis.m_z, xAxis.dot(xAxis, negativeEye),
+                     yAxis.m_x, yAxis.m_y, yAxis.m_z, yAxis.dot(yAxis, negativeEye),
+                     zAxis.m_x, zAxis.m_y, zAxis.m_z, zAxis.dot(zAxis, negativeEye),
+                     0, 0, 0, 1);
   }
+  
 
   Matrix4x4 
   Matrix4x4::perspectiveFovLH(float& Fov,

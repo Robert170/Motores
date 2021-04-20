@@ -1,5 +1,17 @@
+/*****************************************************************************/
+/**
+ * @file    xcMatrix4x4.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/27
+ * @brief   Vector3 of float
+ *
+ * This class has all necessary math for vector3 of float, like sum, rest,
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
 #pragma once
-
 
 #include "xcPrerequisitesUtilities.h"
 #include "xcMath.h"

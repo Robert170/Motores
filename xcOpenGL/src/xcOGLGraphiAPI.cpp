@@ -67,38 +67,37 @@ namespace xcEngineSDK {
 	}
 
 	Matrix4x4
-		OGLGraphiAPI::initMatrixWorld(Matrix4x4& MatrixWorld) {
-		//TODO: IDENTYDI MATRIX
-		//return MatrixWorld = Matrix4x4(1.0);
-		return MatrixWorld;
+	OGLGraphiAPI::initMatrixWorld(Matrix4x4& MatrixWorld) {
+	
+		return MatrixWorld = Matrix4x4::IDENTITY_MATRIX;;
 	}
 
 	Matrix4x4
-		OGLGraphiAPI::initMatrixView(Matrix4x4& MatrixView,
-			Vector3& Eye,
-			Vector3& At,
-			Vector3& Up) {
+	OGLGraphiAPI::initMatrixView(Matrix4x4& MatrixView,
+			                         Vector3& Eye,
+			                         Vector3& At,
+			                         Vector3& Up) {
 		//TODO
 		////init view matrix
-		/*MatrixView = glm::lookAtLH(Eye,
-			At,
-			Up);*/
+    MatrixView = MatrixView.lookAtLH(Eye,
+                                     At,
+                                     Up);
 
 		return MatrixView;
 	}
 
 	Matrix4x4
-		OGLGraphiAPI::initMatrixProjection(Matrix4x4& MatrixProjection,
-			float& Fov,
-			float& Height,
-			float& Width,
-			float& Near,
-			float& Far) {
-		/*MatrixProjection = glm::perspectiveFovLH(Fov,
-			Height,
-			Width,
-			Near,
-			Far);*/
+	OGLGraphiAPI::initMatrixProjection(Matrix4x4& MatrixProjection,
+			                               float& Fov,
+			                               float& Height,
+			                               float& Width,
+			                               float& Near,
+			                               float& Far) {
+		MatrixProjection = MatrixProjection.perspectiveFovLH(Fov,
+                                                         Height,
+                                                         Width,
+                                                         Near,
+                                                         Far);
 		return MatrixProjection;
 	}
 

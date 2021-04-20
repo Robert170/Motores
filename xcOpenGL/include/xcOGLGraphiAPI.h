@@ -606,4 +606,12 @@ namespace xcEngineSDK {
 		destroy() override;
 	};
 
+  extern "C" XC_PLUGIN_EXPORT GraphiAPI * createGraphisAPI() {
+
+    auto m_oglGraphiApi = new OGLGraphiAPI();
+
+    return m_oglGraphiApi;
+
+  }
+
 }

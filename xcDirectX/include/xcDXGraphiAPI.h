@@ -178,7 +178,7 @@ namespace xcEngineSDK {
 		/**
 		 * @brief      createIndexBuffer function, to create index buffer
 		 * @param      bindFlags parameter one, bind Flags for the desc of index buffer
-		 * @param      Ind parameter two, a vector unsigned ints of indices
+		 * @param      Ind parameter two, a vector uint32s of indices
 		 * @param      NumBuffer parameter three, NumBuffer for the index buffer
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CBuffer
@@ -223,11 +223,11 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CTexture
 		 */
 		TextureB*
-		createTexture2D(unsigned int width,
-			              unsigned int height,
-			              unsigned int numberTexture, //deberia estar en la clase texture
+		createTexture2D(uint32 width,
+			              uint32 height,
+			              uint32 numberTexture, //deberia estar en la clase texture
 			              TEXTURE_FORMAT format = TF_R8G8B8A8_UNORM,
-			              unsigned int bindFlags = TEXTURE_BIND_SHADER_RESOURCE,
+			              uint32 bindFlags = TEXTURE_BIND_SHADER_RESOURCE,
 			              TYPE_USAGE Usage = TYPE_USAGE_DEFAULT) override;
 
 		/**

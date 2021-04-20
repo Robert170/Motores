@@ -96,7 +96,7 @@ namespace xcEngineSDK {
     operator+(const float& V);
 
     /**
-     * @brief      + operator overload
+     * @brief      - operator overload
      * @param      V parameter one, number for rest
      * @bug	       No know Bugs
      * @return     Returns rest between a vector and a float
@@ -105,7 +105,7 @@ namespace xcEngineSDK {
     operator-(const float& V);
 
     /**
-     * @brief      + operator overload
+     * @brief      * operator overload
      * @param      V parameter one, number for multiply
      * @bug	       No know Bugs
      * @return     Returns multiplication between a vector and a float
@@ -114,7 +114,7 @@ namespace xcEngineSDK {
     operator*(const float& V);
 
     /**
-     * @brief      + operator overload
+     * @brief      / operator overload
      * @param      V parameter one, number for divide
      * @bug	       No know Bugs
      * @return     Returns division between a vector and a float
@@ -199,6 +199,14 @@ namespace xcEngineSDK {
     Vector3
     cross(Vector3& VectorA,
           Vector3& VectorB);
+
+    /**
+     * @brief      - operator overload
+     * @bug	       No know Bugs
+     * @return     Returns a negated vector
+     */
+    Vector3
+    operator-() const;
 
 
 

@@ -9,37 +9,51 @@ namespace xcEngineSDK {
     initSystems();
    // m_plugin->loadPlugin("xcDirectX_d.dll");
 
-    createWindow();
+    //createWindow();
 
-    //onCreate();
+    onCreate();
 
-    sf::Clock delta;
+    //sf::Clock delta;
 
-    float deltaTime ; 
+    //float deltaTime ; 
 
-    while (m_window.isOpen()) {
+    //while (m_window.isOpen()) {
 
-      sf::Event event;
+    //  sf::Event event;
 
-      while (m_window.pollEvent(event)) {
-        
-        if (event.type == sf::Event::Closed) {
-          m_window.close();
-          break;
-        }
+    //  while (m_window.pollEvent(event)) {
+    //    
+    //    if (event.type == sf::Event::Closed) {
+    //      m_window.close();
+    //      break;
+    //    }
 
-      }
+    //  }
 
-      deltaTime = delta.getElapsedTime().asSeconds();
+    //  deltaTime = delta.getElapsedTime().asSeconds();
 
-      //onUpdate(deltaTime);
+    // Main message loop
+	  MSG msg = { 0 };
+	  while (WM_QUIT != msg.message)
+	  {
+	  	if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+	  	{
+	  		TranslateMessage(&msg);
+	  		DispatchMessage(&msg);
+	  	}
+	  	else
+	  	{
+	  		//update
+        update(0.f); 
 
-      //onRender();
+	  		//render
+        render();
+	  		
+	  	}
+	  }
 
-    }
-
-
-    //onDestroy();
+    onDestroy();
+    destroySystems();
 
     return 0;
   }
@@ -55,24 +69,23 @@ namespace xcEngineSDK {
   void 
   BaseApp::createWindow() {
 
-    String Temp = "Proyect";
-
-    m_window.create(sf::VideoMode(500, 500), Temp);
-
   }
 
   void 
   BaseApp::update(float deltaTime) {
+
+    onUpdate(deltaTime);
   }
 
   void 
   BaseApp::render() {
+    onRender();
   }
 
   void 
   BaseApp::initSystems() {
 
-    if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
+    if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
 
       auto createGraphiApi = reinterpret_cast<funProtoGraphiApi>(
                              m_plugin.getProcedureByName("createGraphisAPI"));
@@ -81,13 +94,14 @@ namespace xcEngineSDK {
       GraphiAPI* graphiApi = createGraphiApi();
       g_graphiAPI().setObject(graphiApi);
       m_graphiApi = &g_graphiAPI();
-      m_graphiApi->init(500, 500);
+      m_graphiApi->init(800, 600);
     }
 
   }
 
   void 
   BaseApp::destroySystems() {
+    m_plugin.destroy();
   }
 
 }

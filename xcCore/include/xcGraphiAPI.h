@@ -292,7 +292,7 @@ namespace xcEngineSDK {
      */
     virtual void 
     initWindow(uint32 width,
-               uint32 height) { width; height;};
+               uint32 height) { };
 
     /**
      * @brief      createDeviceandSwap function, to create device and swap chain

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <SFML/Window.hpp>
+//#include <SFML/Window.hpp>
 #include <xcPlugin.h>
 
 #include "xcPrerequisitesCore.h"
@@ -120,7 +120,7 @@ namespace xcEngineSDK {
 
 	 protected:
 
-		 sf::Window m_window;
+		 //sf::Window m_window;
 		 Plugin m_plugin;
 		 GraphiAPI* m_graphiApi;
 

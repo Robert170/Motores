@@ -57,7 +57,7 @@ namespace xcEngineSDK {
   Matrix4x4 
   DXGraphiAPI::initMatrixWorld(Matrix4x4& MatrixWorld) {
 
-    MatrixWorld = MatrixWorld.identity();
+    MatrixWorld = Matrix4x4::IDENTITY_MATRIX;
 
     return MatrixWorld.transpose();
   }
@@ -100,9 +100,10 @@ namespace xcEngineSDK {
     return nullptr;
   }
 
-  //fuction to create a window
-  void DXGraphiAPI::initWindow(unsigned int width,
-                               unsigned int height) {
+  //function to create a window
+  void 
+  DXGraphiAPI::initWindow(uint32 width,
+                          uint32 height) {
 
     auto WindowInstance = reinterpret_cast<HINSTANCE>(GetModuleHandle(nullptr));
 
@@ -149,7 +150,8 @@ namespace xcEngineSDK {
     return;
   }
 
-  //fuction to create device and swap chain
+
+  //function to create device and swap chain
   void 
   DXGraphiAPI::createDeviceandSwap() {
     RECT rc;
@@ -278,11 +280,11 @@ namespace xcEngineSDK {
   }
 
 
-  //fuction to create a vertex buffer 
+  //function to create a vertex buffer 
   VertexBuffer* 
   DXGraphiAPI::createVertexBuffer(const vector <SimpleVertex>& Ver,
-                                  unsigned int BufferSize,
-                                  unsigned int NumBuffer) {
+                                  uint32 BufferSize,
+                                  uint32 NumBuffer) {
     auto VertexBuffer = new VertexBufferDX();
     CD3D11_BUFFER_DESC BufferDesc(Ver.size() * sizeof(SimpleVertex),
                                   D3D11_BIND_VERTEX_BUFFER);
@@ -302,13 +304,13 @@ namespace xcEngineSDK {
 
   }
 
-  //fuction to create an index buffer 
+  //function to create an index buffer 
   IndexBuffer* 
-  DXGraphiAPI::createIndexBuffer(const std::vector<unsigned int>& Ind,
-                                 unsigned int BufferSize,
-                                 unsigned int NumBuffer) {
+  DXGraphiAPI::createIndexBuffer(const std::vector<uint32>& Ind,
+                                 uint32 BufferSize,
+                                 uint32 NumBuffer) {
     auto IndexBuffer = new IndexBufferDX();
-    CD3D11_BUFFER_DESC BufferDesc(Ind.size() * sizeof(unsigned int),
+    CD3D11_BUFFER_DESC BufferDesc(Ind.size() * sizeof(uint32),
                                   D3D11_BIND_INDEX_BUFFER);
 
     D3D11_SUBRESOURCE_DATA InitData;
@@ -326,10 +328,10 @@ namespace xcEngineSDK {
     return IndexBuffer;
   }
 
-  //fuction to create a constant buffer 
+  //function to create a constant buffer 
   ConstantBuffer* 
-  DXGraphiAPI::createConstantBuffer(unsigned int BufferSize,
-                                    unsigned int NumBuffer,
+  DXGraphiAPI::createConstantBuffer(uint32 BufferSize,
+                                    uint32 NumBuffer,
                                     const void* Data) {
     auto ConsBuffer = new ConstantBufferDX();
 
@@ -350,13 +352,13 @@ namespace xcEngineSDK {
   DXGraphiAPI::createTexture1D() {
   }
 
-  //fuction to create a texture 2D
+  //function to create a texture 2D
   TextureB*
-  DXGraphiAPI::createTexture2D(unsigned int width,
-                               unsigned int height,
-                               unsigned int numberTexture,
+  DXGraphiAPI::createTexture2D(uint32 width,
+                               uint32 height,
+                               uint32 numberTexture,
                                TEXTURE_FORMAT format,
-                               unsigned int bindFlags,
+                               uint32 bindFlags,
                                TYPE_USAGE Usage) {
     HRESULT hr;
     auto texture = new TextureDX();
@@ -515,7 +517,7 @@ namespace xcEngineSDK {
     return ShaderProgram;
   }
 
-  //fuction to create a pixel shader
+  //function to create a pixel shader
   PixelShader* DXGraphiAPI::createPixelShaders(const std::string& FileName,
                                                const std::string& Entry,
                                                const std::string& ShaderModel,
@@ -550,7 +552,7 @@ namespace xcEngineSDK {
     return PixelShader;
   }
 
-  //fuction to create a vertex shader
+  //function to create a vertex shader
   VertexShader* DXGraphiAPI::createVertexShaders(const std::string& FileName,
                                                  const std::string& Entry,
                                                  const std::string& ShaderModel,
@@ -583,20 +585,20 @@ namespace xcEngineSDK {
     return VertexShaders;
   }
 
-  //fuction to create an input layout,
+  //function to create an input layout,
   InputLayout* DXGraphiAPI::createInputLayout(ShaderProgram& Vertex,
                                                InputLayout_Desc& LayoutDesc,
-                                               unsigned int NumInputLayout) {
+                                               uint32 NumInputLayout) {
     auto InputLayout = new InputLayoutDX();
     auto& VertexShaderBlob = reinterpret_cast<ShaderProgramDX&>(Vertex);
 
 
     vector<D3D11_INPUT_ELEMENT_DESC> layout;
 
-    unsigned int SemanticIndexPosition = 0;
-    unsigned int SemanticIndexTexcoord = 0;
-    unsigned int SemanticIndexColor = 0;
-    unsigned int SemanticIndexNormal = 0;
+    uint32 SemanticIndexPosition = 0;
+    uint32 SemanticIndexTexcoord = 0;
+    uint32 SemanticIndexColor = 0;
+    uint32 SemanticIndexNormal = 0;
 
 
     for (int i = 0; i < LayoutDesc.Semantics.size(); ++i) {
@@ -664,11 +666,11 @@ namespace xcEngineSDK {
 
   }
 
-  //fuction to create a sampler state
+  //function to create a sampler state
 
   //faltan parametros
   SamplerState* 
-  DXGraphiAPI::createSamplerState(unsigned int NumSamplerState) {
+  DXGraphiAPI::createSamplerState(uint32 NumSamplerState) {
     auto SamplerState = new SamplerStateDX();
 
     CD3D11_SAMPLER_DESC SamStDesc;
@@ -679,7 +681,7 @@ namespace xcEngineSDK {
     return SamplerState;
   }
 
-  //fuction to create a rasterizer state
+  //function to create a rasterizer state
 
   //faltan parametros
   RasterizerState* DXGraphiAPI::createRasterizerState() {
@@ -692,22 +694,22 @@ namespace xcEngineSDK {
     return RasState;
   }
 
-  //fuction to set a constant buffer of vertex shader
+  //function to set a constant buffer of vertex shader
   void 
   DXGraphiAPI::setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-    unsigned int StartSlot,
-    unsigned int NumBuffer) {
+    uint32 StartSlot,
+    uint32 NumBuffer) {
     auto* Buffer = reinterpret_cast<ConstantBufferDX*>(ConstBuff);
     m_pImmediateContext->VSSetConstantBuffers(StartSlot,
                                               NumBuffer,
                                               &Buffer->m_pConstantBuffer);
   }
 
-  //fuction to set a constant buffer of pixel shader
+  //function to set a constant buffer of pixel shader
   void 
   DXGraphiAPI::setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
-                                            unsigned int StartSlot,
-                                            unsigned int NumBuffer) {
+                                            uint32 StartSlot,
+                                            uint32 NumBuffer) {
     auto* Buffer = reinterpret_cast<ConstantBufferDX*>(ConstBuff);
 
     m_pImmediateContext->PSSetConstantBuffers(StartSlot,
@@ -717,9 +719,9 @@ namespace xcEngineSDK {
 
 
 
-  //fuction to set an index buffer 
+  //function to set an index buffer 
   void DXGraphiAPI::setIndexBuffer(IndexBuffer* IndBuff,
-                                   unsigned int offset) {
+                                   uint32 offset) {
     auto* IndexBuff = reinterpret_cast<IndexBufferDX*>(IndBuff);
     IndexBuff->m_offset = offset;
 
@@ -728,13 +730,13 @@ namespace xcEngineSDK {
                                           IndexBuff->m_offset);
   }
 
-  //fuction to set a vertex buffer 
+  //function to set a vertex buffer 
   void 
   DXGraphiAPI::setVertexBuffer(VertexBuffer* VerBuff,
-                               unsigned int StartSlot,
-                               unsigned int NumBuffer,
-                               unsigned int stride,
-                               unsigned int offset) {
+                               uint32 StartSlot,
+                               uint32 NumBuffer,
+                               uint32 stride,
+                               uint32 offset) {
 
     auto* VertexBuff = reinterpret_cast<VertexBufferDX*>(VerBuff);
 
@@ -762,7 +764,7 @@ namespace xcEngineSDK {
                                      0);
   }
 
-  //fuction to set a pixel shader 
+  //function to set a pixel shader 
   void
   DXGraphiAPI::setPixelShaders(PixelShader* Pixel) {
     auto* PixelSh = reinterpret_cast<PixelShaderDX*>(Pixel);
@@ -772,7 +774,7 @@ namespace xcEngineSDK {
                                      0);
   }
 
-  //fuction to set a vertex shader 
+  //function to set a vertex shader 
   void 
   DXGraphiAPI::setVertexShaders(VertexShader* Vertex) {
     auto* VertexSh = reinterpret_cast<VertexShaderDX*>(Vertex);
@@ -781,7 +783,7 @@ namespace xcEngineSDK {
                                      0);
   }
 
-  //fuction to set a render target 
+  //function to set a render target 
   void 
   DXGraphiAPI::setRenderTarget(const std::vector<TextureB*>& pRTTex,
                                TextureB* pDSTex) {
@@ -803,17 +805,17 @@ namespace xcEngineSDK {
   }
 
 
-  //fuction to set a input layout 
+  //function to set a input layout 
   void 
   DXGraphiAPI::setInputLayout(InputLayout* Inp) {
     auto* InpLay = reinterpret_cast<InputLayoutDX*>(Inp);
     m_pImmediateContext->IASetInputLayout(InpLay->m_pInputLayout);
   }
 
-  //fuction to set a sampler state 
+  //function to set a sampler state 
   void 
   DXGraphiAPI::setSamplerState(const std::vector<SamplerState*>& Sam,
-                               unsigned int StartSlot) {
+                               uint32 StartSlot) {
     for (int i = 0; i < Sam.size(); ++i) {
       auto Sampler = reinterpret_cast<SamplerStateDX*>(Sam.at(i));
 
@@ -828,12 +830,12 @@ namespace xcEngineSDK {
   DXGraphiAPI::setDepthStencil(TextureB* pDSTex){
   }
 
-  //fuction to set a shader resource
+  //function to set a shader resource
 
   //se debe poder setar cualquier resource
   void 
   DXGraphiAPI::setShaderResource(const std::vector<TextureB*>& pRTTex,
-                                 unsigned int StartSlot) {
+                                 uint32 StartSlot) {
     for (int i = 0; i < pRTTex.size(); ++i) {
       auto pRTDX = reinterpret_cast<TextureDX*>(pRTTex.at(i));
 
@@ -841,12 +843,12 @@ namespace xcEngineSDK {
                                                 pRTTex.size(),
                                                 &pRTDX->m_pSRV);
     }
-
+    StartSlot;
   }
 
-  //fuction to set a viewport 
+  //function to set a viewport 
   void 
-  DXGraphiAPI::setViewport(unsigned int NumViewport,
+  DXGraphiAPI::setViewport(uint32 NumViewport,
                            float Width,
                            float Height,
                            float TopLeftX,
@@ -875,7 +877,7 @@ namespace xcEngineSDK {
                                             pDSDX->m_pDSV);
   }
 
-  //fuction to set a rasterizer state
+  //function to set a rasterizer state
   void 
   DXGraphiAPI::setRasterizerState(RasterizerState* RasState) {
     auto* pRasteState = reinterpret_cast<RasterizerStateDX*>(RasState);
@@ -883,7 +885,7 @@ namespace xcEngineSDK {
     m_pImmediateContext->RSSetState(pRasteState->m_pRasterizerState);
   }
 
-  //fuction to clear render target view
+  //function to clear render target view
   void 
   DXGraphiAPI::clearRenderTarget(TextureB* RT,
                                  ColorStruct Color) {
@@ -892,12 +894,12 @@ namespace xcEngineSDK {
     m_pImmediateContext->ClearRenderTargetView(pRTDX->m_pRTV, &Color.R);
   }
 
-  //fuction to clear depth stenci view
+  //function to clear depth stenci view
   void 
   DXGraphiAPI::clearDepthStencil(TextureB* DS,
-                                 unsigned int ClerFlag,
+                                 uint32 ClerFlag,
                                  float Depth,
-                                 unsigned int Stencil) {
+                                 uint32 Stencil) {
     auto* pDSDX = reinterpret_cast<TextureDX*>(DS);
 
 
@@ -941,21 +943,21 @@ namespace xcEngineSDK {
   DXGraphiAPI::drawModel(Model* Model, ShaderProgram& ShaderPro) {
   }
 
-  //fuction to draw
+  //function to draw
   void 
-  DXGraphiAPI::drawIndexed(unsigned int NumIndex,
-                           unsigned int StartindexLocation,
-                           unsigned int BaseVertexLocation,
+  DXGraphiAPI::drawIndexed(uint32 NumIndex,
+                           uint32 StartindexLocation,
+                           uint32 BaseVertexLocation,
                            const void* Index) {
     m_pImmediateContext->DrawIndexed(NumIndex,
                                      StartindexLocation,
                                      BaseVertexLocation);
   }
 
-  void DXGraphiAPI::drawInstanced(unsigned int VertexCountPerInstance,
-                                  unsigned int InstanceCount,
-                                  unsigned int StartVertexLocation,
-                                  unsigned int StartInstanceLocation) {
+  void DXGraphiAPI::drawInstanced(uint32 VertexCountPerInstance,
+                                  uint32 InstanceCount,
+                                  uint32 StartVertexLocation,
+                                  uint32 StartInstanceLocation) {
 
     m_pImmediateContext->DrawInstanced(VertexCountPerInstance,
                                        InstanceCount,
@@ -964,13 +966,13 @@ namespace xcEngineSDK {
   }
 
   void 
-  DXGraphiAPI::draw(unsigned int VertexCount,
-                    unsigned int StartVertexLocation) {
+  DXGraphiAPI::draw(uint32 VertexCount,
+                    uint32 StartVertexLocation) {
     m_pImmediateContext->Draw(VertexCount,
                               StartVertexLocation);
   }
 
-  //fuction to present the swap chain
+  //function to present the swap chain
   void 
   DXGraphiAPI::present() {
     m_pSwapChain->Present(0, 0);

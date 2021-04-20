@@ -6,10 +6,13 @@
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source Files\Prerequisites">
-      <UniqueIdentifier>{abf441f0-cef9-4f11-ac85-d529b49b9e0e}</UniqueIdentifier>
+      <UniqueIdentifier>{b79d1ba4-d5f7-42f0-a374-ee2552a8830d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\xcPrerequisitesOGL.h">
+      <Filter>Source Files\Prerequisites</Filter>
+    </ClInclude>
     <ClInclude Include="include\xcConstantBufferOGL.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -45,9 +48,6 @@
     </ClInclude>
     <ClInclude Include="include\xcVertexShaderOGL.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\xcPrerequisitesOGL.h">
-      <Filter>Source Files\Prerequisites</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,11 +87,8 @@
     <ClCompile Include="src\xcVertexShaderOGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\xcExportOGL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\glad.c">
-      <Filter>Source Files\Prerequisites</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
