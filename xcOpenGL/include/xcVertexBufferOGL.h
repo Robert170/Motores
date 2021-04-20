@@ -32,6 +32,11 @@ namespace xcEngineSDK {
 		*/
 		unsigned int m_vBO;
 
+		/**
+	   * @Variable m_numberOfBuffers, number of vertex buffer to delete
+	   */
+	  unsigned int m_numberOfBuffers = 0;
+
 		friend class OGLGraphiAPI;
 
 	};

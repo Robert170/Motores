@@ -41,8 +41,8 @@ namespace xcEngineSDK {
      */
     ID3D11Buffer* m_pVertexBuffer = nullptr;
 
-    unsigned int m_stride;
-    unsigned int m_offset;
+    unsigned int m_stride = 0;
+    unsigned int m_offset = 0;
 
     friend class DXGraphiAPI;
   };

@@ -6,9 +6,9 @@ namespace xcEngineSDK {
   TextureB* g_pDepthStencil = nullptr;
   TextureB* g_pShaderResource = nullptr;
   
-  std::vector<TextureB*> g_vRenderTargets;
-  std::vector<TextureB*> g_vShaderResources;
-  std::vector<SamplerState*> g_vSamplers;
+  //std::vector<TextureB*> g_vRenderTargets;
+  //std::vector<TextureB*> g_vShaderResources;
+  //std::vector<SamplerState*> g_vSamplers;
   std::vector<ConstantBuffer*> g_vConstantBuffers;
   std::vector<std::string> g_vSemanticNames;
   
@@ -195,8 +195,8 @@ namespace xcEngineSDK {
 
 	  // Create the input layout
 	  g_pInputLayout = m_graphiApi->createInputLayout(*g_pShaderProgram,
-		                                              g_InpLayDesc,
-		                                              1);
+		                                                g_InpLayDesc,
+		                                                1);
 
 	  // Create the pixel shader
 	  /*g_pPixelShader = m_graphiApi->CreatePixelShaders("PS",
@@ -346,23 +346,23 @@ namespace xcEngineSDK {
   void 
   GameAppUnitTest::onDestroy() {
     //sampler state
-	  for (int i = g_vSamplers.size() - 1; i >= 0; i--)
+	  /*for (int i = g_vSamplers.size() - 1; i >= 0; i--)
 	  {
 	  	if (nullptr != g_vSamplers.at(i))
 	  	{
 	  		delete g_vSamplers.at(i);
 	  	}
-	  }
+	  }*/
 	  
 	  //ShaderResource
-	  for (int i = g_vShaderResources.size() - 1; i >= 0; i--)
+	  /*for (int i = g_vShaderResources.size() - 1; i >= 0; i--)
 	  {
 	  	if (nullptr != g_vShaderResources.at(i))
 	  	{
 	  		delete g_vShaderResources.at(i);
 	  	}
 	  }
-	  
+	  */
 	  //constant Buffers
 	  for (int i = g_vConstantBuffers.size() - 1; i >= 0; i--)
 	  {
@@ -391,12 +391,12 @@ namespace xcEngineSDK {
 	  delete g_pDepthStencil;
 	  
 	  //render targets
-	  for (int i = g_vRenderTargets.size() - 1; i >= 0; i--)
-	  {
-	  	if (nullptr != g_vRenderTargets.at(i))
-	  	{
-	  		delete g_vRenderTargets.at(i);
-	  	}
-	  }
+    /*for (int i = g_vRenderTargets.size() - 1; i >= 0; i--)
+    {
+      if (nullptr != g_vRenderTargets.at(i))
+      {
+        delete g_vRenderTargets.at(i);
+      }
+    }*/
   }
 }

@@ -15,8 +15,8 @@ namespace xcEngineSDK {
 	framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 	void
-		OGLGraphiAPI::initWindow(unsigned int width,
-			unsigned int height) {
+		OGLGraphiAPI::initWindow(uint32 width,
+			                       uint32 height) {
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -39,7 +39,7 @@ namespace xcEngineSDK {
 		// configure global opengl state
 		// -----------------------------
 		glEnable(GL_DEPTH_TEST);
-		////default render target
+		//default render target
 		//glGenFramebuffers(1, &m_BackBuffer);
 		//glBindFramebuffer(GL_FRAMEBUFFER, m_BackBuffer);
 
@@ -57,7 +57,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::createDeferredContext() {
+	OGLGraphiAPI::createDeferredContext() {
 	}
 
 	OGLGraphiAPI::OGLGraphiAPI() {
@@ -69,7 +69,7 @@ namespace xcEngineSDK {
 	Matrix4x4
 	OGLGraphiAPI::initMatrixWorld(Matrix4x4& MatrixWorld) {
 	
-		return MatrixWorld = Matrix4x4::IDENTITY_MATRIX;;
+		return MatrixWorld = Matrix4x4::IDENTITY_MATRIX;
 	}
 
 	Matrix4x4
@@ -93,6 +93,7 @@ namespace xcEngineSDK {
 			                               float& Width,
 			                               float& Near,
 			                               float& Far) {
+
 		MatrixProjection = MatrixProjection.perspectiveFovLH(Fov,
                                                          Height,
                                                          Width,
@@ -101,35 +102,24 @@ namespace xcEngineSDK {
 		return MatrixProjection;
 	}
 
-	//CModel* OGLGraphiAPI::LoadModel(CGraphiAPI* API, 
-	//	                             InputLayout_Desc InpLayDesc, 
-	//	                             std::string Path)
-	//{
-	//	
-	//	ModelOgl->Init(Path, 
-	//		           API,
-	//		           InpLayDesc);
-	//	return ModelOgl;
-	//}
-
 
 	VertexBuffer*
-		OGLGraphiAPI::createVertexBuffer(const std::vector <SimpleVertex>& Ver,
-			unsigned int BufferSize,
-			unsigned int NumBuffers) {
+	OGLGraphiAPI::createVertexBuffer(const Vector <SimpleVertex>& Ver,
+			                             uint32 BufferSize,
+			                             uint32 NumBuffers) {
 
 		auto VertexBuffer = new VertexBufferOGL();
 
 		glGenBuffers(NumBuffers,
-			&VertexBuffer->m_vBO);
+			           &VertexBuffer->m_vBO);
 
 		glBindBuffer(GL_ARRAY_BUFFER,
-			VertexBuffer->m_vBO);
+			           VertexBuffer->m_vBO);
 
 		glBufferData(GL_ARRAY_BUFFER,
-			Ver.size() * sizeof(SimpleVertex),
-			Ver.data(),
-			GL_STATIC_DRAW);
+			           Ver.size() * sizeof(SimpleVertex),
+			           Ver.data(),
+			           GL_STATIC_DRAW);
 
 		glEnableVertexAttribArray(0);
 
@@ -141,31 +131,31 @@ namespace xcEngineSDK {
 	}
 
 	IndexBuffer*
-		OGLGraphiAPI::createIndexBuffer(const std::vector<unsigned int>& Ind,
-			unsigned int BufferSize, //no va
-			unsigned int NumBuffer) {
+	OGLGraphiAPI::createIndexBuffer(const Vector<uint32>& Ind,
+			                            uint32 BufferSize, //no va
+			                            uint32 NumBuffer) {
 
 		auto IndexBuffer = new IndexBufferOGL();
 
 
 		glGenBuffers(NumBuffer,
-			&IndexBuffer->m_IBO);
+			           &IndexBuffer->m_IBO);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,
-			IndexBuffer->m_IBO);
+			           IndexBuffer->m_IBO);
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-			Ind.size() * sizeof(unsigned int),
-			Ind.data(),
-			GL_STATIC_DRAW);
+			           Ind.size() * sizeof(uint32),
+			           Ind.data(),
+			           GL_STATIC_DRAW);
 
 		return IndexBuffer;
 	}
 
 	ConstantBuffer*
-		OGLGraphiAPI::createConstantBuffer(unsigned int BufferSize,//2
-			unsigned int NumBuffer, //1
-			const void* Data) {//3
+	OGLGraphiAPI::createConstantBuffer(uint32 BufferSize,//2
+			                               uint32 NumBuffer, //1
+			                               const void* Data) {//3
 		auto ConstantBuffer = new ConstantBufferOGL();
 
 		glGenBuffers(NumBuffer,
@@ -176,7 +166,7 @@ namespace xcEngineSDK {
 
 		glBufferData(GL_UNIFORM_BUFFER,
 			BufferSize,
-			&Data,
+			Data,
 			GL_DYNAMIC_DRAW);
 
 		glBindBuffer(GL_UNIFORM_BUFFER,
@@ -192,11 +182,11 @@ namespace xcEngineSDK {
 	}
 
 	TextureB*
-	OGLGraphiAPI::createTexture2D(unsigned int width,
-			                          unsigned int height,
-			                          unsigned int numberTexture,
+	OGLGraphiAPI::createTexture2D(uint32 width,
+			                          uint32 height,
+			                          uint32 numberTexture,
 			                          TEXTURE_FORMAT format,
-			                          unsigned int bindFlags,
+			                          uint32 bindFlags,
 			                          TYPE_USAGE Usage) {
 
 		auto texture = new TextureOGL();
@@ -261,14 +251,14 @@ namespace xcEngineSDK {
 	}
 
 	ShaderProgram*
-		OGLGraphiAPI::createShaderProgram(const std::string& FileNameVS,
-			const std::string& FileNamePS,
-			const std::string& EntryVS,
-			const std::string& EntryPS,
-			const std::string& ShaderModelVS,
-			const std::string& ShaderModelPS,
-			int NumVertexShader,
-			int NumPixelShader) {
+	OGLGraphiAPI::createShaderProgram(const std::string& FileNameVS,
+			                              const std::string& FileNamePS,
+			                              const std::string& EntryVS,
+			                              const std::string& EntryPS,
+			                              const std::string& ShaderModelVS,
+			                              const std::string& ShaderModelPS,
+			                              int32 NumVertexShader,
+			                              int32 NumPixelShader) {
 
 		auto ShaderProgram = new ShaderProgramOGL();
 
@@ -308,7 +298,7 @@ namespace xcEngineSDK {
 				&maxLength);
 
 			// The maxLength includes the NULL character
-			std::vector<GLchar> infoLog(maxLength);
+			Vector<GLchar> infoLog(maxLength);
 			glGetShaderInfoLog(ShaderProgram->m_vertexShaderProgram->m_vertexShader,
 				maxLength,
 				&maxLength,
@@ -370,10 +360,11 @@ namespace xcEngineSDK {
 		return ShaderProgram;
 	}
 
-	PixelShader* OGLGraphiAPI::createPixelShaders(const std::string& FileName,
-		const std::string& Entry,
-		const std::string& ShaderModel,
-		int NumPixelShader) {
+	PixelShader* 
+	OGLGraphiAPI::createPixelShaders(const std::string& FileName,
+		                               const std::string& Entry,
+		                               const std::string& ShaderModel,
+		                               int32 NumPixelShader) {
 		// Pixel Shader
 		std::string RealName = FileName + "_OGL.txt";
 
@@ -402,7 +393,7 @@ namespace xcEngineSDK {
 			glGetShaderiv(PixelShader->m_pixelShader, GL_INFO_LOG_LENGTH, &maxLength);
 
 			// The maxLength includes the NULL character
-			std::vector<GLchar> infoLog(maxLength);
+			Vector<GLchar> infoLog(maxLength);
 			glGetShaderInfoLog(PixelShader->m_pixelShader, maxLength, &maxLength, &infoLog[0]);
 
 			// We don't need the shader anymore.
@@ -425,10 +416,10 @@ namespace xcEngineSDK {
 	}
 
 	VertexShader*
-		OGLGraphiAPI::createVertexShaders(const std::string& FileName,
-			const std::string& Entry,
-			const std::string& ShaderModel,
-			int NumVertexShader) {
+	OGLGraphiAPI::createVertexShaders(const std::string& FileName,
+			                              const std::string& Entry,
+			                              const std::string& ShaderModel,
+			                              int32 NumVertexShader) {
 		// vertex Shader
 		std::string RealName = FileName + "_OGL.txt";
 
@@ -457,7 +448,7 @@ namespace xcEngineSDK {
 			glGetShaderiv(VertexShader->m_vertexShader, GL_INFO_LOG_LENGTH, &maxLength);
 
 			// The maxLength includes the NULL character
-			std::vector<GLchar> infoLog(maxLength);
+			Vector<GLchar> infoLog(maxLength);
 			glGetShaderInfoLog(VertexShader->m_vertexShader, maxLength, &maxLength, &infoLog[0]);
 
 			// We don't need the shader anymore.
@@ -484,9 +475,9 @@ namespace xcEngineSDK {
 	}
 
 	InputLayout*
-		OGLGraphiAPI::createInputLayout(ShaderProgram& Vertex,
-			InputLayout_Desc& LayoutDesc,
-			unsigned int NumInputLayout) {
+	OGLGraphiAPI::createInputLayout(ShaderProgram& Vertex,
+			                            InputLayout_Desc& LayoutDesc,
+			                            uint32 NumInputLayout) {
 		auto InputLa = new InputLayoutOGL();
 
 		glGenVertexArrays(NumInputLayout,
@@ -501,10 +492,10 @@ namespace xcEngineSDK {
 		for (int i = 0; i < LayoutDesc.Formats.size(); ++i)
 		{
 			glVertexAttribFormat(i,
-				InputLa->getSize(LayoutDesc.Formats.at(i)),
-				GL_FLOAT,
-				GL_TRUE,
-				InputLa->m_offset);
+				                   InputLa->getSize(LayoutDesc.Formats.at(i)),
+				                   GL_FLOAT,
+				                   GL_TRUE,
+				                   InputLa->m_offset);
 			checkGLError();
 			glVertexAttribBinding(i, 0);
 			checkGLError();
@@ -519,7 +510,7 @@ namespace xcEngineSDK {
 
 	//mas parametros para diferentes samplers
 	SamplerState*
-		OGLGraphiAPI::createSamplerState(unsigned int NumSamplerState) {
+		OGLGraphiAPI::createSamplerState(uint32 NumSamplerState) {
 		auto SamplerState = new SamplerStateOGL();
 
 		glGenSamplers(NumSamplerState,
@@ -551,10 +542,10 @@ namespace xcEngineSDK {
 
 	void
 		OGLGraphiAPI::setVertexBuffer(VertexBuffer* VerBuff,
-			unsigned int StartSlot,
-			unsigned int NumBuffer,
-			unsigned int stride,
-			unsigned int offset) {
+			uint32 StartSlot,
+			uint32 NumBuffer,
+			uint32 stride,
+			uint32 offset) {
 
 		auto* VertBuff = reinterpret_cast<VertexBufferOGL*>(VerBuff);
 		glBindVertexBuffer(StartSlot,
@@ -567,18 +558,21 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setIndexBuffer(IndexBuffer* IndBuff,
-			unsigned int offset) {
+	OGLGraphiAPI::setIndexBuffer(IndexBuffer* IndBuff,
+			                         uint32 offset) {
+
 		auto* IndexBuff = reinterpret_cast<IndexBufferOGL*>(IndBuff);
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,
-			IndexBuff->m_IBO);
+			           IndexBuff->m_IBO);
+
 		checkGLError();
 	}
 
 	void
 		OGLGraphiAPI::setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			unsigned int StartSlot,
-			unsigned int NumBuffer) {
+			uint32 StartSlot,
+			uint32 NumBuffer) {
 		auto* ConstantBuffer = reinterpret_cast<ConstantBufferOGL*>(ConstBuff);
 		glBindBufferBase(GL_UNIFORM_BUFFER,
 			StartSlot,
@@ -587,13 +581,14 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			unsigned int StartSlot,
-			unsigned int NumBuffer) {
+	OGLGraphiAPI::setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
+			                                        uint32 StartSlot,
+			                                        uint32 NumBuffer) {
 		auto* ConstantBuffer = reinterpret_cast<ConstantBufferOGL*>(ConstBuff);
+		
 		glBindBufferBase(GL_UNIFORM_BUFFER,
-			StartSlot,
-			ConstantBuffer->m_CBO);
+			               StartSlot,
+			               ConstantBuffer->m_CBO);
 		checkGLError();
 	}
 
@@ -626,8 +621,8 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setSamplerState(const std::vector<SamplerState*>& Sam,
-			unsigned int StartSlot) {
+		OGLGraphiAPI::setSamplerState(const Vector<SamplerState*>& Sam,
+			uint32 StartSlot) {
 		for (int i = 0; i < Sam.size(); ++i)
 		{
 			auto SamSt = reinterpret_cast<SamplerStateOGL*>(Sam.at(i));
@@ -654,8 +649,8 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setShaderResource(const std::vector<TextureB*>& pRTTex,
-			unsigned int StartSlot) {
+		OGLGraphiAPI::setShaderResource(const Vector<TextureB*>& pRTTex,
+			uint32 StartSlot) {
 		for (int i = 0; i < pRTTex.size(); ++i)
 		{
 			auto SamSt = reinterpret_cast<TextureOGL*>(pRTTex.at(i));
@@ -668,7 +663,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setViewport(unsigned int NumViewport,
+		OGLGraphiAPI::setViewport(uint32 NumViewport,
 			float Width,
 			float Height,
 			float TopLeftX,
@@ -686,7 +681,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setDefaultRenderTarget() {
+	OGLGraphiAPI::setDefaultRenderTarget() {
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		checkGLError();
@@ -697,8 +692,8 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::clearRenderTarget(TextureB* RT,
-			ColorStruct Color) {
+	OGLGraphiAPI::clearRenderTarget(TextureB* RT,
+			                            ColorStruct Color) {
 		glClearColor(Color.R, Color.G, Color.B, Color.A);
 		checkGLError();
 
@@ -707,15 +702,15 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::clearDepthStencil(TextureB* RT,
-			unsigned int ClerFlag,
-			float Depth,
-			unsigned int Stencil) {
+	OGLGraphiAPI::clearDepthStencil(TextureB* RT,
+			                            uint32 ClerFlag,
+			                            float Depth,
+			                            uint32 Stencil) {
 		//glClear()
 	}
 
 	void
-		OGLGraphiAPI::clearDefaultRenderTargetAndDepthStencil(ColorStruct Color) {
+	OGLGraphiAPI::clearDefaultRenderTargetAndDepthStencil(ColorStruct Color) {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		checkGLError();
 
@@ -740,7 +735,7 @@ namespace xcEngineSDK {
 	}
 
 	void 
-	OGLGraphiAPI::setRenderTarget(const std::vector<TextureB*>& pRTTex,
+	OGLGraphiAPI::setRenderTarget(const Vector<TextureB*>& pRTTex,
 		                            TextureB* pDSTex) {
 		for (int i = 0; i < pRTTex.size(); ++i) {
 			auto pRTODL = reinterpret_cast<TextureOGL*>(pRTTex.at(i));
@@ -771,25 +766,25 @@ namespace xcEngineSDK {
 	//}
 
 	void 
-	OGLGraphiAPI::drawIndexed(unsigned int NumIndex,
-		                        unsigned int StartindexLocation,
-		                        unsigned int BaseVertexLocation,
+	OGLGraphiAPI::drawIndexed(uint32 NumIndex,
+		                        uint32 StartindexLocation,
+		                        uint32 BaseVertexLocation,
 		                        const void* Index) {
 		glDrawElements(GL_TRIANGLES, NumIndex, GL_UNSIGNED_INT, 0);
 		checkGLError();
 	}
 	void 
-	OGLGraphiAPI::drawInstanced(unsigned int VertexCountPerInstance,
-		                          unsigned int InstanceCount,
-		                          unsigned int StartVertexLocation,
-		                          unsigned int StartInstanceLocation) {
+	OGLGraphiAPI::drawInstanced(uint32 VertexCountPerInstance,
+		                          uint32 InstanceCount,
+		                          uint32 StartVertexLocation,
+		                          uint32 StartInstanceLocation) {
 		glDrawArraysInstanced(GL_TRIANGLES, StartInstanceLocation, VertexCountPerInstance, InstanceCount);
 		checkGLError();
 	}
 
 	void 
-	OGLGraphiAPI::draw(unsigned int VertexCount,
-		                 unsigned int StartVertexLocation) {
+	OGLGraphiAPI::draw(uint32 VertexCount,
+		                 uint32 StartVertexLocation) {
 		glDrawArrays(GL_TRIANGLES, StartVertexLocation, VertexCount);
 		checkGLError();
 	}
@@ -797,7 +792,7 @@ namespace xcEngineSDK {
 	void
 	OGLGraphiAPI::present() {
 		glfwSwapBuffers(m_window);
-		//checkGLError();
+		checkGLError();
 
 		glfwPollEvents();
 		checkGLError();
@@ -840,4 +835,7 @@ namespace xcEngineSDK {
 		                        int height) {
 		glViewport(0, 0, width, height);
 	}
+
+  
+
 }
