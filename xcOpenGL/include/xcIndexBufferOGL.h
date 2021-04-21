@@ -32,7 +32,7 @@ namespace xcEngineSDK {
 		/**
 			* @Variable m_IBO, is for a index buffer
 		*/
-		unsigned int m_IBO;
+		uint32 m_IBO = 0;
 
 		friend class OGLGraphiAPI;
 	};

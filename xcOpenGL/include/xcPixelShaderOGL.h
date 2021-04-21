@@ -19,6 +19,10 @@
 namespace xcEngineSDK {
 	class PixelShaderOGL : public PixelShader
 	{
+	 public:
+		/// Destructor
+		~PixelShaderOGL() = default;
+
 	 protected:
 		/**
 			* @brief protected functions
@@ -27,8 +31,6 @@ namespace xcEngineSDK {
 		/// Default Constructor
 		PixelShaderOGL() = default;
 
-		/// Destructor
-		~PixelShaderOGL() = default;
 
 		/**
 		 * @brief      ReadFile function, to read a file
@@ -60,7 +62,7 @@ namespace xcEngineSDK {
 		/**
 			* @Variable m_PixelShader, unsigned int for the pixel shader
 		*/
-		unsigned int m_pixelShader;
+		uint32 m_pixelShader = 0;
 
 
 

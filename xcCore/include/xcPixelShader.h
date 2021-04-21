@@ -13,6 +13,7 @@
  * @bug	No know Bugs
  */
 #pragma once
+#include "xcPrerequisitesCore.h"
 #include <iostream>
 namespace xcEngineSDK {
 	class PixelShader

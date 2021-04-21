@@ -28,7 +28,7 @@ namespace xcEngineSDK {
 	
 	class XC_CORE_EXPORT BaseApp
 	{
-	 public:
+	public:
 		BaseApp() = default;
 		~BaseApp() = default;
 
@@ -36,33 +36,33 @@ namespace xcEngineSDK {
 		 * @brief private functions
 		 */
 
-		/**
-		 * @brief      run function, to run the program 
-		 * @bug		     No know Bugs
-		 * @return     Returns a int32 
-		 */
-    int32
-    run();
+		 /**
+			* @brief      run function, to run the program
+			* @bug		     No know Bugs
+			* @return     Returns a int32
+			*/
+		int32
+			run();
 
 		static LRESULT CALLBACK
-		handleWindowEvent(HWND hw, 
-			                UINT mesg, 
-			                WPARAM wParam, 
-			                LPARAM lParam);
+			handleWindowEvent(HWND hw,
+				UINT mesg,
+				WPARAM wParam,
+				LPARAM lParam);
 
-   private:
+	private:
 
 		/**
 		 * @brief private functions
 		 */
 
-		/**
-		 * @brief      createWindow function, to create window 
-		 * @bug		     No know Bugs
-		 * @return     Returns nothing
-		 */
+		 /**
+			* @brief      createWindow function, to create window
+			* @bug		     No know Bugs
+			* @return     Returns nothing
+			*/
 		void
-		createWindow();
+	  createWindow();
 
 
 		/**
@@ -71,8 +71,8 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
-    void
-    update(float deltaTime);
+		void
+		update(float deltaTime);
 
 		/**
 		 * @brief      render function, to render the program
@@ -80,49 +80,49 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void
-		render();
+			render();
 
 		/**
 		 * @brief      intSystems function, to inti systems
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
-    void
-    initSystems();
+		void
+			initSystems();
 
 		/**
 		 * @brief      destroySystems function, to destroy systems
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
-    void
-    destroySystems();
+		void
+			destroySystems();
 
-		
 
-	 protected:
+
+	protected:
 
 		/**
 		 * @brief protected functions
 		 */
 
-	  virtual void
-		onCreate() {};
+		virtual void
+			onCreate() {};
 
 		virtual void
-    onUpdate(float deltaTime) {};
-   
-		virtual void
-    onRender() {};
+			onUpdate(float) {};
 
 		virtual void
-    onDestroy() {};
+			onRender() {};
 
-	 protected:
+		virtual void
+			onDestroy() {};
 
-		 //sf::Window m_window;
-		 Plugin m_plugin;
-		 GraphiAPI* m_graphiApi;
+	protected:
+
+		//sf::Window m_window;
+		Plugin m_plugin;
+		GraphiAPI* m_graphiApi = nullptr;
 
 		 
 

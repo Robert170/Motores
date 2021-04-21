@@ -34,7 +34,7 @@ namespace xcEngineSDK {
 		/**
 		 * @Variable m_SamSt, unsigned int for the sampler state
 		 */
-		unsigned int m_samSt;
+		uint32 m_samSt = 0;
 
 		friend class OGLGraphiAPI;
 	};

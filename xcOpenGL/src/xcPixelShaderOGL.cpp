@@ -18,8 +18,9 @@ namespace xcEngineSDK {
 
       return m_pixelCode;
     }
-    catch (std::ifstream::failure& e)
-    {
+    catch (std::ifstream::failure& e) {
+      XC_UNREFERENCED_PARAMETER(e);
+
       //error
       return " ";
     }

@@ -21,6 +21,12 @@
 #include <xcMatrix4x4.h>
 #include <xcModule.h>
 
+#include "xcPixelShader.h"
+#include "xcTexture.h"
+#include "xcVertexShader.h"
+#include "xcConstantBuffer.h"
+#include "xcInputLayout.h"
+
 namespace xcEngineSDK {
 
   class TextureB;
@@ -291,8 +297,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    initWindow(uint32 width,
-               uint32 height) { };
+    initWindow(uint32,
+               uint32) { };
 
     /**
      * @brief      createDeviceandSwap function, to create device and swap chain
@@ -351,7 +357,7 @@ namespace xcEngineSDK {
      * @return     Returns a world matrix initialize
      */
     virtual Matrix4x4 
-      initMatrixWorld(Matrix4x4& MatrixWorld) { return Matrix4x4(); };
+      initMatrixWorld(Matrix4x4&) { return Matrix4x4(); };
 
     /**
      * @brief      initMatrixView function, to init the view matrix
@@ -363,10 +369,10 @@ namespace xcEngineSDK {
      * @return     Returns a view matrix initialize
      */
     virtual Matrix4x4 
-    initMatrixView(Matrix4x4& MatrixView,
-                   Vector3& Eye,
-                   Vector3& At,
-                   Vector3& Up) { return Matrix4x4(); };
+    initMatrixView(Matrix4x4&,
+                   Vector3&,
+                   Vector3&,
+                   Vector3&) { return Matrix4x4(); };
 
     /**
      * @brief      initMatrixProjection function, to init the view matrix
@@ -380,12 +386,12 @@ namespace xcEngineSDK {
      * @return     Returns a view matrix initialize
      */
     virtual Matrix4x4 
-    initMatrixProjection(Matrix4x4& MatrixProjection,
-                         float& Fov,
-                         float& Height,
-                         float& Width,
-                         float& Near,
-                         float& Far) { return Matrix4x4(); };
+    initMatrixProjection(Matrix4x4&,
+                         float&,
+                         float&,
+                         float&,
+                         float&,
+                         float&) { return Matrix4x4(); };
 
     /**
      * @brief      LoadModel function, to load model
@@ -404,29 +410,26 @@ namespace xcEngineSDK {
     /**
      * @brief      createVertexBuffer function, to create vertex buffer
      * @param      bindFlags parameter one, bind Flags for the desc of vertex buffer
-     * @param      Ver parameter two, a vector whit positions and tex of vertices
-     * @param      ID parameter three, id for the vertex buffer
+     * @param      Ver parameter two, a vector whit SimpleVertex
+     * @param      NumBuffer parameter three, id for the vertex buffer
      * @bug		     No know Bugs
      * @return     Returns a pointer of CBuffer
      */
 
     virtual VertexBuffer* 
-    createVertexBuffer(const std::vector <SimpleVertex>& Ver,
-                       uint32 BufferSize,
-                       uint32 NumBuffer = 0) { return nullptr; };
+    createVertexBuffer(const std::vector <SimpleVertex>&,
+                       uint32 = 0) { return nullptr; };
 
     /**
      * @brief      createIndexBuffer function, to create index buffer
-     * @param      bindFlags parameter one, bind Flags for the desc of index buffer
-     * @param      Ind parameter two, a vector unsigned ints of indices
-     * @param      NumBuffer parameter three, NumBuffer for the index buffer
+     * @param      Ind parameter one, a vector unsigned ints of indices
+     * @param      NumBuffer parameter two, NumBuffer for the index buffer
      * @bug		     No know Bugs
      * @return     Returns a pointer of CBuffer
      */
     virtual IndexBuffer* 
-    createIndexBuffer(const std::vector<uint32_t>& Ind,
-                      uint32 BufferSize,
-                      uint32 NumBuffer = 0) { return nullptr; };
+    createIndexBuffer(const std::vector<uint32_t>&,
+                      uint32 = 0) { return nullptr; };
 
     /**
      * @brief      createConstantBuffer function, to create constant buffer
@@ -438,9 +441,9 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CBuffer
      */
     virtual ConstantBuffer* 
-    createConstantBuffer(uint32 BufferSize,
-                         uint32 NumBuffer = 0,
-                         const void* Data = nullptr) { return nullptr; };
+    createConstantBuffer(uint32,
+                         uint32 = 0,
+                         const void* = nullptr) { return nullptr; };
 
 
 
@@ -464,12 +467,12 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CTexture
      */
     virtual TextureB*
-    createTexture2D(uint32 width,
-                    uint32 height,
-                    uint32 numberTexture, //deberia estar en la clase texture
-                    TEXTURE_FORMAT format = TF_R8G8B8A8_UNORM,
-                    uint32 bindFlags = TEXTURE_BIND_SHADER_RESOURCE,
-                    TYPE_USAGE Usage = TYPE_USAGE_DEFAULT) { return nullptr; };
+    createTexture2D(uint32,
+                    uint32,
+                    uint32, //deberia estar en la clase texture
+                    TEXTURE_FORMAT = TF_R8G8B8A8_UNORM,
+                    uint32 = TEXTURE_BIND_SHADER_RESOURCE,
+                    TYPE_USAGE = TYPE_USAGE_DEFAULT) { return nullptr; };
 
     /**
      * @brief      createTexture3D function, to create a texture 3D
@@ -493,14 +496,14 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CPixelShader
      */
     virtual ShaderProgram* 
-    createShaderProgram(const std::string& FileNameVS,
-                        const std::string& FileNamePS,
-                        const std::string& EntryVS = "",
-                        const std::string& EntryPS = "",
-                        const std::string& ShaderModelVS = "",
-                        const std::string& ShaderModelPS = "",
-                        int32 NumVertexShader = 0,
-                        int32 NumPixelShader = 0) { return nullptr; }; //no va
+    createShaderProgram(const std::string&,
+                        const std::string&,
+                        const std::string& = "",
+                        const std::string& = "",
+                        const std::string& = "",
+                        const std::string& = "",
+                        int32 = 0,
+                        int32 = 0) { return nullptr; }; //no va
 
     /**
      * @brief      createPixelShaders function, to create pixel shader
@@ -512,10 +515,10 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CPixelShader
      */
     virtual PixelShader* 
-    createPixelShaders(const std::string& FileName,
-                       const std::string& Entry = "",
-                       const std::string& ShaderModel = "",
-                       int32 NumPixelShader = 0) { return nullptr; }; //no va
+    createPixelShaders(const std::string&,
+                       const std::string& = "",
+                       const std::string& = "",
+                       int32 = 0) { return nullptr; }; //no va
 
 
     /**
@@ -528,10 +531,10 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CVertexShader
      */
     virtual	VertexShader* 
-    createVertexShaders(const std::string& FileName,
-                        const std::string& Entry = "",
-                        const std::string& ShaderModel = "",
-                        int32 NumVertexShader = 0) { return nullptr; }; //no va
+    createVertexShaders(const std::string&,
+                        const std::string& = "",
+                        const std::string& = "",
+                        int32 = 0) { return nullptr; }; //no va
     /**
      * @brief      createInputLayout function, to create the input layout
      * @param      Vertex parameter one, a pointer of vertex shader for use his blop
@@ -541,9 +544,9 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CInputLayout
      */
     virtual InputLayout* 
-    createInputLayout(ShaderProgram& Vertex,
-                      InputLayout_Desc& LayoutDesc,
-                      uint32 NumInputLayout = 0) { return nullptr; }; //no va
+    createInputLayout(ShaderProgram&,
+                      InputLayout_Desc&,
+                      uint32 = 0) { return nullptr; }; //no va
 
     /**
      * @brief      createSamplerState function, to create the sampler state
@@ -552,7 +555,7 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CSamplerState
      */
     virtual SamplerState* 
-    createSamplerState(uint32 NumSamplerState = 0) { return nullptr; }; //no va
+    createSamplerState(uint32 = 0) { return nullptr; }; //no va
 
     /**
      * @brief      createRasterizerState function, to create the sampler state
@@ -576,11 +579,11 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setVertexBuffer(VertexBuffer* VerBuff,
-                    uint32 StartSlot,
-                    uint32 NumBuffers,
-                    uint32 stride, //deben estar en la clase buffer
-                    uint32 offset) { }; //deben estar en la clase buffer
+    setVertexBuffer(VertexBuffer*,
+                    uint32,
+                    uint32,
+                    uint32, //deben estar en la clase buffer
+                    uint32) { }; //deben estar en la clase buffer
 
     /**
      * @brief      setIndexBuffer function, to set index buffer
@@ -590,8 +593,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setIndexBuffer(IndexBuffer* IndBuff,
-                   uint32 offset) { }; //deben estar en la clase buffer
+    setIndexBuffer(IndexBuffer*,
+                   uint32) { }; //deben estar en la clase buffer
 
     /**
      * @brief      setVertexShaderConstantBuffer function, to set constant
@@ -603,9 +606,9 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-                                  uint32 StartSlot,
-                                  uint32 NumBuffers) { };
+    setVertexShaderConstantBuffer(ConstantBuffer*,
+                                  uint32,
+                                  uint32) { };
 
     /**
      * @brief      setPixelShaderConstantBuffer function, to set constant
@@ -617,9 +620,9 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
-                                 uint32 StartSlot,
-                                 uint32 NumBuffers) { };
+    setPixelShaderConstantBuffer(ConstantBuffer*,
+                                 uint32,
+                                 uint32) { };
 
     /**
      * @brief      setShaderProgram function, to set pixel and vertex shader
@@ -628,7 +631,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setShaderProgram(ShaderProgram* ShaderProgram) { };
+    setShaderProgram(ShaderProgram*) { };
 
 
     /**
@@ -638,7 +641,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setPixelShaders(PixelShader* Pixel) { };
+    setPixelShaders(PixelShader*) { };
 
     /**
      * @brief      setVertexShaders function, to set vertex shader
@@ -647,7 +650,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setVertexShaders(VertexShader* Vertex) { };
+    setVertexShaders(VertexShader*) { };
 
     /**
      * @brief      setInputLayout function, to set input layout
@@ -656,7 +659,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setInputLayout(InputLayout* Inp) { };
+    setInputLayout(InputLayout*) { };
 
     /**
      * @brief      setSamplerState function, to set sampler state
@@ -667,8 +670,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setSamplerState(const std::vector<SamplerState*>& Sam,
-                    uint32 StartSlot) { }; //
+    setSamplerState(const std::vector<SamplerState*>& ,
+                    uint32) { }; //
 
     /**
      * @brief      setDepthStencil function, to set depth stencil
@@ -676,7 +679,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setDepthStencil(TextureB* pDSTex) { }; ///necesita recibir una textura
+    setDepthStencil(TextureB*) { }; ///necesita recibir una textura
 
     /**
      * @brief      setRasterizerState function, to set rasteraizer state
@@ -685,7 +688,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setRasterizerState(RasterizerState* RasState) { };
+    setRasterizerState(RasterizerState*) { };
 
     /**
      * @brief      setRenderTarget function, to set render target
@@ -696,8 +699,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setRenderTarget(const std::vector<TextureB*>& pRTTex,
-                    TextureB* pDSTex = nullptr) { };
+    setRenderTarget(const std::vector<TextureB*>&,
+                    TextureB* = nullptr) { };
 
     /**
      * @brief      setShaderResouerce function, to set shader resource
@@ -708,8 +711,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setShaderResource(const std::vector<TextureB*>& pRTTex,
-                      uint32 StartSlot = 0) { };
+    setShaderResource(const std::vector<TextureB*>&,
+                      uint32 = 0) { };
 
     /**
      * @brief      setViewport function, to set viewport
@@ -722,11 +725,11 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setViewport(uint32 NumViewport,
-                float Width,
-                float Height,
-                float TopLeftX = 0,
-                float TopLeftY = 0) { }; //falta checar eje z
+    setViewport(uint32,
+                float,
+                float,
+                float = 0,
+                float = 0) { }; //falta checar eje z
 
     /**
      * @brief      setPrimitiveTopology function, to set primitive topology
@@ -735,7 +738,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setPrimitiveTopology(PRIMITIVE_TOPOLOGY Topology =
+    setPrimitiveTopology(PRIMITIVE_TOPOLOGY =
                          PRIMITIVE_TOPOLOGY_TRIANGLELIST) { };
 
     /**
@@ -756,8 +759,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearRenderTarget(TextureB* RT,
-                      ColorStruct Color) { };
+    clearRenderTarget(TextureB*,
+                      ColorStruct) { };
 
     /**
      * @brief      clearDepthStenView function, to clear the depth stencil view
@@ -769,10 +772,10 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearDepthStencil(TextureB* RT,
-                      uint32 ClerFlag = CLEAR_DEPTH,
-                      float Depth = 1.0f,
-                      uint32 Stencil = 0) { };
+    clearDepthStencil(TextureB*,
+                      uint32 = CLEAR_DEPTH,
+                      float = 1.0f,
+                      uint32 = 0) { };
 
     /**
      * @brief      clearDefaultRenderTargetAndDepthStencil function, to
@@ -782,7 +785,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearDefaultRenderTargetAndDepthStencil(ColorStruct Color) { };
+    clearDefaultRenderTargetAndDepthStencil(ColorStruct) { };
 
 
     /**
@@ -793,8 +796,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    updateSubresource(const void* Data,
-                      ConstantBuffer& ConstantBufffer) { };
+    updateSubresource(const void*,
+                      ConstantBuffer&) { };
 
 
     //draw
@@ -816,10 +819,10 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    drawIndexed(uint32 NumIndex,
-                uint32 StartindexLocation,
-                uint32 BaseVertexLocation,
-                const void* Index) { };
+    drawIndexed(uint32,
+                uint32,
+                uint32,
+                const void*) { };
 
     /**
      * @brief      drawInstanced function, to draw
@@ -832,10 +835,10 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    drawInstanced(uint32 VertexCountPerInstance,
-                  uint32 InstanceCount,
-                  uint32 StartVertexLocation,
-                  uint32 StartInstanceLocation) { };
+    drawInstanced(uint32,
+                  uint32,
+                  uint32,
+                  uint32) { };
 
     /**
      * @brief      draw function, to draw
@@ -846,8 +849,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    draw(uint32 VertexCount,
-         uint32 StartVertexLocation) { };
+    draw(uint32,
+         uint32) { };
 
     //swap
 

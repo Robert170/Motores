@@ -16,6 +16,8 @@ namespace xcEngineSDK {
   void 
   Mesh::draw(ShaderProgram& shader,
              GraphiAPI* API) {
+
+    XC_UNREFERENCED_PARAMETER(shader);
     API->setVertexBuffer(m_vertexBuffer,
                          0,
                          1,
@@ -36,11 +38,9 @@ namespace xcEngineSDK {
   void 
   Mesh::setupMesh(GraphiAPI* API) {
     m_vertexBuffer = API->createVertexBuffer(m_Vertices,
-                                             m_Vertices.size(),
                                              1);
 
     m_indexBuffer = API->createIndexBuffer(m_Indices,
-                                           m_Indices.size(),
                                            1);
   }
 }

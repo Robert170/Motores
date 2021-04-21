@@ -1,6 +1,7 @@
 #include "xcModel.h"
 namespace xcEngineSDK {
   Model::Model() {
+    gammaCorrection = false;
   }
 
   Model::~Model() {
@@ -11,7 +12,7 @@ namespace xcEngineSDK {
               GraphiAPI* API,
               InputLayout_Desc InpLayDesc,
               bool gamma) {
-   
+    XC_UNREFERENCED_PARAMETER(gamma);
     m_inpLayDesc = InpLayDesc;
     loadModel(path,
               API);
@@ -28,7 +29,9 @@ namespace xcEngineSDK {
 
   void 
   Model::loadModel(std::string const& path,
-                   GraphiAPI* API) {
+                    GraphiAPI* API) {
+    XC_UNREFERENCED_PARAMETER(API);
+    XC_UNREFERENCED_PARAMETER(path);
     //// read file via ASSIMP
     //Assimp::Importer importer;
     //const aiScene* scene = importer.ReadFile(path,

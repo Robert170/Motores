@@ -14,6 +14,7 @@
  * @bug	No know Bugs
  */
 #pragma once
+#include "xcPrerequisitesCore.h"
 namespace xcEngineSDK {
 	class SamplerState
 	{

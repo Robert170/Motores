@@ -6,13 +6,13 @@ namespace xcEngineSDK {
 
   bool
   Ray::intersec(Sphere& sphere) {
-    sphere;
+    XC_UNREFERENCED_PARAMETER(sphere);
     return false;
   }
 
   bool
   Ray::intersec(AABB& box) {
-    box;
+    XC_UNREFERENCED_PARAMETER(box);
     return false;
   }
 }

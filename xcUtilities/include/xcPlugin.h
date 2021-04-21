@@ -92,12 +92,14 @@ namespace xcEngineSDK {
 
     if (!m_instance) {
 
-			DWORD err = GetLastError();
-
+			//DWORD err = GetLastError();
+			
 			destroy();
 
       return false;
     }
+
+		return true;
 	}
 
 	/**

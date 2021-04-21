@@ -155,37 +155,33 @@ namespace xcEngineSDK {
 			* @bug		   No know Bugs
 			* @return     Returns a pointer of CBuffer
 		*/
-		Model* loadModel(Model* Model,
+		/*Model* loadModel(Model* Model,
 			               GraphiAPI* API,
 			               InputLayout_Desc InpLayDesc,
-			               std::string Path);
+			               std::string Path);*/
 		//create
 
 		/**
 	   * @brief      createVertexBuffer function, to create vertex buffer
-	   * @param      bindFlags parameter one, bind Flags for the desc of vertex buffer
-	   * @param      Ver parameter two, a vector whit positions and tex of vertices
-	   * @param      ID parameter three, id for the vertex buffer
+	   * @param      Ver parameter one, a vector with simpleVertes
+	   * @param      NumBuffer parameter two, number of buffers
 	   * @bug		     No know Bugs
 	   * @return     Returns a pointer of CBuffer
 	   */
 
 		VertexBuffer* 
 		createVertexBuffer(const std::vector <SimpleVertex>& Ver,
-			                 uint32 BufferSize,
 			                 uint32 NumBuffer = 0) override;
 
 		/**
 		 * @brief      createIndexBuffer function, to create index buffer
-		 * @param      bindFlags parameter one, bind Flags for the desc of index buffer
-		 * @param      Ind parameter two, a vector uint32s of indices
-		 * @param      NumBuffer parameter three, NumBuffer for the index buffer
+		 * @param      Ind parameter one, a vector uint32s of indices
+		 * @param      NumBuffer parameter two, NumBuffer for the index buffer
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CBuffer
 		 */
 		IndexBuffer* 
 		createIndexBuffer(const std::vector<uint32_t>& Ind,
-			                uint32 BufferSize,
 			                uint32 NumBuffer = 0) override;
 
 		/**

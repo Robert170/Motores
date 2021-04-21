@@ -63,6 +63,10 @@ namespace xcEngineSDK {
                              UINT mesg, 
                              WPARAM wParam, 
                              LPARAM lParam){
+    XC_UNREFERENCED_PARAMETER(hw);
+    XC_UNREFERENCED_PARAMETER(mesg);
+    XC_UNREFERENCED_PARAMETER(wParam);
+    XC_UNREFERENCED_PARAMETER(lParam);
     return LRESULT();
   }
 
@@ -85,6 +89,7 @@ namespace xcEngineSDK {
   void 
   BaseApp::initSystems() {
 
+    //if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
     if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
 
       auto createGraphiApi = reinterpret_cast<funProtoGraphiApi>(

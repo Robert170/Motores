@@ -37,7 +37,7 @@ namespace xcEngineSDK {
     */
     ID3D11Buffer* m_pIndexBuffer = nullptr;
 
-    unsigned int m_offset;
+    uint32 m_offset = 0;
 
 
     friend class DXGraphiAPI;

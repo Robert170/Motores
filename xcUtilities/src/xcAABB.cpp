@@ -4,13 +4,13 @@
 namespace xcEngineSDK {
   bool
     AABB::intersec(Vector3& vector) {
-    vector;
+    XC_UNREFERENCED_PARAMETER(vector);
     return false;
   }
 
   bool
     AABB::intersec(Sphere& sphere) {
-    sphere;
+    XC_UNREFERENCED_PARAMETER(sphere);
     return false;
   }
 }

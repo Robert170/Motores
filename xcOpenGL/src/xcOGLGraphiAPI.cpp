@@ -105,7 +105,6 @@ namespace xcEngineSDK {
 
 	VertexBuffer*
 	OGLGraphiAPI::createVertexBuffer(const Vector <SimpleVertex>& Ver,
-			                             uint32 BufferSize,
 			                             uint32 NumBuffers) {
 
 		auto VertexBuffer = new VertexBufferOGL();
@@ -132,7 +131,6 @@ namespace xcEngineSDK {
 
 	IndexBuffer*
 	OGLGraphiAPI::createIndexBuffer(const Vector<uint32>& Ind,
-			                            uint32 BufferSize, //no va
 			                            uint32 NumBuffer) {
 
 		auto IndexBuffer = new IndexBufferOGL();
@@ -189,8 +187,10 @@ namespace xcEngineSDK {
 			                          uint32 bindFlags,
 			                          TYPE_USAGE Usage) {
 
+		XC_UNREFERENCED_PARAMETER(format);
+		XC_UNREFERENCED_PARAMETER(Usage);
+		
 		auto texture = new TextureOGL();
-
 
 		//Checar que interfaces se van a crear
 		//se puede omitir
@@ -260,6 +260,10 @@ namespace xcEngineSDK {
 			                              int32 NumVertexShader,
 			                              int32 NumPixelShader) {
 
+		XC_UNREFERENCED_PARAMETER(ShaderModelPS);
+		XC_UNREFERENCED_PARAMETER(ShaderModelVS);
+		XC_UNREFERENCED_PARAMETER(EntryPS);
+		XC_UNREFERENCED_PARAMETER(EntryVS);
 		auto ShaderProgram = new ShaderProgramOGL();
 
 		ShaderProgram->m_attachShaderID = glCreateProgram();
@@ -278,24 +282,24 @@ namespace xcEngineSDK {
 			m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 		glShaderSource(ShaderProgram->m_vertexShaderProgram->m_vertexShader,
-			NumVertexShader,
-			&VertexCode,
-			nullptr);
+			             NumVertexShader,
+			             &VertexCode,
+			             nullptr);
 
 		glCompileShader(ShaderProgram->m_vertexShaderProgram->m_vertexShader);
 
 		GLint isCompiled = 0;
 
 		glGetShaderiv(ShaderProgram->m_vertexShaderProgram->m_vertexShader,
-			GL_COMPILE_STATUS,
-			&isCompiled);
+			            GL_COMPILE_STATUS,
+			            &isCompiled);
 
 		if (isCompiled == GL_FALSE) {
 
 			GLint maxLength = 0;
 			glGetShaderiv(ShaderProgram->m_vertexShaderProgram->m_vertexShader,
-				GL_INFO_LOG_LENGTH,
-				&maxLength);
+				            GL_INFO_LOG_LENGTH,
+				            &maxLength);
 
 			// The maxLength includes the NULL character
 			Vector<GLchar> infoLog(maxLength);
@@ -365,6 +369,9 @@ namespace xcEngineSDK {
 		                               const std::string& Entry,
 		                               const std::string& ShaderModel,
 		                               int32 NumPixelShader) {
+		XC_UNREFERENCED_PARAMETER(Entry);
+		XC_UNREFERENCED_PARAMETER(ShaderModel);
+
 		// Pixel Shader
 		std::string RealName = FileName + "_OGL.txt";
 
@@ -415,11 +422,16 @@ namespace xcEngineSDK {
 
 	}
 
+
+
 	VertexShader*
 	OGLGraphiAPI::createVertexShaders(const std::string& FileName,
 			                              const std::string& Entry,
 			                              const std::string& ShaderModel,
 			                              int32 NumVertexShader) {
+		
+		XC_UNREFERENCED_PARAMETER(Entry);
+		XC_UNREFERENCED_PARAMETER(ShaderModel);
 		// vertex Shader
 		std::string RealName = FileName + "_OGL.txt";
 
@@ -478,6 +490,9 @@ namespace xcEngineSDK {
 	OGLGraphiAPI::createInputLayout(ShaderProgram& Vertex,
 			                            InputLayout_Desc& LayoutDesc,
 			                            uint32 NumInputLayout) {
+
+		XC_UNREFERENCED_PARAMETER(Vertex);
+
 		auto InputLa = new InputLayoutOGL();
 
 		glGenVertexArrays(NumInputLayout,
@@ -489,7 +504,7 @@ namespace xcEngineSDK {
 		checkGLError();
 
 
-		for (int i = 0; i < LayoutDesc.Formats.size(); ++i)
+		for (uint32 i = 0; i < LayoutDesc.Formats.size(); ++i)
 		{
 			glVertexAttribFormat(i,
 				                   InputLa->getSize(LayoutDesc.Formats.at(i)),
@@ -541,17 +556,19 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setVertexBuffer(VertexBuffer* VerBuff,
-			uint32 StartSlot,
-			uint32 NumBuffer,
-			uint32 stride,
-			uint32 offset) {
+	OGLGraphiAPI::setVertexBuffer(VertexBuffer* VerBuff,
+			                          uint32 StartSlot,
+			                          uint32 NumBuffer,
+			                          uint32 stride,
+			                          uint32 offset) {
 
+
+		XC_UNREFERENCED_PARAMETER(NumBuffer);
 		auto* VertBuff = reinterpret_cast<VertexBufferOGL*>(VerBuff);
 		glBindVertexBuffer(StartSlot,
-			VertBuff->m_vBO,
-			offset,
-			stride);
+			                 VertBuff->m_vBO,
+			                 offset,
+			                 stride);
 		checkGLError();
 
 
@@ -560,6 +577,8 @@ namespace xcEngineSDK {
 	void
 	OGLGraphiAPI::setIndexBuffer(IndexBuffer* IndBuff,
 			                         uint32 offset) {
+
+		XC_UNREFERENCED_PARAMETER(offset);
 
 		auto* IndexBuff = reinterpret_cast<IndexBufferOGL*>(IndBuff);
 
@@ -570,13 +589,16 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			uint32 StartSlot,
-			uint32 NumBuffer) {
+	OGLGraphiAPI::setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
+			                                        uint32 StartSlot,
+			                                        uint32 NumBuffer) {
+
+		XC_UNREFERENCED_PARAMETER(NumBuffer);
+
 		auto* ConstantBuffer = reinterpret_cast<ConstantBufferOGL*>(ConstBuff);
 		glBindBufferBase(GL_UNIFORM_BUFFER,
-			StartSlot,
-			ConstantBuffer->m_CBO);
+			               StartSlot,
+			               ConstantBuffer->m_CBO);
 		checkGLError();
 	}
 
@@ -584,6 +606,9 @@ namespace xcEngineSDK {
 	OGLGraphiAPI::setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
 			                                        uint32 StartSlot,
 			                                        uint32 NumBuffer) {
+
+		XC_UNREFERENCED_PARAMETER(NumBuffer);
+
 		auto* ConstantBuffer = reinterpret_cast<ConstantBufferOGL*>(ConstBuff);
 		
 		glBindBufferBase(GL_UNIFORM_BUFFER,
@@ -593,38 +618,41 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setShaderProgram(ShaderProgram* ShaderProgram) {
+	OGLGraphiAPI::setShaderProgram(ShaderProgram* ShaderProgram) {
 		auto* ShaderPro = reinterpret_cast<ShaderProgramOGL*>(ShaderProgram);
 		glUseProgram(ShaderPro->m_attachShaderID);
 		checkGLError();
 	}
 
 	void
-		OGLGraphiAPI::setPixelShaders(PixelShader* Pixel) {
+	OGLGraphiAPI::setPixelShaders(PixelShader* Pixel) {
 		/*glAttachShader(m_attachShaderID,
 			VertexShader->m_vertexShader)*/
+		XC_UNREFERENCED_PARAMETER(Pixel);
 		glUseProgram(m_attachShaderID);
 		checkGLError();
 	}
 
 	void
-		OGLGraphiAPI::setVertexShaders(VertexShader* Vertex) {
+	OGLGraphiAPI::setVertexShaders(VertexShader* Vertex) {
+
+		XC_UNREFERENCED_PARAMETER(Vertex);
 		glUseProgram(m_attachShaderID);
 		checkGLError();
 	}
 
 	void
-		OGLGraphiAPI::setInputLayout(InputLayout* Inp) {
+	OGLGraphiAPI::setInputLayout(InputLayout* Inp) {
 		auto* InpL = reinterpret_cast<InputLayoutOGL*>(Inp);
 		glBindVertexArray(InpL->m_iPLA);
 		checkGLError();
 	}
 
 	void
-		OGLGraphiAPI::setSamplerState(const Vector<SamplerState*>& Sam,
-			uint32 StartSlot) {
-		for (int i = 0; i < Sam.size(); ++i)
-		{
+	OGLGraphiAPI::setSamplerState(const Vector<SamplerState*>& Sam,
+			                          uint32 StartSlot) {
+
+		for (uint32 i = 0; i < Sam.size(); ++i) {
 			auto SamSt = reinterpret_cast<SamplerStateOGL*>(Sam.at(i));
 
 			glBindSampler(StartSlot, SamSt->m_samSt);
@@ -634,26 +662,32 @@ namespace xcEngineSDK {
 
 
 	void
-		OGLGraphiAPI::setDepthStencil(TextureB* pDSTex) {
+	OGLGraphiAPI::setDepthStencil(TextureB* pDSTex) {
+
+
+
 		auto* DepSten = reinterpret_cast<TextureOGL*>(pDSTex);
 
 		glBindRenderbuffer(GL_RENDERBUFFER,
-			DepSten->m_dSV);
+			                 DepSten->m_dSV);
 		checkGLError();
 
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER,
-			GL_DEPTH_ATTACHMENT,
-			GL_RENDERBUFFER,
-			DepSten->m_dSV);
+			                        GL_DEPTH_ATTACHMENT,
+			                        GL_RENDERBUFFER,
+			                        DepSten->m_dSV);
 		checkGLError();
 	}
 
 	void
-		OGLGraphiAPI::setShaderResource(const Vector<TextureB*>& pRTTex,
-			uint32 StartSlot) {
-		for (int i = 0; i < pRTTex.size(); ++i)
-		{
-			auto SamSt = reinterpret_cast<TextureOGL*>(pRTTex.at(i));
+	OGLGraphiAPI::setShaderResource(const Vector<TextureB*>& pRTTex,
+			                            uint32 StartSlot) {
+
+		XC_UNREFERENCED_PARAMETER(StartSlot);
+		XC_UNREFERENCED_PARAMETER(pRTTex);
+
+		for (uint32 i = 0; i < pRTTex.size(); ++i) {
+			//auto SamSt = reinterpret_cast<TextureOGL*>(pRTTex.at(i));
 
 			//glTextureView()
 			checkGLError();
@@ -663,21 +697,23 @@ namespace xcEngineSDK {
 	}
 
 	void
-		OGLGraphiAPI::setViewport(uint32 NumViewport,
-			float Width,
-			float Height,
-			float TopLeftX,
-			float TopLeftY) {
-		glViewport(TopLeftX,
-			TopLeftY,
-			Width,
-			Height);
+	OGLGraphiAPI::setViewport(uint32 NumViewport,
+			                      float Width,
+			                      float Height,
+			                      float TopLeftX,
+			                      float TopLeftY) {
+		XC_UNREFERENCED_PARAMETER(NumViewport);
+		glViewport(GLint(TopLeftX),
+			         GLint(TopLeftY),
+			         GLsizei(Width),
+			         GLsizei(Height));
 		checkGLError();
 
 	}
 
 	void
-		OGLGraphiAPI::setPrimitiveTopology(PRIMITIVE_TOPOLOGY Topology) {
+	OGLGraphiAPI::setPrimitiveTopology(PRIMITIVE_TOPOLOGY Topology) {
+		XC_UNREFERENCED_PARAMETER(Topology);
 	}
 
 	void
@@ -694,6 +730,8 @@ namespace xcEngineSDK {
 	void
 	OGLGraphiAPI::clearRenderTarget(TextureB* RT,
 			                            ColorStruct Color) {
+
+		XC_UNREFERENCED_PARAMETER(RT);
 		glClearColor(Color.R, Color.G, Color.B, Color.A);
 		checkGLError();
 
@@ -706,6 +744,11 @@ namespace xcEngineSDK {
 			                            uint32 ClerFlag,
 			                            float Depth,
 			                            uint32 Stencil) {
+
+		XC_UNREFERENCED_PARAMETER(RT);
+		XC_UNREFERENCED_PARAMETER(ClerFlag);
+		XC_UNREFERENCED_PARAMETER(Depth);
+		XC_UNREFERENCED_PARAMETER(Stencil);
 		//glClear()
 	}
 
@@ -725,6 +768,9 @@ namespace xcEngineSDK {
 	void
   OGLGraphiAPI::updateSubresource(const void* Data,
 		                              ConstantBuffer& ConstantBufffer) {
+		
+		XC_UNREFERENCED_PARAMETER(Data);
+		XC_UNREFERENCED_PARAMETER(ConstantBufffer);
 		checkGLError();
 
 
@@ -732,12 +778,16 @@ namespace xcEngineSDK {
 
 	void 
 	OGLGraphiAPI::setRasterizerState(RasterizerState* RasState) {
+
+		XC_UNREFERENCED_PARAMETER(RasState);
 	}
 
 	void 
 	OGLGraphiAPI::setRenderTarget(const Vector<TextureB*>& pRTTex,
 		                            TextureB* pDSTex) {
-		for (int i = 0; i < pRTTex.size(); ++i) {
+		XC_UNREFERENCED_PARAMETER(pDSTex);
+
+		for (uint32 i = 0; i < pRTTex.size(); ++i) {
 			auto pRTODL = reinterpret_cast<TextureOGL*>(pRTTex.at(i));
 
 			/*ID3D11DepthStencilView* pDSV = nullptr;
@@ -770,6 +820,10 @@ namespace xcEngineSDK {
 		                        uint32 StartindexLocation,
 		                        uint32 BaseVertexLocation,
 		                        const void* Index) {
+
+		XC_UNREFERENCED_PARAMETER(StartindexLocation);
+		XC_UNREFERENCED_PARAMETER(BaseVertexLocation);
+		XC_UNREFERENCED_PARAMETER(Index);
 		glDrawElements(GL_TRIANGLES, NumIndex, GL_UNSIGNED_INT, 0);
 		checkGLError();
 	}
@@ -778,7 +832,12 @@ namespace xcEngineSDK {
 		                          uint32 InstanceCount,
 		                          uint32 StartVertexLocation,
 		                          uint32 StartInstanceLocation) {
-		glDrawArraysInstanced(GL_TRIANGLES, StartInstanceLocation, VertexCountPerInstance, InstanceCount);
+
+		XC_UNREFERENCED_PARAMETER(StartVertexLocation);
+		glDrawArraysInstanced(GL_TRIANGLES, 
+			                    StartInstanceLocation,
+			                    VertexCountPerInstance, 
+			                    InstanceCount);
 		checkGLError();
 	}
 
@@ -833,6 +892,8 @@ namespace xcEngineSDK {
 	framebuffer_size_callback(GLFWwindow* window, 
 		                        int width, 
 		                        int height) {
+
+		XC_UNREFERENCED_PARAMETER(window);
 		glViewport(0, 0, width, height);
 	}
 

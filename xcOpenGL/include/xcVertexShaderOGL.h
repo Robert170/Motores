@@ -62,7 +62,7 @@ namespace xcEngineSDK {
 		/**
 			* @Variable m_VertexShader, unsigned int for the vertex shader
 		*/
-		unsigned int m_vertexShader;
+		uint32 m_vertexShader = 0;
 
 
 

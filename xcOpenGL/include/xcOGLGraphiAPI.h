@@ -29,9 +29,9 @@ namespace xcEngineSDK {
 		/**
 		 * @Variable m_window, a variable for a window
 		 */
-		GLFWwindow* m_window;
+		GLFWwindow* m_window = nullptr;
 
-		int m_attachShaderID;
+		int m_attachShaderID = 0;
 
 		//uint32 m_BackBuffer;
 
@@ -151,20 +151,17 @@ namespace xcEngineSDK {
 
 		VertexBuffer* 
 		createVertexBuffer(const Vector <SimpleVertex>& Ver,
-			                 uint32 BufferSize,
 			                 uint32 NumBuffer = 0) override;
 
 		/**
 		 * @brief      createIndexBuffer function, to create index buffer
-		 * @param      bindFlags parameter one, bind Flags for the desc of index buffer
-		 * @param      Ind parameter two, a vector uint32s of indices
-		 * @param      NumBuffer parameter three, NumBuffer for the index buffer
+		 * @param      Ind parameter one, a vector uint32s of indices
+		 * @param      NumBuffer parameter two, NumBuffer for the index buffer
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CBuffer
 		 */
 		IndexBuffer* 
 		createIndexBuffer(const Vector<uint32>& Ind,
-			                uint32 BufferSize,
 			                uint32 NumBuffer = 0) override;
 
 		/**

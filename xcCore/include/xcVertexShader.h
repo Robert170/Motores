@@ -14,6 +14,7 @@
  */
 #pragma once
 #include <iostream>
+#include "xcPrerequisitesCore.h"
 namespace xcEngineSDK {
 	class VertexShader
 	{

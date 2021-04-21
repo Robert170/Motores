@@ -211,12 +211,10 @@ namespace xcEngineSDK {
 	  // Create vertex buffer
 
 	  g_pVertexBuffer = m_graphiApi->createVertexBuffer(vertices,
-		                                                  vertices.size(),
 		                                                  1);
 
 	  // Create index buffer
 	  g_pIndexBuffer = m_graphiApi->createIndexBuffer(indices,
-	  	                                              indices.size(),
 	  	                                              1);
 	  
 	  // Create the constant buffers
@@ -255,7 +253,7 @@ namespace xcEngineSDK {
 
   void 
   GameAppUnitTest::onUpdate(float deltaTime) {
-
+		deltaTime = 0;
     m_graphiApi->updateSubresource(&g_ConstantBuffer,
       		                         *g_pCBNeverChanges);
   }
@@ -388,7 +386,7 @@ namespace xcEngineSDK {
 	  delete g_pPixelShader;
 	  
 	  //depthstencil
-	  delete g_pDepthStencil;
+	  delete g_pDepthStencil ;
 	  
 	  //render targets
     /*for (int i = g_vRenderTargets.size() - 1; i >= 0; i--)

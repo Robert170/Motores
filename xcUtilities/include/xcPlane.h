@@ -25,10 +25,6 @@ namespace xcEngineSDK {
     Plane(VectorI4 v)
       :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_d(v.m_w) { };
 
-    Plane()
-      :m_x(0.f), m_y(0.f), m_z(0.f), m_d(0.f) { };
-
-    ~Plane() = default;
 
   private:
 

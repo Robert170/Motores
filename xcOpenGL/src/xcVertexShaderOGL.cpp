@@ -19,6 +19,7 @@ namespace xcEngineSDK {
     }
     catch (std::ifstream::failure& e) {
       //error
+      XC_UNREFERENCED_PARAMETER(e);
       return " ";
     }
   }

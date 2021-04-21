@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\xcApi.cpp" />
     <ClCompile Include="src\xcBaseApp.cpp" />
     <ClCompile Include="src\xcCamera.cpp" />

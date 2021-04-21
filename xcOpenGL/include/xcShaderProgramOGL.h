@@ -38,7 +38,7 @@ namespace xcEngineSDK {
 		/**
 		 * @Variable m_AttachShaderID, shader id for atyachand link shaders
 		 */
-		int m_attachShaderID;
+		int m_attachShaderID = 0;
 
 		/**
 		 * @Variable m_PixelShaderProgram, pointer for the pixel shader of opengl
