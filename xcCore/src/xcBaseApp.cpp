@@ -88,9 +88,13 @@ namespace xcEngineSDK {
 
   void 
   BaseApp::initSystems() {
+    //debug
+    if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
+    //if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
 
-    //if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
-    if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
+    //release
+    //if (m_plugin.loadPlugin("xcDirectX.dll")) {
+    //if (m_plugin.loadPlugin("xcOpenGL.dll")) {
 
       auto createGraphiApi = reinterpret_cast<funProtoGraphiApi>(
                              m_plugin.getProcedureByName("createGraphisAPI"));
