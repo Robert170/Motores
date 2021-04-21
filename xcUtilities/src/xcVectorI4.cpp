@@ -131,8 +131,8 @@ namespace xcEngineSDK {
                 VectorI4& VetorB) {
 
     return (VectorA.m_x * VetorB.m_x) +
-      (VectorA.m_y * VetorB.m_y) +
-      (VectorA.m_z * VetorB.m_z) +
-      (VectorA.m_w * VetorB.m_z);
+           (VectorA.m_y * VetorB.m_y) +
+           (VectorA.m_z * VetorB.m_z) +
+           (VectorA.m_w * VetorB.m_z);
   }
 }

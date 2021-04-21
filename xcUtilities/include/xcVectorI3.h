@@ -205,6 +205,17 @@ namespace xcEngineSDK {
 		dot(VectorI3& VectorA,
 				VectorI3& VetorB);
 
+		/**
+     * @brief      cross function
+     * @param      VectorA parameter one, for cross product
+     * @param      VectorB parameter two, for cross product
+     * @bug	       No know Bugs
+     * @return     Returns a vector
+     */
+    VectorI3
+    cross(VectorI3& VectorA,
+          VectorI3& VectorB);
+
 
 	public:
 		/**

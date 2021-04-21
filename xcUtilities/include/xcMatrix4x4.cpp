@@ -203,7 +203,7 @@ namespace xcEngineSDK {
                               float& Width,
                               float& Near,
                               float& Far) {
-
+    
     float yScale = Math::cot(Fov / 2);
     float xScale = yScale / (Width / Height);
 

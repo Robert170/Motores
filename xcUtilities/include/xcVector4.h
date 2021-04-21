@@ -201,7 +201,7 @@ namespace xcEngineSDK {
 		dot(Vector4& VectorA,
 				Vector4& VectorB);
 
-	public:
+	 public:
 		/**
 		 * @brief Public variable member
 		 */

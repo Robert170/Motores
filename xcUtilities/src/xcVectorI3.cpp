@@ -132,4 +132,15 @@ namespace xcEngineSDK {
            (VectorA.m_y * VetorB.m_y) +
            (VectorA.m_z * VetorB.m_z);
   }
+
+
+  VectorI3
+    VectorI3::cross(VectorI3& VectorA,
+                    VectorI3& VectorB) {
+
+    return VectorI3(((VectorA.m_y * VectorB.m_z) - (VectorA.m_z * VectorB.m_y)),
+                   ((VectorA.m_z * VectorB.m_x) - (VectorA.m_x * VectorB.m_z)),
+                   ((VectorA.m_x * VectorB.m_y) - (VectorA.m_y * VectorB.m_x)));
+  }
+
 }
