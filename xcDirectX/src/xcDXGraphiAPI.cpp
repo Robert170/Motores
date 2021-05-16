@@ -155,9 +155,9 @@ namespace xcEngineSDK {
 
   //function to create device and swap chain
   void 
-  DXGraphiAPI::createDeviceandSwap() {
+  DXGraphiAPI::createDeviceandSwap(sf::WindowHandle window) {
     RECT rc;
-    GetClientRect(m_hWnd, &rc);
+    GetClientRect(window, &rc);
     m_width = rc.right - rc.left;
     m_height = rc.bottom - rc.top;
 
@@ -192,7 +192,7 @@ namespace xcEngineSDK {
     sd.BufferDesc.RefreshRate.Numerator = 60;
     sd.BufferDesc.RefreshRate.Denominator = 1;
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-    sd.OutputWindow = m_hWnd;
+    sd.OutputWindow = window;
     sd.SampleDesc.Count = 1;
     sd.SampleDesc.Quality = 0;
     sd.Windowed = TRUE;
@@ -201,17 +201,17 @@ namespace xcEngineSDK {
 
     for (auto& dType : driverTypes) {
       hr = D3D11CreateDeviceAndSwapChain(nullptr,
-        dType,
-        nullptr,
-        createDeviceFlags,
-        featureLevels.data(),
-        featureLevels.size(),
-        D3D11_SDK_VERSION,
-        &sd,
-        &m_pSwapChain,
-        &m_pd3dDevice,
-        &featureLevel,
-        &m_pImmediateContext);
+                                         dType,
+                                         nullptr,
+                                         createDeviceFlags,
+                                         featureLevels.data(),
+                                         featureLevels.size(),
+                                         D3D11_SDK_VERSION,
+                                         &sd,
+                                         &m_pSwapChain,
+                                         &m_pd3dDevice,
+                                         &featureLevel,
+                                         &m_pImmediateContext);
       if (SUCCEEDED(hr)) {
         break;
       }

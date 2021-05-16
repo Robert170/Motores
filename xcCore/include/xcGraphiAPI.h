@@ -20,6 +20,7 @@
 #include <xcVector4.h>
 #include <xcMatrix4x4.h>
 #include <xcModule.h>
+#include <SFML/Window/Window.hpp>
 
 #include "xcPixelShader.h"
 #include "xcTexture.h"
@@ -306,7 +307,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    createDeviceandSwap() { };
+    createDeviceandSwap(sf::WindowHandle window) { };
 
     /**
      * @brief      createDeferredContext function, to create Deferred Context
@@ -343,11 +344,10 @@ namespace xcEngineSDK {
       * @return     Returns nothing
     */
     virtual void 
-    init(uint32 width,
-         uint32 height) {
+    init(sf::WindowHandle window) {
 
-      initWindow(width, height);
-      createDeviceandSwap();
+      //initWindow(width, height);
+      createDeviceandSwap(window);
     }
 
 

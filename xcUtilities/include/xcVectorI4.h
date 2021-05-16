@@ -204,19 +204,16 @@ namespace xcEngineSDK {
 		 * @return     Returns a perpendicular vector
 		 */
 		VectorI4
-		proyection(VectorI4& VectorA, 
-			         VectorI4& VetorB);
+		proyection(VectorI4& VectorA, VectorI4& VetorB);
 
 		/**
 		 * @brief      Dot function
-		 * @param      VectorA parameter one, for dot product
 		 * @param      VetorB parameter two, for dot product
 		 * @bug	       No know Bugs
 		 * @return     Returns a scalar
 		 */
 		int32
-		dot(VectorI4& VectorA,
-			  VectorI4& VetorB);
+		dot(VectorI4& VetorB);
 
 
 	public:
@@ -224,10 +221,10 @@ namespace xcEngineSDK {
 		 * @brief Public variable member
 		 */
 
-		 /**
-			* @Variable m_x
-			*/
-		int32 m_x;
+		/**
+		 * @Variable m_x
+		 */
+    int32 m_x;
 
 		/**
 		 * @Variable m_y

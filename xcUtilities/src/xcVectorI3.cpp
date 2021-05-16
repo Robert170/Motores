@@ -126,21 +126,25 @@ namespace xcEngineSDK {
   }
 
   int32
-  VectorI3::dot(VectorI3& VectorA,
-                VectorI3& VetorB) {
-    return (VectorA.m_x * VetorB.m_x) +
-           (VectorA.m_y * VetorB.m_y) +
-           (VectorA.m_z * VetorB.m_z);
+  VectorI3::dot(VectorI3& VetorB) {
+
+    return (this->m_x * VetorB.m_x) +
+           (this->m_y * VetorB.m_y) +
+           (this->m_z * VetorB.m_z);
   }
 
 
   VectorI3
-    VectorI3::cross(VectorI3& VectorA,
-                    VectorI3& VectorB) {
+    VectorI3::cross(VectorI3& VectorB) {
 
-    return VectorI3(((VectorA.m_y * VectorB.m_z) - (VectorA.m_z * VectorB.m_y)),
-                   ((VectorA.m_z * VectorB.m_x) - (VectorA.m_x * VectorB.m_z)),
-                   ((VectorA.m_x * VectorB.m_y) - (VectorA.m_y * VectorB.m_x)));
+    return VectorI3(((this->m_y * VectorB.m_z) - (this->m_z * VectorB.m_y)),
+                   ((this->m_z * VectorB.m_x) - (this->m_x * VectorB.m_z)),
+                   ((this->m_x * VectorB.m_y) - (this->m_y * VectorB.m_x)));
+  }
+
+  VectorI3 
+  VectorI3::operator-() const {
+    return VectorI3(-m_x, -m_y, -m_z);
   }
 
 }

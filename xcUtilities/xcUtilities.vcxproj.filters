@@ -11,6 +11,12 @@
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{2ad5a986-cc76-4be1-9990-78babbf1661a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Math\Vectors">
+      <UniqueIdentifier>{be532df1-e020-41ec-be79-bd97b1343c9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math\Matrix">
+      <UniqueIdentifier>{388af95f-d716-4af9-9b37-32777fb981e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcPlatformDefines.h">
@@ -19,28 +25,7 @@
     <ClInclude Include="include\xcPlatformTypes.h">
       <Filter>Source Files\Prerequisites</Filter>
     </ClInclude>
-    <ClInclude Include="include\xcVector2.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
     <ClInclude Include="include\xcPlatformMath.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="include\xcVectorI2.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="include\xcVector3.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="include\xcVectorI3.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="include\xcVector4.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="include\xcVectorI4.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="include\xcVectorIN.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="include\xcWindowsMath.h">
@@ -64,12 +49,6 @@
     <ClInclude Include="include\xcSphere.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="include\xcMatrix3x3.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="include\xcMatrix4x4.h">
-      <Filter>Source Files\Math</Filter>
-    </ClInclude>
     <ClInclude Include="include\xcAABB.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
@@ -91,36 +70,39 @@
     <ClInclude Include="include\xcPlugin.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcVectorIN.h">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVector2.h">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVector3.h">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVector4.h">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVectorI2.h">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVectorI3.h">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVectorI4.h">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcMatrix4x4.h">
+      <Filter>Source Files\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcMatrix3x3.h">
+      <Filter>Source Files\Math\Matrix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\xcVector2.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\xcVectorI2.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\xcVector3.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\xcVector4.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\xcVectorI3.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\xcVectorI4.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\xcVectorIN.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
     <ClCompile Include="src\xcRadians.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\xcDegrees.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\xcMatrix3x3.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\xcSphere.cpp">
@@ -132,14 +114,38 @@
     <ClCompile Include="src\xcRay.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
-    <ClCompile Include="include\xcMatrix4x4.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
     <ClCompile Include="src\xcPlatformMath.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\xcQuaternions.cpp">
       <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVector2.cpp">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVector3.cpp">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVector4.cpp">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVectorI2.cpp">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVectorI3.cpp">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVectorI4.cpp">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVectorIN.cpp">
+      <Filter>Source Files\Math\Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcMatrix3x3.cpp">
+      <Filter>Source Files\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="include\xcMatrix4x4.cpp">
+      <Filter>Source Files\Math\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

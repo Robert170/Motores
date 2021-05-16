@@ -190,14 +190,12 @@ namespace xcEngineSDK {
 
 		/**
 		 * @brief      Dot function
-		 * @param      VectorA parameter one, for dot product
 		 * @param      VetorB parameter two, for dot product
 		 * @bug	       No know Bugs
 		 * @return     Returns a scalar
 	   */
 		int32
-		dot(VectorI2& VectorA,
-			  VectorI2& VetorB);
+		dot(VectorI2& VetorB);
 
 
 	public:

@@ -117,16 +117,14 @@ namespace xcEngineSDK {
 	}
 
 	float 
-	Vector2::dot(Vector2& VectorA, 
-		           Vector2& VectorB) {
+	Vector2::dot(Vector2& VectorB) {
 
-		return (VectorA.m_x * VectorB.m_x) + (VectorA.m_y * VectorB.m_y);
+		return (this->m_x * VectorB.m_x) + (this->m_y * VectorB.m_y);
 	}
 
 	float
-	Vector2::cross(Vector2& VectorA, 
-		             Vector2& VectorB) {
+	Vector2::cross(Vector2& VectorB) {
 
-		return (VectorA.m_x * VectorB.m_y) - (VectorA.m_y * VectorB.m_x);
+		return (this->m_x * VectorB.m_y) - (this->m_y * VectorB.m_x);
 	}
 }

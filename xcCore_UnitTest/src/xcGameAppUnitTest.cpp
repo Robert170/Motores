@@ -53,6 +53,7 @@ namespace xcEngineSDK {
 
   void 
   GameAppUnitTest::onCreate() {
+
     CCameraDatas Data;
 	  Data.Far = 100;
 	  Data.Fov = 0.7f;
@@ -209,7 +210,6 @@ namespace xcEngineSDK {
 		                                      1);*/
 
 	  // Create vertex buffer
-
 	  g_pVertexBuffer = m_graphiApi->createVertexBuffer(vertices,
 		                                                  1);
 
@@ -218,9 +218,6 @@ namespace xcEngineSDK {
 	  	                                              1);
 	  
 	  // Create the constant buffers
-	  
-	  
-	  
 	  g_ConstantBuffer.mView = m_graphiApi->initMatrixView(g_View,
 	  	                                                   Eye,
 	  	                                                   At,
@@ -271,12 +268,14 @@ namespace xcEngineSDK {
 	  
 	  m_graphiApi->setDefaultRenderTarget();
 	  
-	  
+		m_graphiApi->clearDefaultRenderTargetAndDepthStencil(Color);
 	  
 	  // Setup the viewport
 	  m_graphiApi->setViewport(1,
 	  	                       800,
-	  	                       600,0,0);
+	  	                       600,
+			                       0,
+			                       0);
 	  
 	  //set inputlayout
 	  m_graphiApi->setInputLayout(g_pInputLayout);
@@ -303,7 +302,7 @@ namespace xcEngineSDK {
 	  //// Clear the depth stencil
 	  /*m_graphiApi->ClearDepthStencil(g_pDepthStencil, CLEAR_DEPTH,1.0f,0);*/
 	  
-	  m_graphiApi->clearDefaultRenderTargetAndDepthStencil(Color);
+	 
 	  
 	  //shader program
 	  m_graphiApi->setShaderProgram(g_pShaderProgram);

@@ -69,15 +69,15 @@ namespace xcEngineSDK {
 
     Temp.transpose();
 
-    return Matrix3x3(m_matrix->dot(m_matrix[0], Temp.m_matrix[0]), 
-                     m_matrix->dot(m_matrix[1], Temp.m_matrix[0]), 
-                     m_matrix->dot(m_matrix[2], Temp.m_matrix[0]),
-                     m_matrix->dot(m_matrix[0], Temp.m_matrix[1]), 
-                     m_matrix->dot(m_matrix[1], Temp.m_matrix[1]), 
-                     m_matrix->dot(m_matrix[2], Temp.m_matrix[1]),
-                     m_matrix->dot(m_matrix[0], Temp.m_matrix[2]), 
-                     m_matrix->dot(m_matrix[1], Temp.m_matrix[2]), 
-                     m_matrix->dot(m_matrix[2], Temp.m_matrix[2]));
+    return Matrix3x3(m_matrix[0].dot(Temp.m_matrix[0]), 
+                     m_matrix[1].dot(Temp.m_matrix[0]), 
+                     m_matrix[2].dot(Temp.m_matrix[0]),
+                     m_matrix[0].dot(Temp.m_matrix[1]), 
+                     m_matrix[1].dot(Temp.m_matrix[1]), 
+                     m_matrix[2].dot(Temp.m_matrix[1]),
+                     m_matrix[0].dot(Temp.m_matrix[2]), 
+                     m_matrix[1].dot(Temp.m_matrix[2]), 
+                     m_matrix[2].dot(Temp.m_matrix[2]));
   }
 
   Matrix3x3& 

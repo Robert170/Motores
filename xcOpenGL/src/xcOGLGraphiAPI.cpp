@@ -15,45 +15,59 @@ namespace xcEngineSDK {
 	framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 	void
-		OGLGraphiAPI::initWindow(uint32 width,
-			                       uint32 height) {
-		glfwInit();
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-		m_window = glfwCreateWindow(width, height, "LearnOpenGL", nullptr, nullptr);
-		if (nullptr == m_window) {
-			std::cout << "Failed to create GLFW window" << std::endl;
-			glfwTerminate();
-			return;
-		}
-		glfwMakeContextCurrent(m_window);
-		//glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
-
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-			std::cout << "Failed to initialize GLAD" << std::endl;
-			return;
-		}
-
-		// configure global opengl state
-		// -----------------------------
-		glEnable(GL_DEPTH_TEST);
-		//default render target
-		//glGenFramebuffers(1, &m_BackBuffer);
-		//glBindFramebuffer(GL_FRAMEBUFFER, m_BackBuffer);
-
-		////default depth
-		//glGenRenderbuffers(1, &m_Depth);
-		//glBindRenderbuffer(GL_RENDERBUFFER, m_Depth);
-		//glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-		//glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_Depth);
+	OGLGraphiAPI::initWindow(uint32 width,
+			                     uint32 height) {
 
 	}
 
 
 	void
-		OGLGraphiAPI::createDeviceandSwap() {
+	OGLGraphiAPI::createDeviceandSwap(sf::WindowHandle window) {
+
+    PIXELFORMATDESCRIPTOR pfd = {
+      sizeof(PIXELFORMATDESCRIPTOR),
+      1,
+      PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    // Flags
+      PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
+      32,                   // Colordepth of the framebuffer.
+      0, 0, 0, 0, 0, 0,
+      0,
+      0,
+      0,
+      0, 0, 0, 0,
+      24,                   // Number of bits for the depthbuffer
+      8,                    // Number of bits for the stencilbuffer
+      0,                    // Number of Aux buffers in the framebuffer.
+      PFD_MAIN_PLANE,
+      0,
+      0, 0, 0
+    };
+
+		m_hdc = GetDC(window);
+
+		int32 pixel = ChoosePixelFormat(m_hdc, &pfd);
+
+		SetPixelFormat(m_hdc,pixel, &pfd);
+
+		wglMakeCurrent(m_hdc, wglCreateContext(m_hdc));
+
+		if (!gladLoadGL()){
+			return;
+		}
+
+		RECT rect;
+
+		GetClientRect(window, &rect);
+
+		m_width = rect.right - rect.left;
+		m_height = rect.bottom - rect.top;
+
+		setViewport(1, m_width, m_height);
+
+		glEnable(GL_DEPTH_TEST);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	}
 
 	void
@@ -850,11 +864,14 @@ namespace xcEngineSDK {
 
 	void
 	OGLGraphiAPI::present() {
-		glfwSwapBuffers(m_window);
+
+		SwapBuffers(m_hdc);
+
+		/*glfwSwapBuffers(m_window);
 		checkGLError();
 
 		glfwPollEvents();
-		checkGLError();
+		checkGLError();*/
 
 	}
 

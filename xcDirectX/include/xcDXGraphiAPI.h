@@ -81,7 +81,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void
-	  createDeviceandSwap() override;
+	  createDeviceandSwap(sf::WindowHandle window) override;
 
 		/**
 		 * @brief      createDeferredContext function, to create Deferred Context

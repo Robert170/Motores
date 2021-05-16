@@ -6,54 +6,63 @@ namespace xcEngineSDK {
   int32
   BaseApp::run() {
 
-    initSystems();
-   // m_plugin->loadPlugin("xcDirectX_d.dll");
+    createWindow();
 
-    //createWindow();
+    initSystems();
 
     onCreate();
 
-    //sf::Clock delta;
+    sf::Clock delta;
 
-    //float deltaTime ; 
+    float deltaTime;
 
-    //while (m_window.isOpen()) {
+    while (m_window.isOpen()) {
 
-    //  sf::Event event;
+      sf::Event event;
 
-    //  while (m_window.pollEvent(event)) {
-    //    
-    //    if (event.type == sf::Event::Closed) {
-    //      m_window.close();
-    //      break;
-    //    }
+      while (m_window.pollEvent(event)) {
 
-    //  }
+        deltaTime = delta.getElapsedTime().asSeconds();
 
-    //  deltaTime = delta.getElapsedTime().asSeconds();
+        if (event.type == sf::Event::Closed) {
+          m_window.close();
+          break;
+        }
+        //update
+        update(deltaTime);
 
-    // Main message loop
-	  MSG msg = { 0 };
-	  while (WM_QUIT != msg.message)
-	  {
-	  	if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-	  	{
-	  		TranslateMessage(&msg);
-	  		DispatchMessage(&msg);
-	  	}
-	  	else
-	  	{
-	  		//update
-        update(0.f); 
-
-	  		//render
+    		//render
         render();
-	  		
-	  	}
-	  }
+      }
+      
+    }
 
     onDestroy();
     destroySystems();
+
+
+
+    // Main message loop
+	  //MSG msg = { 0 };
+	  //while (WM_QUIT != msg.message)
+	  //{
+	  //	if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+	  //	{
+	  //		TranslateMessage(&msg);
+	  //		DispatchMessage(&msg);
+	  //	}
+	  //	else
+	  //	{
+	  //		//update
+   //     update(0.f); 
+
+	  //		//render
+   //     render();
+	  //		
+	  //	}
+	  //}
+
+    
 
     return 0;
   }
@@ -72,7 +81,7 @@ namespace xcEngineSDK {
 
   void 
   BaseApp::createWindow() {
-
+    m_window.create(sf::VideoMode(500, 500), "SFML Window");
   }
 
   void 
@@ -89,8 +98,8 @@ namespace xcEngineSDK {
   void 
   BaseApp::initSystems() {
     //debug
-    if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
-    //if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
+    //if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
+    if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
 
     //release
     //if (m_plugin.loadPlugin("xcDirectX.dll")) {
@@ -103,7 +112,9 @@ namespace xcEngineSDK {
       GraphiAPI* graphiApi = createGraphiApi();
       g_graphiAPI().setObject(graphiApi);
       m_graphiApi = &g_graphiAPI();
-      m_graphiApi->init(800, 600);
+
+
+      m_graphiApi->init(m_window.getSystemHandle());
     }
 
   }

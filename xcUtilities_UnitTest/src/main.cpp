@@ -115,7 +115,7 @@ TEST(xcUtilities, Vector2_Math) {
 
   Vector2 a(1.0f, 2.0f);
   Vector2 b(1.0f, 5.0f);
-  float c = b.cross(a, b);
+  float c = a.cross(b);
 
   EXPECT_FLOAT_EQ(c, 3);
 
@@ -186,7 +186,7 @@ TEST(xcUtilities, Vector3_Math) {
 
   Vector3 a(1.0f, 2.0f, 3.0f);
   Vector3 b(1.0f, 5.0f, 7.0f);
-  Vector3 c = c.cross(a, b);
+  Vector3 c = a.cross(b);
 
   EXPECT_FLOAT_EQ(c.m_x, -1.0f);
   EXPECT_FLOAT_EQ(c.m_y, -4.0f);
@@ -385,11 +385,15 @@ TEST(xcUtilities, VectorI3_Math) {
   VectorI3 a(1, 2, 3);
   VectorI3 b(1, 5, 7);
 
-  z = z.cross(a, b);
+  z = a.cross(b);
   EXPECT_EQ(z.m_x, -1);
   EXPECT_EQ(z.m_y, -4);
   EXPECT_EQ(z.m_z, 3);
-}
+
+  int32 temp = a.dot(b);
+  EXPECT_EQ(temp, 32);
+  
+  }
 
 TEST(xcUtilities, VectorI4_Math) {
   VectorI4 x(4, 4, 4, 4);

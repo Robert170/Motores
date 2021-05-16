@@ -196,26 +196,29 @@ namespace xcEngineSDK {
 
 		/**
 		 * @brief      Dot function
-		 * @param      VectorA parameter one, for dot product
 		 * @param      VetorB parameter two, for dot product
 		 * @bug	       No know Bugs
 		 * @return     Returns a scalar
 		 */
 		int32
-		dot(VectorI3& VectorA,
-				VectorI3& VetorB);
+		dot(VectorI3& VetorB);
 
 		/**
      * @brief      cross function
-     * @param      VectorA parameter one, for cross product
      * @param      VectorB parameter two, for cross product
      * @bug	       No know Bugs
      * @return     Returns a vector
      */
     VectorI3
-    cross(VectorI3& VectorA,
-          VectorI3& VectorB);
+    cross(VectorI3& VectorB);
 
+		/**
+     * @brief      - operator overload
+     * @bug	       No know Bugs
+     * @return     Returns a negated vector
+     */
+		VectorI3
+    operator-() const;
 
 	public:
 		/**

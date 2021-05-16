@@ -13,9 +13,11 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "glad.h"
+
+
 #include "GLFW/glfw3.h"
 #include "xcGraphiAPI.h"
+#include "xcPrerequisitesOGL.h"
 
 namespace xcEngineSDK {
 	class XC_CORE_EXPORT OGLGraphiAPI : public GraphiAPI
@@ -31,7 +33,15 @@ namespace xcEngineSDK {
 		 */
 		GLFWwindow* m_window = nullptr;
 
-		int m_attachShaderID = 0;
+		int32 m_attachShaderID = 0;
+
+		HDC m_hdc;
+
+		uint32 m_width;
+
+		uint32 m_height;
+
+
 
 		//uint32 m_BackBuffer;
 
@@ -60,7 +70,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void
-	  createDeviceandSwap() override;
+	  createDeviceandSwap(sf::WindowHandle window) override;
 
 		/**
 		 * @brief      createDeferredContext function, to create Deferred Context

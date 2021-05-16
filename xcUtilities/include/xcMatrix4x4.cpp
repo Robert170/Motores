@@ -98,22 +98,22 @@ namespace xcEngineSDK {
     Temp.transpose();
     
 
-    return Matrix4x4(m_matrix->dot(m_matrix[0], Temp.m_matrix[0]), 
-                     m_matrix->dot(m_matrix[1], Temp.m_matrix[0]), 
-                     m_matrix->dot(m_matrix[2], Temp.m_matrix[0]), 
-                     m_matrix->dot(m_matrix[3], Temp.m_matrix[0]),
-                     m_matrix->dot(m_matrix[0], Temp.m_matrix[1]), 
-                     m_matrix->dot(m_matrix[1], Temp.m_matrix[1]), 
-                     m_matrix->dot(m_matrix[2], Temp.m_matrix[1]), 
-                     m_matrix->dot(m_matrix[3], Temp.m_matrix[1]),
-                     m_matrix->dot(m_matrix[0], Temp.m_matrix[2]), 
-                     m_matrix->dot(m_matrix[1], Temp.m_matrix[2]), 
-                     m_matrix->dot(m_matrix[2], Temp.m_matrix[2]), 
-                     m_matrix->dot(m_matrix[3], Temp.m_matrix[2]),
-                     m_matrix->dot(m_matrix[0], Temp.m_matrix[3]), 
-                     m_matrix->dot(m_matrix[1], Temp.m_matrix[3]), 
-                     m_matrix->dot(m_matrix[2], Temp.m_matrix[3]), 
-                     m_matrix->dot(m_matrix[3], Temp.m_matrix[3]));
+    return Matrix4x4(m_matrix[0].dot(Temp.m_matrix[0]),
+                     m_matrix[1].dot(Temp.m_matrix[0]), 
+                     m_matrix[2].dot(Temp.m_matrix[0]), 
+                     m_matrix[3].dot(Temp.m_matrix[0]),
+                     m_matrix[0].dot(Temp.m_matrix[1]), 
+                     m_matrix[1].dot(Temp.m_matrix[1]), 
+                     m_matrix[2].dot(Temp.m_matrix[1]), 
+                     m_matrix[3].dot(Temp.m_matrix[1]),
+                     m_matrix[0].dot(Temp.m_matrix[2]), 
+                     m_matrix[1].dot(Temp.m_matrix[2]), 
+                     m_matrix[2].dot(Temp.m_matrix[2]), 
+                     m_matrix[3].dot(Temp.m_matrix[2]),
+                     m_matrix[0].dot(Temp.m_matrix[3]), 
+                     m_matrix[1].dot(Temp.m_matrix[3]), 
+                     m_matrix[2].dot(Temp.m_matrix[3]), 
+                     m_matrix[3].dot(Temp.m_matrix[3]));
   }
 
   Matrix4x4& 
@@ -177,10 +177,10 @@ namespace xcEngineSDK {
     Vector3 zAxis = At - Eye;
     zAxis.normalize();
 
-    Vector3 xAxis = xAxis.cross(Up, zAxis);
+    Vector3 xAxis = Up.cross(zAxis);
     xAxis.normalize();
 
-    Vector3 yAxis = yAxis.cross(zAxis, xAxis);
+    Vector3 yAxis = zAxis.cross(xAxis);
 
     Vector3 negativeEye = -Eye;
     
@@ -190,9 +190,9 @@ namespace xcEngineSDK {
                      xAxis.dot(xAxis, negativeEye), yAxis.dot(yAxis, negativeEye), 
                      zAxis.dot(zAxis, negativeEye), 1);*/
 
-    return Matrix4x4(xAxis.m_x, xAxis.m_y, xAxis.m_z, xAxis.dot(xAxis, negativeEye),
-                     yAxis.m_x, yAxis.m_y, yAxis.m_z, yAxis.dot(yAxis, negativeEye),
-                     zAxis.m_x, zAxis.m_y, zAxis.m_z, zAxis.dot(zAxis, negativeEye),
+    return Matrix4x4(xAxis.m_x, xAxis.m_y, xAxis.m_z, xAxis.dot(negativeEye),
+                     yAxis.m_x, yAxis.m_y, yAxis.m_z, yAxis.dot(negativeEye),
+                     zAxis.m_x, zAxis.m_y, zAxis.m_z, zAxis.dot(negativeEye),
                      0, 0, 0, 1);
   }
   

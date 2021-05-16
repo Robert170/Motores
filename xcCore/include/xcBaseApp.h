@@ -15,7 +15,7 @@
 
 #pragma once
 
-//#include <SFML/Window.hpp>
+#include <SFML/Window.hpp>
 #include <xcPlugin.h>
 
 #include "xcPrerequisitesCore.h"
@@ -28,7 +28,7 @@ namespace xcEngineSDK {
 	
 	class XC_CORE_EXPORT BaseApp
 	{
-	public:
+	 public:
 		BaseApp() = default;
 		~BaseApp() = default;
 
@@ -42,15 +42,15 @@ namespace xcEngineSDK {
 			* @return     Returns a int32
 			*/
 		int32
-			run();
+		run();
 
 		static LRESULT CALLBACK
-			handleWindowEvent(HWND hw,
-				UINT mesg,
-				WPARAM wParam,
-				LPARAM lParam);
+		handleWindowEvent(HWND hw,
+				              UINT mesg,
+				              WPARAM wParam,
+				              LPARAM lParam);
 
-	private:
+	 private:
 
 		/**
 		 * @brief private functions
@@ -80,7 +80,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void
-			render();
+		render();
 
 		/**
 		 * @brief      intSystems function, to inti systems
@@ -88,7 +88,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void
-			initSystems();
+		initSystems();
 
 		/**
 		 * @brief      destroySystems function, to destroy systems
@@ -96,31 +96,31 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void
-			destroySystems();
+		destroySystems();
 
 
 
-	protected:
+	 protected:
 
 		/**
 		 * @brief protected functions
 		 */
 
 		virtual void
-			onCreate() {};
+		onCreate() {};
 
 		virtual void
-			onUpdate(float) {};
+		onUpdate(float) {};
 
 		virtual void
-			onRender() {};
+		onRender() {};
 
 		virtual void
-			onDestroy() {};
+		onDestroy() {};
 
-	protected:
+	 protected:
 
-		//sf::Window m_window;
+		sf::Window m_window;
 		Plugin m_plugin;
 		GraphiAPI* m_graphiApi = nullptr;
 
