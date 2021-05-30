@@ -8,7 +8,6 @@
 #include "xcInputLayoutOGL.h"
 #include "xcSamplerStateOGL.h"
 #include "xcShaderProgramOGL.h"
-#include "xcModel.h"
 
 namespace xcEngineSDK {
 	void 

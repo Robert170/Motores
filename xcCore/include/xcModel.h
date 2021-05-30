@@ -13,9 +13,9 @@
  * @bug	No know Bugs
  */
 #pragma once
-//#include <assimp/Importer.hpp>
-//#include <assimp/scene.h>
-//#include <assimp/postprocess.h>
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
+#include "assimp/Importer.hpp"
 #include <fstream>
 #include <sstream>
 #include "xcMesh.h"
@@ -52,7 +52,7 @@ namespace xcEngineSDK {
     loadModel(std::string const& path, 
               GraphiAPI* API);
 
-    /*void
+    void
     processNode(aiNode* node,
                 const aiScene* scene,
                 GraphiAPI* API);
@@ -60,7 +60,7 @@ namespace xcEngineSDK {
     Mesh
     processMesh(aiMesh* mesh,
                 const aiScene* scene,
-                GraphiAPI* API);*/
+                GraphiAPI* API);
 
     // checks all material textures of a given type and loads the textures if they're not loaded yet.
     // the required info is returned as a Texture struct.

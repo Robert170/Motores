@@ -39,29 +39,6 @@ namespace xcEngineSDK {
 
     onDestroy();
     destroySystems();
-
-
-
-    // Main message loop
-	  //MSG msg = { 0 };
-	  //while (WM_QUIT != msg.message)
-	  //{
-	  //	if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-	  //	{
-	  //		TranslateMessage(&msg);
-	  //		DispatchMessage(&msg);
-	  //	}
-	  //	else
-	  //	{
-	  //		//update
-   //     update(0.f); 
-
-	  //		//render
-   //     render();
-	  //		
-	  //	}
-	  //}
-
     
 
     return 0;

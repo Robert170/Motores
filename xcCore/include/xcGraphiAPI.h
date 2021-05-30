@@ -13,7 +13,6 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include <xcPrerequisitesCore.h>
 #include <windows.h>
 #include <iostream>
 #include <vector>
@@ -22,6 +21,7 @@
 #include <xcModule.h>
 #include <SFML/Window/Window.hpp>
 
+#include "xcPrerequisitesCore.h"
 #include "xcPixelShader.h"
 #include "xcTexture.h"
 #include "xcVertexShader.h"

@@ -61,6 +61,9 @@
     <ClCompile Include="src\xcBaseApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xcActor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcCamera.h">
@@ -112,6 +115,9 @@
       <Filter>Source Files\Prerequisites</Filter>
     </ClInclude>
     <ClInclude Include="include\xcBaseApp.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcActor.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

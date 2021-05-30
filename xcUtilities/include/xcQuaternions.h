@@ -40,25 +40,29 @@ namespace xcEngineSDK {
 
 		/**
 		 * @brief      Quaternions function, specific constructor
-		 * @param      vector parameter one, vector of quaternions whit a vector2
-		 * @param      scalar parameter two, scalar of the quaternions
+		 * @param      x parameter one, element x of quaternion
+		 * @param      y parameter one, element y of quaternion
+		 * @param      z parameter one, element z of quaternion
+		 * @param      w parameter one, element w of quaternion
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
-		Quaternion(const Vector2& vector,
-			         const float& scalar) 
-               : m_quaternionVector(Vector2(vector)), m_scalar(scalar) { };
+		Quaternion(const float& x,
+			         const float& y,
+			         const float& z,
+			         const float& w) 
+               : m_x(x), m_y(y), m_z(z), m_w(w) { };
 
 		/**
 		 * @brief      Quaternions function, specific constructor
 		 * @param      vector parameter one, vector of quaternions whit a vector3
-		 * @param      scalar parameter two, scalar of the quaternions
+		 * @param      w parameter two, w of the quaternions
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
 		Quaternion(const Vector3& vector,
-			         const float& scalar) 
-               : m_quaternionVector(vector), m_scalar(scalar) { };
+			         const float& w) 
+               : m_x(vector.m_x), m_y(vector.m_y), m_z(vector.m_z), m_w(w) { };
 
 		/**
 		 * @brief      + operator overload
@@ -98,12 +102,12 @@ namespace xcEngineSDK {
 
 
 		/**
-		 * @brief      norm function, the norm of a quaternion
+		 * @brief      magnitud function, the magnitud of a quaternion
 		 * @bug	       No know Bugs
 		 * @return     Returns a float
 		 */
 		float
-		norm();
+		magnitud();
 
 		/**
 		 * @brief      normalized function, the normalize a quaternion
@@ -173,15 +177,27 @@ namespace xcEngineSDK {
 		 * @brief public variables member 
 		 */
 
-	 /**
+		//TODO: CAMBIAR EL VECTOR POR VALORES X, Y, Z y EL SCALAR POR W
+
+	  /**
 		 * @brief m_quaternionVector, the vector of the quaternion
 		 */
-	  Vector3 m_quaternionVector;
+		float m_x;
 
 		/**
-		 * @brief m_scalar, the scalar of the quaternion
+		 * @brief m_quaternionVector, the vector of the quaternion
 		 */
-		float m_scalar;
+		float m_y;
+
+		/**
+		 * @brief m_quaternionVector, the vector of the quaternion
+		 */
+		float m_z;
+
+		/**
+		 * @brief m_w, the scalar of the quaternion
+		 */
+		float m_w;
 
 	};
 }

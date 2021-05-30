@@ -14,8 +14,8 @@
  */
 
 #pragma once
-#include <d3d11.h>
-#include <d3dcompiler.h>
+
+#include "xcPrerequisitesDX.h"
 #include "xcGraphiAPI.h"
 #include "xcTextureDX.h"
 
