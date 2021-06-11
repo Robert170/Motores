@@ -27,6 +27,7 @@
 #include "xcVertexShader.h"
 #include "xcConstantBuffer.h"
 #include "xcInputLayout.h"
+#include "xcCamera.h"
 
 namespace xcEngineSDK {
 
@@ -42,7 +43,7 @@ namespace xcEngineSDK {
   class InputLayout;
   class RasterizerState;
   class ShaderProgram;
-  class Model;
+  
 
   using TEXTURE_FORMAT = enum
   {
@@ -244,10 +245,16 @@ namespace xcEngineSDK {
 
   struct SimpleVertex
   {
-    Vector3	Pos;
-    Vector2 Tex;
-    //glm::vec3 Pos;
-    //glm::vec2 Tex;
+    Vector3	Position;
+    Vector2 TexCoords;
+  };
+
+
+
+  struct BoneVertex {
+    Vector3 Position;
+    Vector4 bonesWeight;
+    uint32 id_Bones[4] = { 0 };
   };
 
   struct ColorStruct
@@ -260,12 +267,28 @@ namespace xcEngineSDK {
 
   struct InputLayout_Desc
   {
-    std::vector<std::string> Semantics;
-    std::vector<unsigned int> Formats;
+    Vector<String> Semantics;
+    Vector<uint32> Formats;
   };
 
   struct CCameraDatas
   {
+
+    /**< struct Vector3 front. */
+    Vector3 front;
+
+    /**< struct Vector3 position. */
+    Vector3 position;
+
+    /**< struct Vector3 at. */
+    Vector3 at;
+
+    /**< struct Vector3 up. */
+    Vector3 up;
+
+    /**< struct Vector3 Rigth. */
+    Vector3 Rigth;
+
     /**< struct float W. */
     float W;
 
@@ -357,7 +380,7 @@ namespace xcEngineSDK {
      * @return     Returns a world matrix initialize
      */
     virtual Matrix4x4 
-      initMatrixWorld(Matrix4x4&) { return Matrix4x4(); };
+    initMatrixWorld(Matrix4x4&) { return Matrix4x4(); };
 
     /**
      * @brief      initMatrixView function, to init the view matrix
@@ -400,9 +423,9 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CBuffer
      */
-    /*virtual CModel* LoadModel(CGraphiAPI* API,
+    /*virtual Model* LoadModel(GraphiAPI* API,
                             InputLayout_Desc InpLayDesc,
-                            std::string Path) { };*/
+                            std::string Path) { return nullptr; };*/
 
     //create
 
@@ -417,7 +440,7 @@ namespace xcEngineSDK {
      */
 
     virtual VertexBuffer* 
-    createVertexBuffer(const std::vector <SimpleVertex>&,
+    createVertexBuffer(const std::vector <BoneVertex>&,
                        uint32 = 0) { return nullptr; };
 
     /**
@@ -472,7 +495,8 @@ namespace xcEngineSDK {
                     uint32, //deberia estar en la clase texture
                     TEXTURE_FORMAT = TF_R8G8B8A8_UNORM,
                     uint32 = TEXTURE_BIND_SHADER_RESOURCE,
-                    TYPE_USAGE = TYPE_USAGE_DEFAULT) { return nullptr; };
+                    TYPE_USAGE = TYPE_USAGE_DEFAULT,
+                    const void* Data = nullptr) { return nullptr; };
 
     /**
      * @brief      createTexture3D function, to create a texture 3D
@@ -535,6 +559,21 @@ namespace xcEngineSDK {
                         const std::string& = "",
                         const std::string& = "",
                         int32 = 0) { return nullptr; }; //no va
+
+    /**
+	   * @brief      CreateInputLayoutDesc function, to create the descriptor of the
+	   *             input layout
+	   * @param      SemanticsVector parameter one, a vector of semantics
+	   * @param      FormatsVector parameter two, a vector of formats
+	   * @bug		No know Bugs
+	   * @return     Returns a pointer of InputLayout_Desc
+	  */
+	  virtual InputLayout_Desc 
+    CreateInputLayoutDesc(Vector<String> SemanticsVector,
+                          Vector<uint32> FormatsVector) {
+                           InputLayout_Desc Temp;
+                           return Temp; };
+
     /**
      * @brief      createInputLayout function, to create the input layout
      * @param      Vertex parameter one, a pointer of vertex shader for use his blop
@@ -547,6 +586,7 @@ namespace xcEngineSDK {
     createInputLayout(ShaderProgram&,
                       InputLayout_Desc&,
                       uint32 = 0) { return nullptr; }; //no va
+
 
     /**
      * @brief      createSamplerState function, to create the sampler state
@@ -749,6 +789,10 @@ namespace xcEngineSDK {
     virtual void 
     setDefaultRenderTarget() { };
 
+
+    virtual Matrix4x4
+    matri4x4Context(const Matrix4x4&) { return Matrix4x4(); }
+
     //clear
 
     /**
@@ -791,13 +835,28 @@ namespace xcEngineSDK {
     /**
      * @brief      updateSubresource function, update the source
      * @param      Data parameter one, data to update constant buffer
-     * @param      ConstantBufffer parameter two, consant buffer
+     * @param      ConstantBufffer parameter two, constant buffer
      * @bug		     No know Bugs
      * @return     Returns nothing
      */
     virtual void 
     updateSubresource(const void*,
                       ConstantBuffer&) { };
+
+
+    /**
+       * @brief      textureFromFile function, to load texture from file
+       * @param      path parameter one, path of the texture
+       * @param      directory parameter two, directory of the texture
+       * @param      API parameter three, api to have acces to diferent functions
+       * @bug		     No know Bugs
+       * @return     Returns nothing
+     */
+    virtual TextureB*
+    textureFromFile(String path,
+                    const String& directory,
+                    GraphiAPI* API,
+                    bool gamma = false) {return nullptr;};
 
 
     //draw
@@ -868,7 +927,7 @@ namespace xcEngineSDK {
     destroy() { };
 
 
-   protected:
+   public:
 
     /**
      * @brief protected variables member
@@ -877,12 +936,12 @@ namespace xcEngineSDK {
     /**
      * @Variable m_Width, width of the window
      */
-    unsigned int m_width = 800;
+    unsigned int m_width = 900;
 
     /**
      * @Variable m_Height, height of the window
      */
-    unsigned int m_height = 600;
+    unsigned int m_height = 900;
   };
 
   /**

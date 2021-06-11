@@ -16,6 +16,7 @@
  * Includes
  */
  /*****************************************************************************/
+#include <windows.h>
 #include "xcPrerequisitesUtilities.h"
 
 

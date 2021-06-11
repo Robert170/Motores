@@ -1,3 +1,6 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 #include "xcOGLGraphiAPI.h"
 #include "xcPixelShaderOGL.h"
 #include "xcVertexShaderOGL.h"
@@ -117,7 +120,7 @@ namespace xcEngineSDK {
 
 
 	VertexBuffer*
-	OGLGraphiAPI::createVertexBuffer(const Vector <SimpleVertex>& Ver,
+	OGLGraphiAPI::createVertexBuffer(const Vector <BoneVertex>& Ver,
 			                             uint32 NumBuffers) {
 
 		auto VertexBuffer = new VertexBufferOGL();
@@ -129,7 +132,7 @@ namespace xcEngineSDK {
 			           VertexBuffer->m_vBO);
 
 		glBufferData(GL_ARRAY_BUFFER,
-			           Ver.size() * sizeof(SimpleVertex),
+			           Ver.size() * sizeof(BoneVertex),
 			           Ver.data(),
 			           GL_STATIC_DRAW);
 
@@ -198,7 +201,8 @@ namespace xcEngineSDK {
 			                          uint32 numberTexture,
 			                          TEXTURE_FORMAT format,
 			                          uint32 bindFlags,
-			                          TYPE_USAGE Usage) {
+			                          TYPE_USAGE Usage,
+		                            const void* Data) {
 
 		XC_UNREFERENCED_PARAMETER(format);
 		XC_UNREFERENCED_PARAMETER(Usage);
@@ -206,56 +210,80 @@ namespace xcEngineSDK {
 		auto texture = new TextureOGL();
 
 		//Checar que interfaces se van a crear
-		//se puede omitir
-		if (bindFlags & TEXTURE_BIND_SHADER_RESOURCE) {//Crear SRV
-			//flata arreglar
-			glTextureView(0, 0, 0, 0, 0, 0, 0, 0);
-		}
-		if (bindFlags & TEXTURE_BIND_DEPTH_STENCIL) {//Crear DSV
-
-			glGenRenderbuffers(numberTexture,
-				&texture->m_dSV);
-
-			glRenderbufferStorage(GL_RENDERBUFFER,
-				GL_DEPTH_COMPONENT,
-				width,
-				height);
-		}
-		if (bindFlags & TEXTURE_BIND_RENDER_TARGET) {//Crear RTV
-
-			glGenFramebuffers(numberTexture,
-				&texture->m_rTV);
-		}
-		if (bindFlags & TEXTURE_BIND_UNORDERED_ACCESS) {//Crear UAV
-
-
-		}
-
-		glGenTextures(numberTexture,
-			&texture->m_texture);
-
-		glBindTexture(GL_TEXTURE_2D,
-			texture->m_texture);
-
-		glTexImage2D(GL_TEXTURE_2D,
-			0,
-			GL_RGB,
-			width,
-			height,
-			0,
-			GL_RGB,
-			GL_UNSIGNED_BYTE,
-			0);
-
-		glTexParameteri(GL_TEXTURE_2D,
-			GL_TEXTURE_MAG_FILTER,
-			GL_NEAREST);
-
-		glTexParameteri(GL_TEXTURE_2D,
-			GL_TEXTURE_MIN_FILTER,
-			GL_NEAREST);
-
-		return texture;
+	  //se puede omitir
+	  if (bindFlags & TEXTURE_BIND_SHADER_RESOURCE)
+	  {//Crear SRV
+	  	//flata arreglar
+	  	glTextureView(0, 0, 0, 0, 0, 0, 0, 0);
+	  }
+	  if (bindFlags & TEXTURE_BIND_DEPTH_STENCIL)
+	  {//Crear DSV
+	  
+	  	glGenRenderbuffers(numberTexture,
+	  		               &texture->m_dSV);
+	  
+	  	glRenderbufferStorage(GL_RENDERBUFFER, 
+	  		                  GL_DEPTH_COMPONENT, 
+	  		                  width,
+	  		                  height);
+	  }
+	  if (bindFlags & TEXTURE_BIND_RENDER_TARGET)
+	  {//Crear RTV
+	  	
+	  	glGenFramebuffers(numberTexture, 
+	  		              &texture->m_rTV);
+	  }
+	  if (bindFlags & TEXTURE_BIND_UNORDERED_ACCESS)
+	  {//Crear UAV
+	  	
+	  
+	  }
+	  unsigned int OglFormat;
+	  if (TF_R16_UINT == format)
+	  {
+	  	OglFormat = GL_RED;
+	  }
+	  else if (TF_R32G32B32_UINT == format)
+	  {
+	  	OglFormat = GL_RGB;
+	  }
+	  else if (TF_R16G16B16A16_UINT == format)
+	  {
+	  	OglFormat = GL_RGBA;
+	  }
+	  glGenTextures(numberTexture, 
+	  	          &texture->m_texture);
+	  
+	  glBindTexture(GL_TEXTURE_2D, 
+	  	            texture->m_texture);
+	  
+	  glTexImage2D(GL_TEXTURE_2D, 
+	  	           0, 
+	  	           OglFormat,
+	  	           width, 
+	  	           height, 
+	  	           0, 
+	  	           OglFormat,
+	  	           GL_UNSIGNED_BYTE, 
+	  	           Data);
+	  
+	  glTexParameteri(GL_TEXTURE_2D, 
+	  	              GL_TEXTURE_WRAP_S, 
+	  	              GL_REPEAT);	
+	  glTexParameteri(GL_TEXTURE_2D, 
+	  	              GL_TEXTURE_WRAP_T, 
+	  	              GL_REPEAT);
+	  
+	  glTexParameteri(GL_TEXTURE_2D, 
+	  	              GL_TEXTURE_MIN_FILTER, 
+	  	              GL_LINEAR);
+	  glTexParameteri(GL_TEXTURE_2D, 
+	  	              GL_TEXTURE_MAG_FILTER, 
+	  	              GL_LINEAR);
+	  
+	  glGenerateMipmap(GL_TEXTURE_2D);
+	  
+	  return texture;
 	}
 
 
@@ -490,6 +518,17 @@ namespace xcEngineSDK {
 		return VertexShader;
 	}
 
+	InputLayout_Desc 
+	OGLGraphiAPI::CreateInputLayoutDesc(Vector<String> SemanticsVector, 
+		                                  Vector<uint32> FormatsVector) {
+    InputLayout_Desc Temp;
+
+    Temp.Semantics = SemanticsVector;
+    Temp.Formats = FormatsVector;
+
+    return Temp;
+	}
+
 	void checkGLError()
 	{
 		GLenum err;
@@ -507,33 +546,33 @@ namespace xcEngineSDK {
 		XC_UNREFERENCED_PARAMETER(Vertex);
 
 		auto InputLa = new InputLayoutOGL();
+	  InputLa->m_numberOfInputLayout = NumInputLayout;
+	  glGenVertexArrays(NumInputLayout,
+		                  &InputLa->m_iPLA);
+	checkGLError();
 
-		glGenVertexArrays(NumInputLayout,
-			&InputLa->m_iPLA);
-		//checkGLError();
+
+	glBindVertexArray(InputLa->m_iPLA);
+	checkGLError();
 
 
-		glBindVertexArray(InputLa->m_iPLA);
+	for (int i = 0; i < LayoutDesc.Formats.size(); i++)
+	{
+		glVertexAttribFormat(i,
+			                 InputLa->getSize(LayoutDesc.Formats.at(i)), 
+			                 GL_FLOAT,
+			                 GL_TRUE, 
+			                 InputLa->m_offset);
 		checkGLError();
+		glVertexAttribBinding(i, 0);
+		checkGLError();
+		glEnableVertexAttribArray(i);
+		checkGLError();
+		InputLa->m_offset += InputLa->getSize(LayoutDesc.Formats.at(i)) * 4;
+	}
+	
 
-
-		for (uint32 i = 0; i < LayoutDesc.Formats.size(); ++i)
-		{
-			glVertexAttribFormat(i,
-				                   InputLa->getSize(LayoutDesc.Formats.at(i)),
-				                   GL_FLOAT,
-				                   GL_TRUE,
-				                   InputLa->m_offset);
-			checkGLError();
-			glVertexAttribBinding(i, 0);
-			checkGLError();
-			glEnableVertexAttribArray(i);
-			checkGLError();
-			InputLa->m_offset += InputLa->getSize(LayoutDesc.Formats.at(i)) * 4;
-		}
-
-
-		return InputLa;
+	return InputLa;
 	}
 
 	//mas parametros para diferentes samplers
@@ -740,6 +779,12 @@ namespace xcEngineSDK {
 
 	}
 
+	Matrix4x4 
+	OGLGraphiAPI::matri4x4Context(const Matrix4x4& matrix) {
+
+		return matrix;
+	}
+
 	void
 	OGLGraphiAPI::clearRenderTarget(TextureB* RT,
 			                            ColorStruct Color) {
@@ -787,6 +832,58 @@ namespace xcEngineSDK {
 		checkGLError();
 
 
+	}
+
+	TextureB* 
+	OGLGraphiAPI::textureFromFile(String path,
+		                            const String& directory,
+		                            GraphiAPI* API, 
+		                            bool gamma) {
+		auto texture = new TextureB();
+
+    String filename = directory + path;//std::string(path);
+    //filename = directory + '/' + filename;
+
+    int width, height, nrComponents;
+    unsigned char* data = stbi_load(filename.c_str(), 
+			                              &width, 
+			                              &height, 
+			                              &nrComponents, 
+			                              0);
+    if (data) {
+      TEXTURE_FORMAT format;
+      if (nrComponents == 1) {
+
+        format = TF_R16_UINT;
+      }
+      else if (nrComponents == 3) {
+
+        format = TF_R32G32B32_UINT;
+      }
+      else if (nrComponents == 4) {
+
+        format = TF_R16G16B16A16_UINT;
+      }
+      //create texture
+      texture = createTexture2D(width,
+                                height,
+                                1,
+                                format,
+                                TEXTURE_BIND_SHADER_RESOURCE,
+                                TYPE_USAGE_DEFAULT,
+                                data);
+      //m_texturesloaded.push_back(m_texture);
+
+
+
+      stbi_image_free(data);
+    }
+    else {
+      std::cout << "Texture failed to load at path: " << path << std::endl;
+      stbi_image_free(data);
+    }
+
+    return texture;
 	}
 
 	void 

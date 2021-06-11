@@ -14,7 +14,6 @@
  */
 
 #pragma once
-
 #include "xcPrerequisitesDX.h"
 #include "xcGraphiAPI.h"
 #include "xcTextureDX.h"
@@ -170,7 +169,7 @@ namespace xcEngineSDK {
 	   */
 
 		VertexBuffer* 
-		createVertexBuffer(const std::vector <SimpleVertex>& Ver,
+		createVertexBuffer(const std::vector <BoneVertex>& Ver,
 			                 uint32 NumBuffer = 0) override;
 
 		/**
@@ -222,9 +221,10 @@ namespace xcEngineSDK {
 		createTexture2D(uint32 width,
 			              uint32 height,
 			              uint32 numberTexture, //deberia estar en la clase texture
-			              TEXTURE_FORMAT format = TF_R8G8B8A8_UNORM,
-			              uint32 bindFlags = TEXTURE_BIND_SHADER_RESOURCE,
-			              TYPE_USAGE Usage = TYPE_USAGE_DEFAULT) override;
+			              TEXTURE_FORMAT format,
+			              uint32 bindFlags,
+			              TYPE_USAGE Usage,
+			              const void* Data) override;
 
 		/**
 		 * @brief      createTexture3D function, to create a texture 3D
@@ -287,6 +287,19 @@ namespace xcEngineSDK {
 			                  const std::string& Entry = "",
 			                  const std::string& ShaderModel = "",
 			                  int32 NumVertexShader = 0) override; //no va
+
+		/**
+	   * @brief      CreateInputLayoutDesc function, to create the descriptor of the
+	   *             input layout
+	   * @param      SemanticsVector parameter one, a vector of semantics
+	   * @param      FormatsVector parameter two, a vector of formats
+	   * @bug		No know Bugs
+	   * @return     Returns a pointer of InputLayout_Desc
+	  */
+	  InputLayout_Desc 
+    CreateInputLayoutDesc(Vector<String> SemanticsVector,
+                          Vector<uint32> FormatsVector) override;
+
     /**
      * @brief      createInputLayout function, to create the input layout
      * @param      Vertex parameter one, a pointer of vertex shader for use his blop
@@ -502,6 +515,10 @@ namespace xcEngineSDK {
 		void 
 		setDefaultRenderTarget() override;
 
+
+    Matrix4x4
+    matri4x4Context(const Matrix4x4& matrix) override;
+
 		//clear
 
 		/**
@@ -552,6 +569,20 @@ namespace xcEngineSDK {
 		updateSubresource(const void* Data,
 			                ConstantBuffer& ConstantBufffer) override;
 
+		/**
+       * @brief      textureFromFile function, to load texture from file
+       * @param      path parameter one, path of the texture
+       * @param      directory parameter two, directory of the texture
+       * @param      API parameter three, api to have acces to diferent functions
+       * @bug		     No know Bugs
+       * @return     Returns nothing
+     */
+    TextureB*
+    textureFromFile(String path,
+                    const String& directory,
+                    GraphiAPI* API,
+                    bool gamma) override;
+
 		//draw
 
 		/**
@@ -561,9 +592,9 @@ namespace xcEngineSDK {
 		 * @bug		No know Bugs
 		 * @return     Returns nothing
 		 */
-		void 
+		/*void 
 		drawModel(Model* Model,
-			        ShaderProgram& ShaderPro);
+			        ShaderProgram& ShaderPro);*/
 
 		/**
 		 * @brief      drawIndexed function, to draw

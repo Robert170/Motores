@@ -1,11 +1,11 @@
 /*****************************************************************************/
 /**
- * @file    xcActor.h
+ * @file    xcGameObject.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
- * @date    2021/05/25
- * @brief   Represents the actor of the scene 
+ * @date    2021/06/7
+ * @brief   Represents the GameObject of the scene
  *
- * Represent the actor of the scene
+ * Represent the GameObject, the lowesr level of the scene
  * @bug	    No known bugs.
  */
  /*****************************************************************************/
@@ -15,25 +15,17 @@
  * Includes
  */
  /*****************************************************************************/
-#include <xcMatrix4x4.h>
-#include <xcQuaternions.h>
+
 #include "xcPrerequisitesCore.h"
-#include "xcGameObject.h"
 
 namespace xcEngineSDK {
+  class GameObject
+  {
+   public:
+    GameObject() = default;
+    virtual ~GameObject() = default;
 
-	class Actor : public GameObject
-	{
-	 public:
-		Actor() = default;
-		virtual ~Actor() = default;
+   private:
 
-	 private:
-
-	  Matrix4x4 m_location;
-		Quaternion m_rotation;
-		Matrix4x4 m_scale;
-	};
-
-
+  };
 }

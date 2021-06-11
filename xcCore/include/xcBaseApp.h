@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <SFML/Window.hpp>
+
 #include <xcPlugin.h>
 
 #include "xcPrerequisitesCore.h"
@@ -44,11 +44,8 @@ namespace xcEngineSDK {
 		int32
 		run();
 
-		static LRESULT CALLBACK
-		handleWindowEvent(HWND hw,
-				              UINT mesg,
-				              WPARAM wParam,
-				              LPARAM lParam);
+		void
+		handleWindowEvent(sf::Event event);
 
 	 private:
 
@@ -109,6 +106,10 @@ namespace xcEngineSDK {
 		virtual void
 		onCreate() {};
 
+
+    virtual void
+    onEvents(sf::Event event) {};
+
 		virtual void
 		onUpdate(float) {};
 
@@ -117,6 +118,7 @@ namespace xcEngineSDK {
 
 		virtual void
 		onDestroy() {};
+
 
 	 protected:
 

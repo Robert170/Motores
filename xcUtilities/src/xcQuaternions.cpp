@@ -31,7 +31,7 @@ namespace xcEngineSDK {
 
     float tempW = (m_w * quaternion.m_w) - VecA.dot(VecB);
                                             
-    return Quaternion(VecResult.m_x, VecResult.m_y, VecResult.m_z, m_w);
+    return Quaternion(VecResult.m_x, VecResult.m_y, VecResult.m_z, tempW);
   }
 
   Quaternion 

@@ -13,16 +13,38 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include <glad/glad.h> 
-//#include <glm/glm.hpp>
-//#include <glm/gtc/matrix_transform.hpp>
-#include <iostream>
-#include <vector>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+#include"xcPrerequisitesCore.h"
 #include "xcShaderProgram.h"
 #include "xcInputLayout.h"
 #include "xcVertexBuffer.h"
 #include "xcIndexBuffer.h"
+
 namespace xcEngineSDK {
+
+  struct VERTERX_BONE_DATA
+  {
+    uint32 id_Bone[4] = { 0 };
+    float weights[4] = { 0 };
+
+    void AddBoneData(uint32 ID_Bone, float Weights);
+  };
+
+  struct BONES 
+  {
+    Matrix4x4 Offset;
+    Matrix4x4 Transformation;
+  };
+
+  struct BONES_INFO
+  {
+    uint32 NumBones = 0;
+    Vector<BONES> VecSkeletal;
+    std::map<String, uint32> BonesMap;
+  };
+
   struct Vertex {
     // position
     Vector3 Position;
@@ -32,34 +54,78 @@ namespace xcEngineSDK {
 
   struct Texture {
     uint32 id;
-    std::string type;
-    std::string path;
+    String type;
+    String path;
   };
 
-  class Mesh
+  class XC_CORE_EXPORT Mesh
   {
    public:
 
+     Mesh() = default;
+
     // constructor
-    Mesh(std::vector<SimpleVertex> Vertices,
-         std::vector<unsigned int> indices,
-         InputLayout_Desc InpLayDesc,
-         //std::vector<Texture> textures,
-         GraphiAPI* API);
+     Mesh(Vector<BoneVertex> Vertices,
+          Vector<uint32> indices,
+          Vector<TextureB*> Textures,
+          Vector<SamplerState*> Samplers,
+          BONES_INFO* Skull,
+          BoneVertex* BonVer,
+          uint32 NumBones,
+          GraphiAPI* API);
+
+     
 
     // render the mesh
     void
     draw(ShaderProgram& shader,
+         Vector<SamplerState*> Samplers,
          GraphiAPI* API);
 
    public:
-    // mesh Data
-    std::vector<SimpleVertex> m_Vertices;
-    std::vector<unsigned int> m_Indices;
-    //std::vector<Texture> m_Textures;
+    /**
+       * @brief public functions
+    */
 
-    InputLayout* m_inutLaout;
-    InputLayout_Desc m_inpLayDesc;
+    /**
+      * @Variable m_Vertices, textures vertex
+    */
+    Vector<BoneVertex> m_Vertices;
+
+    /**
+      * @Variable m_Indices, textures indices
+    */
+    Vector<uint32> m_Indices;
+
+    /**
+      * @Variable m_vTextures, all textures
+    */
+    Vector<TextureB*> m_vTextures;
+
+    /**
+      * @Variable m_vSamplers, all samplers
+    */
+    Vector<SamplerState*> m_vSamplers;
+
+    Vector<VERTERX_BONE_DATA> m_vBonesPerVertx;
+    uint32 m_numBones;
+
+     /*
+     variable pointer CMesh for the Parent.
+    */
+     Mesh* m_Parent;
+
+     //! A public variable.
+     /*!
+       variable vector of CMesh for the m_Children.
+     */
+     Vector<Mesh*>	m_Children;
+
+     SPtr<BONES_INFO> m_pBonesInfo = nullptr;
+
+     SPtr<BoneVertex> m_pBoneVertex = nullptr;
+
+     Vector<Matrix4x4> m_bonesTransforms;
 
    private:
     // render data 

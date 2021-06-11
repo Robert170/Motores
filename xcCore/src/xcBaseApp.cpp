@@ -6,8 +6,6 @@ namespace xcEngineSDK {
   int32
   BaseApp::run() {
 
-    createWindow();
-
     initSystems();
 
     onCreate();
@@ -23,6 +21,8 @@ namespace xcEngineSDK {
       while (m_window.pollEvent(event)) {
 
         deltaTime = delta.getElapsedTime().asSeconds();
+
+        handleWindowEvent(event);
 
         if (event.type == sf::Event::Closed) {
           m_window.close();
@@ -44,21 +44,23 @@ namespace xcEngineSDK {
     return 0;
   }
 
-  LRESULT 
-  BaseApp::handleWindowEvent(HWND hw, 
-                             UINT mesg, 
-                             WPARAM wParam, 
-                             LPARAM lParam){
-    XC_UNREFERENCED_PARAMETER(hw);
-    XC_UNREFERENCED_PARAMETER(mesg);
-    XC_UNREFERENCED_PARAMETER(wParam);
-    XC_UNREFERENCED_PARAMETER(lParam);
-    return LRESULT();
+  void 
+  BaseApp::handleWindowEvent(sf::Event event){
+ 
+      
+    if (event.type == sf::Event::KeyPressed) {
+      
+      onEvents(event);
+
+    }
+      
+    return;
   }
 
   void 
   BaseApp::createWindow() {
-    m_window.create(sf::VideoMode(500, 500), "SFML Window");
+    m_window.create(sf::VideoMode(m_graphiApi->m_width, m_graphiApi->m_height), 
+                                  "SFML Window");
   }
 
   void 
@@ -75,8 +77,8 @@ namespace xcEngineSDK {
   void 
   BaseApp::initSystems() {
     //debug
-    //if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
-    if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
+    if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
+    //if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
 
     //release
     //if (m_plugin.loadPlugin("xcDirectX.dll")) {
@@ -89,7 +91,7 @@ namespace xcEngineSDK {
       GraphiAPI* graphiApi = createGraphiApi();
       g_graphiAPI().setObject(graphiApi);
       m_graphiApi = &g_graphiAPI();
-
+      createWindow();
 
       m_graphiApi->init(m_window.getSystemHandle());
     }

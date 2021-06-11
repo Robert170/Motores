@@ -64,6 +64,18 @@
     <ClCompile Include="src\xcActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xcSceneGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcSceneNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcCamera.h">
@@ -118,6 +130,18 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\xcActor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcSceneGraph.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcSceneNode.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcComponent.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcGameObject.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

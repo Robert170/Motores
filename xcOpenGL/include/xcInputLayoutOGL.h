@@ -45,6 +45,11 @@ namespace xcEngineSDK {
 		unsigned int m_offset = 0;
 
 		/**
+		 * @Variable m_NumberOfInputLayout, number of input layout to delete
+	  */
+		unsigned int m_numberOfInputLayout = 0;
+
+		/**
 			* @Variable m_mFormatSize, map whit the size of formats
 		*/
 		std::map<unsigned int, unsigned int> m_mFormatSize;

@@ -45,7 +45,7 @@
 #include <sstream>
 
 
-#include <windows.h>
+//#include <windows.h>
 
 
 namespace xcEngineSDK {
@@ -131,5 +131,24 @@ namespace xcEngineSDK {
    * @brief using name WString to our engine
    */
   using WString = std::wstring;
+
+
+  /**
+   * @brief using name SPtr to our engine for smart pointer
+   */
+  template <typename T>
+  using SPtr = std::shared_ptr<T>;
+
+  /**
+   * @brief using name WeakSptr to our engine for weak pointer
+   */
+  template <typename T>
+  using WeakSptr = std::weak_ptr<T>;
+
+  /**
+   * @brief using name UPtr to our engine for unique pointer
+   */
+  template <typename T>
+  using UPtr = std::unique_ptr<T>;
 
 }

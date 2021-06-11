@@ -20,11 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcActor.cpp" />
+    <ClCompile Include="src\xcSceneNode.cpp" />
     <ClCompile Include="src\xcApi.cpp" />
     <ClCompile Include="src\xcBaseApp.cpp" />
     <ClCompile Include="src\xcCamera.cpp" />
+    <ClCompile Include="src\xcComponent.cpp" />
     <ClCompile Include="src\xcConstantBuffer.cpp" />
     <ClCompile Include="src\xcDepthStencilView.cpp" />
+    <ClCompile Include="src\xcGameObject.cpp" />
     <ClCompile Include="src\xcGraphiAPI.cpp" />
     <ClCompile Include="src\xcIndexBuffer.cpp" />
     <ClCompile Include="src\xcInputLayout.cpp" />
@@ -33,6 +36,7 @@
     <ClCompile Include="src\xcPixelShader.cpp" />
     <ClCompile Include="src\xcRasterizerState.cpp" />
     <ClCompile Include="src\xcSamplerState.cpp" />
+    <ClCompile Include="src\xcSceneGraph.cpp" />
     <ClCompile Include="src\xcShaderProgram.cpp" />
     <ClCompile Include="src\xcTexture.cpp" />
     <ClCompile Include="src\xcVertexBuffer.cpp" />
@@ -40,10 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcActor.h" />
+    <ClInclude Include="include\xcSceneNode.h" />
     <ClInclude Include="include\xcBaseApp.h" />
     <ClInclude Include="include\xcCamera.h" />
+    <ClInclude Include="include\xcComponent.h" />
     <ClInclude Include="include\xcConstantBuffer.h" />
     <ClInclude Include="include\xcDepthStencilView.h" />
+    <ClInclude Include="include\xcGameObject.h" />
     <ClInclude Include="include\xcGraphiAPI.h" />
     <ClInclude Include="include\xcIndexBuffer.h" />
     <ClInclude Include="include\xcInputLayout.h" />
@@ -53,6 +60,7 @@
     <ClInclude Include="include\xcPrerequisitesCore.h" />
     <ClInclude Include="include\xcRasterizerState.h" />
     <ClInclude Include="include\xcSamplerState.h" />
+    <ClInclude Include="include\xcSceneGraph.h" />
     <ClInclude Include="include\xcShaderProgram.h" />
     <ClInclude Include="include\xcTexture.h" />
     <ClInclude Include="include\xcVertexBuffer.h" />
@@ -148,8 +156,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>xcUtilities_d.lib;assimp-vc140-mt.lib;assimp.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies);sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>xcUtilities_d.lib;assimp-vc140-mt_d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies);sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -195,8 +203,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/$(Configuration)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;$(INTELOCLSDKROOT)lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>xcUtilities_d.lib;assimp-vc140-mt.lib;%(AdditionalDependencies);sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;$(INTELOCLSDKROOT)lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>xcUtilities_d.lib;assimp-vc140-mt_d.lib;%(AdditionalDependencies);sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -220,7 +228,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/$(Configuration)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities.lib;assimp-vc140-mt.lib;sfml-window.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>

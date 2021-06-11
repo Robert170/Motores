@@ -1,5 +1,7 @@
 #include <xcMatrix4x4.h>
 #include <vector>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
 
 #include "xcDXGraphiAPI.h"
@@ -14,6 +16,7 @@
 #include "xcSamplerStateDX.h"
 #include "xcRasterizerStateDX.h"
 #include "resource.h"
+
 
 
 
@@ -284,13 +287,13 @@ namespace xcEngineSDK {
 
   //function to create a vertex buffer 
   VertexBuffer* 
-  DXGraphiAPI::createVertexBuffer(const vector <SimpleVertex>& Ver,
+  DXGraphiAPI::createVertexBuffer(const vector <BoneVertex>& Ver,
                                   uint32 NumBuffer) {
 
     XC_UNREFERENCED_PARAMETER(NumBuffer);
 
     auto VertexBuffer = new VertexBufferDX();
-    CD3D11_BUFFER_DESC BufferDesc(Ver.size() * sizeof(SimpleVertex),
+    CD3D11_BUFFER_DESC BufferDesc(Ver.size() * sizeof(BoneVertex),
                                   D3D11_BIND_VERTEX_BUFFER);
 
     D3D11_SUBRESOURCE_DATA InitData;
@@ -369,10 +372,11 @@ namespace xcEngineSDK {
                                uint32 numberTexture,
                                TEXTURE_FORMAT format,
                                uint32 bindFlags,
-                               TYPE_USAGE Usage) {
+                               TYPE_USAGE Usage,
+                               const void* Data) {
     HRESULT hr;
     auto texture = new TextureDX();
-
+    format = TF_R8G8B8A8_UNORM;
 
     CD3D11_TEXTURE2D_DESC desc(static_cast<DXGI_FORMAT>(format),
                                width,
@@ -382,9 +386,14 @@ namespace xcEngineSDK {
                                bindFlags,
                                static_cast<D3D11_USAGE>(Usage));
 
+    D3D11_SUBRESOURCE_DATA ResourceDataDesc;
+    ResourceDataDesc.pSysMem = Data;
+    ResourceDataDesc.SysMemPitch = desc.Width * 4;
+    ResourceDataDesc.SysMemSlicePitch = 0;
+
     //Crear textura
     hr = m_pd3dDevice->CreateTexture2D(&desc, 
-                                       nullptr, 
+                                       &ResourceDataDesc,
                                        &texture->m_pTexture);
     if (FAILED(hr)) {
       std::cout << "//Error fallo la creacion de la textura" << std::endl;
@@ -602,6 +611,18 @@ namespace xcEngineSDK {
     return VertexShaders;
   }
 
+  InputLayout_Desc 
+  DXGraphiAPI::CreateInputLayoutDesc(Vector<String> SemanticsVector, 
+                                     Vector<uint32> FormatsVector) {
+
+    InputLayout_Desc Temp;
+
+    Temp.Semantics = SemanticsVector;
+    Temp.Formats = FormatsVector;
+
+    return Temp;
+  }
+
   //function to create an input layout,
   InputLayout* DXGraphiAPI::createInputLayout(ShaderProgram& Vertex,
                                                InputLayout_Desc& LayoutDesc,
@@ -618,6 +639,8 @@ namespace xcEngineSDK {
     uint32 SemanticIndexTexcoord = 0;
     uint32 SemanticIndexColor = 0;
     uint32 SemanticIndexNormal = 0;
+    uint32 SemanticID = 0;
+    uint32 SemanticWeight = 0;
 
 
     for (uint32 i = 0; i < LayoutDesc.Semantics.size(); ++i) {
@@ -661,6 +684,26 @@ namespace xcEngineSDK {
                            D3D11_INPUT_PER_VERTEX_DATA,
                            0 });
         SemanticIndexNormal++;
+      }
+      else if ("BLENDINDICES" == LayoutDesc.Semantics.at(i)) {
+        layout.push_back({ "BLENDINDICES",
+                           SemanticID,
+                           DXGI_FORMAT_R32G32B32_SINT,
+                           0,
+                           D3D11_APPEND_ALIGNED_ELEMENT,
+                           D3D11_INPUT_PER_VERTEX_DATA,
+                           0 });
+        SemanticID++;
+      }
+      else if ("BLENDWEIGHT" == LayoutDesc.Semantics.at(i)) {
+        layout.push_back({ "BLENDWEIGHT",
+                           SemanticWeight,
+                           DXGI_FORMAT_R32G32B32_FLOAT,
+                           0,
+                           D3D11_APPEND_ALIGNED_ELEMENT,
+                           D3D11_INPUT_PER_VERTEX_DATA,
+                           0 });
+        SemanticWeight++;
       }
     }
 
@@ -859,6 +902,7 @@ namespace xcEngineSDK {
   void 
   DXGraphiAPI::setShaderResource(const std::vector<TextureB*>& pRTTex,
                                  uint32 StartSlot) {
+
     for (uint32 i = 0; i < pRTTex.size(); ++i) {
       auto pRTDX = reinterpret_cast<TextureDX*>(pRTTex.at(i));
 
@@ -898,6 +942,13 @@ namespace xcEngineSDK {
     m_pImmediateContext->OMSetRenderTargets(1,
                                             &pRTDX->m_pRTV,
                                             pDSDX->m_pDSV);
+  }
+
+  Matrix4x4 
+  DXGraphiAPI::matri4x4Context(const Matrix4x4& matrix) {
+
+    Matrix4x4 temp = matrix;
+    return temp.transpose();
   }
 
   //function to set a rasterizer state
@@ -961,6 +1012,58 @@ namespace xcEngineSDK {
                                            0);
   }
 
+  TextureB* 
+  DXGraphiAPI::textureFromFile(String path,
+                               const String& directory,
+                               GraphiAPI* API,
+                               bool gamma) {
+
+    auto texture = new TextureB();
+
+   // String filename = directory +"/"+ path;
+    //filename = directory + filename;
+
+    int width, height, nrComponents;
+    unsigned char* data = stbi_load(path.c_str(),
+                                    &width, 
+                                    &height, 
+                                    &nrComponents, 
+                                    4);
+    if (data) {
+      TEXTURE_FORMAT format;
+      if (nrComponents == 1) {
+
+        format = TF_R16_UINT;
+      }
+      else if (nrComponents == 3) {
+
+        format = TF_R32G32B32_UINT;
+      }
+      else if (nrComponents == 4) {
+
+        format = TF_R16G16B16A16_UINT;
+      }
+      //create texture
+      texture = createTexture2D(width,
+                                height,
+                                1,
+                                format,
+                                TEXTURE_BIND_SHADER_RESOURCE,
+                                TYPE_USAGE_DEFAULT,
+                                data);
+      //m_texturesloaded.push_back(m_texture);
+
+
+
+      stbi_image_free(data);
+    }
+    else {
+      std::cout << "Texture failed to load at path: " << path << std::endl;
+      stbi_image_free(data);
+    }
+
+    return texture;
+  }
 
   /*void 
   DXGraphiAPI::drawModel(Model* Model, ShaderProgram& ShaderPro) {

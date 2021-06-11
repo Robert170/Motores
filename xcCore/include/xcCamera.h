@@ -12,6 +12,7 @@
  /*****************************************************************************/
 
 #pragma once
+#include <windows.h>
 #include <xcVector3.h>
 #include <xcMatrix4x4.h>
 #include "xcPrerequisitesCore.h"
@@ -44,7 +45,7 @@ namespace xcEngineSDK {
 
   };
 
-  class Camera
+  class XC_CORE_EXPORT Camera
   {
    public:
     Camera() = default;
@@ -52,6 +53,9 @@ namespace xcEngineSDK {
     Camera(CameraDatas Data);
 
     ~Camera() = default;
+
+    void
+    init(CameraDatas Data);
 
     void
     setFront(Vector3 At, Vector3 Posicion);
@@ -66,7 +70,7 @@ namespace xcEngineSDK {
     rotation(WPARAM RotX);
 
     void
-    input(WPARAM INPUT);
+    input(sf::Event INPUT);
 
     void
     moveMouse(Vector3 Dir);
@@ -85,18 +89,15 @@ namespace xcEngineSDK {
 
     void
     updateProyeccion();
-
-    uint32
-    init(CameraDatas D);
-
-    int32
+    
+    void
     updateViewMatrix();
 
-    int32
-    move(WPARAM Traslation);
+    void
+    move();
 
     float
-    getWeight();
+    getWidth();
 
     float
     getHeight();
@@ -136,6 +137,14 @@ namespace xcEngineSDK {
     bool Fpres = false;
 
     bool RotF = false;
+
+    bool m_fowar;
+
+    bool m_back;
+
+    bool m_rigth;
+
+    bool m_left;
 
     int32 m_limitPitchU = 0;
 

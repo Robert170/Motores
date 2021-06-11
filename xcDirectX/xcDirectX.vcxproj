@@ -128,7 +128,7 @@
       <PreprocessorDefinitions>XC_CORE_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Stb_image/include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -150,7 +150,7 @@
       <PreprocessorDefinitions>XC_UTILITY_EXPORTS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Stb_image/include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -172,7 +172,7 @@
       <PreprocessorDefinitions>XC_CORE_EXPORTS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Stb_image/include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -194,7 +194,7 @@
       <PreprocessorDefinitions>XC_UTILITY_EXPORTS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Stb_image/include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>

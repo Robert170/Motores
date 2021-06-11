@@ -5,7 +5,7 @@
  *
  * This class is the  for model of Directx and opengl
  *
- * @author Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @author Roberto Ramirez (idv18c.rramirez@uartesdigitales.edu.mx)
  *
  * @date 12/3/2020
  *
@@ -13,33 +13,35 @@
  * @bug	No know Bugs
  */
 #pragma once
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
-#include "assimp/Importer.hpp"
-#include <fstream>
-#include <sstream>
+#include <xcPrerequisitesCore.h>
+
+#include <xcShaderProgram.h>
+#include <xcInputLayout.h>
 #include "xcMesh.h"
 
 namespace xcEngineSDK {
-  class Model
+
+  
+
+  class GraphiAPI;
+
+  class XC_CORE_EXPORT Model
   {
    public:
-    // model data 
-    //std::vector<Texture> textures_loaded;	
-    std::vector<Mesh>  meshes;
-    std::string directory;
-    bool gammaCorrection;
-    InputLayout_Desc m_inpLayDesc;
 
-    Model();
-    ~Model();
+    Model() = default;
+    ~Model() = default;
+
+    Model(String const& path,
+          GraphiAPI* API,
+          bool gamma = false);
 
 
-    void 
-    init(std::string const& path,
+    /*void 
+    init(String const& path,
          GraphiAPI* API,
          InputLayout_Desc InpLayDesc,
-         bool gamma = false);
+         bool gamma = false);*/
 
     // draws the model, and thus all its meshes
     void 
@@ -49,22 +51,97 @@ namespace xcEngineSDK {
    private:
 
     void 
-    loadModel(std::string const& path, 
+    loadModel(String const& path, 
               GraphiAPI* API);
 
-    void
-    processNode(aiNode* node,
-                const aiScene* scene,
+    /**
+       * @brief      processNode function, to process node of the model
+       * @param      node parameter one, node of the model
+       * @param      scene parameter two, scene of the model
+       * @param      API parameter three, api to have acces to diferent functions
+       * @bug		 No know Bugs
+       * @return     Returns nothing
+     */
+    void 
+    processNode(aiNode* node, 
+                const aiScene* scene, 
                 GraphiAPI* API);
 
-    Mesh
-    processMesh(aiMesh* mesh,
-                const aiScene* scene,
+    /**
+       * @brief      processMesh function, to process node of the mesh
+       * @param      mesh parameter one, mesh of the model
+       * @param      scene parameter two, scene of the model
+       * @param      API parameter three, api to have acces to diferent functions
+       * @bug		 No know Bugs
+       * @return     Returns a mesh
+     */
+    Mesh 
+    processMesh(aiMesh* mesh, 
+                const aiScene* scene, 
                 GraphiAPI* API);
 
-    // checks all material textures of a given type and loads the textures if they're not loaded yet.
-    // the required info is returned as a Texture struct.
-    //std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);;
+    /**
+      * @brief      LoadMaterialTextures function, to load material of the model
+      * @param      mat parameter one, material of the model
+      * @param      type parameter two, type of material of the model
+      * @param      typeName parameter three, name of the material
+      * @param      API parameter four, api to have acces to diferent functions
+      * @bug		 No know Bugs
+      * @return     Returns nothing
+    */
+    void 
+    loadMaterialTextures(aiMaterial* mat,
+                         aiTextureType type, 
+                         String typeName,
+                         GraphiAPI* API);
+
+
+    String 
+    getTexturePath(String file);
+
+   public:
+     /**
+       * @brief private variables
+     */
+     // model data 
+
+     /**
+       * @Variable m_Texturesloaded, is for all textures of the model
+     */
+     Vector<TextureB*> m_texturesloaded;
+
+     /**
+       * @Variable m_vSamplers, is for all samplers
+     */
+     Vector<SamplerState*> m_vSamplers;
+
+     /**
+       * @Variable m_vMeshes, is for all Meshes
+     */
+     Vector<Mesh>  m_vMeshes;
+
+     InputLayout_Desc m_inpLayDesc;
+
+     /**
+       * @Variable m_Directory, directory of textures
+     */
+     String m_directory;
+     bool gammaCorrection;
+
+     /**
+       * @Variable m_Texture, texture of model
+     */
+     TextureB* m_texture;
+
+     /**
+       * @Variable m_Sampler, sampler of model
+     */
+     SamplerState* m_sampler;
+
+     const aiScene* m_scene;
+
+     Mesh* m_mesh = nullptr;
+
   };
 
 }

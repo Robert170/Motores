@@ -1,11 +1,12 @@
 /*****************************************************************************/
 /**
- * @file    xcActor.h
+ * @file    xcComponent.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
- * @date    2021/05/25
- * @brief   Represents the actor of the scene 
+ * @date    2021/06/7
+ * @brief   Represents the component of the actors
  *
- * Represent the actor of the scene
+ * Represent the component of the actors, you can have a lot of componets
+ * per actor
  * @bug	    No known bugs.
  */
  /*****************************************************************************/
@@ -15,25 +16,17 @@
  * Includes
  */
  /*****************************************************************************/
-#include <xcMatrix4x4.h>
-#include <xcQuaternions.h>
 #include "xcPrerequisitesCore.h"
 #include "xcGameObject.h"
-
 namespace xcEngineSDK {
 
-	class Actor : public GameObject
+	class Component
 	{
 	 public:
-		Actor() = default;
-		virtual ~Actor() = default;
+		Component() = default;
+		~Component() = default;
 
 	 private:
 
-	  Matrix4x4 m_location;
-		Quaternion m_rotation;
-		Matrix4x4 m_scale;
 	};
-
-
 }

@@ -1,69 +1,38 @@
 #include "xcGameAppUnitTest.h"
 
+
 namespace xcEngineSDK {
-  //TextureBs
-  TextureB* g_pRenderTarget = nullptr;
-  TextureB* g_pDepthStencil = nullptr;
-  TextureB* g_pShaderResource = nullptr;
   
-  //std::vector<TextureB*> g_vRenderTargets;
-  //std::vector<TextureB*> g_vShaderResources;
-  //std::vector<SamplerState*> g_vSamplers;
-  std::vector<ConstantBuffer*> g_vConstantBuffers;
-  std::vector<std::string> g_vSemanticNames;
-  
-  //Shader
-  VertexShader* g_pVertexShader = nullptr;
-  PixelShader* g_pPixelShader = nullptr;
-  ShaderProgram* g_pShaderProgram = nullptr;
-  InputLayout* g_pInputLayout = nullptr;
-  
-  //Buffers
-  VertexBuffer* g_pVertexBuffer = nullptr;
-  IndexBuffer* g_pIndexBuffer = nullptr;
-  ConstantBuffer* g_pCBNeverChanges = nullptr;
-  
-  //Sampler
-  SamplerState* g_pSamplerState = nullptr;
-  
-  //World matrix
-  Matrix4x4 g_World;
-  Matrix4x4 g_View;
-  Matrix4x4 g_Projection;
-  
-  Vector4 g_MeshColor;
-  
-  ColorStruct Color;
-  
-  InputLayout_Desc g_InpLayDesc;
-  
-  Model* g_Model;
-  
-  
-  struct CBNeverChanges
-  {
-    Matrix4x4 mView;
-    Matrix4x4 mProjection;
-    Matrix4x4 mWorld;
-    Vector4 vMeshColor;
-  };
-  
-  CBNeverChanges g_ConstantBuffer;
-
-
   void 
   GameAppUnitTest::onCreate() {
 
-    CCameraDatas Data;
+    CameraDatas Data;
 	  Data.Far = 100;
-	  Data.Fov = 0.7f;
-	  Data.H = 800;
-	  Data.W = 600;
+	  Data.fov = 0.7f;
+	  Data.height = m_graphiApi->m_height;
+	  Data.width = m_graphiApi->m_width;
 	  Data.Near = 1.0f;
+		Data.position = { 20.0f, 50.0f, -6.0f };
+		Data.at = { 0.0f, 1.0f, 0.0f };
+		Data.up = { 0.0f, 1.0f, 0.0f };
 
-	  Vector3 Eye = { 0.0f, 3.0f, -6.0f };
-	  Vector3 At = { 0.0f, 1.0f, 0.0f };
-	  Vector3 Up = { 0.0f, 1.0f, 0.0f };
+    /*Vector3 Eye = { 0.0f, 3.0f, -6.0f };
+    Vector3 At = { 0.0f, 1.0f, 0.0f };
+    Vector3 Up = { 0.0f, 1.0f, 0.0f };*/
+
+		m_camera.init(Data);
+
+
+		//load model
+
+		m_model = new Model("Models/Angry.fbx",
+                        m_graphiApi);
+
+		/*m_model = new Model("Models/S/silly_dancing.fbx",
+                        m_graphiApi);*/
+
+		/*m_model = new Model("C:/Users/Xc170/Desktop/xcEngine/bin/Models/Bea/bea_geo.fbx",
+                        m_graphiApi);*/
 
 	  Vector<uint32_t> indices =
 	  {
@@ -122,9 +91,9 @@ namespace xcEngineSDK {
 	  };
 
 
-	  g_MeshColor.m_x = 1;
-	  g_MeshColor.m_y = 1;
-	  g_MeshColor.m_z = 1;
+	  m_meshColor.m_x = 1;
+		m_meshColor.m_y = 1;
+		m_meshColor.m_z = 1;
 
 
 	  /*m_graphiApi->Init(800,
@@ -137,10 +106,10 @@ namespace xcEngineSDK {
 	  	                                   TF_R8G8B8A8_UNORM,
 	  	                                   TEXTURE_BIND_RENDER_TARGET);*/
 	  
-	  //g_vRenderTargets.push_back(g_pRenderTarget);
+	  //m_renderTargets.push_back(g_pRenderTarget);
 	  
 	  //// Create the depth stencil 
-	  /*g_pDepthStencil = m_graphiApi->CreateTexture2D(800,
+	  /*m_depthStencil = m_graphiApi->CreateTexture2D(800,
 	  	                                   600,
 	  	                                   1,
 	  	                                   TF_D24_UNORM_S8_UINT,
@@ -157,7 +126,7 @@ namespace xcEngineSDK {
 	  g_vShaderResources.push_back(g_pShaderResource);*/
 	  
 	  
-	  g_pShaderProgram = m_graphiApi->createShaderProgram("VS",
+	  m_shaderProgram = m_graphiApi->createShaderProgram("VS",
 	  	                                                  "PS", 
 	  	                                                  "VS", 
 	  	                                                  "PS", 
@@ -165,80 +134,73 @@ namespace xcEngineSDK {
 	  	                                                  "ps_4_0", 
 	  	                                                  1,
 	  	                                                  1);
-	  // Create the vertex shader
-	  /*g_pVertexShader = m_graphiApi->CreateVertexShaders("VS",
-	  		                                   "VS",
-	  		                                   "vs_4_0",
-	  		                                    1);*/
-	  
-    /*g_pVertexShader = m_graphiApi->CreateVertexShaders("Tutorial07.fx",
-	  		                                   "VS",
-	  		                                   "vs_4_0", 
-	  	                                        1);*/
 
 
 	  //Set semantic 
-	  g_InpLayDesc.Semantics.push_back("POSITION");
-	  g_InpLayDesc.Semantics.push_back("TEXCOORD");
-	  
-	  g_InpLayDesc.Formats.push_back(TF_R32G32B32_FLOAT);
-	  g_InpLayDesc.Formats.push_back(TF_R32G32_FLOAT);
-
-
-	  //load model
-
-    /*g_Model = new Model();
-    g_Model->Init("Modelo/Scene.fbx",
-                m_graphiApi,
-                g_InpLayDesc);*/
+	  m_inpLayDesc.Semantics.push_back("POSITION");
+		m_inpLayDesc.Semantics.push_back("BLENDWEIGHT");
+		m_inpLayDesc.Semantics.push_back("BLENDINDICES");
+	  // m_inpLayDesc.Semantics.push_back("TEXCOORD");
+		//m_vSemanticNames.push_back("POSITION");
+		//m_vSemanticNames.push_back("TEXCOORD");
+	  //m_inpLayDesc.Formats.push_back(TF_R32G32B32_FLOAT);
+	  //m_inpLayDesc.Formats.push_back(TF_R32G32_FLOAT);
 	
+		m_vFormats.push_back(TF_R32G32B32_FLOAT);
+		m_vFormats.push_back(TF_R32G32B32A32_FLOAT);
+		m_vFormats.push_back(TF_R32G32B32A32_SINT);
 
+   /* m_inpLayDesc = m_graphiApi->CreateInputLayoutDesc(m_vSemanticNames,
+			                                                m_vFormats);*/
 
 	  // Create the input layout
-	  g_pInputLayout = m_graphiApi->createInputLayout(*g_pShaderProgram,
-		                                                g_InpLayDesc,
+	  m_inputLayout = m_graphiApi->createInputLayout(*m_shaderProgram,
+		                                                m_inpLayDesc,
 		                                                1);
 
 	  // Create the pixel shader
-	  /*g_pPixelShader = m_graphiApi->CreatePixelShaders("PS",
+	  /*m_pixelShader = m_graphiApi->CreatePixelShaders("PS",
 		                                     "PS",
 		                                     "ps_4_0",
 		                                     1);*/
-	  /*g_pPixelShader = m_graphiApi->CreatePixelShaders("Tutorial07.fx",
+	  /*m_pixelShader = m_graphiApi->CreatePixelShaders("Tutorial07.fx",
 		                                     "PS",
 		                                     "ps_4_0", 
 		                                      1);*/
 
-	  // Create vertex buffer
-	  g_pVertexBuffer = m_graphiApi->createVertexBuffer(vertices,
-		                                                  1);
+	  //// Create vertex buffer
+	  //g_pVertexBuffer = m_graphiApi->createVertexBuffer(vertices,
+		 //                                                 1);
 
-	  // Create index buffer
-	  g_pIndexBuffer = m_graphiApi->createIndexBuffer(indices,
-	  	                                              1);
+	  //// Create index buffer
+	  //g_pIndexBuffer = m_graphiApi->createIndexBuffer(indices,
+	  //	                                              1);
 	  
 	  // Create the constant buffers
-	  g_ConstantBuffer.mView = m_graphiApi->initMatrixView(g_View,
-	  	                                                   Eye,
-	  	                                                   At,
-	  	                                                   Up);
+		m_constantBuffer.mView = m_graphiApi->matri4x4Context(m_camera.getView());
+    /*m_constantBuffer.mView = m_graphiApi->initMatrixView(m_view,
+                                                         Eye,
+                                                         At,
+                                                         Up);*/
 	  
-	  g_ConstantBuffer.mProjection = m_graphiApi->initMatrixProjection(g_Projection,
-	  	                                                               Data.Fov,
-	  	                                                               Data.H,
-	  	                                                               Data.W,
+		m_constantBuffer.mProjection = m_graphiApi->
+			                             matri4x4Context(m_camera.getProyeccion());
+	  /*m_constantBuffer.mProjection = m_graphiApi->initMatrixProjection(m_projection,
+	  	                                                               Data.fov,
+	  	                                                               Data.height,
+	  	                                                               Data.width,
 	  	                                                               Data.Near,
-	  	                                                               Data.Far);
+	  	                                                               Data.Far);*/
 	  
-	  g_ConstantBuffer.mWorld = m_graphiApi->initMatrixWorld(g_World);
+	  m_constantBuffer.mWorld = m_graphiApi->initMatrixWorld(m_world);
 	  
-	  g_ConstantBuffer.vMeshColor = g_MeshColor;
+	  m_constantBuffer.vMeshColor = m_meshColor;
 	  
-	  g_pCBNeverChanges = m_graphiApi->createConstantBuffer(sizeof(CBNeverChanges),
+	  m_cbNeverChanges = m_graphiApi->createConstantBuffer(sizeof(CBNeverChanges),
 	  	                                                    1, 
-	  	                                                    &g_ConstantBuffer);
+	  	                                                    &m_constantBuffer);
 	  
-	  g_vConstantBuffers.push_back(g_pCBNeverChanges);
+	  m_constantBuffers.push_back(m_cbNeverChanges);
 	  
 	  //// Create the sample state
 	  
@@ -248,48 +210,56 @@ namespace xcEngineSDK {
 
   }
 
+	void 
+	GameAppUnitTest::onEvents(sf::Event event) {
+
+		m_camera.input(event);
+	}
+
   void 
   GameAppUnitTest::onUpdate(float deltaTime) {
 		deltaTime = 0;
-    m_graphiApi->updateSubresource(&g_ConstantBuffer,
-      		                         *g_pCBNeverChanges);
+		//m_camera.move();
+		//m_constantBuffer.mView = m_graphiApi->matri4x4Context(m_camera.getView());
+    m_graphiApi->updateSubresource(&m_constantBuffer,
+      		                         *m_cbNeverChanges);
   }
 
   void 
   GameAppUnitTest::onRender() {
-    Color.R = 0.0f;
-	  Color.G = 0.125f;
-	  Color.B = 0.3f;
-	  Color.A = 1.0f;
+    m_color.R = 0.0f;
+	  m_color.G = 0.125f;
+	  m_color.B = 0.3f;
+	  m_color.A = 1.0f;
 	  
 	  
-	  /*m_graphiApi->SetRenderTarget(g_vRenderTargets,
-	  	                 g_pDepthStencil);*/
+	  /*m_graphiApi->SetRenderTarget(m_renderTargets,
+	  	                 m_depthStencil);*/
 	  
 	  m_graphiApi->setDefaultRenderTarget();
 	  
-		m_graphiApi->clearDefaultRenderTargetAndDepthStencil(Color);
+		m_graphiApi->clearDefaultRenderTargetAndDepthStencil(m_color);
 	  
 	  // Setup the viewport
 	  m_graphiApi->setViewport(1,
-	  	                       800,
-	  	                       600,
+	  	                       m_graphiApi->m_width,
+	  	                       m_graphiApi->m_height,
 			                       0,
 			                       0);
 	  
-	  //set inputlayout
-	  m_graphiApi->setInputLayout(g_pInputLayout);
+	  //set input layout
+	  m_graphiApi->setInputLayout(m_inputLayout);
 	  
-	  //set vertex buffer
-	  m_graphiApi->setVertexBuffer(g_pVertexBuffer,
-	  	                           0,
-	  	                           1,
-	  	                           sizeof(SimpleVertex),
-	  	                           0);
-	  
-	  ////set index buffer
-	  m_graphiApi->setIndexBuffer(g_pIndexBuffer, 
-	  	                          0);
+	  ////set vertex buffer
+	  //m_graphiApi->setVertexBuffer(g_pVertexBuffer,
+	  //	                           0,
+	  //	                           1,
+	  //	                           sizeof(SimpleVertex),
+	  //	                           0);
+	  //
+	  //////set index buffer
+	  //m_graphiApi->setIndexBuffer(g_pIndexBuffer, 
+	  //	                          0);
 	  
 	  // Set primitive topology
 	  m_graphiApi->setPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -297,33 +267,33 @@ namespace xcEngineSDK {
 	  
 	  //// Clear the render target
 	  /*m_graphiApi->ClearRenderTarget(g_pRenderTarget,
-	  	                   Color);*/
+	  	                   m_color);*/
 	  
 	  //// Clear the depth stencil
-	  /*m_graphiApi->ClearDepthStencil(g_pDepthStencil, CLEAR_DEPTH,1.0f,0);*/
+	  /*m_graphiApi->ClearDepthStencil(m_depthStencil, CLEAR_DEPTH,1.0f,0);*/
 	  
 	 
 	  
 	  //shader program
-	  m_graphiApi->setShaderProgram(g_pShaderProgram);
+	  m_graphiApi->setShaderProgram(m_shaderProgram);
 	  
 	  //set vertex shader
-	  //m_graphiApi->SetVertexShaders(g_pVertexShader);
+	  //m_graphiApi->SetVertexShaders(m_vertexShader);
 	  
 	  //set all vertex shader constant buffer
 	  
-	  m_graphiApi->setVertexShaderConstantBuffer(g_pCBNeverChanges,
+	  m_graphiApi->setVertexShaderConstantBuffer(m_cbNeverChanges,
 	  	                                         0,
 	  	                                         1);
 	  
 	  
 	  
 	  //set pixel shader
-	  //m_graphiApi->SetPixelShaders(g_pPixelShader);
+	  //m_graphiApi->SetPixelShaders(m_pixelShader);
 	  
 	  //set pixel shader constant buffer
 	  
-	  m_graphiApi->setPixelShaderConstantBuffer(g_pCBNeverChanges,
+	  m_graphiApi->setPixelShaderConstantBuffer(m_cbNeverChanges,
 	  	                                        0,
 	  	                                        1);
 	  
@@ -332,11 +302,13 @@ namespace xcEngineSDK {
 	  
 	  /*m_graphiApi->SetSamplerState(g_vSamplers,
 	  	                 0);*/
-	  //g_Model->Draw(*g_pShaderProgram, m_graphiApi);
-	  m_graphiApi->drawIndexed(36,
-	  	                       0,
-	  	                       0,
-	  	                       nullptr);
+
+	  m_model->draw(*m_shaderProgram, m_graphiApi);
+
+    /*m_graphiApi->drawIndexed(36,
+                             0,
+                             0,
+                             nullptr);*/
 	  m_graphiApi->present();
   }
 
@@ -361,11 +333,11 @@ namespace xcEngineSDK {
 	  }
 	  */
 	  //constant Buffers
-	  for (int i = g_vConstantBuffers.size() - 1; i >= 0; i--)
+	  for (int i = m_constantBuffers.size() - 1; i >= 0; i--)
 	  {
-	  	if (nullptr != g_vConstantBuffers.at(i))
+	  	if (nullptr != m_constantBuffers.at(i))
 	  	{
-	  		delete g_vConstantBuffers.at(i);
+	  		delete m_constantBuffers.at(i);
 	  	}
 	  }
 	  
@@ -376,23 +348,23 @@ namespace xcEngineSDK {
 	  //delete g_pIndexBuffer;
 	  
 	  //input layout
-	  delete g_pInputLayout;
+	  delete m_inputLayout;
 	  
 	  //vertex shader
-	  delete g_pVertexShader;
+	  delete m_vertexShader;
 	  
 	  //pixel shader
-	  delete g_pPixelShader;
+	  delete m_pixelShader;
 	  
 	  //depthstencil
-	  delete g_pDepthStencil ;
+	  delete m_depthStencil;
 	  
 	  //render targets
-    /*for (int i = g_vRenderTargets.size() - 1; i >= 0; i--)
+    /*for (int i = m_renderTargets.size() - 1; i >= 0; i--)
     {
-      if (nullptr != g_vRenderTargets.at(i))
+      if (nullptr != m_renderTargets.at(i))
       {
-        delete g_vRenderTargets.at(i);
+        delete m_renderTargets.at(i);
       }
     }*/
   }
