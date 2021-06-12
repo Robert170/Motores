@@ -107,9 +107,6 @@ namespace xcEngineSDK {
     */
     Vector<SamplerState*> m_vSamplers;
 
-    Vector<VERTERX_BONE_DATA> m_vBonesPerVertx;
-    uint32 m_numBones;
-
      /*
      variable pointer CMesh for the Parent.
     */
@@ -138,6 +135,9 @@ namespace xcEngineSDK {
     // initializes all the buffer objects/arrays
     void 
     setupMesh(GraphiAPI* API);
+
+    Matrix4x4
+    boneTrasnform(float time, Vector<Matrix4x4> Transform);
   };
 
 }

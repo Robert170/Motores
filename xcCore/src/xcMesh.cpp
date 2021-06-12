@@ -70,6 +70,14 @@ namespace xcEngineSDK {
                                            1);
   }
 
+  Matrix4x4 
+  Mesh::boneTrasnform(float time, Vector<Matrix4x4> Transform) {
+
+    Matrix4x4 identity = Matrix4x4::IDENTITY_MATRIX;
+
+      return Matrix4x4();
+  }
+
   void 
   VERTERX_BONE_DATA::AddBoneData(uint32 ID_Bone, float Weights) {
     for (int i = 0; i < 4; i++)
