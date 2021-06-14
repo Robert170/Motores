@@ -16,8 +16,10 @@
 #include "xcPrerequisitesUtilities.h"
 #include "xcMath.h"
 #include "xcVector4.h"
-
+#include "xcMatrix3x3.h"
+#include "xcQuaternions.h"
 using xcEngineSDK::Vector4;
+
 
 namespace xcEngineSDK {
 
@@ -42,18 +44,34 @@ namespace xcEngineSDK {
     /**
      * @brief      transpose  function, to transpose a matrix
      * @bug	       No know Bugs
-     * @return     Returns a transpose matrix
+     * @return     Returns a transpose matrix4x4
      */
     Matrix4x4&
     transpose();
 
     /**
-     * @brief      transpose  function, to transpose a matrix
+     * @brief      inverse  function, to inverse a matrix
      * @bug	       No know Bugs
-     * @return     Returns a transpose matrix
+     * @return     Returns a inverse matrix4x4
      */
-    Matrix4x4
-    identity();
+    Matrix4x4&
+    inverse();
+
+    /**
+     * @brief      determinant  function, to inverse a matrix
+     * @bug	       No know Bugs
+     * @return     Returns the determinant of a matrix4x4
+     */
+    float
+    determinant(const Matrix4x4& matrix);
+
+    /**
+     * @brief      determinant  function, to inverse a matrix
+     * @bug	       No know Bugs
+     * @return     Returns the determinant of a matrix4x4
+     */
+    float
+    cofactor(const Matrix3x3& matrix);
 
     /**
      * @brief      + operator overload
@@ -154,6 +172,9 @@ namespace xcEngineSDK {
                      float& Width,
                      float& Near,
                      float& Far);
+
+    Matrix4x4
+    quatToMatRot(Quaternion& Quat);
 
    public:
 

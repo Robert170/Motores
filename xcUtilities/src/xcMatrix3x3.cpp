@@ -39,6 +39,32 @@ namespace xcEngineSDK {
     return *this;
   }
 
+  float
+  Matrix3x3::determinant(const Matrix3x3& matrix) {
+
+    float result1 = (matrix.m_matrix[0].m_x * 
+                     matrix.m_matrix[1].m_y * 
+                     matrix.m_matrix[2].m_z) +
+                    (matrix.m_matrix[1].m_x * 
+                     matrix.m_matrix[2].m_y * 
+                     matrix.m_matrix[0].m_z) +
+                    (matrix.m_matrix[2].m_x * 
+                     matrix.m_matrix[0].m_y * 
+                     matrix.m_matrix[1].m_z);
+
+    float result2 = (matrix.m_matrix[0].m_z * 
+                     matrix.m_matrix[1].m_y * 
+                     matrix.m_matrix[2].m_x) +
+                    (matrix.m_matrix[1].m_z * 
+                     matrix.m_matrix[2].m_y * 
+                     matrix.m_matrix[0].m_x) +
+                    (matrix.m_matrix[2].m_z * 
+                     matrix.m_matrix[0].m_y * 
+                     matrix.m_matrix[1].m_x);
+
+    return result1 - result2;
+  }
+
   Matrix3x3 
   Matrix3x3::operator+(const Matrix3x3& M) {
 

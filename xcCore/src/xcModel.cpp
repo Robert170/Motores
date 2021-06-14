@@ -32,6 +32,17 @@ namespace xcEngineSDK {
   }
 
   void 
+  Model::update(float delta) {
+
+    Vector<Matrix4x4> Transform;
+
+    for (uint32 i = 0; i < m_vMeshes.size(); i++) {
+
+      m_vMeshes[i].boneTrasnform(delta, Transform, m_scene);
+    }
+  }
+
+  void 
   Model::loadModel(String const& path,
                    GraphiAPI* API) {
     /*XC_UNREFERENCED_PARAMETER(API);

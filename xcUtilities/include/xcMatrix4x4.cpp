@@ -61,10 +61,25 @@ namespace xcEngineSDK {
     return *this;
   }
 
-  Matrix4x4
-  Matrix4x4::identity() {
+  Matrix4x4&
+  Matrix4x4::inverse() {
 
-    return IDENTITY_MATRIX;
+
+    return *this;
+  }
+
+  float 
+  Matrix4x4::determinant(const Matrix4x4& matrix) {
+    
+    
+
+
+    return 0.0f;
+  }
+
+  float 
+  Matrix4x4::cofactor(const Matrix3x3& matrix) {
+    return 0.0f;
   }
 
   Matrix4x4
@@ -211,5 +226,42 @@ namespace xcEngineSDK {
                      Vector4(0.f, yScale, 0.f, 0.f),
                      Vector4(0.f, 0.f, Far / (Far - Near), 1.f),
                      Vector4(0.f, 0.f, -Near * Far / (Far - Near), 0.f));
+  }
+
+
+  Matrix4x4
+  Matrix4x4::quatToMatRot(Quaternion& Quat) {
+
+    Matrix4x4 rotationMatrix;
+    rotationMatrix.m_matrix[0].m_x = 1 - 2 * (Math::pow(Quat.m_y, 2) 
+                                             + Math::pow(Quat.m_z, 2));
+
+    rotationMatrix.m_matrix[0].m_y = 2 * (Quat.m_x * Quat.m_y 
+                                          - Quat.m_w * Quat.m_z);
+
+    rotationMatrix.m_matrix[0].m_z = 2 * (Quat.m_x * Quat.m_z 
+                                          + Quat.m_w * Quat.m_y);
+
+    rotationMatrix.m_matrix[1].m_x = 2 * (Quat.m_x * Quat.m_y 
+                                          + Quat.m_w * Quat.m_z);
+
+    rotationMatrix.m_matrix[1].m_y = 1 - 2 * (Math::pow(Quat.m_x, 2) 
+                                             + Math::pow(Quat.m_z, 2));
+
+    rotationMatrix.m_matrix[1].m_z = 2 * (Quat.m_y * Quat.m_z 
+                                          - Quat.m_w * Quat.m_x);
+
+    rotationMatrix.m_matrix[2].m_x = 2 * (Quat.m_x * Quat.m_z 
+                                          - Quat.m_w * Quat.m_y);
+
+    rotationMatrix.m_matrix[2].m_y = 2 * (Quat.m_y * Quat.m_z 
+                                          + Quat.m_w * Quat.m_x);
+
+    rotationMatrix.m_matrix[2].m_z = 1 - 2 * (Math::pow(Quat.m_x, 2) 
+                                              + Math::pow(Quat.m_y, 2));
+
+    rotationMatrix.m_matrix[3].m_w = 1.0f;
+    return rotationMatrix;
+
   }
 }

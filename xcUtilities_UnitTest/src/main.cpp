@@ -472,8 +472,8 @@ TEST(xcUtilities, VectorI4_Math) {
 TEST(xcUtilities, Matrix3x3_Math) {
 
   Matrix3x3 A(1.0f, 4.0f, 7.0f,
-             2.0f, 5.0f, 8.0f,
-             3.0f, 6.0f, 9.0f);
+              2.0f, 5.0f, 8.0f,
+              3.0f, 6.0f, 9.0f);
 
   Matrix3x3 B(1.0f, 4.0f, 7.0f,
               2.0f, 5.0f, 8.0f,
@@ -549,6 +549,13 @@ TEST(xcUtilities, Matrix3x3_Math) {
   EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 150.0f);
 
 
+  Matrix3x3 D(-2.0f, 6.0f, 3.0f,
+              4.0f, 7.0f, 0.0f,
+              5.0f, -3.0f, 2.0f);
+
+  float result = D.determinant(D);
+
+  EXPECT_FLOAT_EQ(result, -217.0f);
 
 }
 

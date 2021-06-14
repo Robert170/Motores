@@ -48,6 +48,9 @@ namespace xcEngineSDK {
     draw(ShaderProgram& shader, 
          GraphiAPI* API);
 
+    void
+    update(float delta);
+
    private:
 
     void 

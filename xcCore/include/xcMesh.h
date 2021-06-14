@@ -16,6 +16,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
+#include <xcQuaternions.h>
+
 #include"xcPrerequisitesCore.h"
 #include "xcShaderProgram.h"
 #include "xcInputLayout.h"
@@ -23,14 +25,6 @@
 #include "xcIndexBuffer.h"
 
 namespace xcEngineSDK {
-
-  struct VERTERX_BONE_DATA
-  {
-    uint32 id_Bone[4] = { 0 };
-    float weights[4] = { 0 };
-
-    void AddBoneData(uint32 ID_Bone, float Weights);
-  };
 
   struct BONES 
   {
@@ -73,8 +67,6 @@ namespace xcEngineSDK {
           BoneVertex* BonVer,
           uint32 NumBones,
           GraphiAPI* API);
-
-     
 
     // render the mesh
     void
@@ -131,13 +123,48 @@ namespace xcEngineSDK {
     VertexBuffer* m_vertexBuffer;
 
 
-
+   private:
     // initializes all the buffer objects/arrays
     void 
     setupMesh(GraphiAPI* API);
 
+  public:
     Matrix4x4
-    boneTrasnform(float time, Vector<Matrix4x4> Transform);
+    boneTrasnform(float time, 
+                  Vector<Matrix4x4>& transform, 
+                  const aiScene* scene);
+
+    void 
+    nodeHeirarchy(float time,
+                  const aiNode* node, 
+                  const Matrix4x4& transform, 
+                  const aiScene* scene);
+
+    const aiNodeAnim* 
+    FindNodeAnimation(const String NameNod,
+                      const aiAnimation* Anim);
+
+    int32 
+    findPosition(float AnimationTime, const aiNodeAnim* pNodeAnim);
+
+    int32 
+    findRotation(float AnimationTime, const aiNodeAnim* pNodeAnim);
+
+    int32 
+    findScaling(float AnimationTime, const aiNodeAnim* pNodeAnim);
+
+    void 
+    calcInterpolatedPosition(aiVector3D& Out, 
+                             float AnimationTime, 
+                             const aiNodeAnim* pNodeAnim);
+    void 
+    calcInterpolatedRotation(aiQuaternion& Out, 
+                             float AnimationTime, 
+                             const aiNodeAnim* pNodeAnim);
+    void 
+    calcInterpolatedScaling(aiVector3D& Out, 
+                            float AnimationTime, 
+                            const aiNodeAnim* pNodeAnim);
   };
 
 }

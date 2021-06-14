@@ -53,6 +53,14 @@ namespace xcEngineSDK {
     transpose();
 
     /**
+     * @brief      determinant  function, to inverse a matrix
+     * @bug	       No know Bugs
+     * @return     Returns the determinant of a matrix3x3
+     */
+    float
+    determinant(const Matrix3x3& matrix);
+
+    /**
      * @brief      + operator overload
      * @param      M parameter one, matrix for sum
      * @bug	       No know Bugs
