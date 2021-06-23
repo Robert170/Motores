@@ -4,56 +4,49 @@
 namespace xcEngineSDK {
 
   Model::Model(String const& path, 
-               GraphiAPI* API, 
                bool gamma) {
 
     gammaCorrection = gamma;
 
-    //create sampler
     
 
-    loadModel(path,
-              API);
+    loadModel(path);
 
-    m_sampler = API->createSamplerState(1);
+    //create sampler
+
+    m_sampler = g_GraphicsAPI().createSamplerState(1);
 
     m_vSamplers.push_back(m_sampler);
   }
 
   void 
-  Model::draw(ShaderProgram& shader,
-              GraphiAPI* API) {
+  Model::draw(ShaderProgram& shader) {
     for (uint32 i = 0; i < m_vMeshes.size(); i++) {
 
       m_vMeshes[i].draw(shader, 
-                        m_vSamplers,
-                        API);
+                        m_vSamplers);
     }
   }
 
   void 
-  Model::update(float delta) {
+  Model::update(float delta, Vector<Matrix4x4>& transform) {
 
-    Vector<Matrix4x4> Transform;
 
     for (uint32 i = 0; i < m_vMeshes.size(); i++) {
-
-      m_vMeshes[i].boneTrasnform(delta, Transform, m_scene);
+      m_vMeshes[i].boneTrasnform(delta, transform);
     }
   }
 
   void 
-  Model::loadModel(String const& path,
-                   GraphiAPI* API) {
+  Model::loadModel(String const& path) {
     /*XC_UNREFERENCED_PARAMETER(API);
     XC_UNREFERENCED_PARAMETER(path);*/
     // read file via ASSIMP
-    Assimp::Importer importer;
-    m_scene = importer.ReadFile(path,
-                                aiProcess_Triangulate |
-                                aiProcess_GenSmoothNormals |
-                                aiProcess_FlipUVs |
-                                aiProcess_CalcTangentSpace);
+    
+    m_scene = m_importer.ReadFile(path,
+                                  aiProcessPreset_TargetRealtime_MaxQuality |
+                                  aiProcess_ConvertToLeftHanded | 
+                                  aiProcess_Triangulate);
    
 
     // check for errors
@@ -61,7 +54,7 @@ namespace xcEngineSDK {
         m_scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE ||
         !m_scene->mRootNode) { // if is Not Zero
 
-      std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+      std::cout << "ERROR::ASSIMP:: " << m_importer.GetErrorString() << std::endl;
       return;
     }
     // retrieve the directory path of the filepath
@@ -69,14 +62,12 @@ namespace xcEngineSDK {
 
     // process ASSIMP's root node recursively
     processNode(m_scene->mRootNode,
-                m_scene,
-                API);
+                m_scene);
   }
 
   void 
   Model::processNode(aiNode* node,
-                     const aiScene* scene,
-                     GraphiAPI* API) {
+                     const aiScene* scene) {
     // process each mesh located at the current node
     for (uint32 i = 0; i < node->mNumMeshes; ++i)
     {
@@ -84,40 +75,40 @@ namespace xcEngineSDK {
       // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
       aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
       
-      m_vMeshes.push_back(processMesh(mesh, scene, API));
+      m_vMeshes.push_back(processMesh(mesh, scene));
     }
     // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
     for (uint32 i = 0; i < node->mNumChildren; ++i)
     {
-      processNode(node->mChildren[i], scene, API);
+      processNode(node->mChildren[i], scene);
     }
   }
 
   Mesh
   Model::processMesh(aiMesh* mesh,
-                     const aiScene* scene,
-                     GraphiAPI* API) {
+                     const aiScene* scene) {
     // data to fill
     Vector<BoneVertex> vertices;
     Vector<uint32> indices;
-    Vector<Texture> Textures;
+    //Vector<Texture> Textures;
     BoneVertex* structVertex = new BoneVertex[mesh->mNumVertices];
     // walk through each of the mesh's vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
-        Vector3 vector; 
+        Vector4 vector; 
 
         // positions
-        vector.m_x = mesh->mVertices[i].x;
-        vector.m_y = mesh->mVertices[i].y;
-        vector.m_z = mesh->mVertices[i].z;
+        vector.x = mesh->mVertices[i].x;
+        vector.y = mesh->mVertices[i].y;
+        vector.z = mesh->mVertices[i].z;
+        vector.w = 1;
         structVertex[i].Position = vector;
         // normals
         if (mesh->HasNormals())
         {
-            /*vector.m_x = mesh->mNormals[i].x;
-            vector.m_y = mesh->mNormals[i].y;
-            vector.m_z = mesh->mNormals[i].z;
+            /*vector.x = mesh->mNormals[i].x;
+            vector.y = mesh->mNormals[i].y;
+            vector.z = mesh->mNormals[i].z;
             Vertex.Normal = vector;*/
         }
         // texture coordinates
@@ -128,18 +119,18 @@ namespace xcEngineSDK {
             //We thus make the assumption that we won't 
             // use models where a vertex can have multiple texture coordinates so we always
             //take the first set (0).
-            /*vec.m_x = mesh->mTextureCoords[0][i].x;
-            vec.m_y = mesh->mTextureCoords[0][i].y;
-            Vertex.TexCoords = vec;*/
+            vec.x = mesh->mTextureCoords[0][i].x;
+            vec.y = mesh->mTextureCoords[0][i].y;
+            structVertex[i].TexCoords = vec;
             // tangent
-            /*vector.m_x = mesh->mTangents[i].x;
-            vector.m_y = mesh->mTangents[i].y;
-            vector.m_z = mesh->mTangents[i].z;
+            /*vector.x = mesh->mTangents[i].x;
+            vector.y = mesh->mTangents[i].y;
+            vector.z = mesh->mTangents[i].z;
             Vertex.Tangent = vector;*/
             // bitangent
-            /*vector.m_x = mesh->mBitangents[i].x;
-            vector.m_y = mesh->mBitangents[i].y;
-            vector.m_z = mesh->mBitangents[i].z;
+            /*vector.x = mesh->mBitangents[i].x;
+            vector.y = mesh->mBitangents[i].y;
+            vector.z = mesh->mBitangents[i].z;
             Vertex.Bitangent = vector;*/
         }
         else
@@ -195,10 +186,10 @@ namespace xcEngineSDK {
           for (uint32 k = 0; k < 4; k++) {
 
 
-            if (structVertex[temp].bonesWeight == 0) {
+            if (vertices[temp].bonesWeight[k] == 0) {
 
-              structVertex[temp].id_Bones[k] = boneIndex;
-              structVertex[temp].bonesWeight = temp2;
+              vertices[temp].id_Bones[k] = boneIndex;
+              vertices[temp].bonesWeight[k] = temp2;
               break;
             }
 
@@ -210,7 +201,7 @@ namespace xcEngineSDK {
       for (uint32 i = 0; i < mesh->mNumVertices; i++) {
         for (uint32 j = 0; j < 4; j++) {
 
-          structVertex[i].bonesWeight = 1;
+          vertices[i].bonesWeight = 1;
         }
       }
     }
@@ -231,32 +222,28 @@ namespace xcEngineSDK {
     // 1. diffuse maps
     loadMaterialTextures(material,
                          aiTextureType_DIFFUSE, 
-                         "texture_diffuse", 
-                         API);
+                         "texture_diffuse");
    /*Textures.insert(Textures.end(),
                     diffuseMaps.begin(), 
                     diffuseMaps.end());*/
     // 2. specular maps
     loadMaterialTextures(material,
                          aiTextureType_SPECULAR, 
-                         "texture_specular", 
-                         API);
+                         "texture_specular");
     /*Textures.insert(Textures.end(),
                             specularMaps.begin(), 
                             specularMaps.end());*/
     // 3. normal maps
     loadMaterialTextures(material,
                          aiTextureType_HEIGHT,
-                         "texture_normal", 
-                         API);
+                         "texture_normal");
     /*Textures.insert(Textures.end(),
                             normalMaps.begin(), 
                             normalMaps.end());*/
     // 4. height maps
     loadMaterialTextures(material, 
                          aiTextureType_AMBIENT, 
-                         "texture_height", 
-                         API);
+                         "texture_height");
    /* Textures.insert(Textures.end(),
                             heightMaps.begin(), 
                             heightMaps.end());*/
@@ -269,7 +256,7 @@ namespace xcEngineSDK {
                 skeletal,
                 structVertex,
                 skeletal->NumBones,
-                API);
+                m_scene);
 
     
   }
@@ -277,8 +264,7 @@ namespace xcEngineSDK {
   void 
   Model::loadMaterialTextures(aiMaterial* mat, 
                               aiTextureType type, 
-                              String typeName,
-                              GraphiAPI* API) {
+                              String typeName) {
     Vector<TextureB*> Textures;
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
@@ -304,9 +290,8 @@ namespace xcEngineSDK {
         if (!skip) {   // if texture hasn't been loaded already, load it
         
        
-          m_texturesloaded.push_back(API->textureFromFile(filename,
-                                                          this->m_directory, 
-                                                          API));
+          m_texturesloaded.push_back(g_GraphicsAPI().textureFromFile(filename,
+                                                                   this->m_directory));
         }
       }
       

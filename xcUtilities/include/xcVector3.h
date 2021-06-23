@@ -14,7 +14,7 @@
 #pragma once
 #include "xcPrerequisitesUtilities.h"
 #include "xcVector2.h"
-
+#include "xcMath.h"
 namespace xcEngineSDK {
 
   class XC_UTILITY_EXPORT Vector3 
@@ -36,13 +36,13 @@ namespace xcEngineSDK {
      * @brief constructor of float
      */
     Vector3(float x, float y = 0.f, float z = 0.0f)
-            :m_x(x), m_y(y), m_z(z) { };
+            :x(x), y(y), z(z) { };
 
     /**
      * @brief constructor of Vector2 and float
      */
     Vector3(Vector2 v, float z = 0.0f)
-            :m_x(v.m_x), m_y(v.m_y), m_z(z) { };
+            :x(v.x), y(v.y), z(z) { };
 
 
     /**
@@ -204,6 +204,9 @@ namespace xcEngineSDK {
     Vector3
     operator-() const;
 
+    bool
+    isNearlyZero(float tolerance = Math::KINDA_SMALL_NUMBER) const;
+
 
 
   public:
@@ -212,19 +215,19 @@ namespace xcEngineSDK {
      */
 
     /**
-     * @Variable m_x
+     * @Variable x
      */
-    float m_x;
+    float x;
 
     /**
-     * @Variable m_y
+     * @Variable y
      */
-    float m_y;
+    float y;
 
     /**
-     * @Variable m_z
+     * @Variable z
      */
-    float m_z;
+    float z;
 
   };
 }

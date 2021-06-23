@@ -66,13 +66,12 @@ namespace xcEngineSDK {
           BONES_INFO* Skull,
           BoneVertex* BonVer,
           uint32 NumBones,
-          GraphiAPI* API);
+          const aiScene* m_scene);
 
     // render the mesh
     void
     draw(ShaderProgram& shader,
-         Vector<SamplerState*> Samplers,
-         GraphiAPI* API);
+         Vector<SamplerState*> Samplers);
 
    public:
     /**
@@ -121,24 +120,23 @@ namespace xcEngineSDK {
 
     IndexBuffer* m_indexBuffer;
     VertexBuffer* m_vertexBuffer;
+    const aiScene* m_scene;
 
 
    private:
     // initializes all the buffer objects/arrays
     void 
-    setupMesh(GraphiAPI* API);
+    setupMesh();
 
   public:
     Matrix4x4
     boneTrasnform(float time, 
-                  Vector<Matrix4x4>& transform, 
-                  const aiScene* scene);
+                  Vector<Matrix4x4>& transform);
 
     void 
     nodeHeirarchy(float time,
                   const aiNode* node, 
-                  const Matrix4x4& transform, 
-                  const aiScene* scene);
+                  const Matrix4x4& transform);
 
     const aiNodeAnim* 
     FindNodeAnimation(const String NameNod,

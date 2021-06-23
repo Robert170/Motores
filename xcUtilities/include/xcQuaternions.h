@@ -47,11 +47,11 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
-		Quaternion(const float& x,
-			         const float& y,
-			         const float& z,
-			         const float& w) 
-               : m_x(x), m_y(y), m_z(z), m_w(w) { };
+		Quaternion(const float& _x,
+			         const float& _y,
+			         const float& _z,
+			         const float& _w) 
+               : x(_x), y(_y), z(_z), w(_w) { };
 
 		/**
 		 * @brief      Quaternions function, specific constructor
@@ -61,8 +61,8 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		Quaternion(const Vector3& vector,
-			         const float& w) 
-               : m_x(vector.m_x), m_y(vector.m_y), m_z(vector.m_z), m_w(w) { };
+			         const float& _w) 
+               : x(vector.x), y(vector.y), z(vector.z), w(_w) { };
 
 		/**
 		 * @brief      + operator overload
@@ -180,24 +180,24 @@ namespace xcEngineSDK {
 		//TODO: CAMBIAR EL VECTOR POR VALORES X, Y, Z y EL SCALAR POR W
 
 	  /**
-		 * @brief m_quaternionVector, the vector of the quaternion
+		 * @brief x, 
 		 */
-		float m_x;
+		float x;
 
 		/**
-		 * @brief m_quaternionVector, the vector of the quaternion
+		 * @brief y,
 		 */
-		float m_y;
+		float y;
 
 		/**
-		 * @brief m_quaternionVector, the vector of the quaternion
+		 * @brief z, the vector of the quaternion
 		 */
-		float m_z;
+		float z;
 
 		/**
-		 * @brief m_w, the scalar of the quaternion
+		 * @brief w, the scalar of the quaternion
 		 */
-		float m_w;
+		float w;
 
 	};
 }

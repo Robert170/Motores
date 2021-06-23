@@ -17,24 +17,26 @@ namespace xcEngineSDK {
     while (m_window.isOpen()) {
 
       sf::Event event;
+      deltaTime = delta.getElapsedTime().asSeconds();
 
       while (m_window.pollEvent(event)) {
 
-        deltaTime = delta.getElapsedTime().asSeconds();
 
-        handleWindowEvent(event);
+        //handleWindowEvent(event);
 
         if (event.type == sf::Event::Closed) {
           m_window.close();
           break;
         }
-        //update
-        update(deltaTime);
-
-    		//render
-        render();
+        
       }
       
+      //update
+      update(deltaTime);
+
+      //render
+      render();
+
     }
 
     onDestroy();
@@ -59,7 +61,7 @@ namespace xcEngineSDK {
 
   void 
   BaseApp::createWindow() {
-    m_window.create(sf::VideoMode(m_graphiApi->m_width, m_graphiApi->m_height), 
+    m_window.create(sf::VideoMode(m_GraphicsAPI->m_width, m_GraphicsAPI->m_height),
                                   "SFML Window");
   }
 
@@ -84,16 +86,16 @@ namespace xcEngineSDK {
     //if (m_plugin.loadPlugin("xcDirectX.dll")) {
     //if (m_plugin.loadPlugin("xcOpenGL.dll")) {
 
-      auto createGraphiApi = reinterpret_cast<funProtoGraphiApi>(
+      auto createGraphiAPI = reinterpret_cast<funProtoGraphiAPI>(
                              m_plugin.getProcedureByName("createGraphisAPI"));
 
-      GraphiAPI::startUp();
-      GraphiAPI* graphiApi = createGraphiApi();
-      g_graphiAPI().setObject(graphiApi);
-      m_graphiApi = &g_graphiAPI();
+      GraphicsAPI::startUp();
+      GraphicsAPI* GraphiAPI = createGraphiAPI();
+      g_GraphicsAPI().setObject(GraphiAPI);
+      m_GraphicsAPI = &g_GraphicsAPI();
       createWindow();
 
-      m_graphiApi->init(m_window.getSystemHandle());
+      m_GraphicsAPI->init(m_window.getSystemHandle());
     }
 
   }

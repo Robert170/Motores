@@ -36,8 +36,8 @@ namespace xcEngineSDK {
 		/**
 		 * @brief constructor of float
 		 */
-		Vector2(float x, float y = 0.f)
-			      :m_x(x), m_y(y) { };
+		Vector2(float _x, float _y = 0.f)
+			      :x(_x), y(_y) { };
 
 
 
@@ -206,14 +206,14 @@ namespace xcEngineSDK {
 		 */
 
 		/**
-		 * @Variable m_x
+		 * @Variable x
 		 */
-		float m_x;
+		float x;
 
 		/**
-		 * @Variable m_y
+		 * @Variable y
 		 */
-		float m_y;
+		float y;
 
 	};
 }

@@ -1,38 +1,36 @@
 #include "xcGameAppUnitTest.h"
 
+//TODO no se usa el name space
 
-namespace xcEngineSDK {
+//namespace xcEngineSDK {
+
+//TODO ERRORES CRITICOS
   
   void 
   GameAppUnitTest::onCreate() {
 
-    CameraDatas Data;
-	  Data.Far = 100;
-	  Data.fov = 0.7f;
-	  Data.height = m_graphiApi->m_height;
-	  Data.width = m_graphiApi->m_width;
-	  Data.Near = 1.0f;
-		Data.position = { 20.0f, 50.0f, -6.0f };
-		Data.at = { 0.0f, 1.0f, 0.0f };
-		Data.up = { 0.0f, 1.0f, 0.0f };
+		
+		m_camera.setPosition(Vector3(0.0f, 10.0f, -6.0f ));
+		m_camera.setLookAt(Vector3(0.0f, 1.0f, 0.0f));
+		m_camera.setUp(Vector3(0.0f, 1.0f, 0.0f));
+		m_camera.setfar(100);
+		m_camera.setNear(1);
+		m_camera.setFielOfView(0.7f);
+    m_camera.setWidth(g_GraphicsAPI().m_width);
+    m_camera.setHeight(g_GraphicsAPI().m_height);
 
-    /*Vector3 Eye = { 0.0f, 3.0f, -6.0f };
-    Vector3 At = { 0.0f, 1.0f, 0.0f };
-    Vector3 Up = { 0.0f, 1.0f, 0.0f };*/
-
-		m_camera.init(Data);
+		m_camera.init();
 
 
 		//load model
-
-		m_model = new Model("Models/Angry.fbx",
-                        m_graphiApi);
+		//TODO Quitar el GraphiAPI, poder crear modelo vacio, puntero inteligente
+		m_model = new Model("Models/Angry.fbx");
 
 		/*m_model = new Model("Models/S/silly_dancing.fbx",
-                        m_graphiApi);*/
+                        m_GraphiAPI);*/
 
 		/*m_model = new Model("C:/Users/Xc170/Desktop/xcEngine/bin/Models/Bea/bea_geo.fbx",
-                        m_graphiApi);*/
+                        m_GraphiAPI);*/
 
 	  Vector<uint32_t> indices =
 	  {
@@ -90,17 +88,17 @@ namespace xcEngineSDK {
 	  	{Vector3(-1.0f, 1.0f, 1.0f),   Vector2(0.0f, 1.0f) },
 	  };
 
+		
+	  m_meshColor.x = 1;
+		m_meshColor.y = 1;
+		m_meshColor.z = 1;
 
-	  m_meshColor.m_x = 1;
-		m_meshColor.m_y = 1;
-		m_meshColor.m_z = 1;
 
-
-	  /*m_graphiApi->Init(800,
+	  /*g_GraphicsAPI().Init(800,
 		         600);*/
 
 	  //Create render Target
-	  /*g_pRenderTarget = m_graphiApi->CreateTexture2D(800,
+	  /*g_pRenderTarget = g_GraphicsAPI().CreateTexture2D(800,
 	  	                                   600,
 	  	                                   1,
 	  	                                   TF_R8G8B8A8_UNORM,
@@ -109,7 +107,7 @@ namespace xcEngineSDK {
 	  //m_renderTargets.push_back(g_pRenderTarget);
 	  
 	  //// Create the depth stencil 
-	  /*m_depthStencil = m_graphiApi->CreateTexture2D(800,
+	  /*m_depthStencil = g_GraphicsAPI().CreateTexture2D(800,
 	  	                                   600,
 	  	                                   1,
 	  	                                   TF_D24_UNORM_S8_UINT,
@@ -117,7 +115,7 @@ namespace xcEngineSDK {
 	  	                                   TYPE_USAGE_DEFAULT);*/
 	  
 	  ////create shader resource
-	  /*g_pShaderResource = m_graphiApi->CreateTexture2D(800,
+	  /*g_pShaderResource = g_GraphicsAPI().CreateTexture2D(800,
 	  	                                     600,
 	  	                                     1,
 	  	                                     TF_R8G8B8A8_UNORM,
@@ -126,85 +124,98 @@ namespace xcEngineSDK {
 	  g_vShaderResources.push_back(g_pShaderResource);*/
 	  
 	  
-	  m_shaderProgram = m_graphiApi->createShaderProgram("VS",
-	  	                                                  "PS", 
-	  	                                                  "VS", 
-	  	                                                  "PS", 
-	  	                                                  "vs_4_0", 
-	  	                                                  "ps_4_0", 
-	  	                                                  1,
-	  	                                                  1);
+
+		m_shaderProgram = g_GraphicsAPI().createShaderProgram("VS",
+	  	                                                    "PS", 
+	  	                                                    "VS", 
+	  	                                                    "PS", 
+	  	                                                    "vs_4_0", 
+	  	                                                    "ps_4_0", 
+	  	                                                    1,
+	  	                                                    1);
+		//TODO reflection y simplificar, hacer funcion para llenar sematica y formato
+
+	 // //Set semantic 
+	 // m_inpLayDesc.Semantics.push_back("POSITION");
+  //  m_inpLayDesc.Semantics.push_back("TEXCOORD");
+		//m_inpLayDesc.Semantics.push_back("BLENDWEIGHT");
+		//m_inpLayDesc.Semantics.push_back("BLENDINDICES");
+
+	 // m_inpLayDesc.Formats.push_back(TF_R32G32B32A32_FLOAT);
+	 // m_inpLayDesc.Formats.push_back(TF_R32G32_FLOAT);
+		//m_inpLayDesc.Formats.push_back(TF_R32G32B32A32_FLOAT);
+		//m_inpLayDesc.Formats.push_back(TF_R32G32B32A32_SINT);
+
+  // /* m_inpLayDesc = g_GraphicsAPI().CreateInputLayoutDesc(m_vSemanticNames,
+		//	                                                m_vFormats);*/
 
 
-	  //Set semantic 
-	  m_inpLayDesc.Semantics.push_back("POSITION");
-		m_inpLayDesc.Semantics.push_back("BLENDWEIGHT");
-		m_inpLayDesc.Semantics.push_back("BLENDINDICES");
-	  // m_inpLayDesc.Semantics.push_back("TEXCOORD");
-		//m_vSemanticNames.push_back("POSITION");
-		//m_vSemanticNames.push_back("TEXCOORD");
-	  //m_inpLayDesc.Formats.push_back(TF_R32G32B32_FLOAT);
-	  //m_inpLayDesc.Formats.push_back(TF_R32G32_FLOAT);
-	
-		m_vFormats.push_back(TF_R32G32B32_FLOAT);
-		m_vFormats.push_back(TF_R32G32B32A32_FLOAT);
-		m_vFormats.push_back(TF_R32G32B32A32_SINT);
+		////TODO Mandar puntero o referencia constante a puntero del objeto
+	 // // Create the input layout
+	 // m_inputLayout = g_GraphicsAPI().createInputLayout(*m_shaderProgram,
+		//                                                  m_inpLayDesc,
+		//                                                  1);
 
-   /* m_inpLayDesc = m_graphiApi->CreateInputLayoutDesc(m_vSemanticNames,
-			                                                m_vFormats);*/
 
-	  // Create the input layout
-	  m_inputLayout = m_graphiApi->createInputLayout(*m_shaderProgram,
-		                                                m_inpLayDesc,
-		                                                1);
+		m_inputLayout = g_GraphicsAPI().createAutomaticInputLayout(*m_shaderProgram);
 
 	  // Create the pixel shader
-	  /*m_pixelShader = m_graphiApi->CreatePixelShaders("PS",
+	  /*m_pixelShader = g_GraphicsAPI().CreatePixelShaders("PS",
 		                                     "PS",
 		                                     "ps_4_0",
 		                                     1);*/
-	  /*m_pixelShader = m_graphiApi->CreatePixelShaders("Tutorial07.fx",
+	  /*m_pixelShader = g_GraphicsAPI().CreatePixelShaders("Tutorial07.fx",
 		                                     "PS",
 		                                     "ps_4_0", 
 		                                      1);*/
 
 	  //// Create vertex buffer
-	  //g_pVertexBuffer = m_graphiApi->createVertexBuffer(vertices,
+	  //g_pVertexBuffer = g_GraphicsAPI().createVertexBuffer(vertices,
 		 //                                                 1);
 
 	  //// Create index buffer
-	  //g_pIndexBuffer = m_graphiApi->createIndexBuffer(indices,
+	  //g_pIndexBuffer = g_GraphicsAPI().createIndexBuffer(indices,
 	  //	                                              1);
 	  
+
+		//TODO nombre de funcion intuitivo es de las matrices no del graphi Api
 	  // Create the constant buffers
-		m_constantBuffer.mView = m_graphiApi->matri4x4Context(m_camera.getView());
-    /*m_constantBuffer.mView = m_graphiApi->initMatrixView(m_view,
+		m_constantBuffer.mView = g_GraphicsAPI().matri4x4Context(m_camera.getView());
+    /*m_constantBuffer.mView = g_GraphicsAPI().initMatrixView(m_view,
                                                          Eye,
                                                          At,
                                                          Up);*/
 	  
-		m_constantBuffer.mProjection = m_graphiApi->
+		m_constantBuffer.mProjection = g_GraphicsAPI().
 			                             matri4x4Context(m_camera.getProyeccion());
-	  /*m_constantBuffer.mProjection = m_graphiApi->initMatrixProjection(m_projection,
+	  /*m_constantBuffer.mProjection = g_GraphicsAPI().initMatrixProjection(m_projection,
 	  	                                                               Data.fov,
 	  	                                                               Data.height,
 	  	                                                               Data.width,
 	  	                                                               Data.Near,
 	  	                                                               Data.Far);*/
 	  
-	  m_constantBuffer.mWorld = m_graphiApi->initMatrixWorld(m_world);
+	  m_constantBuffer.mWorld = g_GraphicsAPI().initMatrixWorld(m_world);
 	  
 	  m_constantBuffer.vMeshColor = m_meshColor;
 	  
-	  m_cbNeverChanges = m_graphiApi->createConstantBuffer(sizeof(CBNeverChanges),
-	  	                                                    1, 
-	  	                                                    &m_constantBuffer);
-	  
+
+		//TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
+	  m_cbNeverChanges = g_GraphicsAPI().createConstantBuffer(sizeof(CBNeverChanges),
+	  	                                                      1, 
+	  	                                                      &m_constantBuffer);
+
+		m_cbBonesAnimation = g_GraphicsAPI().createConstantBuffer(sizeof(CBBones),
+			                                                        1, 
+			                                                        &m_bonesBuffer);
+
+		//TODO no se hace
 	  m_constantBuffers.push_back(m_cbNeverChanges);
+		m_constantBuffers.push_back(m_cbBonesAnimation);
 	  
 	  //// Create the sample state
 	  
-	  //g_pSamplerState = m_graphiApi->CreateSamplerState();
+	  //g_pSamplerState = g_GraphicsAPI().CreateSamplerState();
 	  
 	  //g_vSamplers.push_back(g_pSamplerState);
 
@@ -213,103 +224,145 @@ namespace xcEngineSDK {
 	void 
 	GameAppUnitTest::onEvents(sf::Event event) {
 
+		//TODO 
 		m_camera.input(event);
 	}
 
   void 
   GameAppUnitTest::onUpdate(float deltaTime) {
-		deltaTime = 0;
+
+		//TODO nombre update no move
 		//m_camera.move();
-		//m_constantBuffer.mView = m_graphiApi->matri4x4Context(m_camera.getView());
-    m_graphiApi->updateSubresource(&m_constantBuffer,
-      		                         *m_cbNeverChanges);
+
+		//todo CONSTANBUFFER GENERICOS NO ESPECIFICOS
+		//m_constantBuffer.mView = g_GraphicsAPI().matri4x4Context(m_camera.getView());
+		g_GraphicsAPI().updateSubresource(&m_constantBuffer,
+      		                            *m_cbNeverChanges);
+
+
+
+		//TODO la actualizacion del modelo no es aqui, es del componente
+		m_model->update(deltaTime, m_transform);
+
+    for (int32 i = 0; i < m_transform.size(); ++i) {
+      if (i < 200)
+      {
+				m_bonesBuffer.Bones_CB[i] = m_transform[i];
+      }
+    }
+
+		g_GraphicsAPI().updateSubresource(&m_bonesBuffer,
+      		                            *m_cbBonesAnimation);
+
   }
 
   void 
   GameAppUnitTest::onRender() {
+
+		//TODO todo en una sola linea
     m_color.R = 0.0f;
 	  m_color.G = 0.125f;
 	  m_color.B = 0.3f;
 	  m_color.A = 1.0f;
 	  
 	  
-	  /*m_graphiApi->SetRenderTarget(m_renderTargets,
+	  /*g_GraphicsAPI().SetRenderTarget(m_renderTargets,
 	  	                 m_depthStencil);*/
 	  
-	  m_graphiApi->setDefaultRenderTarget();
+	  g_GraphicsAPI().setDefaultRenderTarget();
 	  
-		m_graphiApi->clearDefaultRenderTargetAndDepthStencil(m_color);
+		g_GraphicsAPI().clearDefaultRenderTargetAndDepthStencil(m_color);
 	  
+
+		//TODO falta la profundidad
 	  // Setup the viewport
-	  m_graphiApi->setViewport(1,
-	  	                       m_graphiApi->m_width,
-	  	                       m_graphiApi->m_height,
-			                       0,
-			                       0);
+	  g_GraphicsAPI().setViewport(1,
+	  	                          g_GraphicsAPI().m_width,
+	  	                          g_GraphicsAPI().m_height,
+			                          0,
+			                          0);
 	  
 	  //set input layout
-	  m_graphiApi->setInputLayout(m_inputLayout);
+	  g_GraphicsAPI().setInputLayout(m_inputLayout);
 	  
 	  ////set vertex buffer
-	  //m_graphiApi->setVertexBuffer(g_pVertexBuffer,
+	  //g_GraphicsAPI().setVertexBuffer(g_pVertexBuffer,
 	  //	                           0,
 	  //	                           1,
 	  //	                           sizeof(SimpleVertex),
 	  //	                           0);
 	  //
 	  //////set index buffer
-	  //m_graphiApi->setIndexBuffer(g_pIndexBuffer, 
+	  //g_GraphicsAPI().setIndexBuffer(g_pIndexBuffer, 
 	  //	                          0);
 	  
 	  // Set primitive topology
-	  m_graphiApi->setPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	  g_GraphicsAPI().setPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	  
 	  
 	  //// Clear the render target
-	  /*m_graphiApi->ClearRenderTarget(g_pRenderTarget,
+	  /*g_GraphicsAPI().ClearRenderTarget(g_pRenderTarget,
 	  	                   m_color);*/
 	  
 	  //// Clear the depth stencil
-	  /*m_graphiApi->ClearDepthStencil(m_depthStencil, CLEAR_DEPTH,1.0f,0);*/
+	  /*g_GraphicsAPI().ClearDepthStencil(m_depthStencil, CLEAR_DEPTH,1.0f,0);*/
 	  
 	 
 	  
 	  //shader program
-	  m_graphiApi->setShaderProgram(m_shaderProgram);
+	  g_GraphicsAPI().setShaderProgram(m_shaderProgram);
 	  
 	  //set vertex shader
-	  //m_graphiApi->SetVertexShaders(m_vertexShader);
+	  //g_GraphicsAPI().SetVertexShaders(m_vertexShader);
 	  
 	  //set all vertex shader constant buffer
 	  
-	  m_graphiApi->setVertexShaderConstantBuffer(m_cbNeverChanges,
-	  	                                         0,
-	  	                                         1);
+		//TODO simplificar los nombre VS, PS
+	  g_GraphicsAPI().setVertexShaderConstantBuffer(m_cbNeverChanges,
+	  	                                            0,
+	  	                                            1);
 	  
 	  
 	  
 	  //set pixel shader
-	  //m_graphiApi->SetPixelShaders(m_pixelShader);
+	  //g_GraphicsAPI().SetPixelShaders(m_pixelShader);
 	  
 	  //set pixel shader constant buffer
 	  
-	  m_graphiApi->setPixelShaderConstantBuffer(m_cbNeverChanges,
-	  	                                        0,
-	  	                                        1);
+	  g_GraphicsAPI().setPixelShaderConstantBuffer(m_cbNeverChanges,
+	  	                                           0,
+	  	                                           1);
+
+
+		//TODO simplificar los nombre VS, PS
+	  g_GraphicsAPI().setVertexShaderConstantBuffer(m_cbBonesAnimation,
+	  	                                            1,
+	  	                                            1);
 	  
-	  /*m_graphiApi->SetShaderResource(g_vShaderResources,
+	  
+	  
+	  //set pixel shader
+	  //g_GraphicsAPI().SetPixelShaders(m_pixelShader);
+	  
+	  //set pixel shader constant buffer
+	  
+	  g_GraphicsAPI().setPixelShaderConstantBuffer(m_cbBonesAnimation,
+	  	                                           1,
+	  	                                           1);
+	  
+	  /*g_GraphicsAPI().SetShaderResource(g_vShaderResources,
 	  	                   0);*/
 	  
-	  /*m_graphiApi->SetSamplerState(g_vSamplers,
+	  /*g_GraphicsAPI().SetSamplerState(g_vSamplers,
 	  	                 0);*/
 
-	  m_model->draw(*m_shaderProgram, m_graphiApi);
+	  m_model->draw(*m_shaderProgram);
 
-    /*m_graphiApi->drawIndexed(36,
+    /*g_GraphicsAPI().drawIndexed(36,
                              0,
                              0,
                              nullptr);*/
-	  m_graphiApi->present();
+	  g_GraphicsAPI().present();
   }
 
   void 
@@ -368,4 +421,4 @@ namespace xcEngineSDK {
       }
     }*/
   }
-}
+//}

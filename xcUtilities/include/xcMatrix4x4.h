@@ -54,7 +54,7 @@ namespace xcEngineSDK {
      * @bug	       No know Bugs
      * @return     Returns a inverse matrix4x4
      */
-    Matrix4x4&
+    Matrix4x4
     inverse();
 
     /**
@@ -63,15 +63,8 @@ namespace xcEngineSDK {
      * @return     Returns the determinant of a matrix4x4
      */
     float
-    determinant(const Matrix4x4& matrix);
+    determinant();
 
-    /**
-     * @brief      determinant  function, to inverse a matrix
-     * @bug	       No know Bugs
-     * @return     Returns the determinant of a matrix4x4
-     */
-    float
-    cofactor(const Matrix3x3& matrix);
 
     /**
      * @brief      + operator overload
@@ -175,6 +168,10 @@ namespace xcEngineSDK {
 
     Matrix4x4
     quatToMatRot(Quaternion& Quat);
+
+    
+    Vector3
+    getScaledAxis(char Axis) const;
 
    public:
 

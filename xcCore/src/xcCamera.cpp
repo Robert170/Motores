@@ -1,50 +1,20 @@
 #include "xcCamera.h"
 
 namespace xcEngineSDK {
-  
-  Camera::Camera(CameraDatas Data) {
-
-    m_data.position = Data.position;
-    m_data.at = Data.at;
-    m_data.up = Data.up;
-    m_data.fov = Data.fov;
-    m_data.width = Data.width;
-    m_data.height = Data.height;
-    m_data.Near = Data.Near;
-    m_data.Far = Data.Far;
-    m_fowar = false;
-    m_back = false;
-    m_rigth = false;
-    m_left = false;
-
-    setFront(Data.at, Data.position);
-    setRight(m_data.up, m_data.front);
-    setUpTrue(m_data.front, m_data.rigth);
-
-    createViewMatrix();
-    updateViewMatrix();
-    updateProyeccion();
-  }
 
   void 
-  Camera::init(CameraDatas Data) {
+  Camera::init() {
+    
 
-    m_data.position = Data.position;
-    m_data.at = Data.at;
-    m_data.up = Data.up;
-    m_data.fov = Data.fov;
-    m_data.width = Data.width;
-    m_data.height = Data.height;
-    m_data.Near = Data.Near;
-    m_data.Far = Data.Far;
-    m_fowar = false;
-    m_back = false;
-    m_rigth = false;
-    m_left = false;
 
-    setFront(Data.at, Data.position);
-    setRight(m_data.up, m_data.front);
-    setUpTrue(m_data.front, m_data.rigth);
+    m_fowarMove = false;
+    m_backMove = false;
+    m_rigthMove = false;
+    m_leftMove = false;
+
+    setFront(m_at, m_position);
+    setRight(m_up, m_front);
+    setUpTrue(m_front, m_rigth);
 
     createViewMatrix();
     updateViewMatrix();
@@ -53,10 +23,51 @@ namespace xcEngineSDK {
   }
 
   void
+  Camera::setPosition(const Vector3& position) {
+    m_position = position;
+  }
+
+  void 
+  Camera::setLookAt(const Vector3& at) {
+    m_at = at;
+  }
+
+  void 
+  Camera::setUp(const Vector3& up) {
+    m_up = up;
+
+  }
+
+  void 
+  Camera::setFielOfView(float fov) {
+    m_fov = fov;
+  }
+
+  void 
+  Camera::setWidth(float width) {
+    m_width = width;
+  }
+
+  void 
+  Camera::setHeight(float height) {
+    m_height = height;
+  }
+
+  void 
+  Camera::setNear(float _near) {
+    m_near = _near;
+  }
+
+  void 
+  Camera::setfar(float Far) {
+    m_far = Far;
+  }
+
+  void
   Camera::setFront(Vector3 At, Vector3 Posicion) {
 
     m_front = Vector3(At - Posicion).normalize();
-    m_data.front = m_front;
+    m_front = m_front;
   }
 
   void 
@@ -65,7 +76,7 @@ namespace xcEngineSDK {
     Vector3 right(Up);
     right = right.cross(Front).normalize();
     //right.normalize();
-    m_data.rigth = right;
+    m_rigth = right;
   }
 
   void 
@@ -74,7 +85,7 @@ namespace xcEngineSDK {
     Vector3 trueUp(Front);
     trueUp = trueUp.cross(Right).normalize();
     //trueUp.normalize();
-    m_up = trueUp;
+    m_trueUp = trueUp;
   }
 
   void 
@@ -86,18 +97,18 @@ namespace xcEngineSDK {
     if (INPUT.key.code == sf::Keyboard::W &&
         INPUT.type == sf::Event::KeyPressed) {
       
-      m_fowar = true;
+      m_fowarMove = true;
       
     }
     else if (INPUT.key.code == sf::Keyboard::A &&
              INPUT.type == sf::Event::KeyPressed) {
 
-      m_left = true;
+      m_leftMove = true;
     }
     else if (INPUT.key.code == sf::Keyboard::S &&
              INPUT.type == sf::Event::KeyPressed) {
       
-      m_back = true;
+      m_backMove = true;
       
     }
     else if (INPUT.key.code == sf::Keyboard::D &&
@@ -108,18 +119,18 @@ namespace xcEngineSDK {
     if (INPUT.key.code == sf::Keyboard::W &&
         INPUT.type == sf::Event::KeyReleased) {
       
-      m_fowar = false;
+      m_fowarMove = false;
       
     }
     else if (INPUT.key.code == sf::Keyboard::A &&
              INPUT.type == sf::Event::KeyReleased) {
 
-      m_left = false;
+      m_leftMove = false;
     }
     else if (INPUT.key.code == sf::Keyboard::S &&
              INPUT.type == sf::Event::KeyReleased) {
       
-      m_back = false;
+      m_backMove = false;
       
     }
     else if (INPUT.key.code == sf::Keyboard::D &&
@@ -135,11 +146,11 @@ namespace xcEngineSDK {
   Camera::createViewMatrix() {
 
  
-    m_view = m_view.lookAtLH(m_data.front, m_data.at, m_data.up);
+    m_matrixView = m_matrixView.lookAtLH(m_front, m_at, m_up);
     //m_axis = {
-    //  m_data.rigth.m_x, m_up.m_x, m_data.front.m_x, 0,
-    //  m_data.rigth.m_y, m_up.m_y, m_data.front.m_y, 0,
-    //  m_data.rigth.m_z, m_up.m_z, m_data.front.m_z, 0,
+    //  m_rigth.x, m_up.x, m_front.x, 0,
+    //  m_rigth.y, m_up.y, m_front.y, 0,
+    //  m_rigth.z, m_up.z, m_front.z, 0,
     //  0, 0, 0, 1
     //};
 
@@ -149,7 +160,7 @@ namespace xcEngineSDK {
     //  1, 0, 0, 0,
     //  0, 1, 0, 0,
     //  0, 0, 1, 0,
-    //  -m_data.position.m_x, -m_data.position.m_y , -m_data.position.m_z, 1
+    //  -m_position.x, -m_position.y , -m_position.z, 1
     //};*/
 
     ////m_position *= m_axis;
@@ -160,11 +171,11 @@ namespace xcEngineSDK {
   void 
   Camera::updateProyeccion() {
 
-    m_proyeccion = m_proyeccion.perspectiveFovLH(m_data.fov, 
-                                                 m_data.height, 
-                                                 m_data.width, 
-                                                 m_data.Near, 
-                                                 m_data.Far);
+    m_matrixProyeccion = m_matrixProyeccion.perspectiveFovLH(m_fov,
+                                                             m_height, 
+                                                             m_width, 
+                                                             m_near, 
+                                                             m_far);
       
     //m_proyeccion = m_proyeccion.transpose();
 
@@ -173,64 +184,64 @@ namespace xcEngineSDK {
   void 
   Camera::updateViewMatrix() {
     
-    m_data.rigth = { m_view.m_matrix[0].m_x,  
-                     m_view.m_matrix[1].m_x,
-                     m_view.m_matrix[2].m_x };
+    m_rigth = { m_matrixView.m_matrix[0].x,
+                m_matrixView.m_matrix[1].x,
+                m_matrixView.m_matrix[2].x };
 
-    m_data.up = { m_view.m_matrix[0].m_y,
-                  m_view.m_matrix[1].m_y,
-                  m_view.m_matrix[2].m_y };
+    m_up = { m_matrixView.m_matrix[0].y,
+             m_matrixView.m_matrix[1].y,
+             m_matrixView.m_matrix[2].y };
 
-    m_up = m_data.up;
+    m_trueUp = m_up;
     //Front = { View[2][0],View[2][1],View[2][2] };
 
-    m_data.front = { m_view.m_matrix[0].m_z,
-                     m_view.m_matrix[1].m_z,
-                     m_view.m_matrix[2].m_z };
+    m_front = { m_matrixView.m_matrix[0].z,
+                m_matrixView.m_matrix[1].z,
+                m_matrixView.m_matrix[2].z };
  
-    m_data.at = getFront() + getPosition();
+    m_at = getFront() + getPosition();
  
   }
 
   void 
   Camera::move() {
 
-    if (m_fowar) {
+    if (m_fowarMove) {
       
-      m_data.position += m_data.front * 0.025f;
+      m_position += m_front * 0.025f;
       
     }
-    else if (m_rigth) {
+    else if (m_rigthMove) {
 
-      m_data.position -= m_data.rigth * 0.025f;
+      m_position -= m_rigth * 0.025f;
     }
-    else if (m_back) {
+    else if (m_backMove) {
       
-      m_data.position -= m_data.front * 0.025f;
+      m_position -= m_front * 0.025f;
       
     }
-    else if (m_left) {
+    else if (m_leftMove) {
 
-      m_data.position += m_data.rigth * 0.025f;
+      m_position += m_rigth * 0.025f;
     }
 
-    m_axis = {
-      m_data.rigth.m_x, m_up.m_x, m_data.front.m_x, 0,
-      m_data.rigth.m_y, m_up.m_y, m_data.front.m_y,0, 
-      m_data.rigth.m_z, m_up.m_z, m_data.front.m_z, 0, 
+    m_matrixAxis = {
+      m_rigth.x, m_trueUp.x, m_front.x, 0,
+      m_rigth.y, m_trueUp.y, m_front.y, 0,
+      m_rigth.z, m_trueUp.z, m_front.z, 0,
       0, 0, 0, 1
     };
     
-    m_position = {
+    m_matrixProyeccion = {
       1, 0, 0, 0,
       0, 1, 0, 0,
       0, 0, 1, 0,
-      -m_data.position.m_x, -m_data.position.m_y, -m_data.position.m_z, 1
+      -m_position.x, -m_position.y, -m_position.z, 1
     };
 
-    m_position *= m_axis;
-    //m_view = m_view.lookAtLH(m_data.position, m_data.at, m_data.up);
-    m_view = m_position;
+    m_matrixProyeccion *= m_matrixAxis;
+    //m_view = m_view.lookAtLH(m_position, m_at, m_up);
+    m_matrixView = m_matrixProyeccion;
     //updateViewMatrix();
 
     return;
@@ -239,73 +250,73 @@ namespace xcEngineSDK {
   float 
   Camera::getWidth() {
 
-    return m_data.width;
+    return m_width;
   }
 
   float 
   Camera::getHeight() {
 
-    return m_data.height;
+    return m_height;
   }
 
   float 
   Camera::getFar() {
 
-    return m_data.Far;
+    return m_far;
   }
 
   float 
   Camera::getFov() {
 
-    return m_data.fov;
+    return m_fov;
   }
 
   float 
   Camera::getNear() {
 
-    return m_data.Near;
+    return m_near;
   }
 
   Vector3 
   Camera::getPosition() {
 
-    return m_data.position;
+    return m_position;
   }
 
   Vector3 
   Camera::getAt() {
 
-    return m_data.at;
+    return m_at;
   }
 
   Vector3 
   Camera::getUp() {
 
-    return m_data.up;
+    return m_up;
   }
 
   Vector3 
   Camera::getFront() {
 
-    return m_data.front;
+    return m_front;
   }
 
   Vector3 
   Camera::getRight() {
 
-    return m_data.rigth;
+    return m_rigth;
   }
 
   Matrix4x4 
   Camera::getView() {
 
-    return m_view;
+    return m_matrixView;
   }
 
   Matrix4x4 
   Camera::getProyeccion() {
 
-    return m_proyeccion;
+    return m_matrixProyeccion;
   }
 
 }

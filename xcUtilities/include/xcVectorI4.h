@@ -40,20 +40,20 @@ namespace xcEngineSDK {
 		/**
 		 * @brief constructor of int32
 		 */
-		VectorI4(int32 x, int32 y = 0, int32 z = 0, int32 w = 0)
-		         :m_x(x), m_y(y), m_z(z), m_w(w) { };
+		VectorI4(int32 _x, int32 _y = 0, int32 _z = 0, int32 _w = 0)
+		         :x(_x), y(_y), z(_z), w(_w) { };
 
 		/**
 		 * @brief constructor of a vectorI2 and int32
 		 */
-		VectorI4(VectorI2 v, int32 z = 0, int32 w = 0)
-			       :m_x(v.m_x), m_y(v.m_y), m_z(z), m_w(w) { };
+		VectorI4(VectorI2 v, int32 _z = 0, int32 _w = 0)
+			       :x(v.x), y(v.y), z(_z), w(_w) { };
 
 		/**
 		 * @brief constructor of a VectorI4 and int32
 		 */
-		VectorI4(VectorI3 v, int32 w = 0)
-			       :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
+		VectorI4(VectorI3 v, int32 _w = 0)
+			       :x(v.x), y(v.y), z(v.z), w(_w) { };
 
 		/**
 		 * @brief public functions
@@ -222,24 +222,24 @@ namespace xcEngineSDK {
 		 */
 
 		/**
-		 * @Variable m_x
+		 * @Variable x
 		 */
-    int32 m_x;
+    int32 x;
 
 		/**
-		 * @Variable m_y
+		 * @Variable y
 		 */
-		int32 m_y;
+		int32 y;
 
 		/**
-		 * @Variable m_z
+		 * @Variable z
 		 */
-		int32 m_z;
+		int32 z;
 
 		/**
-		 * @Variable m_z
+		 * @Variable z
 		 */
-		int32 m_w;
+		int32 w;
 
 	};
 }

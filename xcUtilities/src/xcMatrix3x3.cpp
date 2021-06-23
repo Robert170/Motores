@@ -8,17 +8,17 @@ namespace xcEngineSDK {
                        float _xz, float _yz, float _zz) {
 
 
-    m_matrix[0].m_x = _xx;
-    m_matrix[0].m_y = _xy;
-    m_matrix[0].m_z = _xz;
+    m_matrix[0].x = _xx;
+    m_matrix[0].y = _xy;
+    m_matrix[0].z = _xz;
 
-    m_matrix[1].m_x = _yx;
-    m_matrix[1].m_y = _yy;
-    m_matrix[1].m_z = _yz;
+    m_matrix[1].x = _yx;
+    m_matrix[1].y = _yy;
+    m_matrix[1].z = _yz;
 
-    m_matrix[2].m_x = _zx;
-    m_matrix[2].m_y = _zy;
-    m_matrix[2].m_z = _zz;
+    m_matrix[2].x = _zx;
+    m_matrix[2].y = _zy;
+    m_matrix[2].z = _zz;
   }
 
   Matrix3x3::Matrix3x3(const Vector3& XVector, 
@@ -33,34 +33,34 @@ namespace xcEngineSDK {
   Matrix3x3& 
   Matrix3x3::transpose()
   {
-    std::swap(m_matrix[0].m_y, m_matrix[1].m_x);
-    std::swap(m_matrix[0].m_z, m_matrix[2].m_x);
-    std::swap(m_matrix[1].m_z, m_matrix[2].m_y);
+    std::swap(m_matrix[0].y, m_matrix[1].x);
+    std::swap(m_matrix[0].z, m_matrix[2].x);
+    std::swap(m_matrix[1].z, m_matrix[2].y);
     return *this;
   }
 
   float
   Matrix3x3::determinant(const Matrix3x3& matrix) {
 
-    float result1 = (matrix.m_matrix[0].m_x * 
-                     matrix.m_matrix[1].m_y * 
-                     matrix.m_matrix[2].m_z) +
-                    (matrix.m_matrix[1].m_x * 
-                     matrix.m_matrix[2].m_y * 
-                     matrix.m_matrix[0].m_z) +
-                    (matrix.m_matrix[2].m_x * 
-                     matrix.m_matrix[0].m_y * 
-                     matrix.m_matrix[1].m_z);
+    float result1 = (matrix.m_matrix[0].x * 
+                     matrix.m_matrix[1].y * 
+                     matrix.m_matrix[2].z) +
+                    (matrix.m_matrix[1].x * 
+                     matrix.m_matrix[2].y * 
+                     matrix.m_matrix[0].z) +
+                    (matrix.m_matrix[2].x * 
+                     matrix.m_matrix[0].y * 
+                     matrix.m_matrix[1].z);
 
-    float result2 = (matrix.m_matrix[0].m_z * 
-                     matrix.m_matrix[1].m_y * 
-                     matrix.m_matrix[2].m_x) +
-                    (matrix.m_matrix[1].m_z * 
-                     matrix.m_matrix[2].m_y * 
-                     matrix.m_matrix[0].m_x) +
-                    (matrix.m_matrix[2].m_z * 
-                     matrix.m_matrix[0].m_y * 
-                     matrix.m_matrix[1].m_x);
+    float result2 = (matrix.m_matrix[0].z * 
+                     matrix.m_matrix[1].y * 
+                     matrix.m_matrix[2].x) +
+                    (matrix.m_matrix[1].z * 
+                     matrix.m_matrix[2].y * 
+                     matrix.m_matrix[0].x) +
+                    (matrix.m_matrix[2].z * 
+                     matrix.m_matrix[0].y * 
+                     matrix.m_matrix[1].x);
 
     return result1 - result2;
   }

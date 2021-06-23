@@ -37,14 +37,14 @@ namespace xcEngineSDK {
 		/**
 		 * @brief constructor of  int32
 		 */
-	  VectorI3(int32 x, int32 y = 0, int32 z = 0)
-			       :m_x(x), m_y(y), m_z(z) { };
+	  VectorI3(int32 _x, int32 _y = 0, int32 _z = 0)
+			       :x(_x), y(_y), z(_z) { };
 
 		/**
 		 * @brief constructor of a VectorI2 and int32
 		 */
 		VectorI3(VectorI2 v, int32 z = 0)
-			       :m_x(v.m_x), m_y(v.m_y), m_z(z) { };
+			       :x(v.x), y(v.y), z(z) { };
 
 		/**
 		 * @brief      + operator overload
@@ -226,19 +226,19 @@ namespace xcEngineSDK {
 		*/
 
 		/**
-			* @Variable m_x
+			* @Variable x
 		*/
-		int32 m_x;
+		int32 x;
 
 		/**
-			* @Variable m_y
+			* @Variable y
 		*/
-		int32 m_y;
+		int32 y;
 
 		/**
-			* @Variable m_y
+			* @Variable y
 		*/
-		int32 m_z;
+		int32 z;
 
 	};
 }

@@ -22,7 +22,7 @@ namespace xcEngineSDK {
     DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 
 
-    ID3DBlob* pErrorBlob;
+    ID3DBlob* pErrorBlob = nullptr;
     hr = D3DCompileFromFile(FileName.c_str(),
                             nullptr,
                             nullptr,
@@ -34,16 +34,19 @@ namespace xcEngineSDK {
                             &pErrorBlob);
 
     if (FAILED(hr)) {
-      if (pErrorBlob != nullptr) {
+      if (pErrorBlob) {
         std::cout << "Error al compilar el vertex shader" << std::endl;
         // OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
       }
 
       if (pErrorBlob) {
         pErrorBlob->Release();
-        return false;
       }
+
+      return false;
+
     }
+
 
     if (pErrorBlob) {
       pErrorBlob->Release();

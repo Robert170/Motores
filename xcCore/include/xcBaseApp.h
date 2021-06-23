@@ -122,9 +122,12 @@ namespace xcEngineSDK {
 
 	 protected:
 
+		 //TODO Cambiar al la clase base
 		sf::Window m_window;
 		Plugin m_plugin;
-		GraphiAPI* m_graphiApi = nullptr;
+
+		//Modulo
+		GraphicsAPI* m_GraphicsAPI = nullptr;
 
 		 
 

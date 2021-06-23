@@ -575,6 +575,11 @@ namespace xcEngineSDK {
 	return InputLa;
 	}
 
+	InputLayout* 
+	OGLGraphiAPI::createAutomaticInputLayout(ShaderProgram& VS) {
+		return nullptr;
+	}
+
 	//mas parametros para diferentes samplers
 	SamplerState*
 		OGLGraphiAPI::createSamplerState(uint32 NumSamplerState) {
@@ -836,8 +841,7 @@ namespace xcEngineSDK {
 
 	TextureB* 
 	OGLGraphiAPI::textureFromFile(String path,
-		                            const String& directory,
-		                            GraphiAPI* API, 
+		                            const String& directory, 
 		                            bool gamma) {
 		auto texture = new TextureB();
 

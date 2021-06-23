@@ -20,42 +20,41 @@
 
 namespace xcEngineSDK {
 
-  struct CameraDatas
-  {
-    
-    Vector3 front;
-
-    Vector3 position;
-
-    Vector3 at;
-
-    Vector3 up;
-
-    Vector3 rigth;
-
-    float width;
-
-    float height;
-
-    float Near;
-
-    float Far;
-
-    float fov;
-
-  };
 
   class XC_CORE_EXPORT Camera
   {
    public:
     Camera() = default;
 
-    Camera(CameraDatas Data);
 
     ~Camera() = default;
 
     void
-    init(CameraDatas Data);
+    init();
+
+    void
+    setPosition(const Vector3& position);
+
+    void
+    setLookAt(const Vector3& at);
+
+    void
+    setUp(const Vector3& up);
+
+    void
+    setFielOfView(float fov);
+
+    void
+    setWidth(float width);
+
+    void
+    setHeight(float height);
+
+    void
+    setNear(float _near);
+
+    void
+    setfar(float Far);
 
     void
     setFront(Vector3 At, Vector3 Posicion);
@@ -138,13 +137,13 @@ namespace xcEngineSDK {
 
     bool RotF = false;
 
-    bool m_fowar;
+    bool m_fowarMove;
 
-    bool m_back;
+    bool m_backMove;
 
-    bool m_rigth;
+    bool m_rigthMove;
 
-    bool m_left;
+    bool m_leftMove;
 
     int32 m_limitPitchU = 0;
 
@@ -156,11 +155,8 @@ namespace xcEngineSDK {
 
     float m_movementSpeed = 2.5F;
 
-    CameraDatas m_data;
+    Vector3 m_trueUp;
 
-    Vector3 m_up;
-
-    Vector3 m_front;
 
     Vector3 m_posIn;
 
@@ -168,19 +164,41 @@ namespace xcEngineSDK {
 
     Vector3 m_dir;
 
-    Matrix4x4 m_proyeccion;
+    Matrix4x4 m_matrixProyeccion;
 
-    Matrix4x4 m_axis;
+    Matrix4x4 m_matrixAxis;
 
-    Matrix4x4 m_position;
+    Matrix4x4 m_matrixPosition;
 
-    Matrix4x4 m_view;
+    Matrix4x4 m_matrixView;
 
     ConstantBuffer m_pCBNeverChanges;
 
     ConstantBuffer m_pCBChangeOnResize;
 
     ConstantBuffer m_pCBChangesEveryFrame;
+
+    //Camera datas
+
+    Vector3 m_front; //
+
+    Vector3 m_position; //
+
+    Vector3 m_at;//
+
+    Vector3 m_up;//
+
+    Vector3 m_rigth;//
+
+    float m_width;//
+
+    float m_height;//
+
+    float m_near;
+
+    float m_far;
+
+    float m_fov;//
 
   };
 }

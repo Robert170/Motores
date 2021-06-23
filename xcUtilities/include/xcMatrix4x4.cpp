@@ -12,25 +12,25 @@ namespace xcEngineSDK {
                        float _xz, float _yz, float _zz, float _wz,
                        float _xw, float _yw, float _zw, float _ww) {
 
-    m_matrix[0].m_x = _xx;
-    m_matrix[0].m_y = _xy;
-    m_matrix[0].m_z = _xz;
-    m_matrix[0].m_w = _xw;
+    m_matrix[0].x = _xx;
+    m_matrix[0].y = _xy;
+    m_matrix[0].z = _xz;
+    m_matrix[0].w = _xw;
 
-    m_matrix[1].m_x = _yx;
-    m_matrix[1].m_y = _yy;
-    m_matrix[1].m_z = _yz;
-    m_matrix[1].m_w = _yw;
+    m_matrix[1].x = _yx;
+    m_matrix[1].y = _yy;
+    m_matrix[1].z = _yz;
+    m_matrix[1].w = _yw;
 
-    m_matrix[2].m_x = _zx;
-    m_matrix[2].m_y = _zy;
-    m_matrix[2].m_z = _zz;
-    m_matrix[2].m_w = _zw;
+    m_matrix[2].x = _zx;
+    m_matrix[2].y = _zy;
+    m_matrix[2].z = _zz;
+    m_matrix[2].w = _zw;
 
-    m_matrix[3].m_x = _wx;
-    m_matrix[3].m_y = _wy;
-    m_matrix[3].m_z = _wz;
-    m_matrix[3].m_w = _ww;
+    m_matrix[3].x = _wx;
+    m_matrix[3].y = _wy;
+    m_matrix[3].z = _wz;
+    m_matrix[3].w = _ww;
 
   }
 
@@ -51,35 +51,187 @@ namespace xcEngineSDK {
   Matrix4x4&
   Matrix4x4::transpose() {
 
-    std::swap(m_matrix[0].m_y, m_matrix[1].m_x);
-    std::swap(m_matrix[0].m_z, m_matrix[2].m_x);
-    std::swap(m_matrix[0].m_w, m_matrix[3].m_x);
+    std::swap(m_matrix[0].y, m_matrix[1].x);
+    std::swap(m_matrix[0].z, m_matrix[2].x);
+    std::swap(m_matrix[0].w, m_matrix[3].x);
 
-    std::swap(m_matrix[1].m_z, m_matrix[2].m_y);
-    std::swap(m_matrix[1].m_w, m_matrix[3].m_y);
-    std::swap(m_matrix[2].m_w, m_matrix[3].m_z);
+    std::swap(m_matrix[1].z, m_matrix[2].y);
+    std::swap(m_matrix[1].w, m_matrix[3].y);
+    std::swap(m_matrix[2].w, m_matrix[3].z);
     return *this;
   }
 
-  Matrix4x4&
+  Matrix4x4
   Matrix4x4::inverse() {
+    Matrix4x4 Res;
 
+    // Check for zero scale matrix to invert
+    if (getScaledAxis('x').isNearlyZero(Math::SMALL_NUMBER) &&
+        getScaledAxis('y').isNearlyZero(Math::SMALL_NUMBER) &&
+        getScaledAxis('z').isNearlyZero(Math::SMALL_NUMBER)) {
+      Res = Matrix4x4::IDENTITY_MATRIX;
+    }
+    else {
+      const float	Det = determinant();
+      if (0.0f == Det) {
+        Res = Matrix4x4::IDENTITY_MATRIX;
+      } 
+      else {
+        Matrix4x4 Temp;
 
-    return *this;
+        Temp.m_matrix[0].x = m_matrix[2].z * m_matrix[3].w 
+                             - m_matrix[2].w * m_matrix[3].z;
+        Temp.m_matrix[0].y = m_matrix[1].z * m_matrix[3].w
+                             - m_matrix[1].w * m_matrix[3].z;
+        Temp.m_matrix[0].z = m_matrix[1].z * m_matrix[2].w 
+                             - m_matrix[1].w * m_matrix[2].z;
+
+        Temp.m_matrix[1].x = m_matrix[2].z * m_matrix[3].w 
+                             - m_matrix[2].w * m_matrix[3].z;
+        Temp.m_matrix[1].y = m_matrix[0].z * m_matrix[3].w 
+                             - m_matrix[0].w * m_matrix[3].z;
+        Temp.m_matrix[1].z = m_matrix[0].z * m_matrix[2].w 
+                             - m_matrix[0].w * m_matrix[2].z;
+
+        Temp.m_matrix[2].x = m_matrix[1].z * m_matrix[3].w 
+                             - m_matrix[1].w * m_matrix[3].z;
+        Temp.m_matrix[2].y = m_matrix[0].z * m_matrix[3].w
+                             - m_matrix[0].w * m_matrix[3].z;
+        Temp.m_matrix[2].z = m_matrix[0].z * m_matrix[1].w
+                             - m_matrix[0].w * m_matrix[1].z;
+
+        Temp.m_matrix[3].x = m_matrix[1].z * m_matrix[2].w 
+                             - m_matrix[1].w * m_matrix[2].z;
+        Temp.m_matrix[3].y = m_matrix[0].z * m_matrix[2].w 
+                             - m_matrix[0].w * m_matrix[2].z;
+        Temp.m_matrix[3].z = m_matrix[0].z * m_matrix[1].w 
+                             - m_matrix[0].w * m_matrix[1].z;
+
+        float Det0 = m_matrix[1].y * Temp.m_matrix[0].x - m_matrix[2].y 
+                     * Temp.m_matrix[0].y + m_matrix[3].y * Temp.m_matrix[0].z;
+        float Det1 = m_matrix[0].y * Temp.m_matrix[1].x - m_matrix[2].y 
+                     * Temp.m_matrix[1].y + m_matrix[3].y * Temp.m_matrix[1].z;
+        float Det2 = m_matrix[0].y * Temp.m_matrix[2].x - m_matrix[1].y 
+                     * Temp.m_matrix[2].y + m_matrix[3].y * Temp.m_matrix[2].z;
+        float Det3 = m_matrix[0].y * Temp.m_matrix[3].x - m_matrix[1].y 
+                     * Temp.m_matrix[3].y + m_matrix[2].y * Temp.m_matrix[3].z;
+
+        float Determinant = m_matrix[0].x * Det0 - m_matrix[1].x 
+                            * Det1 + m_matrix[2].x * Det2 - m_matrix[3].x * Det3;
+        const float	RDet = 1.0f / Determinant;
+
+        Res.m_matrix[0].x = RDet * Det0;
+        Res.m_matrix[0].y = -RDet * Det1;
+        Res.m_matrix[0].z = RDet * Det2;
+        Res.m_matrix[0].w = -RDet * Det3;
+        Res.m_matrix[1].x = -RDet * (m_matrix[1].x * Temp.m_matrix[0].x -
+                                     m_matrix[2].x * Temp.m_matrix[0].y +
+                                     m_matrix[3].x * Temp.m_matrix[0].z);
+
+        Res.m_matrix[1].y = RDet * (m_matrix[0].x * Temp.m_matrix[1].x -
+                                    m_matrix[2].x * Temp.m_matrix[1].y +
+                                    m_matrix[3].x * Temp.m_matrix[1].z);
+
+        Res.m_matrix[1].z = -RDet * (m_matrix[0].x * Temp.m_matrix[2].x -
+                                     m_matrix[1].x * Temp.m_matrix[2].y +
+                                     m_matrix[3].x * Temp.m_matrix[2].z);
+
+        Res.m_matrix[1].w = RDet * (m_matrix[0].x * Temp.m_matrix[3].x -
+                                    m_matrix[1].x * Temp.m_matrix[3].y +
+                                    m_matrix[2].x * Temp.m_matrix[3].z);
+
+        Res.m_matrix[2].x = RDet * (m_matrix[1].x * (m_matrix[2].y * m_matrix[3].w 
+                                    - m_matrix[2].w * m_matrix[3].y) -
+                                    m_matrix[2].x * (m_matrix[1].y * m_matrix[3].w 
+                                    - m_matrix[1].w * m_matrix[3].y) +
+                                    m_matrix[3].x * (m_matrix[1].y * m_matrix[2].w 
+                                    - m_matrix[1].w * m_matrix[2].y));
+
+        Res.m_matrix[2].y = -RDet * (m_matrix[0].x * (m_matrix[2].y * m_matrix[3].w 
+                                     - m_matrix[2].w * m_matrix[3].y) -
+                                     m_matrix[2].x * (m_matrix[0].y * m_matrix[3].w 
+                                     - m_matrix[0].w * m_matrix[3].y) +
+                                     m_matrix[3].x * (m_matrix[0].y * m_matrix[2].w 
+                                     - m_matrix[0].w * m_matrix[2].y));
+
+        Res.m_matrix[2].z = RDet * (m_matrix[0].x * (m_matrix[1].y * m_matrix[3].w 
+                                    - m_matrix[1].w * m_matrix[3].y) -
+                                    m_matrix[1].x * (m_matrix[0].y * m_matrix[3].w 
+                                    - m_matrix[0].w * m_matrix[3].y) +
+                                    m_matrix[3].x * (m_matrix[0].y * m_matrix[1].w 
+                                    - m_matrix[0].w * m_matrix[1].y));
+
+        Res.m_matrix[2].w = -RDet * (m_matrix[0].x * (m_matrix[1].y * m_matrix[2].w 
+                                     - m_matrix[1].w * m_matrix[2].y) -
+                                     m_matrix[1].x * (m_matrix[0].y * m_matrix[2].w 
+                                     - m_matrix[0].w * m_matrix[2].y) +
+                                     m_matrix[2].x * (m_matrix[0].y * m_matrix[1].w 
+                                     - m_matrix[0].w * m_matrix[1].y));
+
+        Res.m_matrix[3].x = -RDet * (m_matrix[1].x * (m_matrix[2].y * m_matrix[3].z 
+                                     - m_matrix[2].z * m_matrix[3].y) -
+                                     m_matrix[2].x * (m_matrix[1].y * m_matrix[3].z 
+                                     - m_matrix[1].z * m_matrix[3].y) +
+                                     m_matrix[3].x * (m_matrix[1].y * m_matrix[2].z 
+                                     - m_matrix[1].z * m_matrix[2].y));
+
+        Res.m_matrix[3].y = RDet * (m_matrix[0].x * (m_matrix[2].y * m_matrix[3].z 
+                                    - m_matrix[2].z * m_matrix[3].y) -
+                                    m_matrix[2].x * (m_matrix[0].y * m_matrix[3].z 
+                                    - m_matrix[0].z * m_matrix[3].y) +
+                                    m_matrix[3].x * (m_matrix[0].y * m_matrix[2].z 
+                                    - m_matrix[0].z * m_matrix[2].y));
+
+        Res.m_matrix[3].z = -RDet * (m_matrix[0].x * (m_matrix[1].y * m_matrix[3].z 
+                                     - m_matrix[1].z * m_matrix[3].y) -
+                                     m_matrix[1].x * (m_matrix[0].y * m_matrix[3].z 
+                                     - m_matrix[0].z * m_matrix[3].y) +
+                                     m_matrix[3].x * (m_matrix[0].y * m_matrix[1].z 
+                                     - m_matrix[0].z * m_matrix[1].y));
+
+        Res.m_matrix[3].w = RDet * (m_matrix[0].x * (m_matrix[1].y * m_matrix[2].z 
+                                    - m_matrix[1].z * m_matrix[2].y) -
+                                    m_matrix[1].x * (m_matrix[0].y * m_matrix[2].z 
+                                    - m_matrix[0].z * m_matrix[2].y) +
+                                    m_matrix[2].x * (m_matrix[0].y * m_matrix[1].z 
+                                    - m_matrix[0].z * m_matrix[1].y));
+      }
+    }
+   
+    return Res;
   }
 
   float 
-  Matrix4x4::determinant(const Matrix4x4& matrix) {
-    
-    
-
-
-    return 0.0f;
-  }
-
-  float 
-  Matrix4x4::cofactor(const Matrix3x3& matrix) {
-    return 0.0f;
+  Matrix4x4::determinant() {
+   
+    return	m_matrix[0].x * (
+      m_matrix[1].y * (m_matrix[2].z * m_matrix[3].w 
+                       - m_matrix[2].w * m_matrix[3].z) -
+      m_matrix[2].y * (m_matrix[1].z * m_matrix[3].w 
+                         - m_matrix[1].w * m_matrix[3].z) +
+      m_matrix[3].y * (m_matrix[1].z * m_matrix[2].w 
+                         - m_matrix[1].w * m_matrix[2].z)) -
+      m_matrix[1].x * (
+        m_matrix[0].y * (m_matrix[2].z * m_matrix[3].w 
+                           - m_matrix[2].w * m_matrix[3].z) -
+        m_matrix[2].y * (m_matrix[0].z * m_matrix[3].w 
+                           - m_matrix[0].w * m_matrix[3].z) +
+        m_matrix[3].y * (m_matrix[0].z * m_matrix[2].w 
+                           - m_matrix[0].w * m_matrix[2].z)) +
+      m_matrix[2].x * (
+        m_matrix[0].y * (m_matrix[1].z * m_matrix[3].w 
+                         - m_matrix[1].w * m_matrix[3].z) -
+        m_matrix[1].y * (m_matrix[0].z * m_matrix[3].w 
+                         - m_matrix[0].w * m_matrix[3].z) +
+        m_matrix[3].y * (m_matrix[0].z * m_matrix[1].w 
+                           - m_matrix[0].w * m_matrix[1].z)) -
+      m_matrix[3].x * (
+        m_matrix[0].y * (m_matrix[1].z * m_matrix[2].w 
+                         - m_matrix[1].w * m_matrix[2].z) -
+        m_matrix[1].y * (m_matrix[0].z * m_matrix[2].w 
+                         - m_matrix[0].w * m_matrix[2].z) +
+        m_matrix[2].y * (m_matrix[0].z * m_matrix[1].w 
+                           - m_matrix[0].w * m_matrix[1].z));
   }
 
   Matrix4x4
@@ -199,15 +351,15 @@ namespace xcEngineSDK {
 
     Vector3 negativeEye = -Eye;
     
-    /*return Matrix4x4(xAxis.m_x, yAxis.m_x, zAxis.m_x, 0,
-                     xAxis.m_y, yAxis.m_y, zAxis.m_y, 0,
-                     xAxis.m_z, yAxis.m_z, zAxis.m_z, 0,
+    /*return Matrix4x4(xAxis.x, yAxis.x, zAxis.x, 0,
+                     xAxis.y, yAxis.y, zAxis.y, 0,
+                     xAxis.z, yAxis.z, zAxis.z, 0,
                      xAxis.dot(xAxis, negativeEye), yAxis.dot(yAxis, negativeEye), 
                      zAxis.dot(zAxis, negativeEye), 1);*/
 
-    return Matrix4x4(xAxis.m_x, xAxis.m_y, xAxis.m_z, xAxis.dot(negativeEye),
-                     yAxis.m_x, yAxis.m_y, yAxis.m_z, yAxis.dot(negativeEye),
-                     zAxis.m_x, zAxis.m_y, zAxis.m_z, zAxis.dot(negativeEye),
+    return Matrix4x4(xAxis.x, xAxis.y, xAxis.z, xAxis.dot(negativeEye),
+                     yAxis.x, yAxis.y, yAxis.z, yAxis.dot(negativeEye),
+                     zAxis.x, zAxis.y, zAxis.z, zAxis.dot(negativeEye),
                      0, 0, 0, 1);
   }
   
@@ -232,36 +384,57 @@ namespace xcEngineSDK {
   Matrix4x4
   Matrix4x4::quatToMatRot(Quaternion& Quat) {
 
-    Matrix4x4 rotationMatrix;
-    rotationMatrix.m_matrix[0].m_x = 1 - 2 * (Math::pow(Quat.m_y, 2) 
-                                             + Math::pow(Quat.m_z, 2));
+    Matrix4x4 rotationMatrix = Matrix4x4::IDENTITY_MATRIX;
 
-    rotationMatrix.m_matrix[0].m_y = 2 * (Quat.m_x * Quat.m_y 
-                                          - Quat.m_w * Quat.m_z);
+    rotationMatrix.m_matrix[0].x = 1 - 2 * (Math::pow(Quat.y, 2) 
+                                           + Math::pow(Quat.z, 2));
 
-    rotationMatrix.m_matrix[0].m_z = 2 * (Quat.m_x * Quat.m_z 
-                                          + Quat.m_w * Quat.m_y);
+    rotationMatrix.m_matrix[0].y = 2 * (Quat.x * Quat.y 
+                                        - Quat.w * Quat.z);
 
-    rotationMatrix.m_matrix[1].m_x = 2 * (Quat.m_x * Quat.m_y 
-                                          + Quat.m_w * Quat.m_z);
+    rotationMatrix.m_matrix[0].z = 2 * (Quat.x * Quat.z 
+                                        + Quat.w * Quat.y);
 
-    rotationMatrix.m_matrix[1].m_y = 1 - 2 * (Math::pow(Quat.m_x, 2) 
-                                             + Math::pow(Quat.m_z, 2));
+    rotationMatrix.m_matrix[1].x = 2 * (Quat.x * Quat.y 
+                                        + Quat.w * Quat.z);
 
-    rotationMatrix.m_matrix[1].m_z = 2 * (Quat.m_y * Quat.m_z 
-                                          - Quat.m_w * Quat.m_x);
+    rotationMatrix.m_matrix[1].y = 1 - 2 * (Math::pow(Quat.x, 2) 
+                                           + Math::pow(Quat.z, 2));
 
-    rotationMatrix.m_matrix[2].m_x = 2 * (Quat.m_x * Quat.m_z 
-                                          - Quat.m_w * Quat.m_y);
+    rotationMatrix.m_matrix[1].z = 2 * (Quat.y * Quat.z 
+                                        - Quat.w * Quat.x);
 
-    rotationMatrix.m_matrix[2].m_y = 2 * (Quat.m_y * Quat.m_z 
-                                          + Quat.m_w * Quat.m_x);
+    rotationMatrix.m_matrix[2].x = 2 * (Quat.x * Quat.z 
+                                        - Quat.w * Quat.y);
 
-    rotationMatrix.m_matrix[2].m_z = 1 - 2 * (Math::pow(Quat.m_x, 2) 
-                                              + Math::pow(Quat.m_y, 2));
+    rotationMatrix.m_matrix[2].y = 2 * (Quat.y * Quat.z 
+                                        + Quat.w * Quat.x);
 
-    rotationMatrix.m_matrix[3].m_w = 1.0f;
+    rotationMatrix.m_matrix[2].z = 1 - 2 * (Math::pow(Quat.x, 2) 
+                                            + Math::pow(Quat.y, 2));
+
+    rotationMatrix.m_matrix[3].w = 1.0f;
     return rotationMatrix;
 
+  }
+
+  Vector3 
+  Matrix4x4::getScaledAxis(char Axis) const {
+    switch (Axis)
+    {
+    case 'x':
+      return Vector3(m_matrix[0].x, m_matrix[0].y, m_matrix[0].z);
+
+    case 'y':
+      return Vector3(m_matrix[1].x, m_matrix[1].y, m_matrix[1].z);
+
+    case 'z':
+      return Vector3(m_matrix[2].x, m_matrix[2].y, m_matrix[2].z);
+
+    default:
+      break;
+    }
+
+    return Vector3(0.0f, 0.0f, 0.0f);
   }
 }

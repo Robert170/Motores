@@ -5,40 +5,40 @@ namespace xcEngineSDK {
   Vector3
   Vector3::operator + (const Vector3& V) {
 
-    return Vector3(m_x + V.m_x, 
-                   m_y + V.m_y, 
-                   m_z + V.m_z);
+    return Vector3(x + V.x, 
+                   y + V.y, 
+                   z + V.z);
   }
 
   Vector3
   Vector3::operator - (const Vector3& V) {
 
-    return Vector3(m_x - V.m_x, 
-                   m_y - V.m_y, 
-                   m_z - V.m_z);
+    return Vector3(x - V.x, 
+                   y - V.y, 
+                   z - V.z);
   }
 
   Vector3
   Vector3::operator * (const Vector3& V) {
 
-    return Vector3(m_x * V.m_x, 
-                   m_y * V.m_y, 
-                   m_z * V.m_z);
+    return Vector3(x * V.x, 
+                   y * V.y, 
+                   z * V.z);
   }
 
   Vector3&
   Vector3::operator=(const Vector3& V) {
 
-    m_x = V.m_x;
-    m_y = V.m_y;
-    m_z = V.m_z;
+    x = V.x;
+    y = V.y;
+    z = V.z;
     return *this;
   }
 
   bool
   Vector3::operator==(const Vector3& V) {
 
-    if (m_x == V.m_x && m_y == V.m_y && m_z == V.m_z) {
+    if (x == V.x && y == V.y && z == V.z) {
       return true;
     }
     else {
@@ -49,25 +49,25 @@ namespace xcEngineSDK {
   Vector3
   Vector3::operator + (const float& V) {
 
-    return Vector3(m_x + V, m_y + V, m_z + V);
+    return Vector3(x + V, y + V, z + V);
   }
 
   Vector3
   Vector3::operator - (const float& V) {
 
-    return Vector3(m_x - V, m_y - V, m_z - V);
+    return Vector3(x - V, y - V, z - V);
   }
 
   Vector3
   Vector3::operator * (const float& V) {
 
-    return Vector3(m_x * V, m_y * V, m_z * V);
+    return Vector3(x * V, y * V, z * V);
   }
 
   Vector3
   Vector3::operator / (const float& V) {
 
-    return Vector3(m_x / V, m_y / V, m_z / V);
+    return Vector3(x / V, y / V, z / V);
   }
 
   Vector3
@@ -102,9 +102,9 @@ namespace xcEngineSDK {
     if (Temp != 0) {
       //divide the vector whit temp
       
-      this->m_x = m_x / Temp;
-      this->m_y = m_y / Temp;
-      this->m_z= m_z / Temp;
+      this->x = x / Temp;
+      this->y = y / Temp;
+      this->z= z / Temp;
       return *this; 
     }
     else {
@@ -114,7 +114,7 @@ namespace xcEngineSDK {
 
   float
   Vector3::magnitud() {
-    return sqrtf(powf(m_x, 2) + powf(m_y, 2) + powf(m_z, 2));
+    return sqrtf(powf(x, 2) + powf(y, 2) + powf(z, 2));
   }
 
   Vector3
@@ -125,21 +125,30 @@ namespace xcEngineSDK {
   float 
   Vector3::dot(Vector3& VetorB) {
 
-    return (this->m_x * VetorB.m_x) +
-           (this->m_y * VetorB.m_y) +
-           (this->m_z * VetorB.m_z);
+    return (this->x * VetorB.x) +
+           (this->y * VetorB.y) +
+           (this->z * VetorB.z);
   }
 
   Vector3
   Vector3::cross(Vector3& VectorB) {
 
-    return Vector3(((this->m_y * VectorB.m_z) - (this->m_z * VectorB.m_y)),
-                   ((this->m_z * VectorB.m_x) - (this->m_x * VectorB.m_z)),
-                   ((this->m_x * VectorB.m_y) - (this->m_y * VectorB.m_x)));
+    return Vector3(((this->y * VectorB.z) - (this->z * VectorB.y)),
+                   ((this->z * VectorB.x) - (this->x * VectorB.z)),
+                   ((this->x * VectorB.y) - (this->y * VectorB.x)));
   }
 
   Vector3 
   Vector3::operator-() const {
-    return Vector3(-m_x, -m_y, -m_z);
+    return Vector3(-x, -y, -z);
+  }
+
+  bool
+  Vector3::isNearlyZero(float tolerance) const {
+
+    
+    return  Math::abs(x) < tolerance &&
+            Math::abs(y) < tolerance &&
+            Math::abs(z) < tolerance;
   }
 }

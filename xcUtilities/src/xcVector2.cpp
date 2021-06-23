@@ -6,33 +6,33 @@ namespace xcEngineSDK {
 	Vector2
 	Vector2::operator + (const Vector2& V) {
 
-		return Vector2(m_x + V.m_x, m_y + V.m_y);
+		return Vector2(x + V.x, y + V.y);
 	}
 
 	Vector2
 	Vector2::operator-(const Vector2& V) {
 
-		return Vector2(m_x - V.m_x, m_y - V.m_y);
+		return Vector2(x - V.x, y - V.y);
 	}
 
 	Vector2
 	Vector2::operator*(const Vector2& V) {
 
-		return Vector2(m_x * V.m_x, m_y * V.m_y);
+		return Vector2(x * V.x, y * V.y);
 	}
 
 
 	Vector2&
 	Vector2::operator=(const Vector2& V) {
-		m_x = V.m_x;
-		m_y = V.m_y;
+		x = V.x;
+		y = V.y;
 		return *this;
 	}
 
 	bool
 	Vector2::operator == (const Vector2& V) {
 
-		if (m_x == V.m_x && m_y == V.m_y) {
+		if (x == V.x && y == V.y) {
 			return true;
 		}
 		else {
@@ -43,48 +43,48 @@ namespace xcEngineSDK {
 	Vector2
 	Vector2::operator + (const float& V) {
 
-		return Vector2(m_x + V, m_y + V);
+		return Vector2(x + V, y + V);
 	}
 
 	Vector2
 	Vector2::operator - (const float& V) {
 
-		return Vector2(m_x - V, m_y - V);
+		return Vector2(x - V, y - V);
 	}
 
 	Vector2
 	Vector2::operator * (const float& V) {
 
-		return Vector2(m_x * V, m_y * V);
+		return Vector2(x * V, y * V);
 	}
 
 	Vector2
 	Vector2::operator / (const float& V) {
 
-		return Vector2(m_x / V, m_y / V);
+		return Vector2(x / V, y / V);
 	}
 
 	Vector2&
 	Vector2::operator += (const Vector2& V) {
 
-		m_x += V.m_x;
-		m_y += V.m_y;
+		x += V.x;
+		y += V.y;
 		return *this;
 	}
 
 	Vector2&
 	Vector2::operator -= (const Vector2& V) {
 
-		m_x -= V.m_x;
-		m_y -= V.m_y;
+		x -= V.x;
+		y -= V.y;
 		return *this;
 	}
 
 	Vector2&
 	Vector2::operator *= (const Vector2& V) {
 
-		m_x *= V.m_x;
-		m_y *= V.m_y;
+		x *= V.x;
+		y *= V.y;
 		return *this;
 	}
 
@@ -94,8 +94,8 @@ namespace xcEngineSDK {
 
 		if (Temp != 0) {
 			//divide the vector whit temp
-			this->m_x = m_x / Temp;
-			this->m_y = m_y / Temp;
+			this->x = x / Temp;
+			this->y = y / Temp;
 			return *this;
 		}
 		else {
@@ -105,7 +105,7 @@ namespace xcEngineSDK {
 
 	float 
 	Vector2::magnitud() {
-		float x= sqrtf(powf(m_x, 2) + powf(m_y, 2));
+		float x= sqrtf(powf(x, 2) + powf(y, 2));
 		return x;
 	}
 
@@ -119,12 +119,12 @@ namespace xcEngineSDK {
 	float 
 	Vector2::dot(Vector2& VectorB) {
 
-		return (this->m_x * VectorB.m_x) + (this->m_y * VectorB.m_y);
+		return (this->x * VectorB.x) + (this->y * VectorB.y);
 	}
 
 	float
 	Vector2::cross(Vector2& VectorB) {
 
-		return (this->m_x * VectorB.m_y) - (this->m_y * VectorB.m_x);
+		return (this->x * VectorB.y) - (this->y * VectorB.x);
 	}
 }

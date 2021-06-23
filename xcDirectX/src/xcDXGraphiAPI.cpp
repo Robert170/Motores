@@ -351,9 +351,24 @@ namespace xcEngineSDK {
     CD3D11_BUFFER_DESC BufferDesc(BufferSize,
                                   D3D11_BIND_CONSTANT_BUFFER);
 
-    HRESULT hr = m_pd3dDevice->CreateBuffer(&BufferDesc,
-                                            nullptr,
-                                            &ConsBuffer->m_pConstantBuffer);
+    HRESULT hr;
+    if (nullptr !=  Data) {
+
+      D3D11_SUBRESOURCE_DATA dataBuffer;
+      ZeroMemory(&dataBuffer, sizeof(dataBuffer));
+      dataBuffer.pSysMem = Data;
+
+      hr = m_pd3dDevice->CreateBuffer(&BufferDesc,
+                                      &dataBuffer,
+                                      &ConsBuffer->m_pConstantBuffer);
+    }
+    else {
+      hr = m_pd3dDevice->CreateBuffer(&BufferDesc,
+                                      nullptr,
+                                      &ConsBuffer->m_pConstantBuffer);
+
+    }
+
     if (FAILED(hr)) {
       std::cout << "//Error fallo la creacion del Constant buffer Never" << std::endl;
       return nullptr;
@@ -476,6 +491,7 @@ namespace xcEngineSDK {
 
     auto ShaderProgram = new ShaderProgramDX();
 
+    //TODO EL VS y PS dben ser objetos
     //vertexShder
     std::string Temp = FileNameVS + "_DX.txt";
     ShaderProgram->m_vertexShaderProgram = new VertexShaderDX();
@@ -648,7 +664,7 @@ namespace xcEngineSDK {
       if ("POSITION" == LayoutDesc.Semantics.at(i)) {
         layout.push_back({ "POSITION",
                            SemanticIndexPosition,
-                           DXGI_FORMAT_R32G32B32_FLOAT,
+                           (DXGI_FORMAT)LayoutDesc.Formats[i],
                            0,
                            D3D11_APPEND_ALIGNED_ELEMENT,
                            D3D11_INPUT_PER_VERTEX_DATA,
@@ -658,7 +674,7 @@ namespace xcEngineSDK {
       else if ("TEXCOORD" == LayoutDesc.Semantics.at(i)) {
         layout.push_back({ "TEXCOORD",
                            SemanticIndexTexcoord,
-                           DXGI_FORMAT_R32G32_FLOAT,
+                           (DXGI_FORMAT)LayoutDesc.Formats[i],
                            0,
                            D3D11_APPEND_ALIGNED_ELEMENT,
                            D3D11_INPUT_PER_VERTEX_DATA,
@@ -668,7 +684,7 @@ namespace xcEngineSDK {
       else if ("COLOR" == LayoutDesc.Semantics.at(i)) {
         layout.push_back({ "COLOR",
                            SemanticIndexColor,
-                           DXGI_FORMAT_R32G32B32_FLOAT,
+                           (DXGI_FORMAT)LayoutDesc.Formats[i],
                            0,
                            D3D11_APPEND_ALIGNED_ELEMENT,
                            D3D11_INPUT_PER_VERTEX_DATA,
@@ -678,7 +694,7 @@ namespace xcEngineSDK {
       else if ("NORMAL" == LayoutDesc.Semantics.at(i)) {
         layout.push_back({ "NORMAL",
                            SemanticIndexNormal,
-                           DXGI_FORMAT_R32G32B32_FLOAT,
+                           (DXGI_FORMAT)LayoutDesc.Formats[i],
                            0,
                            D3D11_APPEND_ALIGNED_ELEMENT,
                            D3D11_INPUT_PER_VERTEX_DATA,
@@ -688,7 +704,7 @@ namespace xcEngineSDK {
       else if ("BLENDINDICES" == LayoutDesc.Semantics.at(i)) {
         layout.push_back({ "BLENDINDICES",
                            SemanticID,
-                           DXGI_FORMAT_R32G32B32_SINT,
+                           (DXGI_FORMAT)LayoutDesc.Formats[i],
                            0,
                            D3D11_APPEND_ALIGNED_ELEMENT,
                            D3D11_INPUT_PER_VERTEX_DATA,
@@ -698,7 +714,7 @@ namespace xcEngineSDK {
       else if ("BLENDWEIGHT" == LayoutDesc.Semantics.at(i)) {
         layout.push_back({ "BLENDWEIGHT",
                            SemanticWeight,
-                           DXGI_FORMAT_R32G32B32_FLOAT,
+                           (DXGI_FORMAT)LayoutDesc.Formats[i],
                            0,
                            D3D11_APPEND_ALIGNED_ELEMENT,
                            D3D11_INPUT_PER_VERTEX_DATA,
@@ -717,8 +733,7 @@ namespace xcEngineSDK {
 
     VertexShaderBlob.m_vertexShaderProgram->m_pVSBlob->Release();
 
-    if (FAILED(hr))
-    {
+    if (FAILED(hr)) {
       std::cout << "//error fallo la creacion del Input layout" << std::endl;
       return nullptr;
     }
@@ -729,6 +744,124 @@ namespace xcEngineSDK {
   }
 
   //function to create a sampler state
+
+  InputLayout* 
+  DXGraphiAPI::createAutomaticInputLayout(ShaderProgram& VS) {
+      // Reflect shader info
+    ID3D11ShaderReflection* pVertexShaderReflection = nullptr;
+
+    ShaderProgramDX& vsBlob = reinterpret_cast<ShaderProgramDX&>(VS);
+
+    InputLayoutDX* InputLayout = new InputLayoutDX();
+
+
+    if (FAILED(D3DReflect(vsBlob.m_vertexShaderProgram->m_pVSBlob->GetBufferPointer(),
+        vsBlob.m_vertexShaderProgram->m_pVSBlob->GetBufferSize(),
+        IID_ID3D11ShaderReflection, (void**) &pVertexShaderReflection)))  {
+
+       //TODO Clase de obtencion de errores
+        return nullptr;
+    }
+ 
+    // Get shader info
+    D3D11_SHADER_DESC shaderDesc;
+    pVertexShaderReflection->GetDesc( &shaderDesc );
+ 
+    // Read input layout description from shader info
+    Vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;
+
+    for ( uint32 i=0; i< shaderDesc.InputParameters; i++ ) {
+
+        D3D11_SIGNATURE_PARAMETER_DESC paramDesc;
+        pVertexShaderReflection->GetInputParameterDesc(i, &paramDesc );
+ 
+        // fill out input element desc
+        D3D11_INPUT_ELEMENT_DESC elementDesc;
+        elementDesc.SemanticName = paramDesc.SemanticName;
+        elementDesc.SemanticIndex = paramDesc.SemanticIndex;
+        elementDesc.InputSlot = 0;
+        elementDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+        elementDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+        elementDesc.InstanceDataStepRate = 0;   
+ 
+        // determine DXGI format
+        if ( paramDesc.Mask == 1 ) {
+
+          if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) {
+
+            elementDesc.Format = DXGI_FORMAT_R32_UINT;
+          }
+
+          else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) { 
+
+            elementDesc.Format = DXGI_FORMAT_R32_SINT; 
+
+          }
+          else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) { 
+            elementDesc.Format = DXGI_FORMAT_R32_FLOAT; 
+          }
+        }
+        else if ( paramDesc.Mask <= 3 ) {
+
+          if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) { 
+            elementDesc.Format = DXGI_FORMAT_R32G32_UINT; 
+          }
+          else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) { 
+            elementDesc.Format = DXGI_FORMAT_R32G32_SINT; 
+          }
+          else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) { 
+            elementDesc.Format = DXGI_FORMAT_R32G32_FLOAT; 
+          }
+        }
+        else if ( paramDesc.Mask <= 7 ) {
+          if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) {
+            elementDesc.Format = DXGI_FORMAT_R32G32B32_UINT;
+          }
+          else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) {
+            elementDesc.Format = DXGI_FORMAT_R32G32B32_SINT;
+          }
+          else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) {
+            elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+          }
+        }
+        else if ( paramDesc.Mask <= 15 ) {
+          if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) {
+            elementDesc.Format = DXGI_FORMAT_R32G32B32A32_UINT;
+          }
+          else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) {
+            elementDesc.Format = DXGI_FORMAT_R32G32B32A32_SINT;
+          }
+          else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) {
+            elementDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+          }
+        }
+ 
+        //save element desc
+        inputLayoutDesc.push_back(elementDesc);
+    }       
+ 
+    // Try to create Input Layout
+    HRESULT hr = m_pd3dDevice->CreateInputLayout(&inputLayoutDesc[0], 
+                                                 inputLayoutDesc.size(), 
+                                                 vsBlob.m_vertexShaderProgram->
+                                                 m_pVSBlob->GetBufferPointer(), 
+                                                 vsBlob.m_vertexShaderProgram->
+                                                 m_pVSBlob->GetBufferSize(), 
+                                                 &InputLayout->m_pInputLayout);
+
+    vsBlob.m_vertexShaderProgram->m_pVSBlob->Release();
+
+    //Free allocation shader reflection memory
+    pVertexShaderReflection->Release();
+
+    if (FAILED(hr)) {
+      std::cout << "//error fallo la creacion del Input layout" << std::endl;
+      return nullptr;
+    }
+ 
+
+    return InputLayout;
+  }
 
   //faltan parametros
   SamplerState* 
@@ -758,11 +891,14 @@ namespace xcEngineSDK {
     return RasState;
   }
 
+
+  //TODO multiples buffers, vector de constantbuffer, tantro para VS y PS
   //function to set a constant buffer of vertex shader
   void 
   DXGraphiAPI::setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-    uint32 StartSlot,
-    uint32 NumBuffer) {
+                                             uint32 StartSlot,
+                                             uint32 NumBuffer) {
+
     auto* Buffer = reinterpret_cast<ConstantBufferDX*>(ConstBuff);
     m_pImmediateContext->VSSetConstantBuffers(StartSlot,
                                               NumBuffer,
@@ -913,6 +1049,9 @@ namespace xcEngineSDK {
     XC_UNREFERENCED_PARAMETER(StartSlot);
   }
 
+
+  //TODO Prfundidad minima y maxima, cambiar el orden de los parametros
+  // Poder crerar más de un viewport
   //function to set a viewport 
   void 
   DXGraphiAPI::setViewport(uint32 NumViewport,
@@ -1015,7 +1154,6 @@ namespace xcEngineSDK {
   TextureB* 
   DXGraphiAPI::textureFromFile(String path,
                                const String& directory,
-                               GraphiAPI* API,
                                bool gamma) {
 
     auto texture = new TextureB();

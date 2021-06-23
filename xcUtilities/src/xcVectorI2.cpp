@@ -6,33 +6,33 @@ namespace xcEngineSDK {
 
   VectorI2
   VectorI2::operator+(const VectorI2& V) {
-    return VectorI2(m_x + V.m_x, m_y + V.m_y);
+    return VectorI2(x + V.x, y + V.y);
   }
 
 
   VectorI2
   VectorI2::operator-(const VectorI2& V) {
 
-    return VectorI2(m_x - V.m_x, m_y - V.m_y);
+    return VectorI2(x - V.x, y - V.y);
   }
 
   VectorI2
   VectorI2::operator*(const VectorI2& V) {
 
-    return VectorI2(m_x * V.m_x, m_y * V.m_y);
+    return VectorI2(x * V.x, y * V.y);
   }
 
   VectorI2
   VectorI2::operator=(const VectorI2& V) {
-    m_x = V.m_x;
-    m_y = V.m_y;
+    x = V.x;
+    y = V.y;
     return *this;
   }
 
   bool
   VectorI2::operator==(const VectorI2& V) {
 
-    if (m_x == V.m_x && m_y == V.m_y) {
+    if (x == V.x && y == V.y) {
       return true;
     }
     else {
@@ -43,48 +43,48 @@ namespace xcEngineSDK {
   VectorI2
   VectorI2::operator+(const int32& V) {
 
-    return VectorI2(m_x + V, m_y + V);
+    return VectorI2(x + V, y + V);
   }
 
   VectorI2
   VectorI2::operator-(const int32& V) {
 
-    return VectorI2(m_x - V, m_y - V);
+    return VectorI2(x - V, y - V);
   }
 
   VectorI2
   VectorI2::operator*(const int32& V) {
 
-    return VectorI2(m_x * V, m_y * V);
+    return VectorI2(x * V, y * V);
   }
 
   VectorI2
   VectorI2::operator/(const int32& V) {
 
-    return VectorI2(m_x / V, m_y / V);
+    return VectorI2(x / V, y / V);
   }
 
   VectorI2&
   VectorI2::operator +=(const VectorI2& V) {
 
-    m_x += V.m_x;
-    m_y += V.m_y;
+    x += V.x;
+    y += V.y;
     return *this;
   }
 
   VectorI2&
   VectorI2::operator -= (const VectorI2& V)
   {
-    m_x -= V.m_x;
-    m_y -= V.m_y;
+    x -= V.x;
+    y -= V.y;
     return *this;
   }
 
   VectorI2&
   VectorI2::operator *= (const VectorI2& V) {
 
-    m_x *= V.m_x;
-    m_y *= V.m_y;
+    x *= V.x;
+    y *= V.y;
     return *this;
   }
 
@@ -100,8 +100,8 @@ namespace xcEngineSDK {
 
     if (Temp != 0) {
       //divide the vector whit temp
-      this->m_x = this->m_x / Temp;
-      this->m_x = this->m_y / Temp;
+      this->x = this->x / Temp;
+      this->x = this->y / Temp;
       return *this;
     }
     else {
@@ -111,7 +111,7 @@ namespace xcEngineSDK {
 
   int32
   VectorI2::magnitud() {
-    return int32(sqrt(m_x * m_x + m_y * m_y));
+    return int32(sqrt(x * x + y * y));
   }
 
   VectorI2
@@ -125,6 +125,6 @@ namespace xcEngineSDK {
   int32
   VectorI2::dot(VectorI2& VetorB) {
 
-    return (this->m_x * VetorB.m_x) + (this->m_y * VetorB.m_y);
+    return (this->x * VetorB.x) + (this->y * VetorB.y);
   }
 }

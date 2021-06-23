@@ -3,7 +3,7 @@
 #include <xcBaseApp.h>
 #include <xcModel.h>
 
-namespace xcEngineSDK {
+//namespace xcEngineSDK {
 
   struct CBNeverChanges
   {
@@ -12,6 +12,12 @@ namespace xcEngineSDK {
     Matrix4x4 mWorld;
     Vector4 vMeshColor;
   };
+
+  struct CBBones
+  {
+    Matrix4x4 Bones_CB[200];
+  };
+
 
 	class GameAppUnitTest : public BaseApp
 	{
@@ -58,6 +64,7 @@ namespace xcEngineSDK {
 		Vector<String> m_semanticNames;
     Vector<String> m_vSemanticNames;
     Vector<uint32> m_vFormats;
+    Vector<Matrix4x4> m_transform;
 
     //Shader
     VertexShader* m_vertexShader = nullptr;
@@ -70,6 +77,7 @@ namespace xcEngineSDK {
     //VertexBuffer* m_pVertexBuffer = nullptr;
     //IndexBuffer* m_pIndexBuffer = nullptr;
     ConstantBuffer* m_cbNeverChanges = nullptr;
+    ConstantBuffer* m_cbBonesAnimation = nullptr;
 
     //Sampler
     SamplerState* m_samplerState = nullptr;
@@ -89,8 +97,10 @@ namespace xcEngineSDK {
 
     CBNeverChanges m_constantBuffer;
 
+    CBBones m_bonesBuffer;
+
     Camera m_camera;
 
 	};
 
-}
+//}

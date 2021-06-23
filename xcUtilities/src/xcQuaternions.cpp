@@ -7,49 +7,49 @@ namespace xcEngineSDK {
   Quaternion 
   Quaternion::operator+(const Quaternion& quaternion) {
 
-    return Quaternion(m_x + quaternion.m_x,
-                      m_y + quaternion.m_y,
-                      m_z + quaternion.m_z,
-                      m_w + quaternion.m_w);
+    return Quaternion(x + quaternion.x,
+                      y + quaternion.y,
+                      z + quaternion.z,
+                      w + quaternion.w);
   }
 
   Quaternion 
   Quaternion::operator-(const Quaternion& quaternion) {
     
-    return Quaternion(m_x - quaternion.m_x,
-                      m_y - quaternion.m_y,
-                      m_z - quaternion.m_z,
-                      m_w - quaternion.m_w);
+    return Quaternion(x - quaternion.x,
+                      y - quaternion.y,
+                      z - quaternion.z,
+                      w - quaternion.w);
   }
 
   Quaternion 
   Quaternion::operator*(const Quaternion& quaternion) {
 
-    Vector3 VecA(m_x, m_y, m_z);
-    Vector3 VecB(quaternion.m_x, quaternion.m_y, quaternion.m_z);
-    Vector3 VecResult = (VecB * m_w) + (VecA * quaternion.m_w) + VecA.cross(VecB);
+    Vector3 VecA(x, y, z);
+    Vector3 VecB(quaternion.x, quaternion.y, quaternion.z);
+    Vector3 VecResult = (VecB * w) + (VecA * quaternion.w) + VecA.cross(VecB);
 
-    float tempW = (m_w * quaternion.m_w) - VecA.dot(VecB);
+    float tempW = (w * quaternion.w) - VecA.dot(VecB);
                                             
-    return Quaternion(VecResult.m_x, VecResult.m_y, VecResult.m_z, tempW);
+    return Quaternion(VecResult.x, VecResult.y, VecResult.z, tempW);
   }
 
   Quaternion 
   Quaternion::operator*(const float& scalar) {
 
-    return Quaternion(scalar * m_x,
-                      scalar * m_y,
-                      scalar * m_z,
-                      scalar * m_w);
+    return Quaternion(scalar * x,
+                      scalar * y,
+                      scalar * z,
+                      scalar * w);
   }
 
   //MAGNITUD
   float 
   Quaternion::magnitud() {
-    return Math::sqrt(Math::pow(m_w, 2) +
-                      Math::pow(m_x, 2) +
-                      Math::pow(m_y, 2) +
-                      Math::pow(m_z, 2));
+    return Math::sqrt(Math::pow(w, 2) +
+                      Math::pow(x, 2) +
+                      Math::pow(y, 2) +
+                      Math::pow(z, 2));
   }
 
   Quaternion& 
@@ -90,20 +90,20 @@ namespace xcEngineSDK {
   Quaternion& 
   Quaternion::operator=(const Quaternion& quaternion) {
 
-    m_x = quaternion.m_x;
-    m_y = quaternion.m_y;
-    m_z = quaternion.m_z;
-    m_w = quaternion.m_w;
+    x = quaternion.x;
+    y = quaternion.y;
+    z = quaternion.z;
+    w = quaternion.w;
     return *this;
   }
 
   bool 
   Quaternion::operator==(const Quaternion& quaternion) {
 
-    if (m_x == quaternion.m_x &&
-        m_y == quaternion.m_y &&
-        m_z == quaternion.m_z &&
-        m_w == quaternion.m_w) {
+    if (x == quaternion.x &&
+        y == quaternion.y &&
+        z == quaternion.z &&
+        w == quaternion.w) {
 
       return true;
     }

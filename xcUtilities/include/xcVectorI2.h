@@ -36,8 +36,8 @@ namespace xcEngineSDK {
 		/**
 		 * @brief constructor of  int32
 		 */
-		VectorI2(int32 x, int32 y = 0)
-			       :m_x(x), m_y(y) { };
+		VectorI2(int32 _x, int32 _y = 0)
+			       :x(_x), y(_y) { };
 
 		/**
 		 * @brief      + operator overload
@@ -204,14 +204,14 @@ namespace xcEngineSDK {
 		 */
 
 	  /**
-		 * @Variable m_x
+		 * @Variable x
 		 */
-		int32 m_x;
+		int32 x;
 
 		/**
-		 * @Variable m_y
+		 * @Variable y
 		 */
-		int32 m_y;
+		int32 y;
 
 	};
 }

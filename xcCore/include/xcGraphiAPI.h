@@ -1,9 +1,9 @@
 /**
  * @class CGraphiAPI
  *
- * @brief class base for the GraphiApi
+ * @brief class base for the GraphiAPI
  *
- * This class is the base for graphiapi of Directx and opengl
+ * This class is the base for GraphiAPI of Directx and opengl
  *
  * @author Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
  *
@@ -252,8 +252,9 @@ namespace xcEngineSDK {
 
 
   struct BoneVertex {
-    Vector3 Position;
-    Vector4 bonesWeight;
+    Vector4 Position;
+    Vector2 TexCoords;
+    Vector4 bonesWeight = { 0,0,0,0 };
     uint32 id_Bones[4] = { 0 };
   };
 
@@ -305,7 +306,7 @@ namespace xcEngineSDK {
     float Fov;
   };
 
-  class XC_CORE_EXPORT GraphiAPI : public Module<GraphiAPI>
+  class XC_CORE_EXPORT GraphicsAPI : public Module<GraphicsAPI>
   {
    protected:
     /**
@@ -343,15 +344,15 @@ namespace xcEngineSDK {
    public:
 
     /// Default Constructor
-    GraphiAPI() = default;
+     GraphicsAPI() = default;
 
     /// Destructor
-    ~GraphiAPI() = default;
+    ~GraphicsAPI() = default;
 
 
     FORCEINLINE void
-    setObject(GraphiAPI* api) {
-      GraphiAPI::_instance() = api;
+    setObject(GraphicsAPI* api) {
+      GraphicsAPI::_instance() = api;
     }
 
     /**
@@ -586,6 +587,16 @@ namespace xcEngineSDK {
     createInputLayout(ShaderProgram&,
                       InputLayout_Desc&,
                       uint32 = 0) { return nullptr; }; //no va
+
+    /**
+     * @brief      createAutomaticInputLayout function, to create an automatic 
+     *             input layout
+     * @param      Vertex parameter one, a pointer of vertex shader for use his blop
+     * @bug		     No know Bugs
+     * @return     Returns a pointer of CInputLayout
+     */
+    virtual InputLayout* 
+    createAutomaticInputLayout(ShaderProgram&) { return nullptr; };
 
 
     /**
@@ -855,7 +866,6 @@ namespace xcEngineSDK {
     virtual TextureB*
     textureFromFile(String path,
                     const String& directory,
-                    GraphiAPI* API,
                     bool gamma = false) {return nullptr;};
 
 
@@ -947,15 +957,17 @@ namespace xcEngineSDK {
   /**
    * @brief export the instance 
    */
-  XC_CORE_EXPORT GraphiAPI& g_graphiAPI();
+  XC_CORE_EXPORT GraphicsAPI& g_GraphicsAPI();
 
   /**
-   * @Variable funProtoGraphiApi, instance of the class
+   * @Variable funProtoGraphiAPI, instance of the class
    */
-  using funProtoGraphiApi = GraphiAPI * (*)();
+  using funProtoGraphiAPI = GraphicsAPI * (*)();
 
   
 
 }
+
+
 
 

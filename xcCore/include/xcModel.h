@@ -33,7 +33,6 @@ namespace xcEngineSDK {
     ~Model() = default;
 
     Model(String const& path,
-          GraphiAPI* API,
           bool gamma = false);
 
 
@@ -45,17 +44,15 @@ namespace xcEngineSDK {
 
     // draws the model, and thus all its meshes
     void 
-    draw(ShaderProgram& shader, 
-         GraphiAPI* API);
+    draw(ShaderProgram& shader);
 
     void
-    update(float delta);
+    update(float delta, Vector<Matrix4x4>& transform);
 
    private:
 
     void 
-    loadModel(String const& path, 
-              GraphiAPI* API);
+    loadModel(String const& path);
 
     /**
        * @brief      processNode function, to process node of the model
@@ -67,8 +64,7 @@ namespace xcEngineSDK {
      */
     void 
     processNode(aiNode* node, 
-                const aiScene* scene, 
-                GraphiAPI* API);
+                const aiScene* scene);
 
     /**
        * @brief      processMesh function, to process node of the mesh
@@ -80,8 +76,7 @@ namespace xcEngineSDK {
      */
     Mesh 
     processMesh(aiMesh* mesh, 
-                const aiScene* scene, 
-                GraphiAPI* API);
+                const aiScene* scene);
 
     /**
       * @brief      LoadMaterialTextures function, to load material of the model
@@ -95,8 +90,7 @@ namespace xcEngineSDK {
     void 
     loadMaterialTextures(aiMaterial* mat,
                          aiTextureType type, 
-                         String typeName,
-                         GraphiAPI* API);
+                         String typeName);
 
 
     String 
@@ -140,7 +134,7 @@ namespace xcEngineSDK {
        * @Variable m_Sampler, sampler of model
      */
      SamplerState* m_sampler;
-
+     Assimp::Importer m_importer;
      const aiScene* m_scene;
 
      Mesh* m_mesh = nullptr;

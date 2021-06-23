@@ -20,7 +20,7 @@
 #include "xcPrerequisitesOGL.h"
 
 namespace xcEngineSDK {
-	class XC_CORE_EXPORT OGLGraphiAPI : public GraphiAPI
+	class XC_CORE_EXPORT OGLGraphiAPI : public GraphicsAPI
 	{
 	 private:
 
@@ -305,6 +305,16 @@ namespace xcEngineSDK {
 			                InputLayout_Desc& LayoutDesc,
 			                uint32 NumInputLayout = 0) override; //no va
 
+		 /**
+     * @brief      createAutomaticInputLayout function, to create an automatic 
+     *             input layout
+     * @param      Vertex parameter one, a pointer of vertex shader for use his blop
+     * @bug		     No know Bugs
+     * @return     Returns a pointer of CInputLayout
+     */
+    virtual InputLayout* 
+    createAutomaticInputLayout(ShaderProgram& VS);
+
 		/**
      * @brief      createSamplerState function, to create the sampler state
      * @param      NumSamplerState parameter two, number of sampler state
@@ -571,7 +581,6 @@ namespace xcEngineSDK {
     TextureB*
     textureFromFile(String path,
                     const String& directory,
-                    GraphiAPI* API,
                     bool gamma) override;
 
 		//draw
@@ -645,11 +654,11 @@ namespace xcEngineSDK {
 		destroy() override;
 	};
 
-  extern "C" XC_PLUGIN_EXPORT GraphiAPI * createGraphisAPI() {
+  extern "C" XC_PLUGIN_EXPORT GraphicsAPI * createGraphisAPI() {
 
-    auto m_oglGraphiApi = new OGLGraphiAPI();
+    auto m_oglGraphiAPI = new OGLGraphiAPI();
 
-    return m_oglGraphiApi;
+    return m_oglGraphiAPI;
 
   }
 

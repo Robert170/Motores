@@ -67,51 +67,51 @@ TEST(xcUtilities, Vector2_Math) {
   Vector2 y(2.0f, 2.0f);
   Vector2 z = x + y;
 
-  EXPECT_FLOAT_EQ(z.m_x, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 6.0f);
+  EXPECT_FLOAT_EQ(z.x, 6.0f);
+  EXPECT_FLOAT_EQ(z.y, 6.0f);
 
   z = x - y;
-  EXPECT_FLOAT_EQ(z.m_x, 2.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 2.0f);
+  EXPECT_FLOAT_EQ(z.x, 2.0f);
+  EXPECT_FLOAT_EQ(z.y, 2.0f);
 
   z = x * y;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
 
   z = x;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
 
   EXPECT_TRUE(z == x);
 
 
   z = z + 2;
-  EXPECT_FLOAT_EQ(z.m_x, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 6.0f);
+  EXPECT_FLOAT_EQ(z.x, 6.0f);
+  EXPECT_FLOAT_EQ(z.y, 6.0f);
 
   z = z - 2;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
 
   z = z * 2;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
 
   z = z / 2;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
 
   z += x;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
 
   z -= x;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
 
   z *= x;
-  EXPECT_FLOAT_EQ(z.m_x, 16.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 16.0f);
+  EXPECT_FLOAT_EQ(z.x, 16.0f);
+  EXPECT_FLOAT_EQ(z.y, 16.0f);
 
   Vector2 a(1.0f, 2.0f);
   Vector2 b(1.0f, 5.0f);
@@ -127,70 +127,70 @@ TEST(xcUtilities, Vector3_Math) {
   Vector3 y(2.0f, 2.0f, 2.0f);
   Vector3 z = x + y;
 
-  EXPECT_FLOAT_EQ(z.m_x, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 6.0f);
+  EXPECT_FLOAT_EQ(z.x, 6.0f);
+  EXPECT_FLOAT_EQ(z.y, 6.0f);
+  EXPECT_FLOAT_EQ(z.z, 6.0f);
 
   z = x - y;
-  EXPECT_FLOAT_EQ(z.m_x, 2.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 2.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 2.0f);
+  EXPECT_FLOAT_EQ(z.x, 2.0f);
+  EXPECT_FLOAT_EQ(z.y, 2.0f);
+  EXPECT_FLOAT_EQ(z.z, 2.0f);
 
   z = x * y;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
+  EXPECT_FLOAT_EQ(z.z, 8.0f);
 
   z = x;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
+  EXPECT_FLOAT_EQ(z.z, 4.0f);
 
   EXPECT_TRUE(z == x);
 
 
   z = z + 2;
-  EXPECT_FLOAT_EQ(z.m_x, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 6.0f);
+  EXPECT_FLOAT_EQ(z.x, 6.0f);
+  EXPECT_FLOAT_EQ(z.y, 6.0f);
+  EXPECT_FLOAT_EQ(z.z, 6.0f);
 
   z = z - 2;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
+  EXPECT_FLOAT_EQ(z.z, 4.0f);
 
   z = z * 2;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
+  EXPECT_FLOAT_EQ(z.z, 8.0f);
 
   z = z / 2;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
+  EXPECT_FLOAT_EQ(z.z, 4.0f);
 
   z += x;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
+  EXPECT_FLOAT_EQ(z.z, 8.0f);
 
   z -= x;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
+  EXPECT_FLOAT_EQ(z.z, 4.0f);
 
   z *= x;
-  EXPECT_FLOAT_EQ(z.m_x, 16.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 16.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 16.0f);
+  EXPECT_FLOAT_EQ(z.x, 16.0f);
+  EXPECT_FLOAT_EQ(z.y, 16.0f);
+  EXPECT_FLOAT_EQ(z.z, 16.0f);
 
   Vector3 a(1.0f, 2.0f, 3.0f);
   Vector3 b(1.0f, 5.0f, 7.0f);
   Vector3 c = a.cross(b);
 
-  EXPECT_FLOAT_EQ(c.m_x, -1.0f);
-  EXPECT_FLOAT_EQ(c.m_y, -4.0f);
-  EXPECT_FLOAT_EQ(c.m_z, 3.0f);
+  EXPECT_FLOAT_EQ(c.x, -1.0f);
+  EXPECT_FLOAT_EQ(c.y, -4.0f);
+  EXPECT_FLOAT_EQ(c.z, 3.0f);
 }
 
 TEST(xcUtilities, Vector4_Math) {
@@ -198,73 +198,73 @@ TEST(xcUtilities, Vector4_Math) {
   Vector4 y(2.0f, 2.0f, 2.0f, 2.0f);
   Vector4 z = x + y;
 
-  EXPECT_FLOAT_EQ(z.m_x, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 6.0f);
+  EXPECT_FLOAT_EQ(z.x, 6.0f);
+  EXPECT_FLOAT_EQ(z.y, 6.0f);
+  EXPECT_FLOAT_EQ(z.z, 6.0f);
+  EXPECT_FLOAT_EQ(z.w, 6.0f);
 
   z = x - y;
-  EXPECT_FLOAT_EQ(z.m_x, 2.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 2.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 2.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 2.0f);
+  EXPECT_FLOAT_EQ(z.x, 2.0f);
+  EXPECT_FLOAT_EQ(z.y, 2.0f);
+  EXPECT_FLOAT_EQ(z.z, 2.0f);
+  EXPECT_FLOAT_EQ(z.w, 2.0f);
 
   z = x * y;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
+  EXPECT_FLOAT_EQ(z.z, 8.0f);
+  EXPECT_FLOAT_EQ(z.w, 8.0f);
 
   z = x;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
+  EXPECT_FLOAT_EQ(z.z, 4.0f);
+  EXPECT_FLOAT_EQ(z.w, 4.0f);
 
   EXPECT_TRUE(z == x);
 
 
   z = z + 2;
-  EXPECT_FLOAT_EQ(z.m_x, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 6.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 6.0f);
+  EXPECT_FLOAT_EQ(z.x, 6.0f);
+  EXPECT_FLOAT_EQ(z.y, 6.0f);
+  EXPECT_FLOAT_EQ(z.z, 6.0f);
+  EXPECT_FLOAT_EQ(z.w, 6.0f);
 
   z = z - 2;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
+  EXPECT_FLOAT_EQ(z.z, 4.0f);
+  EXPECT_FLOAT_EQ(z.w, 4.0f);
 
   z = z * 2;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
+  EXPECT_FLOAT_EQ(z.z, 8.0f);
+  EXPECT_FLOAT_EQ(z.w, 8.0f);
 
   z = z / 2;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
+  EXPECT_FLOAT_EQ(z.z, 4.0f);
+  EXPECT_FLOAT_EQ(z.w, 4.0f);
 
   z += x;
-  EXPECT_FLOAT_EQ(z.m_x, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 8.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 8.0f);
+  EXPECT_FLOAT_EQ(z.x, 8.0f);
+  EXPECT_FLOAT_EQ(z.y, 8.0f);
+  EXPECT_FLOAT_EQ(z.z, 8.0f);
+  EXPECT_FLOAT_EQ(z.w, 8.0f);
 
   z -= x;
-  EXPECT_FLOAT_EQ(z.m_x, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 4.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 4.0f);
+  EXPECT_FLOAT_EQ(z.x, 4.0f);
+  EXPECT_FLOAT_EQ(z.y, 4.0f);
+  EXPECT_FLOAT_EQ(z.z, 4.0f);
+  EXPECT_FLOAT_EQ(z.w, 4.0f);
 
   z *= x;
-  EXPECT_FLOAT_EQ(z.m_x, 16.0f);
-  EXPECT_FLOAT_EQ(z.m_y, 16.0f);
-  EXPECT_FLOAT_EQ(z.m_z, 16.0f);
-  EXPECT_FLOAT_EQ(z.m_w, 16.0f);
+  EXPECT_FLOAT_EQ(z.x, 16.0f);
+  EXPECT_FLOAT_EQ(z.y, 16.0f);
+  EXPECT_FLOAT_EQ(z.z, 16.0f);
+  EXPECT_FLOAT_EQ(z.w, 16.0f);
 }
 
 TEST(xcUtilities, VectorI2_Math) {
@@ -272,51 +272,51 @@ TEST(xcUtilities, VectorI2_Math) {
   VectorI2 y(2, 2);
   VectorI2 z = x + y;
 
-  EXPECT_EQ(z.m_x, 6);
-  EXPECT_EQ(z.m_y, 6);
+  EXPECT_EQ(z.x, 6);
+  EXPECT_EQ(z.y, 6);
 
   z = x - y;
-  EXPECT_EQ(z.m_x, 2);
-  EXPECT_EQ(z.m_y, 2);
+  EXPECT_EQ(z.x, 2);
+  EXPECT_EQ(z.y, 2);
 
   z = x * y;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
 
   z = x;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
 
   EXPECT_TRUE(z == x);
 
 
   z = z + 2;
-  EXPECT_EQ(z.m_x, 6);
-  EXPECT_EQ(z.m_y, 6);
+  EXPECT_EQ(z.x, 6);
+  EXPECT_EQ(z.y, 6);
 
   z = z - 2;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
 
   z = z * 2;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
 
   z = z / 2;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
 
   z += x;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
 
   z -= x;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
 
   z *= x;
-  EXPECT_EQ(z.m_x, 16);
-  EXPECT_EQ(z.m_y, 16);
+  EXPECT_EQ(z.x, 16);
+  EXPECT_EQ(z.y, 16);
 
 }
 
@@ -325,70 +325,70 @@ TEST(xcUtilities, VectorI3_Math) {
   VectorI3 y(2, 2, 2);
   VectorI3 z = x + y;
 
-  EXPECT_EQ(z.m_x, 6);
-  EXPECT_EQ(z.m_y, 6);
-  EXPECT_EQ(z.m_z, 6);
+  EXPECT_EQ(z.x, 6);
+  EXPECT_EQ(z.y, 6);
+  EXPECT_EQ(z.z, 6);
 
   z = x - y;
-  EXPECT_EQ(z.m_x, 2);
-  EXPECT_EQ(z.m_y, 2);
-  EXPECT_EQ(z.m_z, 2);
+  EXPECT_EQ(z.x, 2);
+  EXPECT_EQ(z.y, 2);
+  EXPECT_EQ(z.z, 2);
 
   z = x * y;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
-  EXPECT_EQ(z.m_z, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
+  EXPECT_EQ(z.z, 8);
 
   z = x;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
-  EXPECT_EQ(z.m_z, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
+  EXPECT_EQ(z.z, 4);
 
   EXPECT_TRUE(z == x);
 
 
   z = z + 2;
-  EXPECT_EQ(z.m_x, 6);
-  EXPECT_EQ(z.m_y, 6);
-  EXPECT_EQ(z.m_z, 6);
+  EXPECT_EQ(z.x, 6);
+  EXPECT_EQ(z.y, 6);
+  EXPECT_EQ(z.z, 6);
 
   z = z - 2;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
-  EXPECT_EQ(z.m_z, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
+  EXPECT_EQ(z.z, 4);
 
   z = z * 2;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
-  EXPECT_EQ(z.m_z, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
+  EXPECT_EQ(z.z, 8);
 
   z = z / 2;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
-  EXPECT_EQ(z.m_z, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
+  EXPECT_EQ(z.z, 4);
 
   z += x;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
-  EXPECT_EQ(z.m_z, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
+  EXPECT_EQ(z.z, 8);
 
   z -= x;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
-  EXPECT_EQ(z.m_z, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
+  EXPECT_EQ(z.z, 4);
 
   z *= x;
-  EXPECT_EQ(z.m_x, 16);
-  EXPECT_EQ(z.m_y, 16);
-  EXPECT_EQ(z.m_z, 16);
+  EXPECT_EQ(z.x, 16);
+  EXPECT_EQ(z.y, 16);
+  EXPECT_EQ(z.z, 16);
 
   VectorI3 a(1, 2, 3);
   VectorI3 b(1, 5, 7);
 
   z = a.cross(b);
-  EXPECT_EQ(z.m_x, -1);
-  EXPECT_EQ(z.m_y, -4);
-  EXPECT_EQ(z.m_z, 3);
+  EXPECT_EQ(z.x, -1);
+  EXPECT_EQ(z.y, -4);
+  EXPECT_EQ(z.z, 3);
 
   int32 temp = a.dot(b);
   EXPECT_EQ(temp, 32);
@@ -400,73 +400,73 @@ TEST(xcUtilities, VectorI4_Math) {
   VectorI4 y(2, 2, 2, 2);
   VectorI4 z = x + y;
 
-  EXPECT_EQ(z.m_x, 6);
-  EXPECT_EQ(z.m_y, 6);
-  EXPECT_EQ(z.m_z, 6);
-  EXPECT_EQ(z.m_w, 6);
+  EXPECT_EQ(z.x, 6);
+  EXPECT_EQ(z.y, 6);
+  EXPECT_EQ(z.z, 6);
+  EXPECT_EQ(z.w, 6);
 
   z = x - y;
-  EXPECT_EQ(z.m_x, 2);
-  EXPECT_EQ(z.m_y, 2);
-  EXPECT_EQ(z.m_z, 2);
-  EXPECT_EQ(z.m_w, 2);
+  EXPECT_EQ(z.x, 2);
+  EXPECT_EQ(z.y, 2);
+  EXPECT_EQ(z.z, 2);
+  EXPECT_EQ(z.w, 2);
 
   z = x * y;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
-  EXPECT_EQ(z.m_z, 8);
-  EXPECT_EQ(z.m_w, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
+  EXPECT_EQ(z.z, 8);
+  EXPECT_EQ(z.w, 8);
 
   z = x;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
-  EXPECT_EQ(z.m_z, 4);
-  EXPECT_EQ(z.m_w, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
+  EXPECT_EQ(z.z, 4);
+  EXPECT_EQ(z.w, 4);
 
   EXPECT_TRUE(z == x);
 
 
   z = z + 2;
-  EXPECT_EQ(z.m_x, 6);
-  EXPECT_EQ(z.m_y, 6);
-  EXPECT_EQ(z.m_z, 6);
-  EXPECT_EQ(z.m_w, 6);
+  EXPECT_EQ(z.x, 6);
+  EXPECT_EQ(z.y, 6);
+  EXPECT_EQ(z.z, 6);
+  EXPECT_EQ(z.w, 6);
 
   z = z - 2;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
-  EXPECT_EQ(z.m_z, 4);
-  EXPECT_EQ(z.m_w, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
+  EXPECT_EQ(z.z, 4);
+  EXPECT_EQ(z.w, 4);
 
   z = z * 2;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
-  EXPECT_EQ(z.m_z, 8);
-  EXPECT_EQ(z.m_w, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
+  EXPECT_EQ(z.z, 8);
+  EXPECT_EQ(z.w, 8);
 
   z = z / 2;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
-  EXPECT_EQ(z.m_z, 4);
-  EXPECT_EQ(z.m_w, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
+  EXPECT_EQ(z.z, 4);
+  EXPECT_EQ(z.w, 4);
 
   z += x;
-  EXPECT_EQ(z.m_x, 8);
-  EXPECT_EQ(z.m_y, 8);
-  EXPECT_EQ(z.m_z, 8);
-  EXPECT_EQ(z.m_w, 8);
+  EXPECT_EQ(z.x, 8);
+  EXPECT_EQ(z.y, 8);
+  EXPECT_EQ(z.z, 8);
+  EXPECT_EQ(z.w, 8);
 
   z -= x;
-  EXPECT_EQ(z.m_x, 4);
-  EXPECT_EQ(z.m_y, 4);
-  EXPECT_EQ(z.m_z, 4);
-  EXPECT_EQ(z.m_w, 4);
+  EXPECT_EQ(z.x, 4);
+  EXPECT_EQ(z.y, 4);
+  EXPECT_EQ(z.z, 4);
+  EXPECT_EQ(z.w, 4);
 
   z *= x;
-  EXPECT_EQ(z.m_x, 16);
-  EXPECT_EQ(z.m_y, 16);
-  EXPECT_EQ(z.m_z, 16);
-  EXPECT_EQ(z.m_w, 16);
+  EXPECT_EQ(z.x, 16);
+  EXPECT_EQ(z.y, 16);
+  EXPECT_EQ(z.z, 16);
+  EXPECT_EQ(z.w, 16);
 }
 
 TEST(xcUtilities, Matrix3x3_Math) {
@@ -483,70 +483,70 @@ TEST(xcUtilities, Matrix3x3_Math) {
 
   Matrix3x3 C = A + B;
 
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 2.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 4.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 6.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 8.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 10.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 12.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 14.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 16.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 18.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 2.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 4.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 6.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 8.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 10.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 12.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 14.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 16.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 18.0f);
 
   C = A - B;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 0.0f);
 
   C = A;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 1.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 2.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 3.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 4.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 5.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 6.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 7.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 8.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 9.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 1.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 2.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 3.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 4.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 5.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 6.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 7.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 8.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 9.0f);
 
   C += A;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 2.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 4.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 6.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 8.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 10.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 12.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 14.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 16.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 18.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 2.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 4.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 6.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 8.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 10.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 12.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 14.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 16.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 18.0f);
 
   C -= A;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 1.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 2.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 3.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 4.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 5.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 6.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 7.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 8.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 9.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 1.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 2.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 3.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 4.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 5.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 6.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 7.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 8.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 9.0f);
 
   C = A * B;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 30.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 36.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 42.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 66.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 81.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 96.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 102.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 126.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 150.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 30.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 36.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 42.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 66.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 81.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 96.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 102.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 126.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 150.0f);
 
 
   Matrix3x3 D(-2.0f, 6.0f, 3.0f,
@@ -575,112 +575,113 @@ TEST(xcUtilities, Matrix4x4_Math) {
 
   Matrix4x4 C = A + B;
 
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 2.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 4.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 6.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_w, 8.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 10.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 12.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 14.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_w, 16.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 18.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 20.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 22.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_w, 24.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_x, 26.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_y, 28.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_z, 30.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_w, 32.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 2.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 4.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 6.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].w, 8.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 10.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 12.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 14.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].w, 16.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 18.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 20.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 22.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].w, 24.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].x, 26.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].y, 28.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].z, 30.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].w, 32.0f);
 
   C = A - B;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_w, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_w, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_w, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_x, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_y, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_z, 0.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_w, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].w, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].w, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].w, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].x, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].y, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].z, 0.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].w, 0.0f);
 
   C = A;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 1.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 2.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 3.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_w, 4.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 5.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 6.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 7.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_w, 8.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 9.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 10.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 11.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_w, 12.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_x, 13.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_y, 14.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_z, 15.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_w, 16.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 1.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 2.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 3.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].w, 4.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 5.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 6.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 7.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].w, 8.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 9.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 10.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 11.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].w, 12.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].x, 13.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].y, 14.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].z, 15.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].w, 16.0f);
 
   C += A;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 2.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 4.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 6.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_w, 8.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 10.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 12.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 14.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_w, 16.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 18.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 20.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 22.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_w, 24.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_x, 26.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_y, 28.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_z, 30.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_w, 32.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 2.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 4.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 6.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].w, 8.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 10.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 12.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 14.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].w, 16.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 18.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 20.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 22.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].w, 24.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].x, 26.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].y, 28.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].z, 30.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].w, 32.0f);
 
   C -= A;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 1.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 2.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 3.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_w, 4.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 5.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 6.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 7.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_w, 8.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 9.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 10.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 11.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_w, 12.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_x, 13.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_y, 14.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_z, 15.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_w, 16.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 1.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 2.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 3.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].w, 4.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 5.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 6.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 7.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].w, 8.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 9.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 10.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 11.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].w, 12.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].x, 13.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].y, 14.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].z, 15.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].w, 16.0f);
 
   C = A * B;
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_x, 90.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_y, 100.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_z, 110.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[0].m_w, 120.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_x, 202.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_y, 228.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_z, 254.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[1].m_w, 280.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_x, 314.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_y, 356.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_z, 398.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[2].m_w, 440.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_x, 426.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_y, 484.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_z, 542.0f);
-  EXPECT_FLOAT_EQ(C.m_matrix[3].m_w, 600.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].x, 90.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].y, 100.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].z, 110.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[0].w, 120.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].x, 202.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].y, 228.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].z, 254.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[1].w, 280.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].x, 314.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].y, 356.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].z, 398.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[2].w, 440.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].x, 426.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].y, 484.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].z, 542.0f);
+  EXPECT_FLOAT_EQ(C.m_matrix[3].w, 600.0f);
+
 }
 
 TEST(xcUtilities, Matrix4x4_LookAt) {
@@ -704,19 +705,19 @@ TEST(xcUtilities, Matrix4x4_LookAt) {
       switch (k)
       {
       case 0:
-        EXPECT_FLOAT_EQ(ilookAt.m_matrix[j].m_x, 
+        EXPECT_FLOAT_EQ(ilookAt.m_matrix[j].x, 
                        DirectX::XMVectorGetByIndex(lookAt.r[j], k));
         break;
       case 1:
-        EXPECT_FLOAT_EQ(ilookAt.m_matrix[j].m_y, 
+        EXPECT_FLOAT_EQ(ilookAt.m_matrix[j].y, 
                        DirectX::XMVectorGetByIndex(lookAt.r[j], k));
         break;
       case 2:
-        EXPECT_FLOAT_EQ(ilookAt.m_matrix[j].m_z, 
+        EXPECT_FLOAT_EQ(ilookAt.m_matrix[j].z, 
                        DirectX::XMVectorGetByIndex(lookAt.r[j], k));
         break;
       case 3:
-        EXPECT_FLOAT_EQ(ilookAt.m_matrix[j].m_w, 
+        EXPECT_FLOAT_EQ(ilookAt.m_matrix[j].w, 
                        DirectX::XMVectorGetByIndex(lookAt.r[j], k));
         break;
       default:
@@ -746,12 +747,12 @@ TEST(xcUtilities, Matrix4X4_Perspective) {
   //Construct the same matrix with internal Math
   A = A.perspectiveFovLH(FovAngleY, Height, Width, NearZ, FarZ);
 
-  EXPECT_FLOAT_EQ(A.m_matrix[1].m_y / A.m_matrix[0].m_x,
+  EXPECT_FLOAT_EQ(A.m_matrix[1].y / A.m_matrix[0].x,
                   DirectX::XMVectorGetByIndex(projection.r[1], 1) /
                   DirectX::XMVectorGetByIndex(projection.r[0], 0));
    
-  EXPECT_FLOAT_EQ(A.m_matrix[2].m_w, DirectX::XMVectorGetByIndex(projection.r[2], 3));
-  EXPECT_FLOAT_EQ(A.m_matrix[3].m_z, DirectX::XMVectorGetByIndex(projection.r[3], 2));
+  EXPECT_FLOAT_EQ(A.m_matrix[2].w, DirectX::XMVectorGetByIndex(projection.r[2], 3));
+  EXPECT_FLOAT_EQ(A.m_matrix[3].z, DirectX::XMVectorGetByIndex(projection.r[3], 2));
 }
 
 TEST(xcUtilities, Degrees_Math) {
