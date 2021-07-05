@@ -183,6 +183,7 @@
     <ClInclude Include="include\xcAABB.h" />
     <ClInclude Include="include\xcDegrees.h" />
     <ClInclude Include="include\xcLinuxMath.h" />
+    <ClInclude Include="include\xcLogger.h" />
     <ClInclude Include="include\xcMath.h" />
     <ClInclude Include="include\xcMatrix3x3.h" />
     <ClInclude Include="include\xcMatrix4x4.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="include\xcMatrix4x4.cpp" />
     <ClCompile Include="src\xcAABB.cpp" />
     <ClCompile Include="src\xcDegrees.cpp" />
+    <ClCompile Include="src\xcLogger.cpp" />
     <ClCompile Include="src\xcMatrix3x3.cpp" />
     <ClCompile Include="src\xcPlatformMath.cpp" />
     <ClCompile Include="src\xcQuaternions.cpp" />

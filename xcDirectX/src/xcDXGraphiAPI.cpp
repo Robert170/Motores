@@ -21,7 +21,6 @@
 
 
 //TODO: Chequeo de errores
-using std::vector;
 namespace xcEngineSDK {
 
   LRESULT CALLBACK 
@@ -96,14 +95,7 @@ namespace xcEngineSDK {
 
   }
 
-  /*Model*
-  DXGraphiAPI::loadModel(Model* _Model,
-                         GraphiAPI* API,
-                         InputLayout_Desc
-                         InpLayDesc, std::string Path)
-  {
-    return nullptr;
-  }*/
+  
 
   //function to create a window
   void 
@@ -172,14 +164,14 @@ namespace xcEngineSDK {
     createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-    vector<D3D_DRIVER_TYPE> driverTypes =
+    Vector<D3D_DRIVER_TYPE> driverTypes =
     {
         D3D_DRIVER_TYPE_HARDWARE,
         D3D_DRIVER_TYPE_WARP,
         D3D_DRIVER_TYPE_REFERENCE,
     };
 
-    vector<D3D_FEATURE_LEVEL> featureLevels =
+    Vector<D3D_FEATURE_LEVEL> featureLevels =
     {
         D3D_FEATURE_LEVEL_11_0,
         D3D_FEATURE_LEVEL_10_1,
@@ -287,7 +279,7 @@ namespace xcEngineSDK {
 
   //function to create a vertex buffer 
   VertexBuffer* 
-  DXGraphiAPI::createVertexBuffer(const vector <BoneVertex>& Ver,
+  DXGraphiAPI::createVertexBuffer(const Vector <BoneVertex>& Ver,
                                   uint32 NumBuffer) {
 
     XC_UNREFERENCED_PARAMETER(NumBuffer);
@@ -313,7 +305,7 @@ namespace xcEngineSDK {
 
   //function to create an index buffer 
   IndexBuffer* 
-  DXGraphiAPI::createIndexBuffer(const std::vector<uint32>& Ind,
+  DXGraphiAPI::createIndexBuffer(const Vector<uint32>& Ind,
                                  uint32 NumBuffer) {
 
 
@@ -397,7 +389,7 @@ namespace xcEngineSDK {
                                width,
                                height,
                                numberTexture,
-                               0,
+                               1,
                                bindFlags,
                                static_cast<D3D11_USAGE>(Usage));
 
@@ -412,6 +404,8 @@ namespace xcEngineSDK {
                                        &texture->m_pTexture);
     if (FAILED(hr)) {
       std::cout << "//Error fallo la creacion de la textura" << std::endl;
+      //TODO
+      //stbi_image_free(Data);
       return nullptr;
     }
 
@@ -477,12 +471,12 @@ namespace xcEngineSDK {
   } 
 
   ShaderProgram* 
-  DXGraphiAPI::createShaderProgram(const std::string& FileNameVS,
-                                   const std::string& FileNamePS,
-                                   const std::string& EntryVS,
-                                   const std::string& EntryPS,
-                                   const std::string& ShaderModelVS,
-                                   const std::string& ShaderModelPS,
+  DXGraphiAPI::createShaderProgram(const String& FileNameVS,
+                                   const String& FileNamePS,
+                                   const String& EntryVS,
+                                   const String& EntryPS,
+                                   const String& ShaderModelVS,
+                                   const String& ShaderModelPS,
                                    int32 NumVertexShader,
                                    int32 NumPixelShader) {
 
@@ -493,9 +487,9 @@ namespace xcEngineSDK {
 
     //TODO EL VS y PS dben ser objetos
     //vertexShder
-    std::string Temp = FileNameVS + "_DX.txt";
+    String Temp = FileNameVS + "_DX.txt";
     ShaderProgram->m_vertexShaderProgram = new VertexShaderDX();
-    std::wstring FileVS(Temp.length(), L' ');
+    WString FileVS(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), FileVS.begin());
 
     if (!ShaderProgram->m_vertexShaderProgram->compileVertexShaderFromFile(FileVS,
@@ -526,7 +520,7 @@ namespace xcEngineSDK {
     Temp = FileNamePS + "_DX.txt";
     ShaderProgram->m_pixelShaderProgram = new PixelShaderDX();
 
-    std::wstring FilePS(Temp.length(), L' ');
+    WString FilePS(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), FilePS.begin());
 
     if (!ShaderProgram->m_pixelShaderProgram->
@@ -556,16 +550,16 @@ namespace xcEngineSDK {
   }
 
   //function to create a pixel shader
-  PixelShader* DXGraphiAPI::createPixelShaders(const std::string& FileName,
-                                               const std::string& Entry,
-                                               const std::string& ShaderModel,
+  PixelShader* DXGraphiAPI::createPixelShaders(const String& FileName,
+                                               const String& Entry,
+                                               const String& ShaderModel,
                                                int32 NumPixelShader) {
     XC_UNREFERENCED_PARAMETER(NumPixelShader);
 
-    std::string Temp = FileName + "_DX.txt";
+    String Temp = FileName + "_DX.txt";
     auto PixelShader = new PixelShaderDX();
 
-    std::wstring File(Temp.length(), L' ');
+    WString File(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), File.begin());
 
     if (!PixelShader->compilePixelShaderFromFile(File,
@@ -599,9 +593,9 @@ namespace xcEngineSDK {
                                                  int32 NumVextexShader) {
 
     XC_UNREFERENCED_PARAMETER(NumVextexShader);
-    std::string Temp = FileName + "_DX.txt";
+    String Temp = FileName + "_DX.txt";
     auto VertexShaders = new VertexShaderDX();
-    std::wstring File(Temp.length(), L' ');
+    WString File(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), File.begin());
 
     if (!VertexShaders->compileVertexShaderFromFile(File,
@@ -649,7 +643,7 @@ namespace xcEngineSDK {
     auto& VertexShaderBlob = reinterpret_cast<ShaderProgramDX&>(Vertex);
 
 
-    vector<D3D11_INPUT_ELEMENT_DESC> layout;
+    Vector<D3D11_INPUT_ELEMENT_DESC> layout;
 
     uint32 SemanticIndexPosition = 0;
     uint32 SemanticIndexTexcoord = 0;
@@ -870,9 +864,24 @@ namespace xcEngineSDK {
     XC_UNREFERENCED_PARAMETER(NumSamplerState);
     auto SamplerState = new SamplerStateDX();
 
-    CD3D11_SAMPLER_DESC SamStDesc;
+    
+   
+    D3D11_SAMPLER_DESC SamDesc;
+    SamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+    SamDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+    SamDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+    SamDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+    SamDesc.MipLODBias = 0;
+    SamDesc.MaxAnisotropy = 1;
+    SamDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+    SamDesc.BorderColor[0] = 1.0f;
+    SamDesc.BorderColor[1] = 1.0f;
+    SamDesc.BorderColor[2] = 1.0f;
+    SamDesc.BorderColor[3] = 1.0f;
+    SamDesc.MinLOD = -3.402823466e+38F; // -FLT_MAX
+    SamDesc.MaxLOD = 3.402823466e+38F; // FLT_MAX
 
-    m_pd3dDevice->CreateSamplerState(&SamStDesc,
+    m_pd3dDevice->CreateSamplerState(&SamDesc,
                                      &SamplerState->m_pSamplerLinear);
 
     return SamplerState;
@@ -895,9 +904,9 @@ namespace xcEngineSDK {
   //TODO multiples buffers, vector de constantbuffer, tantro para VS y PS
   //function to set a constant buffer of vertex shader
   void 
-  DXGraphiAPI::setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-                                             uint32 StartSlot,
-                                             uint32 NumBuffer) {
+  DXGraphiAPI::setVSConstantBuffer(ConstantBuffer* ConstBuff,
+                                   uint32 StartSlot,
+                                   uint32 NumBuffer) {
 
     auto* Buffer = reinterpret_cast<ConstantBufferDX*>(ConstBuff);
     m_pImmediateContext->VSSetConstantBuffers(StartSlot,
@@ -907,9 +916,9 @@ namespace xcEngineSDK {
 
   //function to set a constant buffer of pixel shader
   void 
-  DXGraphiAPI::setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
-                                            uint32 StartSlot,
-                                            uint32 NumBuffer) {
+  DXGraphiAPI::setPSConstantBuffer(ConstantBuffer* ConstBuff,
+                                   uint32 StartSlot,
+                                   uint32 NumBuffer) {
     auto* Buffer = reinterpret_cast<ConstantBufferDX*>(ConstBuff);
 
     m_pImmediateContext->PSSetConstantBuffers(StartSlot,
@@ -966,7 +975,7 @@ namespace xcEngineSDK {
 
   //function to set a pixel shader 
   void
-  DXGraphiAPI::setPixelShaders(PixelShader* Pixel) {
+  DXGraphiAPI::setPS(PixelShader* Pixel) {
     auto* PixelSh = reinterpret_cast<PixelShaderDX*>(Pixel);
 
     m_pImmediateContext->PSSetShader(PixelSh->m_pixelShader,
@@ -976,7 +985,7 @@ namespace xcEngineSDK {
 
   //function to set a vertex shader 
   void 
-  DXGraphiAPI::setVertexShaders(VertexShader* Vertex) {
+  DXGraphiAPI::setVS(VertexShader* Vertex) {
     auto* VertexSh = reinterpret_cast<VertexShaderDX*>(Vertex);
     m_pImmediateContext->VSSetShader(VertexSh->m_vertexShader,
                                      nullptr,
@@ -985,7 +994,7 @@ namespace xcEngineSDK {
 
   //function to set a render target 
   void 
-  DXGraphiAPI::setRenderTarget(const std::vector<TextureB*>& pRTTex,
+  DXGraphiAPI::setRenderTarget(const Vector<TextureB*>& pRTTex,
                                TextureB* pDSTex) {
     for (uint32 i = 0; i < pRTTex.size(); ++i) {
       auto pRTDX = reinterpret_cast<TextureDX*>(pRTTex.at(i));
@@ -1014,7 +1023,7 @@ namespace xcEngineSDK {
 
   //function to set a sampler state 
   void 
-  DXGraphiAPI::setSamplerState(const std::vector<SamplerState*>& Sam,
+  DXGraphiAPI::setSamplerState(const Vector<SamplerState*>& Sam,
                                uint32 StartSlot) {
     for (uint32 i = 0; i < Sam.size(); ++i) {
       auto Sampler = reinterpret_cast<SamplerStateDX*>(Sam.at(i));
@@ -1036,11 +1045,12 @@ namespace xcEngineSDK {
 
   //se debe poder setar cualquier resource
   void 
-  DXGraphiAPI::setShaderResource(const std::vector<TextureB*>& pRTTex,
+  DXGraphiAPI::setShaderResource(const Vector<TextureB*>& pRTTex,
                                  uint32 StartSlot) {
 
     for (uint32 i = 0; i < pRTTex.size(); ++i) {
-      auto pRTDX = reinterpret_cast<TextureDX*>(pRTTex.at(i));
+
+      auto pRTDX = reinterpret_cast<TextureDX*>(pRTTex[i]);
 
       m_pImmediateContext->PSSetShaderResources(i,
                                                 pRTTex.size(),
@@ -1162,13 +1172,14 @@ namespace xcEngineSDK {
     //filename = directory + filename;
 
     int width, height, nrComponents;
+   
     unsigned char* data = stbi_load(path.c_str(),
                                     &width, 
                                     &height, 
                                     &nrComponents, 
                                     4);
     if (data) {
-      TEXTURE_FORMAT format;
+     /* TEXTURE_FORMAT format;
       if (nrComponents == 1) {
 
         format = TF_R16_UINT;
@@ -1178,14 +1189,14 @@ namespace xcEngineSDK {
         format = TF_R32G32B32_UINT;
       }
       else if (nrComponents == 4) {
-
-        format = TF_R16G16B16A16_UINT;
-      }
+   
+        format = TF_R8G8B8A8_UNORM;
+      }*/
       //create texture
       texture = createTexture2D(width,
                                 height,
                                 1,
-                                format,
+                                TF_R8G8B8A8_UNORM,
                                 TEXTURE_BIND_SHADER_RESOURCE,
                                 TYPE_USAGE_DEFAULT,
                                 data);

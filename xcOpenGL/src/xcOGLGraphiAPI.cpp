@@ -646,9 +646,9 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			                                        uint32 StartSlot,
-			                                        uint32 NumBuffer) {
+	OGLGraphiAPI::setVSConstantBuffer(ConstantBuffer* ConstBuff,
+			                              uint32 StartSlot,
+			                              uint32 NumBuffer) {
 
 		XC_UNREFERENCED_PARAMETER(NumBuffer);
 
@@ -660,9 +660,9 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			                                        uint32 StartSlot,
-			                                        uint32 NumBuffer) {
+	OGLGraphiAPI::setPSConstantBuffer(ConstantBuffer* ConstBuff,
+			                              uint32 StartSlot,
+			                              uint32 NumBuffer) {
 
 		XC_UNREFERENCED_PARAMETER(NumBuffer);
 
@@ -682,7 +682,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setPixelShaders(PixelShader* Pixel) {
+	OGLGraphiAPI::setPS(PixelShader* Pixel) {
 		/*glAttachShader(m_attachShaderID,
 			VertexShader->m_vertexShader)*/
 		XC_UNREFERENCED_PARAMETER(Pixel);
@@ -691,7 +691,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setVertexShaders(VertexShader* Vertex) {
+	OGLGraphiAPI::setVS(VertexShader* Vertex) {
 
 		XC_UNREFERENCED_PARAMETER(Vertex);
 		glUseProgram(m_attachShaderID);

@@ -97,6 +97,9 @@
     <ClInclude Include="include\xcMatrix3x3.h">
       <Filter>Source Files\Math\Matrix</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcLogger.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcRadians.cpp">
@@ -146,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="include\xcMatrix4x4.cpp">
       <Filter>Source Files\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcLogger.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

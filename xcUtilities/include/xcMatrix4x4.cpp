@@ -342,20 +342,15 @@ namespace xcEngineSDK {
                       Vector3& Up) {
 
     Vector3 zAxis = At - Eye;
-    zAxis.normalize();
+    //zAxis.normalize();
 
     Vector3 xAxis = Up.cross(zAxis);
-    xAxis.normalize();
+    //xAxis.normalize();
 
     Vector3 yAxis = zAxis.cross(xAxis);
 
     Vector3 negativeEye = -Eye;
-    
-    /*return Matrix4x4(xAxis.x, yAxis.x, zAxis.x, 0,
-                     xAxis.y, yAxis.y, zAxis.y, 0,
-                     xAxis.z, yAxis.z, zAxis.z, 0,
-                     xAxis.dot(xAxis, negativeEye), yAxis.dot(yAxis, negativeEye), 
-                     zAxis.dot(zAxis, negativeEye), 1);*/
+   
 
     return Matrix4x4(xAxis.x, xAxis.y, xAxis.z, xAxis.dot(negativeEye),
                      yAxis.x, yAxis.y, yAxis.z, yAxis.dot(negativeEye),

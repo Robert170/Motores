@@ -132,6 +132,21 @@ namespace xcEngineSDK {
    */
   using WString = std::wstring;
 
+  /**
+  * @brief using name IFstream to our engine
+  */
+  using IFstream = std::ifstream;
+
+  /**
+  * @brief using name OFstream to our engine
+  */
+  using OFstream = std::ofstream;
+
+  /**
+  * @brief using name Fstream to our engine
+  */
+  using Fstream = std::fstream;
+
 
   /**
    * @brief using name SPtr to our engine for smart pointer
@@ -150,5 +165,6 @@ namespace xcEngineSDK {
    */
   template <typename T>
   using UPtr = std::unique_ptr<T>;
+
 
 }

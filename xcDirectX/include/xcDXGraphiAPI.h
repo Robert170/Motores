@@ -157,7 +157,7 @@ namespace xcEngineSDK {
 		/*Model* loadModel(Model* Model,
 			               GraphiAPI* API,
 			               InputLayout_Desc InpLayDesc,
-			               std::string Path);*/
+			               String Path);*/
 		//create
 
 		/**
@@ -169,7 +169,7 @@ namespace xcEngineSDK {
 	   */
 
 		VertexBuffer* 
-		createVertexBuffer(const std::vector <BoneVertex>& Ver,
+		createVertexBuffer(const Vector<BoneVertex>& Ver,
 			                 uint32 NumBuffer = 0) override;
 
 		/**
@@ -180,7 +180,7 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CBuffer
 		 */
 		IndexBuffer* 
-		createIndexBuffer(const std::vector<uint32_t>& Ind,
+		createIndexBuffer(const Vector<uint32_t>& Ind,
 			                uint32 NumBuffer = 0) override;
 
 		/**
@@ -248,12 +248,12 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CPixelShader
 		 */
 		ShaderProgram* 
-		createShaderProgram(const std::string& FileNameVS,
-			                  const std::string& FileNamePS,
-			                  const std::string& EntryVS = "",
-			                  const std::string& EntryPS = "",
-			                  const std::string& ShaderModelVS = "",
-			                  const std::string& ShaderModelPS = "",
+		createShaderProgram(const String& FileNameVS,
+			                  const String& FileNamePS,
+			                  const String& EntryVS = "",
+			                  const String& EntryPS = "",
+			                  const String& ShaderModelVS = "",
+			                  const String& ShaderModelPS = "",
 			                  int32 NumVertexShader = 0,
 			                  int32 NumPixelShader = 0) override; //no va
 
@@ -267,9 +267,9 @@ namespace xcEngineSDK {
 	   * @return     Returns a pointer of CPixelShader
      */
 		PixelShader* 
-		createPixelShaders(const std::string& FileName,
-			                 const std::string& Entry = "",
-			                 const std::string& ShaderModel = "",
+		createPixelShaders(const String& FileName,
+			                 const String& Entry = "",
+			                 const String& ShaderModel = "",
 			                 int32 NumPixelShader = 0) override; //no va
 
 
@@ -283,9 +283,9 @@ namespace xcEngineSDK {
 	   * @return     Returns a pointer of CVertexShader
      */
 		VertexShader* 
-		createVertexShaders(const std::string& FileName,
-			                  const std::string& Entry = "",
-			                  const std::string& ShaderModel = "",
+		createVertexShaders(const String& FileName,
+			                  const String& Entry = "",
+			                  const String& ShaderModel = "",
 			                  int32 NumVertexShader = 0) override; //no va
 
 		/**
@@ -373,7 +373,7 @@ namespace xcEngineSDK {
 
 
 		/**
-	   * @brief      setVertexShaderConstantBuffer function, to set constant
+	   * @brief      setVSConstantBuffer function, to set constant
 	   *             buffer of the vertex shader
 	   * @param      ConstBuff parameter one, a pointer of CConstantBuffer
 	   * @param      StartSlot parameter two, start slot for set constant buffer
@@ -382,12 +382,12 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			                            uint32 StartSlot,
-			                            uint32 NumBuffers) override;
+		setVSConstantBuffer(ConstantBuffer* ConstBuff,
+			                  uint32 StartSlot,
+			                  uint32 NumBuffers) override;
 
 		/**
-		 * @brief      setPixelShaderConstantBuffer function, to set constant
+		 * @brief      setPSConstantBuffer function, to set constant
 		 *             buffer of the pixel shader
 		 * @param      ConstBuff parameter one, a pointer of CConstantBuffer
 		 * @param      StartSlot parameter two, start slot for set constant buffer
@@ -396,9 +396,9 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			                           uint32 StartSlot,
-			                           uint32 NumBuffers) override;
+		setPSConstantBuffer(ConstantBuffer* ConstBuff,
+			                  uint32 StartSlot,
+			                  uint32 NumBuffers) override;
 
 		/**
 		 * @brief      setShaderProgram function, to set pixel and vertex shader
@@ -411,22 +411,22 @@ namespace xcEngineSDK {
 
 
 		/**
-		 * @brief      setPixelShaders function, to set pixel shader
+		 * @brief      setPS function, to set pixel shader
 		 * @param      Pixel parameter one, a pointer of CPixelShader
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
 		void 
-		setPixelShaders(PixelShader* Pixel) override;
+		setPS(PixelShader* Pixel) override;
 
 		/**
-		 * @brief      setVertexShaders function, to set vertex shader
+		 * @brief      setVS function, to set vertex shader
 		 * @param      Pixel parameter one, a pointer of CVertexShader
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
 		void 
-		setVertexShaders(VertexShader* Vertex) override;
+		setVS(VertexShader* Vertex) override;
 
 		/**
 		 * @brief      setInputLayout function, to set input layout
@@ -446,7 +446,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setSamplerState(const std::vector<SamplerState*>& Sam,
+		setSamplerState(const Vector<SamplerState*>& Sam,
 			              uint32 StartSlot) override; //
 
     /**
@@ -475,7 +475,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setRenderTarget(const std::vector<TextureB*>& pRTTex,
+		setRenderTarget(const Vector<TextureB*>& pRTTex,
 			              TextureB* pDSTex = nullptr) override;
 
 		/**
@@ -487,7 +487,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setShaderResource(const std::vector<TextureB*>& pRTTex,
+		setShaderResource(const Vector<TextureB*>& pRTTex,
 			                uint32 StartSlot = 0) override;
 
 		/**

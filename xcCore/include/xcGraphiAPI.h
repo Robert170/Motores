@@ -249,8 +249,6 @@ namespace xcEngineSDK {
     Vector2 TexCoords;
   };
 
-
-
   struct BoneVertex {
     Vector4 Position;
     Vector2 TexCoords;
@@ -426,7 +424,7 @@ namespace xcEngineSDK {
      */
     /*virtual Model* LoadModel(GraphiAPI* API,
                             InputLayout_Desc InpLayDesc,
-                            std::string Path) { return nullptr; };*/
+                            string Path) { return nullptr; };*/
 
     //create
 
@@ -441,7 +439,7 @@ namespace xcEngineSDK {
      */
 
     virtual VertexBuffer* 
-    createVertexBuffer(const std::vector <BoneVertex>&,
+    createVertexBuffer(const Vector<BoneVertex>&,
                        uint32 = 0) { return nullptr; };
 
     /**
@@ -452,7 +450,7 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CBuffer
      */
     virtual IndexBuffer* 
-    createIndexBuffer(const std::vector<uint32_t>&,
+    createIndexBuffer(const Vector<uint32_t>&,
                       uint32 = 0) { return nullptr; };
 
     /**
@@ -521,12 +519,12 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CPixelShader
      */
     virtual ShaderProgram* 
-    createShaderProgram(const std::string&,
-                        const std::string&,
-                        const std::string& = "",
-                        const std::string& = "",
-                        const std::string& = "",
-                        const std::string& = "",
+    createShaderProgram(const String&,
+                        const String&,
+                        const String& = "",
+                        const String& = "",
+                        const String& = "",
+                        const String& = "",
                         int32 = 0,
                         int32 = 0) { return nullptr; }; //no va
 
@@ -540,9 +538,9 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CPixelShader
      */
     virtual PixelShader* 
-    createPixelShaders(const std::string&,
-                       const std::string& = "",
-                       const std::string& = "",
+    createPixelShaders(const String&,
+                       const String& = "",
+                       const String& = "",
                        int32 = 0) { return nullptr; }; //no va
 
 
@@ -556,9 +554,9 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CVertexShader
      */
     virtual	VertexShader* 
-    createVertexShaders(const std::string&,
-                        const std::string& = "",
-                        const std::string& = "",
+    createVertexShaders(const String&,
+                        const String& = "",
+                        const String& = "",
                         int32 = 0) { return nullptr; }; //no va
 
     /**
@@ -648,7 +646,7 @@ namespace xcEngineSDK {
                    uint32) { }; //deben estar en la clase buffer
 
     /**
-     * @brief      setVertexShaderConstantBuffer function, to set constant
+     * @brief      setVSConstantBuffer function, to set constant
      *             buffer of the vertex shader
      * @param      ConstBuff parameter one, a pointer of CConstantBuffer
      * @param      StartSlot parameter two, start slot for set constant buffer
@@ -657,12 +655,12 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setVertexShaderConstantBuffer(ConstantBuffer*,
-                                  uint32,
-                                  uint32) { };
+    setVSConstantBuffer(ConstantBuffer*,
+                        uint32,
+                        uint32) { };
 
     /**
-     * @brief      setPixelShaderConstantBuffer function, to set constant
+     * @brief      setPSConstantBuffer function, to set constant
      *             buffer of the pixel shader
      * @param      ConstBuff parameter one, a pointer of CConstantBuffer
      * @param      StartSlot parameter two, start slot for set constant buffer
@@ -671,9 +669,9 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setPixelShaderConstantBuffer(ConstantBuffer*,
-                                 uint32,
-                                 uint32) { };
+    setPSConstantBuffer(ConstantBuffer*,
+                        uint32,
+                        uint32) { };
 
     /**
      * @brief      setShaderProgram function, to set pixel and vertex shader
@@ -686,22 +684,22 @@ namespace xcEngineSDK {
 
 
     /**
-     * @brief      setPixelShaders function, to set pixel shader
+     * @brief      setPS function, to set pixel shader
      * @param      Pixel parameter one, a pointer of CPixelShader
      * @bug		     No know Bugs
      * @return     Returns nothing
      */
     virtual void 
-    setPixelShaders(PixelShader*) { };
+    setPS(PixelShader*) { };
 
     /**
-     * @brief      setVertexShaders function, to set vertex shader
+     * @brief      setVS function, to set vertex shader
      * @param      Pixel parameter one, a pointer of CVertexShader
      * @bug		     No know Bugs
      * @return     Returns nothing
      */
     virtual void 
-    setVertexShaders(VertexShader*) { };
+    setVS(VertexShader*) { };
 
     /**
      * @brief      setInputLayout function, to set input layout
@@ -721,7 +719,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setSamplerState(const std::vector<SamplerState*>& ,
+    setSamplerState(const Vector<SamplerState*>& ,
                     uint32) { }; //
 
     /**
@@ -750,7 +748,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setRenderTarget(const std::vector<TextureB*>&,
+    setRenderTarget(const Vector<TextureB*>&,
                     TextureB* = nullptr) { };
 
     /**
@@ -762,7 +760,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setShaderResource(const std::vector<TextureB*>&,
+    setShaderResource(const Vector<TextureB*>&,
                       uint32 = 0) { };
 
     /**
@@ -952,6 +950,9 @@ namespace xcEngineSDK {
      * @Variable m_Height, height of the window
      */
     unsigned int m_height = 900;
+
+
+    sf::Window m_window;
   };
 
   /**

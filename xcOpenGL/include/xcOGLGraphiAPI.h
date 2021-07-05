@@ -365,7 +365,7 @@ namespace xcEngineSDK {
 
 
 		/**
-	   * @brief      setVertexShaderConstantBuffer function, to set constant
+	   * @brief      setVSConstantBuffer function, to set constant
 	   *             buffer of the vertex shader
 	   * @param      ConstBuff parameter one, a pointer of CConstantBuffer
 	   * @param      StartSlot parameter two, start slot for set constant buffer
@@ -374,12 +374,12 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setVertexShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			                            uint32 StartSlot,
-			                            uint32 NumBuffers) override;
+		setVSConstantBuffer(ConstantBuffer* ConstBuff,
+			                  uint32 StartSlot,
+			                  uint32 NumBuffers) override;
 
 		/**
-		 * @brief      setPixelShaderConstantBuffer function, to set constant
+		 * @brief      setPSConstantBuffer function, to set constant
 		 *             buffer of the pixel shader
 		 * @param      ConstBuff parameter one, a pointer of CConstantBuffer
 		 * @param      StartSlot parameter two, start slot for set constant buffer
@@ -388,9 +388,9 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setPixelShaderConstantBuffer(ConstantBuffer* ConstBuff,
-			                           uint32 StartSlot,
-			                           uint32 NumBuffers) override;
+		setPSConstantBuffer(ConstantBuffer* ConstBuff,
+			                  uint32 StartSlot,
+			                  uint32 NumBuffers) override;
 
 		/**
 		 * @brief      setShaderProgram function, to set pixel and vertex shader
@@ -403,22 +403,22 @@ namespace xcEngineSDK {
 
 
 		/**
-		 * @brief      setPixelShaders function, to set pixel shader
+		 * @brief      setPS function, to set pixel shader
 		 * @param      Pixel parameter one, a pointer of CPixelShader
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
 		void 
-		setPixelShaders(PixelShader* Pixel) override;
+		setPS(PixelShader* Pixel) override;
 
 		/**
-		 * @brief      setVertexShaders function, to set vertex shader
+		 * @brief      setVS function, to set vertex shader
 		 * @param      Pixel parameter one, a pointer of CVertexShader
 		 * @bug		     No know Bugs
 		 * @return     Returns nothing
 		 */
 		void 
-		setVertexShaders(VertexShader* Vertex) override;
+		setVS(VertexShader* Vertex) override;
 
 		/**
 		 * @brief      setInputLayout function, to set input layout

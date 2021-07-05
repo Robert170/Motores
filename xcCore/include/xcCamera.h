@@ -12,11 +12,13 @@
  /*****************************************************************************/
 
 #pragma once
-#include <windows.h>
 #include <xcVector3.h>
+#include <xcVectorI3.h>
 #include <xcMatrix4x4.h>
 #include "xcPrerequisitesCore.h"
 #include "xcConstantBuffer.h"
+
+
 
 namespace xcEngineSDK {
 
@@ -34,6 +36,12 @@ namespace xcEngineSDK {
 
     void
     setPosition(const Vector3& position);
+
+    void
+    setInitialPosition(const VectorI3& initposition);
+
+    void
+    setClicked(bool isClicked);
 
     void
     setLookAt(const Vector3& at);
@@ -66,10 +74,10 @@ namespace xcEngineSDK {
     setUpTrue(Vector3 Front, Vector3 Right);
 
     void
-    rotation(WPARAM RotX);
+    rotation();
 
     void
-    input(sf::Event INPUT);
+    event(sf::Event INPUT);
 
     void
     moveMouse(Vector3 Dir);
@@ -93,7 +101,10 @@ namespace xcEngineSDK {
     updateViewMatrix();
 
     void
-    move();
+    update();
+
+    bool
+    getClicked();
 
     float
     getWidth();
@@ -131,11 +142,7 @@ namespace xcEngineSDK {
     Matrix4x4
     getProyeccion();
 
-   public:
-
-    bool Fpres = false;
-
-    bool RotF = false;
+   private:
 
     bool m_fowarMove;
 
@@ -145,6 +152,12 @@ namespace xcEngineSDK {
 
     bool m_leftMove;
 
+    bool m_upMove;
+
+    bool m_downtMove;
+
+    bool m_isClicked;
+
     int32 m_limitPitchU = 0;
 
     int32 m_limitPitchD = 0;
@@ -153,14 +166,11 @@ namespace xcEngineSDK {
 
     int32 m_limitRollD = 0;
 
-    float m_movementSpeed = 2.5F;
-
     Vector3 m_trueUp;
 
+    VectorI3 m_initialPosition;
 
-    Vector3 m_posIn;
-
-    Vector3 m_posFn;
+    VectorI3 m_finalPosition;
 
     Vector3 m_dir;
 
@@ -180,25 +190,25 @@ namespace xcEngineSDK {
 
     //Camera datas
 
-    Vector3 m_front; //
+    Vector3 m_front; 
 
-    Vector3 m_position; //
+    Vector3 m_position; 
 
-    Vector3 m_at;//
+    Vector3 m_at;
 
-    Vector3 m_up;//
+    Vector3 m_up;
 
-    Vector3 m_rigth;//
+    Vector3 m_rigth;
 
-    float m_width;//
+    float m_width;
 
-    float m_height;//
+    float m_height;
 
     float m_near;
 
     float m_far;
 
-    float m_fov;//
+    float m_fov;
 
   };
 }

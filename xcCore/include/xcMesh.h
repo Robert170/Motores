@@ -16,6 +16,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
+
 #include <xcQuaternions.h>
 
 #include"xcPrerequisitesCore.h"

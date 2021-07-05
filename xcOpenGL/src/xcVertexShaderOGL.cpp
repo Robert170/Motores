@@ -17,7 +17,7 @@ namespace xcEngineSDK {
 
       return m_vertexCode;
     }
-    catch (std::ifstream::failure& e) {
+    catch (IFstream::failure& e) {
       //error
       XC_UNREFERENCED_PARAMETER(e);
       return " ";

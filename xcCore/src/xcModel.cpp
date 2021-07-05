@@ -31,7 +31,6 @@ namespace xcEngineSDK {
   void 
   Model::update(float delta, Vector<Matrix4x4>& transform) {
 
-
     for (uint32 i = 0; i < m_vMeshes.size(); i++) {
       m_vMeshes[i].boneTrasnform(delta, transform);
     }
@@ -206,15 +205,6 @@ namespace xcEngineSDK {
       }
     }
 
-    //m_mesh = new Mesh();
-
-    //m_mesh->m_pBonesInfo.reset(skeletal);
-    //m_mesh->m_pBoneVertex.reset(structVertex);
-    ///*m_mesh->m_Vertices = vertices;
-    //m_mesh->m_Indices = indices;*/
-    //m_mesh->m_bonesTransforms.clear();
-    //m_mesh->m_bonesTransforms.resize(skeletal->NumBones);
-
 
     // process materials
     aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
@@ -226,24 +216,24 @@ namespace xcEngineSDK {
    /*Textures.insert(Textures.end(),
                     diffuseMaps.begin(), 
                     diffuseMaps.end());*/
-    // 2. specular maps
-    loadMaterialTextures(material,
-                         aiTextureType_SPECULAR, 
-                         "texture_specular");
-    /*Textures.insert(Textures.end(),
-                            specularMaps.begin(), 
-                            specularMaps.end());*/
-    // 3. normal maps
-    loadMaterialTextures(material,
-                         aiTextureType_HEIGHT,
-                         "texture_normal");
-    /*Textures.insert(Textures.end(),
-                            normalMaps.begin(), 
-                            normalMaps.end());*/
-    // 4. height maps
-    loadMaterialTextures(material, 
-                         aiTextureType_AMBIENT, 
-                         "texture_height");
+    //// 2. specular maps
+    //loadMaterialTextures(material,
+    //                     aiTextureType_SPECULAR, 
+    //                     "texture_specular");
+    ///*Textures.insert(Textures.end(),
+    //                        specularMaps.begin(), 
+    //                        specularMaps.end());*/
+    //// 3. normal maps
+    //loadMaterialTextures(material,
+    //                     aiTextureType_HEIGHT,
+    //                     "texture_normal");
+    ///*Textures.insert(Textures.end(),
+    //                        normalMaps.begin(), 
+    //                        normalMaps.end());*/
+    //// 4. height maps
+    //loadMaterialTextures(material, 
+    //                     aiTextureType_AMBIENT, 
+    //                     "texture_height");
    /* Textures.insert(Textures.end(),
                             heightMaps.begin(), 
                             heightMaps.end());*/
@@ -272,7 +262,7 @@ namespace xcEngineSDK {
       mat->GetTexture(type, i, &str);
 
       String filename = str.C_Str();
-      filename = m_directory + "/" + getTexturePath(filename);
+      filename = m_directory + getTexturePath(filename);
       //check if texture was loaded before and if so, continue to next iteration: 
       //skip loading a new texture
       bool skip = false;
@@ -287,12 +277,13 @@ namespace xcEngineSDK {
           //continue to next one. (optimization)
           break;
         }
-        if (!skip) {   // if texture hasn't been loaded already, load it
         
-       
-          m_texturesloaded.push_back(g_GraphicsAPI().textureFromFile(filename,
-                                                                   this->m_directory));
-        }
+      }
+      if (!skip) {   // if texture hasn't been loaded already, load it
+
+
+        m_texturesloaded.push_back(g_GraphicsAPI().textureFromFile(filename,
+                                   this->m_directory));
       }
       
     }
@@ -305,14 +296,14 @@ namespace xcEngineSDK {
 	  size_t posInvSlash = file.rfind('\\');
 	  size_t posSlash = file.rfind('/');
 
-	  if (posInvSlash == std::string::npos) {
-	  	if (posSlash != std::string::npos) {
+	  if (posInvSlash == String::npos) {
+	  	if (posSlash != String::npos) {
 	  		realPos = posSlash;
 	  	}
 	  }
 	  else {
 	  	realPos = posInvSlash;
-	  	if (!posSlash == std::string::npos) {
+	  	if (!posSlash == String::npos) {
 	  		if (posSlash > realPos) {
 	  			posSlash = realPos;
 	  		}

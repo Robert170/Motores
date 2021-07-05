@@ -57,9 +57,9 @@
 		TextureB* m_depthStencil = nullptr;
 		TextureB* m_shaderResource = nullptr;
 
-		//std::vector<TextureB*> m_renderTargets;
-		//std::vector<TextureB*> m_shaderResources;
-		//std::vector<SamplerState*> m_samplers;
+		//Vector<TextureB*> m_renderTargets;
+		//Vector<TextureB*> m_shaderResources;
+		//Vector<SamplerState*> m_samplers;
 		Vector<ConstantBuffer*> m_constantBuffers;
 		Vector<String> m_semanticNames;
     Vector<String> m_vSemanticNames;

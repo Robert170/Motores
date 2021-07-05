@@ -47,9 +47,9 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		*/
 		bool 
-		compileVertexShaderFromFile(const std::wstring& FileName,
-			                          const std::string& EntryPoint,
-			                          const std::string& ShaderModel,
+		compileVertexShaderFromFile(const WString& FileName,
+			                          const String& EntryPoint,
+			                          const String& ShaderModel,
 			                          ID3DBlob** ppBlobOut);
 
 		/**
