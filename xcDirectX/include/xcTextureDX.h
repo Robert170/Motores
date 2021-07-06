@@ -20,7 +20,7 @@
 
 
 namespace xcEngineSDK {
-	class TextureDX : public TextureB
+	class TextureDX : public Texture
 	{
 	 public:
 		/// Destructor
@@ -39,10 +39,10 @@ namespace xcEngineSDK {
 		 * @brief protected variables member
 		 */
 
-		 /**
-			* @Variable m_Texture, pointer for the texture
-			*/
-		 ID3D11Texture2D* m_pTexture = nullptr;
+		/**
+		* @Variable m_Texture, pointer for the texture
+		*/
+    ID3D11Texture2D* m_pTexture = nullptr;
 
 		/**
 		 * @Variable m_RTV, pointer for the render target view

@@ -28,6 +28,11 @@ namespace xcEngineSDK {
 		Actor() = default;
 		virtual ~Actor() = default;
 
+	 public:
+
+		bool m_isSelected;
+	  String m_actorName;
+
 	 private:
 
 	  Matrix4x4 m_location;

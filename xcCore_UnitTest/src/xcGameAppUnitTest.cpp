@@ -8,9 +8,9 @@
 void 
 GameAppUnitTest::onCreate() {
 
-  auto& graphicsApi = g_GraphicsAPI();
+  auto& graphicsApi = g_graphicsAPI();
 
-  m_camera.setPosition(Vector3(0.0f, 2.0f, -20.0f ));
+  m_camera.setPosition(Vector3(0.0f, 3.0f, -6.0f ));
   m_camera.setLookAt(Vector3(0.0f, 1.0f, 0.0f));
   m_camera.setUp(Vector3(0.0f, 1.0f, 0.0f));
   m_camera.setfar(30000);
@@ -31,7 +31,8 @@ GameAppUnitTest::onCreate() {
   m_model = new Model("Models/Bea/bea_geo.fbx");
 
   //m_model = new Model("Models/Gwen/Angry.fbx");
- 
+
+  //m_model = new Model("Models/Bibi/bibi_geo.fbx");
  
   Vector<uint32_t> indices =
   {
@@ -95,11 +96,11 @@ GameAppUnitTest::onCreate() {
   m_meshColor.z = 1;
 
 
-  /*g_GraphicsAPI().Init(800,
+  /*g_graphicsAPI().Init(800,
           600);*/
   
   //Create render Target
-  /*g_pRenderTarget = g_GraphicsAPI().CreateTexture2D(800,
+  /*g_pRenderTarget = g_graphicsAPI().CreateTexture2D(800,
   	                                   600,
   	                                   1,
   	                                   TF_R8G8B8A8_UNORM,
@@ -108,7 +109,7 @@ GameAppUnitTest::onCreate() {
   //m_renderTargets.push_back(g_pRenderTarget);
   
   //// Create the depth stencil 
-  /*m_depthStencil = g_GraphicsAPI().CreateTexture2D(800,
+  /*m_depthStencil = g_graphicsAPI().CreateTexture2D(800,
   	                                   600,
   	                                   1,
   	                                   TF_D24_UNORM_S8_UINT,
@@ -116,7 +117,7 @@ GameAppUnitTest::onCreate() {
   	                                   TYPE_USAGE_DEFAULT);*/
   
   ////create shader resource
-  /*g_pShaderResource = g_GraphicsAPI().CreateTexture2D(800,
+  /*g_pShaderResource = g_graphicsAPI().CreateTexture2D(800,
   	                                     600,
   	                                     1,
   	                                     TF_R8G8B8A8_UNORM,
@@ -147,13 +148,13 @@ GameAppUnitTest::onCreate() {
   //m_inpLayDesc.Formats.push_back(TF_R32G32B32A32_FLOAT);
   //m_inpLayDesc.Formats.push_back(TF_R32G32B32A32_SINT);
   
-  // /* m_inpLayDesc = g_GraphicsAPI().CreateInputLayoutDesc(m_vSemanticNames,
+  // /* m_inpLayDesc = g_graphicsAPI().CreateInputLayoutDesc(m_vSemanticNames,
   //	                                                m_vFormats);*/
   
   
   ////TODO Mandar puntero o referencia constante a puntero del objeto
   // // Create the input layout
-  // m_inputLayout = g_GraphicsAPI().createInputLayout(*m_shaderProgram,
+  // m_inputLayout = g_graphicsAPI().createInputLayout(*m_shaderProgram,
   //                                                  m_inpLayDesc,
   //                                                  1);
   
@@ -161,35 +162,35 @@ GameAppUnitTest::onCreate() {
   m_inputLayout = graphicsApi.createAutomaticInputLayout(*m_shaderProgram);
 
   // Create the pixel shader
-  /*m_pixelShader = g_GraphicsAPI().CreatePixelShaders("PS",
+  /*m_pixelShader = g_graphicsAPI().CreatePixelShaders("PS",
                                       "PS",
                                       "ps_4_0",
                                       1);*/
-  /*m_pixelShader = g_GraphicsAPI().CreatePixelShaders("Tutorial07.fx",
+  /*m_pixelShader = g_graphicsAPI().CreatePixelShaders("Tutorial07.fx",
                                       "PS",
                                       "ps_4_0", 
                                        1);*/
   
   //// Create vertex buffer
-  //g_pVertexBuffer = g_GraphicsAPI().createVertexBuffer(vertices,
+  //g_pVertexBuffer = g_graphicsAPI().createVertexBuffer(vertices,
   //                                                 1);
   
   //// Create index buffer
-  //g_pIndexBuffer = g_GraphicsAPI().createIndexBuffer(indices,
+  //g_pIndexBuffer = g_graphicsAPI().createIndexBuffer(indices,
   //	                                              1);
  
 
   //TODO nombre de funcion intuitivo es de las matrices no del graphi Api
   // Create the constant buffers
   m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());
-  /*m_constantBuffer.mView = g_GraphicsAPI().initMatrixView(m_view,
+  /*m_constantBuffer.mView = g_graphicsAPI().initMatrixView(m_view,
                                                        Eye,
                                                        At,
                                                        Up);*/
  
   m_constantBuffer.mProjection = graphicsApi.
 	                             matri4x4Context(m_camera.getProyeccion());
-  /*m_constantBuffer.mProjection = g_GraphicsAPI().initMatrixProjection(m_projection,
+  /*m_constantBuffer.mProjection = g_graphicsAPI().initMatrixProjection(m_projection,
  	                                                               Data.fov,
  	                                                               Data.height,
  	                                                               Data.width,
@@ -212,7 +213,7 @@ GameAppUnitTest::onCreate() {
  
   //// Create the sample state
  
-  //g_pSamplerState = g_GraphicsAPI().CreateSamplerState();
+  //g_pSamplerState = g_graphicsAPI().CreateSamplerState();
  
   //g_vSamplers.push_back(g_pSamplerState);
 
@@ -226,7 +227,7 @@ GameAppUnitTest::onEvents(sf::Event event) {
 }
 void 
 GameAppUnitTest::onUpdate(float deltaTime) {
-  auto& graphicsApi = g_GraphicsAPI();
+  auto& graphicsApi = g_graphicsAPI();
  
   m_camera.update();
   
@@ -254,7 +255,7 @@ GameAppUnitTest::onUpdate(float deltaTime) {
 void 
 GameAppUnitTest::onRender() {
 
-  auto& graphicsApi = g_GraphicsAPI();
+  auto& graphicsApi = g_graphicsAPI();
   //TODO todo en una sola linea
   m_color.R = 0.0f;
   m_color.G = 0.125f;
@@ -262,7 +263,7 @@ GameAppUnitTest::onRender() {
   m_color.A = 1.0f;
  
  
-  /*g_GraphicsAPI().SetRenderTarget(m_renderTargets,
+  /*g_graphicsAPI().SetRenderTarget(m_renderTargets,
  	                  m_depthStencil);*/
  
   graphicsApi.setDefaultRenderTarget();
@@ -282,14 +283,14 @@ GameAppUnitTest::onRender() {
   graphicsApi.setInputLayout(m_inputLayout);
  
   ////set vertex buffer
-  //g_GraphicsAPI().setVertexBuffer(g_pVertexBuffer,
+  //g_graphicsAPI().setVertexBuffer(g_pVertexBuffer,
   //	                           0,
   //	                           1,
   //	                           sizeof(SimpleVertex),
   //	                           0);
   //
   //////set index buffer
-  //g_GraphicsAPI().setIndexBuffer(g_pIndexBuffer, 
+  //g_graphicsAPI().setIndexBuffer(g_pIndexBuffer, 
   //	                          0);
   
   // Set primitive topology
@@ -297,11 +298,11 @@ GameAppUnitTest::onRender() {
  
  
   //// Clear the render target
-  /*g_GraphicsAPI().ClearRenderTarget(g_pRenderTarget,
+  /*g_graphicsAPI().ClearRenderTarget(g_pRenderTarget,
  	                    m_color);*/
  
   //// Clear the depth stencil
-  /*g_GraphicsAPI().ClearDepthStencil(m_depthStencil, CLEAR_DEPTH,1.0f,0);*/
+  /*g_graphicsAPI().ClearDepthStencil(m_depthStencil, CLEAR_DEPTH,1.0f,0);*/
  
 
  
@@ -330,15 +331,15 @@ GameAppUnitTest::onRender() {
  	                                1,
  	                                1);
  
-  /*g_GraphicsAPI().SetShaderResource(g_vShaderResources,
+  /*g_graphicsAPI().SetShaderResource(g_vShaderResources,
  	                                     0);*/
  
-  /*g_GraphicsAPI().SetSamplerState(g_vSamplers,
+  /*g_graphicsAPI().SetSamplerState(g_vSamplers,
  	                 0);*/
 
   m_model->draw(*m_shaderProgram);
 
-  /*g_GraphicsAPI().drawIndexed(36,
+  /*g_graphicsAPI().drawIndexed(36,
                            0,
                            0,
                            nullptr);*/

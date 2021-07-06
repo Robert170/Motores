@@ -373,7 +373,7 @@ namespace xcEngineSDK {
   }
 
   //function to create a texture 2D
-  TextureB*
+  Texture*
   DXGraphiAPI::createTexture2D(uint32 width,
                                uint32 height,
                                uint32 numberTexture,
@@ -994,8 +994,8 @@ namespace xcEngineSDK {
 
   //function to set a render target 
   void 
-  DXGraphiAPI::setRenderTarget(const Vector<TextureB*>& pRTTex,
-                               TextureB* pDSTex) {
+  DXGraphiAPI::setRenderTarget(const Vector<Texture*>& pRTTex,
+                               Texture* pDSTex) {
     for (uint32 i = 0; i < pRTTex.size(); ++i) {
       auto pRTDX = reinterpret_cast<TextureDX*>(pRTTex.at(i));
 
@@ -1037,7 +1037,7 @@ namespace xcEngineSDK {
   }
 
   void 
-  DXGraphiAPI::setDepthStencil(TextureB* pDSTex){
+  DXGraphiAPI::setDepthStencil(Texture* pDSTex){
     XC_UNREFERENCED_PARAMETER(pDSTex);
   }
 
@@ -1045,7 +1045,7 @@ namespace xcEngineSDK {
 
   //se debe poder setar cualquier resource
   void 
-  DXGraphiAPI::setShaderResource(const Vector<TextureB*>& pRTTex,
+  DXGraphiAPI::setShaderResource(const Vector<Texture*>& pRTTex,
                                  uint32 StartSlot) {
 
     for (uint32 i = 0; i < pRTTex.size(); ++i) {
@@ -1110,7 +1110,7 @@ namespace xcEngineSDK {
 
   //function to clear render target view
   void 
-  DXGraphiAPI::clearRenderTarget(TextureB* RT,
+  DXGraphiAPI::clearRenderTarget(Texture* RT,
                                  ColorStruct Color) {
     auto* pRTDX = reinterpret_cast<TextureDX*>(RT);
 
@@ -1119,7 +1119,7 @@ namespace xcEngineSDK {
 
   //function to clear depth stenci view
   void 
-  DXGraphiAPI::clearDepthStencil(TextureB* DS,
+  DXGraphiAPI::clearDepthStencil(Texture* DS,
                                  uint32 ClerFlag,
                                  float Depth,
                                  uint32 Stencil) {
@@ -1161,12 +1161,12 @@ namespace xcEngineSDK {
                                            0);
   }
 
-  TextureB* 
+  Texture* 
   DXGraphiAPI::textureFromFile(String path,
                                const String& directory,
                                bool gamma) {
 
-    auto texture = new TextureB();
+    auto texture = new Texture();
 
    // String filename = directory +"/"+ path;
     //filename = directory + filename;

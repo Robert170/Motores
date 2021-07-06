@@ -342,10 +342,10 @@ namespace xcEngineSDK {
                       Vector3& Up) {
 
     Vector3 zAxis = At - Eye;
-    //zAxis.normalize();
+    zAxis.normalize();
 
     Vector3 xAxis = Up.cross(zAxis);
-    //xAxis.normalize();
+    xAxis.normalize();
 
     Vector3 yAxis = zAxis.cross(xAxis);
 

@@ -3,7 +3,7 @@
 namespace xcEngineSDK {
   Mesh::Mesh(Vector<BoneVertex> Vertices,
              Vector<uint32> indices,
-             Vector<TextureB*> Textures,
+             Vector<Texture*> Textures,
              Vector<SamplerState*> Samplers,
              BONES_INFO* Skull,
              BoneVertex* BonVer,
@@ -20,8 +20,6 @@ namespace xcEngineSDK {
     m_bonesTransforms.resize(NumBones);
     m_scene = scene; 
 
-   
-    // now that we have all the required data, set the vertex buffers and its attribute pointers.
     setupMesh();
   }
 
@@ -34,28 +32,28 @@ namespace xcEngineSDK {
     //set shader resource
     for (int i = 0; i < m_vTextures.size(); i++)
     {
-      g_GraphicsAPI().setShaderResource(m_vTextures,
+      g_graphicsAPI().setShaderResource(m_vTextures,
                                         1);
     }
 
     //set sampler state
     for (int i = 0; i < Samplers.size(); i++)
     {
-      g_GraphicsAPI().setSamplerState(Samplers,
+      g_graphicsAPI().setSamplerState(Samplers,
                                     1);
     }
 
-    g_GraphicsAPI().setVertexBuffer(m_vertexBuffer,
+    g_graphicsAPI().setVertexBuffer(m_vertexBuffer,
                                   0,
                                   1,
                                   sizeof(BoneVertex),
                                   0);
 
-    g_GraphicsAPI().setIndexBuffer(m_indexBuffer,
+    g_graphicsAPI().setIndexBuffer(m_indexBuffer,
                                    0);
 
     // draw mesh
-    g_GraphicsAPI().drawIndexed(m_Indices.size(),
+    g_graphicsAPI().drawIndexed(m_Indices.size(),
                                0,
                                0,
                                nullptr);
@@ -64,10 +62,10 @@ namespace xcEngineSDK {
 
   void 
   Mesh::setupMesh() {
-    m_vertexBuffer = g_GraphicsAPI().createVertexBuffer(m_Vertices,
+    m_vertexBuffer = g_graphicsAPI().createVertexBuffer(m_Vertices,
                                                        1);
     
-    m_indexBuffer = g_GraphicsAPI().createIndexBuffer(m_Indices,
+    m_indexBuffer = g_graphicsAPI().createIndexBuffer(m_Indices,
                                                       1);
   }
 

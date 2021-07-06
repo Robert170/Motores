@@ -3,8 +3,6 @@
 #include <xcBaseApp.h>
 #include <xcModel.h>
 
-//namespace xcEngineSDK {
-
   struct CBNeverChanges
   {
     Matrix4x4 mView;
@@ -53,9 +51,9 @@
 		 */
 
 		//TextureBs
-		TextureB* m_renderTarget = nullptr;
-		TextureB* m_depthStencil = nullptr;
-		TextureB* m_shaderResource = nullptr;
+		Texture* m_renderTarget = nullptr;
+		Texture* m_depthStencil = nullptr;
+		Texture* m_shaderResource = nullptr;
 
 		//Vector<TextureB*> m_renderTargets;
 		//Vector<TextureB*> m_shaderResources;
@@ -103,4 +101,3 @@
 
 	};
 
-//}

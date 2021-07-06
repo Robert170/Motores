@@ -195,7 +195,7 @@ namespace xcEngineSDK {
 		OGLGraphiAPI::createTexture1D() {
 	}
 
-	TextureB*
+	Texture*
 	OGLGraphiAPI::createTexture2D(uint32 width,
 			                          uint32 height,
 			                          uint32 numberTexture,
@@ -719,7 +719,7 @@ namespace xcEngineSDK {
 
 
 	void
-	OGLGraphiAPI::setDepthStencil(TextureB* pDSTex) {
+	OGLGraphiAPI::setDepthStencil(Texture* pDSTex) {
 
 
 
@@ -737,7 +737,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setShaderResource(const Vector<TextureB*>& pRTTex,
+	OGLGraphiAPI::setShaderResource(const Vector<Texture*>& pRTTex,
 			                            uint32 StartSlot) {
 
 		XC_UNREFERENCED_PARAMETER(StartSlot);
@@ -791,7 +791,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::clearRenderTarget(TextureB* RT,
+	OGLGraphiAPI::clearRenderTarget(Texture* RT,
 			                            ColorStruct Color) {
 
 		XC_UNREFERENCED_PARAMETER(RT);
@@ -803,7 +803,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::clearDepthStencil(TextureB* RT,
+	OGLGraphiAPI::clearDepthStencil(Texture* RT,
 			                            uint32 ClerFlag,
 			                            float Depth,
 			                            uint32 Stencil) {
@@ -839,11 +839,11 @@ namespace xcEngineSDK {
 
 	}
 
-	TextureB* 
+	Texture* 
 	OGLGraphiAPI::textureFromFile(String path,
 		                            const String& directory, 
 		                            bool gamma) {
-		auto texture = new TextureB();
+		auto texture = new Texture();
 
     String filename = directory + path;//std::string(path);
     //filename = directory + '/' + filename;
@@ -897,8 +897,8 @@ namespace xcEngineSDK {
 	}
 
 	void 
-	OGLGraphiAPI::setRenderTarget(const Vector<TextureB*>& pRTTex,
-		                            TextureB* pDSTex) {
+	OGLGraphiAPI::setRenderTarget(const Vector<Texture*>& pRTTex,
+		                            Texture* pDSTex) {
 		XC_UNREFERENCED_PARAMETER(pDSTex);
 
 		for (uint32 i = 0; i < pRTTex.size(); ++i) {

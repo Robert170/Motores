@@ -14,13 +14,13 @@
  */
 #pragma once
 namespace xcEngineSDK {
-	class TextureB
+	class Texture
 	{
 	public:
 		/// Default Constructor
-		TextureB() = default;
+		Texture() = default;
 
 		/// Destructor
-		virtual ~TextureB() = default;
+		virtual ~Texture() = default;
 	};
 }

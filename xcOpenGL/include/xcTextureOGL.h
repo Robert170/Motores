@@ -15,7 +15,7 @@
 #pragma once
 #include "xcTexture.h"
 namespace xcEngineSDK {
-	class TextureOGL : public TextureB
+	class TextureOGL : public Texture
 	{
 	 protected:
 		/**

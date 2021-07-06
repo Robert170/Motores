@@ -266,7 +266,7 @@ namespace xcEngineSDK {
       m_position -= m_trueUp * 0.025f;
     }
 
-    m_matrixAxis = {
+    /*m_matrixAxis = {
       m_rigth.x, m_trueUp.x, m_front.x, 0,
       m_rigth.y, m_trueUp.y, m_front.y, 0,
       m_rigth.z, m_trueUp.z, m_front.z, 0,
@@ -279,10 +279,9 @@ namespace xcEngineSDK {
       0, 0, 1, -m_position.z,
       0, 0, 0, 1
     };
-
-    //m_matrixPosition *= m_matrixAxis;
    
-    m_matrixView = m_matrixPosition * m_matrixAxis;
+    m_matrixView = m_matrixPosition * m_matrixAxis;*/
+    createViewMatrix();
     updateViewMatrix();
 
     return;

@@ -31,7 +31,7 @@
 
 namespace xcEngineSDK {
 
-  class TextureB;
+  class Texture;
   class IndexBuffer;
   class VertexBuffer;
   class ConstantBuffer;
@@ -488,7 +488,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CTexture
      */
-    virtual TextureB*
+    virtual Texture*
     createTexture2D(uint32,
                     uint32,
                     uint32, //deberia estar en la clase texture
@@ -728,7 +728,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setDepthStencil(TextureB*) { }; ///necesita recibir una textura
+    setDepthStencil(Texture*) { }; ///necesita recibir una textura
 
     /**
      * @brief      setRasterizerState function, to set rasteraizer state
@@ -748,8 +748,8 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setRenderTarget(const Vector<TextureB*>&,
-                    TextureB* = nullptr) { };
+    setRenderTarget(const Vector<Texture*>&,
+                    Texture* = nullptr) { };
 
     /**
      * @brief      setShaderResouerce function, to set shader resource
@@ -760,7 +760,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setShaderResource(const Vector<TextureB*>&,
+    setShaderResource(const Vector<Texture*>&,
                       uint32 = 0) { };
 
     /**
@@ -812,7 +812,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearRenderTarget(TextureB*,
+    clearRenderTarget(Texture*,
                       ColorStruct) { };
 
     /**
@@ -825,7 +825,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearDepthStencil(TextureB*,
+    clearDepthStencil(Texture*,
                       uint32 = CLEAR_DEPTH,
                       float = 1.0f,
                       uint32 = 0) { };
@@ -861,7 +861,7 @@ namespace xcEngineSDK {
        * @bug		     No know Bugs
        * @return     Returns nothing
      */
-    virtual TextureB*
+    virtual Texture*
     textureFromFile(String path,
                     const String& directory,
                     bool gamma = false) {return nullptr;};
@@ -958,7 +958,7 @@ namespace xcEngineSDK {
   /**
    * @brief export the instance 
    */
-  XC_CORE_EXPORT GraphicsAPI& g_GraphicsAPI();
+  XC_CORE_EXPORT GraphicsAPI& g_graphicsAPI();
 
   /**
    * @Variable funProtoGraphiAPI, instance of the class

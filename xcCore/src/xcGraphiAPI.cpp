@@ -2,7 +2,7 @@
 
 namespace xcEngineSDK {
 
-  GraphicsAPI& g_GraphicsAPI() {
+  GraphicsAPI& g_graphicsAPI() {
 
     return GraphicsAPI::instance();
 

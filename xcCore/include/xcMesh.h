@@ -47,11 +47,11 @@ namespace xcEngineSDK {
     Vector2 TexCoords;
   };
 
-  struct Texture {
+  /*struct Texture {
     uint32 id;
     String type;
     String path;
-  };
+  };*/
 
   class XC_CORE_EXPORT Mesh
   {
@@ -62,7 +62,7 @@ namespace xcEngineSDK {
     // constructor
      Mesh(Vector<BoneVertex> Vertices,
           Vector<uint32> indices,
-          Vector<TextureB*> Textures,
+          Vector<Texture*> Textures,
           Vector<SamplerState*> Samplers,
           BONES_INFO* Skull,
           BoneVertex* BonVer,
@@ -92,7 +92,7 @@ namespace xcEngineSDK {
     /**
       * @Variable m_vTextures, all textures
     */
-    Vector<TextureB*> m_vTextures;
+    Vector<Texture*> m_vTextures;
 
     /**
       * @Variable m_vSamplers, all samplers

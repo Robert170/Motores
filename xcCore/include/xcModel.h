@@ -105,7 +105,7 @@ namespace xcEngineSDK {
      /**
        * @Variable m_Texturesloaded, is for all textures of the model
      */
-     Vector<TextureB*> m_texturesloaded;
+     Vector<Texture*> m_texturesloaded;
 
      /**
        * @Variable m_vSamplers, is for all samplers
@@ -128,7 +128,7 @@ namespace xcEngineSDK {
      /**
        * @Variable m_Texture, texture of model
      */
-     TextureB* m_texture;
+     Texture* m_texture;
 
      /**
        * @Variable m_Sampler, sampler of model

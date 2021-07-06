@@ -93,8 +93,8 @@ namespace xcEngineSDK {
 
       GraphicsAPI::startUp();
       GraphicsAPI* GraphiAPI = createGraphiAPI();
-      g_GraphicsAPI().setObject(GraphiAPI);
-      m_GraphicsAPI = &g_GraphicsAPI();
+      g_graphicsAPI().setObject(GraphiAPI);
+      m_GraphicsAPI = &g_graphicsAPI();
       createWindow();
 
       m_GraphicsAPI->init(m_GraphicsAPI->m_window.getSystemHandle());

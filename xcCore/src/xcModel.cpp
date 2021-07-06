@@ -14,7 +14,7 @@ namespace xcEngineSDK {
 
     //create sampler
 
-    m_sampler = g_GraphicsAPI().createSamplerState(1);
+    m_sampler = g_graphicsAPI().createSamplerState(1);
 
     m_vSamplers.push_back(m_sampler);
   }
@@ -255,7 +255,7 @@ namespace xcEngineSDK {
   Model::loadMaterialTextures(aiMaterial* mat, 
                               aiTextureType type, 
                               String typeName) {
-    Vector<TextureB*> Textures;
+    Vector<Texture*> Textures;
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
       aiString str;
@@ -282,7 +282,7 @@ namespace xcEngineSDK {
       if (!skip) {   // if texture hasn't been loaded already, load it
 
 
-        m_texturesloaded.push_back(g_GraphicsAPI().textureFromFile(filename,
+        m_texturesloaded.push_back(g_graphicsAPI().textureFromFile(filename,
                                    this->m_directory));
       }
       

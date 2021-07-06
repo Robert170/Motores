@@ -52,9 +52,9 @@ namespace xcEngineSDK {
 
 
 
-		TextureB* m_BackBuffer;
+		Texture* m_BackBuffer;
 
-		TextureB* m_DepthStencil;
+		Texture* m_DepthStencil;
 
 
 	 protected:
@@ -217,7 +217,7 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CTexture
 		 */
-		TextureB*
+		Texture*
 		createTexture2D(uint32 width,
 			              uint32 height,
 			              uint32 numberTexture, //deberia estar en la clase texture
@@ -455,7 +455,7 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setDepthStencil(TextureB* pDSTex) override; ///necesita recibir una textura
+		setDepthStencil(Texture* pDSTex) override; ///necesita recibir una textura
 
 		/**
 		 * @brief      setRasterizerState function, to set rasteraizer state
@@ -475,8 +475,8 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setRenderTarget(const Vector<TextureB*>& pRTTex,
-			              TextureB* pDSTex = nullptr) override;
+		setRenderTarget(const Vector<Texture*>& pRTTex,
+			              Texture* pDSTex = nullptr) override;
 
 		/**
 		 * @brief      setShaderResouerce function, to set shader resource
@@ -487,7 +487,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setShaderResource(const Vector<TextureB*>& pRTTex,
+		setShaderResource(const Vector<Texture*>& pRTTex,
 			                uint32 StartSlot = 0) override;
 
 		/**
@@ -539,7 +539,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		clearRenderTarget(TextureB* RT,
+		clearRenderTarget(Texture* RT,
 			                ColorStruct Color) override;
 
 		/**
@@ -552,7 +552,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
 		void 
-		clearDepthStencil(TextureB* RT,
+		clearDepthStencil(Texture* RT,
 			                uint32 ClerFlag = CLEAR_DEPTH,
 			                float Depth = 1.0f,
 			                uint32 Stencil = 0) override;
@@ -587,7 +587,7 @@ namespace xcEngineSDK {
        * @bug		     No know Bugs
        * @return     Returns nothing
      */
-    TextureB*
+    Texture*
     textureFromFile(String path,
                     const String& directory,
                     bool gamma) override;

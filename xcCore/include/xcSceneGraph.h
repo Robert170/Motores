@@ -36,6 +36,12 @@ namespace xcEngineSDK {
 		void
 		removeActor(const SPtr<Actor>& actor);
 
+		void
+		selectActor(const uint32& index);
+
+    void
+    renameActor(const uint32& index);
+
 	 public:
 		UPtr<SceneNode> m_pRoot;
 
@@ -43,4 +49,10 @@ namespace xcEngineSDK {
 		 
 
 	};
+
+	/**
+   * @brief export the instance 
+   */
+  XC_CORE_EXPORT SceneGraph& 
+	g_sceneGraph();
 }
