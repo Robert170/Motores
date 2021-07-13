@@ -1198,10 +1198,7 @@ namespace xcEngineSDK {
   }
 
   Texture* 
-  DXGraphiAPI::textureFromFile(String path,
-                               const String& directory,
-                               bool gamma) {
-
+  DXGraphiAPI::textureFromFile(String path) {
     Texture* texture = new Texture();
 
 

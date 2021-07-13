@@ -72,7 +72,7 @@ namespace xcEngineSDK {
     // render the mesh
     void
     draw(ShaderProgram& shader,
-         Vector<SamplerState*> Samplers);
+         Vector<SamplerState*> samplers);
 
    public:
     /**
@@ -102,7 +102,7 @@ namespace xcEngineSDK {
      /*
      variable pointer CMesh for the Parent.
     */
-     Mesh* m_Parent;
+     Mesh* m_Parent = nullptr;
 
      //! A public variable.
      /*!

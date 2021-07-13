@@ -46,9 +46,10 @@ GameAppUnitTest::onCreate() {
   testComponent.setComponent(m_model);
 
   SPtr<Actor> testActor(new Actor("test"));
+  testActor->addComponent(testComponent);
 
+  sceneGraph.addActor(SPtr<SceneNode>(nullptr), testActor);
 
- 
   Vector<uint32_t> indices =
   {
 	  	3,1,0,
@@ -73,7 +74,7 @@ GameAppUnitTest::onCreate() {
 
   Vector<SimpleVertex> vertices =
   {
-	  	// positions                    // texture coords
+	  	// positions                    // texture cords
 	  	{Vector3(-1.0f, 1.0f, -1.0f),  Vector2(0.0f, 0.0f) },
 	  	{Vector3(1.0f, 1.0f, -1.0f),   Vector2(1.0f, 0.0f) },
 	  	{Vector3(1.0f, 1.0f, 1.0f),    Vector2(1.0f, 1.0f) },
@@ -251,8 +252,8 @@ GameAppUnitTest::onUpdate(float deltaTime) {
   
   //TODO la actualizacion del modelo no es aqui, es del componente
   m_model->update(deltaTime, m_transform);
-  
-  for (int32 i = 0; i < m_transform.size(); ++i) {
+  uint32 transformSize = m_transform.size();
+  for (uint32 i = 0; i < transformSize; ++i) {
     if (i < 200) {
       m_bonesBuffer.Bones_CB[i] = m_transform[i];
     }

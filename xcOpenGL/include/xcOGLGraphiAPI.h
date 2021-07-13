@@ -37,9 +37,9 @@ namespace xcEngineSDK {
 
 		HDC m_hdc;
 
-		uint32 m_width;
+		float m_width;
 
-		uint32 m_height;
+		float m_height;
 
 
 
@@ -51,18 +51,6 @@ namespace xcEngineSDK {
 		/**
 		 * @brief protected functions
 		 */
-
-
-		/**
-		 * @brief      initWindow function, to create window for the api
-		 * @param      width parameter one, width of the window
-		 * @param      height parameter two, height of the window
-		 * @bug		     No know Bugs
-		 * @return     Returns nothing
-		 */
-		void
-		initWindow(uint32 width,
-				       uint32 height) override;
 
 		/**
 		 * @brief      createDeviceandSwap function, to create device and swap chain
@@ -573,15 +561,11 @@ namespace xcEngineSDK {
 		/**
        * @brief      textureFromFile function, to load texture from file
        * @param      path parameter one, path of the texture
-       * @param      directory parameter two, directory of the texture
-       * @param      API parameter three, api to have acces to diferent functions
        * @bug		     No know Bugs
        * @return     Returns nothing
      */
     Texture*
-    textureFromFile(String path,
-                    const String& directory,
-                    bool gamma) override;
+    textureFromFile(String path) override;
 
 		//draw
 

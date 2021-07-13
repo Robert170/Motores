@@ -287,8 +287,7 @@ namespace xcEngineSDK {
       if (!skip) {   // if texture hasn't been loaded already, load it
 
         
-        m_texturesloaded.push_back(graphicsApi->textureFromFile(filename,
-                                                                this->m_directory));
+        m_texturesloaded.push_back(graphicsApi->textureFromFile(filename));
       }
       
     }

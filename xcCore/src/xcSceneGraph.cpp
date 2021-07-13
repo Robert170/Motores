@@ -14,9 +14,10 @@ namespace xcEngineSDK {
   }
 
   void
-  SceneGraph::addActor(const WeakSptr<SceneNode>& parent, 
-                       const SPtr<Actor>& actor) {
-    if (nullptr == parent.lock()) {
+  SceneGraph::addActor(SPtr<SceneNode> parent,
+                       SPtr<Actor> actor) {
+    
+    if (nullptr == parent) {
       m_pRoot->addChild(m_pRoot, actor);
     }
     else {
@@ -26,19 +27,19 @@ namespace xcEngineSDK {
   }
 
   void 
-  SceneGraph::removeActor(const SPtr<Actor>& actor) {
+  SceneGraph::removeActor(const SPtr<Actor> actor) {
     m_pRoot->removeChild(actor);
   }
 
   void 
-  SceneGraph::selectActor(const SPtr<Actor>& actor) {
+  SceneGraph::selectActor(const SPtr<Actor> actor) {
 
     m_pRoot->selectChild(actor);
 
   }
 
   void 
-  SceneGraph::renameActor(const SPtr<Actor>& actor, const String& newName) {
+  SceneGraph::renameActor(const SPtr<Actor> actor, const String& newName) {
 
     m_pRoot->renameChild(actor, newName);
 

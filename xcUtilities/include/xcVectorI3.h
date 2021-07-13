@@ -240,5 +240,8 @@ namespace xcEngineSDK {
 		*/
 		int32 z;
 
+		static const VectorI3 ZERO;
+		static const VectorI3 UNIT;
+
 	};
 }

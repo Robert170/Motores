@@ -73,23 +73,23 @@ namespace xcEngineSDK {
     void
     setUpTrue(Vector3 Front, Vector3 Right);
 
-    void
-    rotation();
+    /*void
+    rotation();*/
 
     void
     event(sf::Event INPUT);
 
-    void
-    moveMouse(Vector3 Dir);
+    //void
+    //moveMouse(Vector3 Dir);
 
-    void
-    rotMouse(Vector3 Dir);
+    //void
+    //rotMouse(Vector3 Dir);
 
-    void
-    rotMouseX(Vector3 Dir);
+    //void
+    //rotMouseX(Vector3 Dir);
 
-    void
-    rotMouseY(Vector3 Dir);
+    //void
+    //rotMouseY(Vector3 Dir);
 
     void
     createViewMatrix();
@@ -144,19 +144,19 @@ namespace xcEngineSDK {
 
    private:
 
-    bool m_fowarMove;
+    bool m_fowarMove = false;
 
-    bool m_backMove;
+    bool m_backMove = false;
 
-    bool m_rigthMove;
+    bool m_rigthMove = false;
 
-    bool m_leftMove;
+    bool m_leftMove = false;
 
-    bool m_upMove;
+    bool m_upMove = false;
 
-    bool m_downtMove;
+    bool m_downtMove = false;
 
-    bool m_isClicked;
+    bool m_isClicked = false;
 
     int32 m_limitPitchU = 0;
 
@@ -166,21 +166,21 @@ namespace xcEngineSDK {
 
     int32 m_limitRollD = 0;
 
-    Vector3 m_trueUp;
+    Vector3 m_trueUp = Vector3::ZERO;
 
-    VectorI3 m_initialPosition;
+    VectorI3 m_initialPosition = VectorI3::ZERO;
 
-    VectorI3 m_finalPosition;
+    VectorI3 m_finalPosition = VectorI3::ZERO;
 
-    Vector3 m_dir;
+    Vector3 m_dir = Vector3::ZERO;
 
-    Matrix4x4 m_matrixProyeccion;
+    Matrix4x4 m_matrixProyeccion = Matrix4x4::IDENTITY_MATRIX;
 
-    Matrix4x4 m_matrixAxis;
+    Matrix4x4 m_matrixAxis = Matrix4x4::IDENTITY_MATRIX;
 
-    Matrix4x4 m_matrixPosition;
+    Matrix4x4 m_matrixPosition = Matrix4x4::IDENTITY_MATRIX;
 
-    Matrix4x4 m_matrixView;
+    Matrix4x4 m_matrixView = Matrix4x4::IDENTITY_MATRIX;
 
     ConstantBuffer m_pCBNeverChanges;
 
@@ -188,27 +188,27 @@ namespace xcEngineSDK {
 
     ConstantBuffer m_pCBChangesEveryFrame;
 
-    //Camera datas
+    //Camera data
 
-    Vector3 m_front; 
+    Vector3 m_front = Vector3::ZERO;
 
-    Vector3 m_position; 
+    Vector3 m_position = Vector3::ZERO;
 
-    Vector3 m_at;
+    Vector3 m_at = Vector3::ZERO;
 
-    Vector3 m_up;
+    Vector3 m_up = Vector3::ZERO;
 
-    Vector3 m_rigth;
+    Vector3 m_rigth = Vector3::ZERO;
 
-    float m_width;
+    float m_width = 0.0f;
 
-    float m_height;
+    float m_height = 0.0f;
 
-    float m_near;
+    float m_near = 0.0f;
 
-    float m_far;
+    float m_far = 0.0f;
 
-    float m_fov;
+    float m_fov = 0.0f;
 
   };
 }

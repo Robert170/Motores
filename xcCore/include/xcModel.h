@@ -123,12 +123,12 @@ namespace xcEngineSDK {
        * @Variable m_Directory, directory of textures
      */
      String m_directory;
-     bool gammaCorrection;
+     bool gammaCorrection = false;
 
      /**
        * @Variable m_Texture, texture of model
      */
-     Texture* m_texture;
+     Texture* m_texture = nullptr;
 
      /**
        * @Variable m_Sampler, sampler of model

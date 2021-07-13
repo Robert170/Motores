@@ -23,7 +23,7 @@
 #include "xcSceneNode.h"
 
 namespace xcEngineSDK {
-	class SceneGraph : public Module<SceneGraph>
+	class XC_CORE_EXPORT SceneGraph : public Module<SceneGraph>
 	{
 	 public:
 		SceneGraph();
@@ -32,16 +32,18 @@ namespace xcEngineSDK {
 		
 
 		void
-		addActor(const WeakSptr<SceneNode>& parent, const SPtr<Actor>& child);
+		addActor(SPtr<SceneNode> parent, SPtr<Actor> child);
 
 		void
-		removeActor(const SPtr<Actor>& actor);
+		removeActor(const SPtr<Actor> actor);
 
 		void
-		selectActor(const SPtr<Actor>& actor);
+		selectActor(const SPtr<Actor> actor);
 
     void
-    renameActor(const SPtr<Actor>& actor, const String& newName);
+    renameActor(const SPtr<Actor> actor, const String& newName);
+
+	
 
 	 public:
 		SPtr<SceneNode> m_pRoot;

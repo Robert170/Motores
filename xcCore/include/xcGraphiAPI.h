@@ -503,7 +503,7 @@ namespace xcEngineSDK {
                     TEXTURE_FORMAT = TF_R8G8B8A8_UNORM,
                     uint32 = TEXTURE_BIND_SHADER_RESOURCE,
                     TYPE_USAGE = TYPE_USAGE_DEFAULT,
-                    const void* Data = nullptr) { return nullptr; };
+                    const void* Data = nullptr) { Data; return nullptr; };
 
     /**
      * @brief      createTexture3D function, to create a texture 3D
@@ -864,15 +864,11 @@ namespace xcEngineSDK {
     /**
        * @brief      textureFromFile function, to load texture from file
        * @param      path parameter one, path of the texture
-       * @param      directory parameter two, directory of the texture
-       * @param      API parameter three, api to have acces to diferent functions
        * @bug		     No know Bugs
        * @return     Returns nothing
      */
     virtual Texture*
-    textureFromFile(String path,
-                    const String& directory,
-                    bool gamma = false) {return nullptr;};
+    textureFromFile(String path) {return nullptr;};
 
 
     //draw
@@ -952,12 +948,12 @@ namespace xcEngineSDK {
     /**
      * @Variable m_Width, width of the window
      */
-    unsigned int m_width = 900;
+    uint32 m_width = 900;
 
     /**
      * @Variable m_Height, height of the window
      */
-    unsigned int m_height = 900;
+    uint32 m_height = 900;
 
 
     sf::Window m_window;

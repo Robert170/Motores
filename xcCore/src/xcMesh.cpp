@@ -27,39 +27,41 @@ namespace xcEngineSDK {
 
   void 
   Mesh::draw(ShaderProgram& shader,
-             Vector<SamplerState*> Samplers) {
+             Vector<SamplerState*> samplers) {
 
     XC_UNREFERENCED_PARAMETER(shader);
     auto graphicsApi = g_graphicsAPI().instancePtr();
 
+    uint32 textureSize = m_vTextures.size();
+
     //set shader resource
-    for (int i = 0; i < m_vTextures.size(); i++)
-    {
+    for (uint32 i = 0; i < textureSize; ++i) {
       graphicsApi->setShaderResource(m_vTextures,
                                        1);
     }
 
+    uint32 samplerSize = samplers.size();
+
     //set sampler state
-    for (int i = 0; i < Samplers.size(); i++)
-    {
-      graphicsApi->setSamplerState(Samplers,
-                                       1);
+    for (uint32 i = 0; i < samplerSize; ++i) {
+      graphicsApi->setSamplerState(samplers,
+                                   1);
     }
 
     graphicsApi->setVertexBuffer(m_vertexBuffer,
-                                   0,
-                                   1,
-                                   sizeof(BoneVertex),
-                                   0);
+                                 0,
+                                 1,
+                                 sizeof(BoneVertex),
+                                 0);
 
     graphicsApi->setIndexBuffer(m_indexBuffer,
-                                  0);
+                                0);
 
     // draw mesh
     graphicsApi->drawIndexed(m_Indices.size(),
-                               0,
-                               0,
-                               nullptr);
+                             0,
+                             0,
+                             nullptr);
 
   }
 
@@ -69,10 +71,10 @@ namespace xcEngineSDK {
     auto graphicsApi = g_graphicsAPI().instancePtr();
 
     m_vertexBuffer = graphicsApi->createVertexBuffer(m_Vertices,
-                                                       1);
+                                                     1);
      
     m_indexBuffer = graphicsApi->createIndexBuffer(m_Indices,
-                                                     1);
+                                                   1);
   }
 
   Matrix4x4 
@@ -93,7 +95,7 @@ namespace xcEngineSDK {
 
     transform.resize(m_pBonesInfo->NumBones);
 
-    for (int i = 0; i < m_pBonesInfo->NumBones; ++i) {
+    for (uint32 i = 0; i < m_pBonesInfo->NumBones; ++i) {
 
       transform[i] = m_pBonesInfo->VecSkeletal[i].Transformation;
 
@@ -191,7 +193,7 @@ namespace xcEngineSDK {
                                m_pBonesInfo->VecSkeletal[BoneIndex].Offset;
     }
 
-    for (int i = 0; i < node->mNumChildren; i++) {
+    for (uint32 i = 0; i < node->mNumChildren; ++i) {
       nodeHeirarchy(time, node->mChildren[i], globalTransform);
     }
 
@@ -201,7 +203,7 @@ namespace xcEngineSDK {
   Mesh::FindNodeAnimation(const String NameNod,
                           const aiAnimation* Anim) {
 
-    for (int i = 0; i < Anim->mNumChannels; i++) {
+    for (uint32 i = 0; i < Anim->mNumChannels; ++i) {
 
       const aiNodeAnim* Temp = Anim->mChannels[i];
       if (String(Temp->mNodeName.data) == NameNod) {
@@ -216,7 +218,7 @@ namespace xcEngineSDK {
   int32 
   Mesh::findPosition(float AnimationTime, const aiNodeAnim* pNodeAnim) {
 
-    for (int i = 0; i < pNodeAnim->mNumPositionKeys - 1; i++) {
+    for (uint32 i = 0; i < pNodeAnim->mNumPositionKeys - 1; ++i) {
       if (AnimationTime < (float)pNodeAnim->mPositionKeys[i + 1].mTime)  {
         return i;
       }
@@ -230,7 +232,7 @@ namespace xcEngineSDK {
   Mesh::findRotation(float AnimationTime, const aiNodeAnim* pNodeAnim) {
     assert(pNodeAnim->mNumRotationKeys > 0);
 
-    for (int i = 0; i < pNodeAnim->mNumRotationKeys - 1; i++) {
+    for (uint32 i = 0; i < pNodeAnim->mNumRotationKeys - 1; ++i) {
       if (AnimationTime < (float)pNodeAnim->mRotationKeys[i + 1].mTime) {
         return i;
       }
@@ -243,7 +245,7 @@ namespace xcEngineSDK {
   Mesh::findScaling(float AnimationTime, const aiNodeAnim* pNodeAnim) {
     assert(pNodeAnim->mNumScalingKeys > 0);
 
-    for (int i = 0; i < pNodeAnim->mNumScalingKeys - 1; i++) {
+    for (uint32 i = 0; i < pNodeAnim->mNumScalingKeys - 1; ++i) {
       if (AnimationTime < (float)pNodeAnim->mScalingKeys[i + 1].mTime) {
         return i;
       }

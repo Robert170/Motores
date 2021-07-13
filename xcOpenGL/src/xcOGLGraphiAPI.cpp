@@ -16,12 +16,6 @@ namespace xcEngineSDK {
 	void 
 	framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-	void
-	OGLGraphiAPI::initWindow(uint32 width,
-			                     uint32 height) {
-
-	}
-
 
 	void
 	OGLGraphiAPI::createDeviceandSwap(sf::WindowHandle window) {
@@ -563,7 +557,7 @@ namespace xcEngineSDK {
 	checkGLError();
 
 
-	for (int i = 0; i < LayoutDesc.Formats.size(); i++) {
+	for (uint32 i = 0; i < LayoutDesc.Formats.size(); ++i) {
 		glVertexAttribFormat(i,
 			                   inputLa->getSize(LayoutDesc.Formats.at(i)), 
 			                   GL_FLOAT,
@@ -858,16 +852,12 @@ namespace xcEngineSDK {
 	}
 
 	Texture*
-	OGLGraphiAPI::textureFromFile(String path,
-		                            const String& directory, 
-		                            bool gamma) {
+	OGLGraphiAPI::textureFromFile(String path) {
+
     Texture* texture = new Texture();
 
-    String filename = directory + path;//std::string(path);
-    //filename = directory + '/' + filename;
-
     int width, height, nrComponents;
-    unsigned char* data = stbi_load(filename.c_str(), 
+    unsigned char* data = stbi_load(path.c_str(),
 			                              &width, 
 			                              &height, 
 			                              &nrComponents, 
@@ -1013,7 +1003,7 @@ namespace xcEngineSDK {
 		//glDeleteShader(PixShader->m_pixelShader);
 
 
-		//for (int i = 0; i < SamplerStates.size(); ++i)
+		//for (uint32 i = 0; i < SamplerStates.size(); ++i)
 		//{
 		//	auto Sampler = reinterpret_cast<SamplerStateOGL*>(SamplerStates.at(i));
 		//	//glDeleteSamplers(SamplerStates.size(),Sampler->m_samSt);

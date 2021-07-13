@@ -29,10 +29,10 @@ namespace xcEngineSDK {
 		SceneNode() = default;
 		~SceneNode() = default;
 
-		SceneNode(WeakSptr<SceneNode> parent, SPtr<Actor> actor);
+		SceneNode(SPtr<SceneNode> parent, SPtr<Actor> actor);
 
 		void
-		addChild(WeakSptr<SceneNode> parent, SPtr<Actor> child);
+		addChild(SPtr<SceneNode> parent, SPtr<Actor> child);
 
     void
     removeChild(WeakSptr<Actor> child);
@@ -45,8 +45,8 @@ namespace xcEngineSDK {
 
 	 public:
 
-     WeakSptr<SceneNode> m_pParent;
-     Vector<WeakSptr<SceneNode>> m_pChild;
+		 SPtr<SceneNode> m_pParent;
+     Vector<SPtr<SceneNode>> m_pChild;
 
      SPtr<Actor> m_pActor;
 

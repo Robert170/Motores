@@ -582,15 +582,11 @@ namespace xcEngineSDK {
 		/**
        * @brief      textureFromFile function, to load texture from file
        * @param      path parameter one, path of the texture
-       * @param      directory parameter two, directory of the texture
-       * @param      API parameter three, api to have access to different functions
        * @bug		     No know Bugs
        * @return     Returns nothing
      */
     Texture*
-    textureFromFile(String path,
-                    const String& directory,
-                    bool gamma) override;
+    textureFromFile(String path) override;
 
 		//draw
 
