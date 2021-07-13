@@ -228,11 +228,11 @@ namespace xcEngineSDK {
 
     if (FAILED(hr))
     {
-      std::cout << "//error fallo la creacion del render target view" << std::endl;
+      std::cout << "//error fail the creation of render target view" << std::endl;
       return;
     }
 
-    m_BackBuffer = BackBuffer;
+    m_BackBuffer.reset(BackBuffer);
 
 
     // Create default depth stencil texture
@@ -267,7 +267,7 @@ namespace xcEngineSDK {
     if (FAILED(hr))
       return;
 
-    m_DepthStencil = DepthStencil;
+    m_DepthStencil.reset(DepthStencil);
 
   }
 
@@ -278,13 +278,14 @@ namespace xcEngineSDK {
 
 
   //function to create a vertex buffer 
-  VertexBuffer* 
+  SPtr<VertexBuffer> 
   DXGraphiAPI::createVertexBuffer(const Vector <BoneVertex>& Ver,
                                   uint32 NumBuffer) {
 
     XC_UNREFERENCED_PARAMETER(NumBuffer);
 
-    auto VertexBuffer = new VertexBufferDX();
+    SPtr<VertexBufferDX> vertexBuffer;
+    vertexBuffer.reset(new VertexBufferDX());
     CD3D11_BUFFER_DESC BufferDesc(Ver.size() * sizeof(BoneVertex),
                                   D3D11_BIND_VERTEX_BUFFER);
 
@@ -294,23 +295,24 @@ namespace xcEngineSDK {
 
     HRESULT hr = m_pd3dDevice->CreateBuffer(&BufferDesc,
                                             &InitData,
-                                            &VertexBuffer->m_pVertexBuffer);
+                                            &vertexBuffer->m_pVertexBuffer);
     if (FAILED(hr)) {
-      std::cout << "//error fallo la creacion del vertex buffer" << std::endl;
+      std::cout << "//error fail the creation of vertex buffer" << std::endl;
       return nullptr;
     }
-    return VertexBuffer;
+    return vertexBuffer; 
 
   }
 
   //function to create an index buffer 
-  IndexBuffer* 
+  SPtr<IndexBuffer> 
   DXGraphiAPI::createIndexBuffer(const Vector<uint32>& Ind,
                                  uint32 NumBuffer) {
 
 
     XC_UNREFERENCED_PARAMETER(NumBuffer);
-    auto IndexBuffer = new IndexBufferDX();
+    SPtr<IndexBufferDX> indexBuffer;
+    indexBuffer.reset(new IndexBufferDX());
     CD3D11_BUFFER_DESC BufferDesc(Ind.size() * sizeof(uint32),
                                   D3D11_BIND_INDEX_BUFFER);
 
@@ -320,17 +322,17 @@ namespace xcEngineSDK {
 
     HRESULT hr = m_pd3dDevice->CreateBuffer(&BufferDesc,
                                             &InitData,
-                                            &IndexBuffer->m_pIndexBuffer);
+                                            &indexBuffer->m_pIndexBuffer);
 
     if (FAILED(hr)) {
-      std::cout << "//error fallo la creacion del Index buffer" << std::endl;
+      std::cout << "//error fail the creation of Index buffer" << std::endl;
       return nullptr;
     }
-    return IndexBuffer;
+    return indexBuffer;
   }
 
   //function to create a constant buffer 
-  ConstantBuffer* 
+  SPtr<ConstantBuffer> 
   DXGraphiAPI::createConstantBuffer(uint32 BufferSize,
                                     uint32 NumBuffer,
                                     const void* Data) {
@@ -338,7 +340,8 @@ namespace xcEngineSDK {
     XC_UNREFERENCED_PARAMETER(NumBuffer);
     XC_UNREFERENCED_PARAMETER(Data);
 
-    auto ConsBuffer = new ConstantBufferDX();
+    SPtr<ConstantBufferDX>consBuffer;
+    consBuffer.reset(new ConstantBufferDX());
 
     CD3D11_BUFFER_DESC BufferDesc(BufferSize,
                                   D3D11_BIND_CONSTANT_BUFFER);
@@ -352,20 +355,20 @@ namespace xcEngineSDK {
 
       hr = m_pd3dDevice->CreateBuffer(&BufferDesc,
                                       &dataBuffer,
-                                      &ConsBuffer->m_pConstantBuffer);
+                                      &consBuffer->m_pConstantBuffer);
     }
     else {
       hr = m_pd3dDevice->CreateBuffer(&BufferDesc,
                                       nullptr,
-                                      &ConsBuffer->m_pConstantBuffer);
+                                      &consBuffer->m_pConstantBuffer);
 
     }
 
     if (FAILED(hr)) {
-      std::cout << "//Error fallo la creacion del Constant buffer Never" << std::endl;
+      std::cout << "//Error fail the creation of Constant buffer" << std::endl;
       return nullptr;
     }
-    return ConsBuffer;
+    return consBuffer;
   }
 
   void 
@@ -382,8 +385,7 @@ namespace xcEngineSDK {
                                TYPE_USAGE Usage,
                                const void* Data) {
     HRESULT hr;
-    auto texture = new TextureDX();
-    format = TF_R8G8B8A8_UNORM;
+    TextureDX* texture = new TextureDX();
 
     CD3D11_TEXTURE2D_DESC desc(static_cast<DXGI_FORMAT>(format),
                                width,
@@ -398,12 +400,12 @@ namespace xcEngineSDK {
     ResourceDataDesc.SysMemPitch = desc.Width * 4;
     ResourceDataDesc.SysMemSlicePitch = 0;
 
-    //Crear textura
+    //create texture
     hr = m_pd3dDevice->CreateTexture2D(&desc, 
                                        &ResourceDataDesc,
                                        &texture->m_pTexture);
     if (FAILED(hr)) {
-      std::cout << "//Error fallo la creacion de la textura" << std::endl;
+      std::cout << "//Error fail the creation of la texture" << std::endl;
       //TODO
       //stbi_image_free(Data);
       return nullptr;
@@ -470,7 +472,7 @@ namespace xcEngineSDK {
   DXGraphiAPI::createTexture3D() {
   } 
 
-  ShaderProgram* 
+  SPtr<ShaderProgram> 
   DXGraphiAPI::createShaderProgram(const String& FileNameVS,
                                    const String& FileNamePS,
                                    const String& EntryVS,
@@ -483,33 +485,34 @@ namespace xcEngineSDK {
     XC_UNREFERENCED_PARAMETER(NumVertexShader);
     XC_UNREFERENCED_PARAMETER(NumPixelShader);
 
-    auto ShaderProgram = new ShaderProgramDX();
+    SPtr<ShaderProgramDX> shaderProgram;
+    shaderProgram.reset(new ShaderProgramDX());
 
     //TODO EL VS y PS dben ser objetos
     //vertexShder
     String Temp = FileNameVS + "_DX.txt";
-    ShaderProgram->m_vertexShaderProgram = new VertexShaderDX();
+    shaderProgram->m_vertexShaderProgram = new VertexShaderDX();
     WString FileVS(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), FileVS.begin());
 
-    if (!ShaderProgram->m_vertexShaderProgram->compileVertexShaderFromFile(FileVS,
+    if (!shaderProgram->m_vertexShaderProgram->compileVertexShaderFromFile(FileVS,
         EntryVS,
         ShaderModelVS,
-        &ShaderProgram->m_vertexShaderProgram->m_pVSBlob)) {
+        &shaderProgram->m_vertexShaderProgram->m_pVSBlob)) {
       std::cout << "//Error fallo la compilacion del shader" << std::endl;
-      delete ShaderProgram;
+      //delete shaderProgram;
       return nullptr;
     }
 
-    HRESULT hr = m_pd3dDevice->CreateVertexShader(ShaderProgram->m_vertexShaderProgram
+    HRESULT hr = m_pd3dDevice->CreateVertexShader(shaderProgram->m_vertexShaderProgram
                                                   ->m_pVSBlob->GetBufferPointer(),
-                                                  ShaderProgram->m_vertexShaderProgram
+                                                  shaderProgram->m_vertexShaderProgram
                                                   ->m_pVSBlob->GetBufferSize(),
                                                   nullptr,
-                                                  &ShaderProgram->m_vertexShaderProgram->
+                                                  &shaderProgram->m_vertexShaderProgram->
                                                   m_vertexShader);
     if (FAILED(hr)) {
-      delete ShaderProgram;
+      //delete shaderProgram;
       std::cout << "//Error fallo la creacion del vertex shader" << std::endl;
       ///error
       return nullptr;
@@ -518,107 +521,111 @@ namespace xcEngineSDK {
 
     //pixel shader
     Temp = FileNamePS + "_DX.txt";
-    ShaderProgram->m_pixelShaderProgram = new PixelShaderDX();
+    shaderProgram->m_pixelShaderProgram = new PixelShaderDX();
 
     WString FilePS(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), FilePS.begin());
 
-    if (!ShaderProgram->m_pixelShaderProgram->
+    if (!shaderProgram->m_pixelShaderProgram->
         compilePixelShaderFromFile(FilePS,
                                    EntryPS,
                                    ShaderModelPS,
-                                   &ShaderProgram->m_pixelShaderProgram->m_pPSBlob)) {
+                                   &shaderProgram->m_pixelShaderProgram->m_pPSBlob)) {
       std::cout << " //error fallo la compilacion del shader" << std::endl;
       return nullptr;
     }
 
-    hr = m_pd3dDevice->CreatePixelShader(ShaderProgram->m_pixelShaderProgram->
+    hr = m_pd3dDevice->CreatePixelShader(shaderProgram->m_pixelShaderProgram->
                                          m_pPSBlob->GetBufferPointer(),
-                                         ShaderProgram->m_pixelShaderProgram->
+                                         shaderProgram->m_pixelShaderProgram->
                                          m_pPSBlob->GetBufferSize(),
                                          nullptr,
-                                         &ShaderProgram->m_pixelShaderProgram->
+                                         &shaderProgram->m_pixelShaderProgram->
                                          m_pixelShader);
 
     if (FAILED(hr)) {
-      delete ShaderProgram;
+      //delete shaderProgram;
       std::cout << "//error fallo la creacion del Pixel shader" << std::endl;
       return nullptr;
     }
 
-    return ShaderProgram;
+    return shaderProgram;
   }
 
   //function to create a pixel shader
-  PixelShader* DXGraphiAPI::createPixelShaders(const String& FileName,
+  SPtr<PixelShader> 
+  DXGraphiAPI::createPixelShaders(const String& FileName,
                                                const String& Entry,
                                                const String& ShaderModel,
                                                int32 NumPixelShader) {
     XC_UNREFERENCED_PARAMETER(NumPixelShader);
 
     String Temp = FileName + "_DX.txt";
-    auto PixelShader = new PixelShaderDX();
+    SPtr<PixelShaderDX> pixelShader;
+    pixelShader.reset(new PixelShaderDX());
 
     WString File(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), File.begin());
 
-    if (!PixelShader->compilePixelShaderFromFile(File,
+    if (!pixelShader->compilePixelShaderFromFile(File,
                                                  Entry,
                                                  ShaderModel,
-                                                 &PixelShader->m_pPSBlob)) {
+                                                 &pixelShader->m_pPSBlob)) {
       std::cout << " //error fallo la compilacion del shader" << std::endl;
       return nullptr;
     }
 
-    HRESULT hr = m_pd3dDevice->CreatePixelShader(PixelShader->m_pPSBlob->
+    HRESULT hr = m_pd3dDevice->CreatePixelShader(pixelShader->m_pPSBlob->
                                                  GetBufferPointer(),
-                                                 PixelShader->m_pPSBlob->
+                                                 pixelShader->m_pPSBlob->
                                                  GetBufferSize(),
                                                  nullptr,
-                                                 &PixelShader->m_pixelShader);
+                                                 &pixelShader->m_pixelShader);
 
     if (FAILED(hr)) {
-      PixelShader->m_pPSBlob->Release();
+      pixelShader->m_pPSBlob->Release();
       std::cout << "//error fallo la creacion del Pixel shader" << std::endl;
       return nullptr;
     }
 
-    return PixelShader;
+    return pixelShader;
   }
 
   //function to create a vertex shader
-  VertexShader* DXGraphiAPI::createVertexShaders(const std::string& FileName,
-                                                 const std::string& Entry,
-                                                 const std::string& ShaderModel,
-                                                 int32 NumVextexShader) {
+  SPtr<VertexShader> 
+  DXGraphiAPI::createVertexShaders(const String& FileName,
+                                   const String& Entry,
+                                   const String& ShaderModel,
+                                   int32 NumVextexShader) {
 
     XC_UNREFERENCED_PARAMETER(NumVextexShader);
     String Temp = FileName + "_DX.txt";
-    auto VertexShaders = new VertexShaderDX();
+    SPtr<VertexShaderDX>vertexShaders;
+    vertexShaders.reset(new VertexShaderDX());
     WString File(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), File.begin());
 
-    if (!VertexShaders->compileVertexShaderFromFile(File,
+    if (!vertexShaders->compileVertexShaderFromFile(File,
                                                     Entry,
                                                     ShaderModel,
-                                                    &VertexShaders->m_pVSBlob)) {
+                                                    &vertexShaders->m_pVSBlob)) {
       std::cout << "//Error fallo la compilacion del shader" << std::endl;
       return nullptr;
     }
 
-    HRESULT hr = m_pd3dDevice->CreateVertexShader(VertexShaders->m_pVSBlob->
+    HRESULT hr = m_pd3dDevice->CreateVertexShader(vertexShaders->m_pVSBlob->
                                                   GetBufferPointer(),
-                                                  VertexShaders->m_pVSBlob->
+                                                  vertexShaders->m_pVSBlob->
                                                   GetBufferSize(),
                                                   nullptr,
-                                                  &VertexShaders->m_vertexShader);
+                                                  &vertexShaders->m_vertexShader);
     if (FAILED(hr)) {
-      VertexShaders->m_pVSBlob->Release();
+      vertexShaders->m_pVSBlob->Release();
       std::cout << "//Error fallo la creacion del vertex shader" << std::endl;
       ///error
       return nullptr;
     }
-    return VertexShaders;
+    return vertexShaders;
   }
 
   InputLayout_Desc 
@@ -634,12 +641,14 @@ namespace xcEngineSDK {
   }
 
   //function to create an input layout,
-  InputLayout* DXGraphiAPI::createInputLayout(ShaderProgram& Vertex,
-                                               InputLayout_Desc& LayoutDesc,
-                                               uint32 NumInputLayout) {
+  SPtr<InputLayout> 
+  DXGraphiAPI::createInputLayout(ShaderProgram& Vertex,
+                                 InputLayout_Desc& LayoutDesc,
+                                 uint32 NumInputLayout) {
 
     XC_UNREFERENCED_PARAMETER(NumInputLayout);
-    auto InputLayout = new InputLayoutDX();
+    SPtr<InputLayoutDX> inputLayout; 
+    inputLayout.reset(new InputLayoutDX());
     auto& VertexShaderBlob = reinterpret_cast<ShaderProgramDX&>(Vertex);
 
 
@@ -723,7 +732,7 @@ namespace xcEngineSDK {
                                                   ->m_pVSBlob->GetBufferPointer(),
                                                   VertexShaderBlob.m_vertexShaderProgram
                                                   ->m_pVSBlob->GetBufferSize(),
-                                                  &InputLayout->m_pInputLayout);
+                                                  &inputLayout->m_pInputLayout);
 
     VertexShaderBlob.m_vertexShaderProgram->m_pVSBlob->Release();
 
@@ -732,28 +741,29 @@ namespace xcEngineSDK {
       return nullptr;
     }
 
-    return InputLayout;
+    return inputLayout;
 
 
   }
 
   //function to create a sampler state
 
-  InputLayout* 
+  SPtr<InputLayout> 
   DXGraphiAPI::createAutomaticInputLayout(ShaderProgram& VS) {
-      // Reflect shader info
+    // Reflect shader info
     ID3D11ShaderReflection* pVertexShaderReflection = nullptr;
 
     ShaderProgramDX& vsBlob = reinterpret_cast<ShaderProgramDX&>(VS);
 
-    InputLayoutDX* InputLayout = new InputLayoutDX();
+    SPtr<InputLayoutDX> inputLayout;
+    inputLayout.reset(new InputLayoutDX());
 
 
     if (FAILED(D3DReflect(vsBlob.m_vertexShaderProgram->m_pVSBlob->GetBufferPointer(),
         vsBlob.m_vertexShaderProgram->m_pVSBlob->GetBufferSize(),
         IID_ID3D11ShaderReflection, (void**) &pVertexShaderReflection)))  {
 
-       //TODO Clase de obtencion de errores
+       
         return nullptr;
     }
  
@@ -841,7 +851,7 @@ namespace xcEngineSDK {
                                                  m_pVSBlob->GetBufferPointer(), 
                                                  vsBlob.m_vertexShaderProgram->
                                                  m_pVSBlob->GetBufferSize(), 
-                                                 &InputLayout->m_pInputLayout);
+                                                 &inputLayout->m_pInputLayout);
 
     vsBlob.m_vertexShaderProgram->m_pVSBlob->Release();
 
@@ -854,15 +864,16 @@ namespace xcEngineSDK {
     }
  
 
-    return InputLayout;
+    return inputLayout;
   }
 
   //faltan parametros
-  SamplerState* 
+  SPtr<SamplerState> 
   DXGraphiAPI::createSamplerState(uint32 NumSamplerState) {
 
     XC_UNREFERENCED_PARAMETER(NumSamplerState);
-    auto SamplerState = new SamplerStateDX();
+    SPtr<SamplerStateDX> samplerState; 
+    samplerState.reset(new SamplerStateDX());
 
     
    
@@ -882,86 +893,98 @@ namespace xcEngineSDK {
     SamDesc.MaxLOD = 3.402823466e+38F; // FLT_MAX
 
     m_pd3dDevice->CreateSamplerState(&SamDesc,
-                                     &SamplerState->m_pSamplerLinear);
+                                     &samplerState->m_pSamplerLinear);
 
-    return SamplerState;
+    return samplerState;
   }
 
   //function to create a rasterizer state
 
   //faltan parametros
-  RasterizerState* DXGraphiAPI::createRasterizerState() {
-    auto RasState = new RasterizerStateDX();
+  SPtr<RasterizerState>
+  DXGraphiAPI::createRasterizerState() {
+    SPtr<RasterizerStateDX> rasState;
+    rasState.reset(new RasterizerStateDX());
 
     CD3D11_RASTERIZER_DESC RasDesc;
 
     m_pd3dDevice->CreateRasterizerState(&RasDesc,
-                                        &RasState->m_pRasterizerState);
-    return RasState;
+                                        &rasState->m_pRasterizerState);
+    return rasState;
   }
 
 
   //TODO multiples buffers, vector de constantbuffer, tantro para VS y PS
   //function to set a constant buffer of vertex shader
   void 
-  DXGraphiAPI::setVSConstantBuffer(ConstantBuffer* ConstBuff,
+  DXGraphiAPI::setVSConstantBuffer(WeakSptr<ConstantBuffer> ConstBuff,
                                    uint32 StartSlot,
                                    uint32 NumBuffer) {
 
-    auto* Buffer = reinterpret_cast<ConstantBufferDX*>(ConstBuff);
+    ConstantBufferDX* buffer = 
+    reinterpret_cast<ConstantBufferDX*>(ConstBuff.lock().get());
+   
     m_pImmediateContext->VSSetConstantBuffers(StartSlot,
                                               NumBuffer,
-                                              &Buffer->m_pConstantBuffer);
+                                              &buffer->m_pConstantBuffer);
   }
 
   //function to set a constant buffer of pixel shader
   void 
-  DXGraphiAPI::setPSConstantBuffer(ConstantBuffer* ConstBuff,
+  DXGraphiAPI::setPSConstantBuffer(WeakSptr<ConstantBuffer> ConstBuff,
                                    uint32 StartSlot,
                                    uint32 NumBuffer) {
-    auto* Buffer = reinterpret_cast<ConstantBufferDX*>(ConstBuff);
+
+    ConstantBufferDX* buffer = 
+    reinterpret_cast<ConstantBufferDX*>(ConstBuff.lock().get());
 
     m_pImmediateContext->PSSetConstantBuffers(StartSlot,
                                               NumBuffer,
-                                              &Buffer->m_pConstantBuffer);
+                                              &buffer->m_pConstantBuffer);
   }
 
 
 
   //function to set an index buffer 
-  void DXGraphiAPI::setIndexBuffer(IndexBuffer* IndBuff,
-                                   uint32 offset) {
-    auto* IndexBuff = reinterpret_cast<IndexBufferDX*>(IndBuff);
-    IndexBuff->m_offset = offset;
+  void 
+  DXGraphiAPI::setIndexBuffer(WeakSptr<IndexBuffer> IndBuff,
+                              uint32 offset) {
+    IndexBufferDX* indexBuff = 
+    reinterpret_cast<IndexBufferDX*>(IndBuff.lock().get());
 
-    m_pImmediateContext->IASetIndexBuffer(IndexBuff->m_pIndexBuffer,
+    indexBuff->m_offset = offset;
+
+    m_pImmediateContext->IASetIndexBuffer(indexBuff->m_pIndexBuffer,
                                           DXGI_FORMAT_R32_UINT,
-                                          IndexBuff->m_offset);
+                                          indexBuff->m_offset);
   }
 
   //function to set a vertex buffer 
   void 
-  DXGraphiAPI::setVertexBuffer(VertexBuffer* VerBuff,
+  DXGraphiAPI::setVertexBuffer(WeakSptr<VertexBuffer> verBuff,
                                uint32 StartSlot,
                                uint32 NumBuffer,
                                uint32 stride,
                                uint32 offset) {
 
-    auto* VertexBuff = reinterpret_cast<VertexBufferDX*>(VerBuff);
+    VertexBufferDX* vertexBuff = 
+    reinterpret_cast<VertexBufferDX*>(verBuff.lock().get());
 
-    VertexBuff->m_stride = stride;
-    VertexBuff->m_offset = offset;
+    vertexBuff->m_stride = stride;
+    vertexBuff->m_offset = offset;
     m_pImmediateContext->IASetVertexBuffers(StartSlot,
                                             NumBuffer,
-                                            &VertexBuff->m_pVertexBuffer,
-                                            &VertexBuff->m_stride,
-                                            &VertexBuff->m_offset);
+                                            &vertexBuff->m_pVertexBuffer,
+                                            &vertexBuff->m_stride,
+                                            &vertexBuff->m_offset);
   }
 
   void 
-  DXGraphiAPI::setShaderProgram(ShaderProgram* ShaderProgram) {
+  DXGraphiAPI::setShaderProgram(WeakSptr<ShaderProgram> shaderProgram) {
 
-    auto* ShaderPr = reinterpret_cast<ShaderProgramDX*>(ShaderProgram);
+    ShaderProgramDX* ShaderPr = 
+    reinterpret_cast<ShaderProgramDX*>(shaderProgram.lock().get());
+
     m_pImmediateContext->PSSetShader(ShaderPr->m_pixelShaderProgram->
                                      m_pixelShader,
                                      nullptr,
@@ -975,8 +998,10 @@ namespace xcEngineSDK {
 
   //function to set a pixel shader 
   void
-  DXGraphiAPI::setPS(PixelShader* Pixel) {
-    auto* PixelSh = reinterpret_cast<PixelShaderDX*>(Pixel);
+  DXGraphiAPI::setPS(WeakSptr<PixelShader> pixel) {
+
+    PixelShaderDX* PixelSh = 
+    reinterpret_cast<PixelShaderDX*>(pixel.lock().get());
 
     m_pImmediateContext->PSSetShader(PixelSh->m_pixelShader,
                                      nullptr,
@@ -985,8 +1010,9 @@ namespace xcEngineSDK {
 
   //function to set a vertex shader 
   void 
-  DXGraphiAPI::setVS(VertexShader* Vertex) {
-    auto* VertexSh = reinterpret_cast<VertexShaderDX*>(Vertex);
+  DXGraphiAPI::setVS(WeakSptr<VertexShader> vertex) {
+    VertexShaderDX* VertexSh = 
+    reinterpret_cast<VertexShaderDX*>(vertex.lock().get());
     m_pImmediateContext->VSSetShader(VertexSh->m_vertexShader,
                                      nullptr,
                                      0);
@@ -995,14 +1021,17 @@ namespace xcEngineSDK {
   //function to set a render target 
   void 
   DXGraphiAPI::setRenderTarget(const Vector<Texture*>& pRTTex,
-                               Texture* pDSTex) {
+                               WeakSptr<Texture> pDSTex) {
+
     for (uint32 i = 0; i < pRTTex.size(); ++i) {
-      auto pRTDX = reinterpret_cast<TextureDX*>(pRTTex.at(i));
+
+      TextureDX* pRTDX = 
+      reinterpret_cast<TextureDX*>(pRTTex.at(i));
 
       ID3D11DepthStencilView* pDSV = nullptr;
 
-      if (nullptr != pDSTex) {
-        auto pDSDX = reinterpret_cast<TextureDX*>(pDSTex);
+      if (nullptr != pDSTex.lock()) {
+        TextureDX* pDSDX = reinterpret_cast<TextureDX*>(pDSTex.lock().get());
         pDSV = pDSDX->m_pDSV;
       }
 
@@ -1016,8 +1045,10 @@ namespace xcEngineSDK {
 
   //function to set a input layout 
   void 
-  DXGraphiAPI::setInputLayout(InputLayout* Inp) {
-    auto* InpLay = reinterpret_cast<InputLayoutDX*>(Inp);
+  DXGraphiAPI::setInputLayout(WeakSptr<InputLayout> inp) {
+    InputLayoutDX* InpLay = 
+    reinterpret_cast<InputLayoutDX*>(inp.lock().get());
+
     m_pImmediateContext->IASetInputLayout(InpLay->m_pInputLayout);
   }
 
@@ -1026,7 +1057,9 @@ namespace xcEngineSDK {
   DXGraphiAPI::setSamplerState(const Vector<SamplerState*>& Sam,
                                uint32 StartSlot) {
     for (uint32 i = 0; i < Sam.size(); ++i) {
-      auto Sampler = reinterpret_cast<SamplerStateDX*>(Sam.at(i));
+
+      SamplerStateDX* Sampler = 
+      reinterpret_cast<SamplerStateDX*>(Sam.at(i));
 
       m_pImmediateContext->PSSetSamplers(i,
                                          Sam.size(),
@@ -1037,7 +1070,7 @@ namespace xcEngineSDK {
   }
 
   void 
-  DXGraphiAPI::setDepthStencil(Texture* pDSTex){
+  DXGraphiAPI::setDepthStencil(WeakSptr<Texture> pDSTex){
     XC_UNREFERENCED_PARAMETER(pDSTex);
   }
 
@@ -1050,7 +1083,7 @@ namespace xcEngineSDK {
 
     for (uint32 i = 0; i < pRTTex.size(); ++i) {
 
-      auto pRTDX = reinterpret_cast<TextureDX*>(pRTTex[i]);
+      TextureDX* pRTDX = reinterpret_cast<TextureDX*>(pRTTex[i]);
 
       m_pImmediateContext->PSSetShaderResources(i,
                                                 pRTTex.size(),
@@ -1085,8 +1118,8 @@ namespace xcEngineSDK {
 
   void 
   DXGraphiAPI::setDefaultRenderTarget() {
-    auto* pRTDX = reinterpret_cast<TextureDX*>(m_BackBuffer);
-    auto* pDSDX = reinterpret_cast<TextureDX*>(m_DepthStencil);
+    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(m_BackBuffer.get());
+    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(m_DepthStencil.get());
 
     m_pImmediateContext->OMSetRenderTargets(1,
                                             &pRTDX->m_pRTV,
@@ -1102,28 +1135,31 @@ namespace xcEngineSDK {
 
   //function to set a rasterizer state
   void 
-  DXGraphiAPI::setRasterizerState(RasterizerState* RasState) {
-    auto* pRasteState = reinterpret_cast<RasterizerStateDX*>(RasState);
+  DXGraphiAPI::setRasterizerState(WeakSptr<RasterizerState> RasState) {
+
+    RasterizerStateDX* pRasteState = 
+    reinterpret_cast<RasterizerStateDX*>(RasState.lock().get());
 
     m_pImmediateContext->RSSetState(pRasteState->m_pRasterizerState);
   }
 
   //function to clear render target view
   void 
-  DXGraphiAPI::clearRenderTarget(Texture* RT,
+  DXGraphiAPI::clearRenderTarget(WeakSptr<Texture> RT,
                                  ColorStruct Color) {
-    auto* pRTDX = reinterpret_cast<TextureDX*>(RT);
+    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(RT.lock().get());
 
     m_pImmediateContext->ClearRenderTargetView(pRTDX->m_pRTV, &Color.R);
   }
 
   //function to clear depth stenci view
   void 
-  DXGraphiAPI::clearDepthStencil(Texture* DS,
+  DXGraphiAPI::clearDepthStencil(WeakSptr<Texture> DS,
                                  uint32 ClerFlag,
                                  float Depth,
                                  uint32 Stencil) {
-    auto* pDSDX = reinterpret_cast<TextureDX*>(DS);
+
+    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(DS.lock().get());
 
 
 
@@ -1136,8 +1172,8 @@ namespace xcEngineSDK {
   void 
   DXGraphiAPI::clearDefaultRenderTargetAndDepthStencil(ColorStruct Color) {
 
-    auto pRTDX = reinterpret_cast<TextureDX*>(m_BackBuffer);
-    auto pDSDX = reinterpret_cast<TextureDX*>(m_DepthStencil);
+    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(m_BackBuffer.get());
+    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(m_DepthStencil.get());
 
     m_pImmediateContext->ClearRenderTargetView(pRTDX->m_pRTV, &Color.R);
 
@@ -1166,10 +1202,8 @@ namespace xcEngineSDK {
                                const String& directory,
                                bool gamma) {
 
-    auto texture = new Texture();
+    Texture* texture = new Texture();
 
-   // String filename = directory +"/"+ path;
-    //filename = directory + filename;
 
     int width, height, nrComponents;
    
@@ -1179,19 +1213,7 @@ namespace xcEngineSDK {
                                     &nrComponents, 
                                     4);
     if (data) {
-     /* TEXTURE_FORMAT format;
-      if (nrComponents == 1) {
-
-        format = TF_R16_UINT;
-      }
-      else if (nrComponents == 3) {
-
-        format = TF_R32G32B32_UINT;
-      }
-      else if (nrComponents == 4) {
-   
-        format = TF_R8G8B8A8_UNORM;
-      }*/
+  
       //create texture
       texture = createTexture2D(width,
                                 height,
@@ -1213,10 +1235,6 @@ namespace xcEngineSDK {
 
     return texture;
   }
-
-  /*void 
-  DXGraphiAPI::drawModel(Model* Model, ShaderProgram& ShaderPro) {
-  }*/
 
   //function to draw
   void 
@@ -1262,12 +1280,12 @@ namespace xcEngineSDK {
     }
 
     //depthstencil
-    auto DepthStencil = reinterpret_cast<TextureDX*>(m_DepthStencil);
+    TextureDX* DepthStencil = reinterpret_cast<TextureDX*>(m_DepthStencil.get());
     if (nullptr != DepthStencil) {
       DepthStencil->m_pTexture->Release();
     }
 
-    auto BackBuffer = reinterpret_cast<TextureDX*>(m_BackBuffer);
+    TextureDX* BackBuffer = reinterpret_cast<TextureDX*>(m_BackBuffer.get());
     if (nullptr != BackBuffer) {
       BackBuffer->m_pRTV->Release();
     }

@@ -1,6 +1,8 @@
 #include "xcMesh.h"
 
 namespace xcEngineSDK {
+
+
   Mesh::Mesh(Vector<BoneVertex> Vertices,
              Vector<uint32> indices,
              Vector<Texture*> Textures,
@@ -28,32 +30,33 @@ namespace xcEngineSDK {
              Vector<SamplerState*> Samplers) {
 
     XC_UNREFERENCED_PARAMETER(shader);
+    auto graphicsApi = g_graphicsAPI().instancePtr();
 
     //set shader resource
     for (int i = 0; i < m_vTextures.size(); i++)
     {
-      g_graphicsAPI().setShaderResource(m_vTextures,
-                                        1);
+      graphicsApi->setShaderResource(m_vTextures,
+                                       1);
     }
 
     //set sampler state
     for (int i = 0; i < Samplers.size(); i++)
     {
-      g_graphicsAPI().setSamplerState(Samplers,
-                                    1);
+      graphicsApi->setSamplerState(Samplers,
+                                       1);
     }
 
-    g_graphicsAPI().setVertexBuffer(m_vertexBuffer,
-                                  0,
-                                  1,
-                                  sizeof(BoneVertex),
-                                  0);
-
-    g_graphicsAPI().setIndexBuffer(m_indexBuffer,
+    graphicsApi->setVertexBuffer(m_vertexBuffer,
+                                   0,
+                                   1,
+                                   sizeof(BoneVertex),
                                    0);
 
+    graphicsApi->setIndexBuffer(m_indexBuffer,
+                                  0);
+
     // draw mesh
-    g_graphicsAPI().drawIndexed(m_Indices.size(),
+    graphicsApi->drawIndexed(m_Indices.size(),
                                0,
                                0,
                                nullptr);
@@ -62,11 +65,14 @@ namespace xcEngineSDK {
 
   void 
   Mesh::setupMesh() {
-    m_vertexBuffer = g_graphicsAPI().createVertexBuffer(m_Vertices,
+
+    auto graphicsApi = g_graphicsAPI().instancePtr();
+
+    m_vertexBuffer = graphicsApi->createVertexBuffer(m_Vertices,
                                                        1);
-    
-    m_indexBuffer = g_graphicsAPI().createIndexBuffer(m_Indices,
-                                                      1);
+     
+    m_indexBuffer = graphicsApi->createIndexBuffer(m_Indices,
+                                                     1);
   }
 
   Matrix4x4 

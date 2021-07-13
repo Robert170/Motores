@@ -119,17 +119,19 @@ namespace xcEngineSDK {
 	}
 
 
-	VertexBuffer*
+	SPtr<VertexBuffer>
 	OGLGraphiAPI::createVertexBuffer(const Vector <BoneVertex>& Ver,
 			                             uint32 NumBuffers) {
 
-		auto VertexBuffer = new VertexBufferOGL();
+    SPtr<VertexBufferOGL> vertexBuffer;
+		vertexBuffer.reset(new VertexBufferOGL());
+	
 
 		glGenBuffers(NumBuffers,
-			           &VertexBuffer->m_vBO);
+			           &vertexBuffer->m_vBO);
 
 		glBindBuffer(GL_ARRAY_BUFFER,
-			           VertexBuffer->m_vBO);
+			           vertexBuffer->m_vBO);
 
 		glBufferData(GL_ARRAY_BUFFER,
 			           Ver.size() * sizeof(BoneVertex),
@@ -142,52 +144,55 @@ namespace xcEngineSDK {
 							 0);*/
 
 
-		return VertexBuffer;
+		return vertexBuffer;
 	}
 
-	IndexBuffer*
+	SPtr<IndexBuffer>
 	OGLGraphiAPI::createIndexBuffer(const Vector<uint32>& Ind,
 			                            uint32 NumBuffer) {
 
-		auto IndexBuffer = new IndexBufferOGL();
+		SPtr<IndexBufferOGL> indexBuffer;
+		indexBuffer.reset(new IndexBufferOGL());
 
 
 		glGenBuffers(NumBuffer,
-			           &IndexBuffer->m_IBO);
+			           &indexBuffer->m_IBO);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,
-			           IndexBuffer->m_IBO);
+			           indexBuffer->m_IBO);
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
 			           Ind.size() * sizeof(uint32),
 			           Ind.data(),
 			           GL_STATIC_DRAW);
 
-		return IndexBuffer;
+		return indexBuffer;
 	}
 
-	ConstantBuffer*
+	SPtr<ConstantBuffer>
 	OGLGraphiAPI::createConstantBuffer(uint32 BufferSize,//2
 			                               uint32 NumBuffer, //1
 			                               const void* Data) {//3
-		auto ConstantBuffer = new ConstantBufferOGL();
 
-		glGenBuffers(NumBuffer,
-			&ConstantBuffer->m_CBO);
+    SPtr<ConstantBufferOGL> constantBuffer;
+    constantBuffer.reset(new ConstantBufferOGL());
 
-		glBindBuffer(GL_UNIFORM_BUFFER,
-			ConstantBuffer->m_CBO);
+    glGenBuffers(NumBuffer,
+      &constantBuffer->m_CBO);
 
-		glBufferData(GL_UNIFORM_BUFFER,
-			BufferSize,
-			Data,
-			GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER,
+      constantBuffer->m_CBO);
 
-		glBindBuffer(GL_UNIFORM_BUFFER,
-			0);
+    glBufferData(GL_UNIFORM_BUFFER,
+      BufferSize,
+      Data,
+      GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_UNIFORM_BUFFER,
+      0);
 
 
-		return ConstantBuffer;
+    return constantBuffer;
 	}
 
 
@@ -207,48 +212,42 @@ namespace xcEngineSDK {
 		XC_UNREFERENCED_PARAMETER(format);
 		XC_UNREFERENCED_PARAMETER(Usage);
 		
-		auto texture = new TextureOGL();
+
+    TextureOGL* texture = new TextureOGL();
 
 		//Checar que interfaces se van a crear
 	  //se puede omitir
-	  if (bindFlags & TEXTURE_BIND_SHADER_RESOURCE)
-	  {//Crear SRV
+	  if (bindFlags & TEXTURE_BIND_SHADER_RESOURCE) {//Crear SRV
 	  	//flata arreglar
 	  	glTextureView(0, 0, 0, 0, 0, 0, 0, 0);
 	  }
-	  if (bindFlags & TEXTURE_BIND_DEPTH_STENCIL)
-	  {//Crear DSV
+	  if (bindFlags & TEXTURE_BIND_DEPTH_STENCIL) {//Crear DSV
 	  
 	  	glGenRenderbuffers(numberTexture,
-	  		               &texture->m_dSV);
+	  		                 &texture->m_dSV);
 	  
 	  	glRenderbufferStorage(GL_RENDERBUFFER, 
-	  		                  GL_DEPTH_COMPONENT, 
-	  		                  width,
-	  		                  height);
+	  		                    GL_DEPTH_COMPONENT, 
+	  		                    width,
+	  		                    height);
 	  }
-	  if (bindFlags & TEXTURE_BIND_RENDER_TARGET)
-	  {//Crear RTV
+	  if (bindFlags & TEXTURE_BIND_RENDER_TARGET) {//Crear RTV
 	  	
 	  	glGenFramebuffers(numberTexture, 
 	  		              &texture->m_rTV);
 	  }
-	  if (bindFlags & TEXTURE_BIND_UNORDERED_ACCESS)
-	  {//Crear UAV
+	  if (bindFlags & TEXTURE_BIND_UNORDERED_ACCESS) {//Crear UAV
 	  	
 	  
 	  }
 	  unsigned int OglFormat;
-	  if (TF_R16_UINT == format)
-	  {
+	  if (TF_R16_UINT == format) {
 	  	OglFormat = GL_RED;
 	  }
-	  else if (TF_R32G32B32_UINT == format)
-	  {
+	  else if (TF_R32G32B32_UINT == format) {
 	  	OglFormat = GL_RGB;
 	  }
-	  else if (TF_R16G16B16A16_UINT == format)
-	  {
+	  else if (TF_R16G16B16A16_UINT == format) {
 	  	OglFormat = GL_RGBA;
 	  }
 	  glGenTextures(numberTexture, 
@@ -291,13 +290,13 @@ namespace xcEngineSDK {
 		OGLGraphiAPI::createTexture3D() {
 	}
 
-	ShaderProgram*
-	OGLGraphiAPI::createShaderProgram(const std::string& FileNameVS,
-			                              const std::string& FileNamePS,
-			                              const std::string& EntryVS,
-			                              const std::string& EntryPS,
-			                              const std::string& ShaderModelVS,
-			                              const std::string& ShaderModelPS,
+	SPtr<ShaderProgram>
+	OGLGraphiAPI::createShaderProgram(const String& FileNameVS,
+			                              const String& FileNamePS,
+			                              const String& EntryVS,
+			                              const String& EntryPS,
+			                              const String& ShaderModelVS,
+			                              const String& ShaderModelPS,
 			                              int32 NumVertexShader,
 			                              int32 NumPixelShader) {
 
@@ -305,53 +304,56 @@ namespace xcEngineSDK {
 		XC_UNREFERENCED_PARAMETER(ShaderModelVS);
 		XC_UNREFERENCED_PARAMETER(EntryPS);
 		XC_UNREFERENCED_PARAMETER(EntryVS);
-		auto ShaderProgram = new ShaderProgramOGL();
 
-		ShaderProgram->m_attachShaderID = glCreateProgram();
+    SPtr<ShaderProgramOGL> shaderProgram;
+		shaderProgram.reset(new ShaderProgramOGL());
+		
+
+		shaderProgram->m_attachShaderID = glCreateProgram();
 
 
 		// vertex Shader
-		std::string RealName = FileNameVS + "_OGL.txt";
+		String RealName = FileNameVS + "_OGL.txt";
 
-		ShaderProgram->m_vertexShaderProgram = new VertexShaderOGL();
+		shaderProgram->m_vertexShaderProgram = new VertexShaderOGL();
 
-		std::string Temp = ShaderProgram->m_vertexShaderProgram->readFile(RealName);
+		String Temp = shaderProgram->m_vertexShaderProgram->readFile(RealName);
 
 		const char* VertexCode = Temp.c_str();
 
-		ShaderProgram->m_vertexShaderProgram->
-			m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		shaderProgram->m_vertexShaderProgram->
+		               m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
-		glShaderSource(ShaderProgram->m_vertexShaderProgram->m_vertexShader,
+		glShaderSource(shaderProgram->m_vertexShaderProgram->m_vertexShader,
 			             NumVertexShader,
 			             &VertexCode,
 			             nullptr);
 
-		glCompileShader(ShaderProgram->m_vertexShaderProgram->m_vertexShader);
+		glCompileShader(shaderProgram->m_vertexShaderProgram->m_vertexShader);
 
 		GLint isCompiled = 0;
 
-		glGetShaderiv(ShaderProgram->m_vertexShaderProgram->m_vertexShader,
+		glGetShaderiv(shaderProgram->m_vertexShaderProgram->m_vertexShader,
 			            GL_COMPILE_STATUS,
 			            &isCompiled);
 
 		if (isCompiled == GL_FALSE) {
 
 			GLint maxLength = 0;
-			glGetShaderiv(ShaderProgram->m_vertexShaderProgram->m_vertexShader,
+			glGetShaderiv(shaderProgram->m_vertexShaderProgram->m_vertexShader,
 				            GL_INFO_LOG_LENGTH,
 				            &maxLength);
 
 			// The maxLength includes the NULL character
 			Vector<GLchar> infoLog(maxLength);
-			glGetShaderInfoLog(ShaderProgram->m_vertexShaderProgram->m_vertexShader,
-				maxLength,
-				&maxLength,
-				&infoLog[0]);
+			glGetShaderInfoLog(shaderProgram->m_vertexShaderProgram->m_vertexShader,
+				                 maxLength,
+				                 &maxLength,
+				                 &infoLog[0]);
 
 			// We don't need the shader anymore.
-			glDeleteShader(ShaderProgram->m_vertexShaderProgram->m_vertexShader);
-			delete ShaderProgram;
+			glDeleteShader(shaderProgram->m_vertexShaderProgram->m_vertexShader);
+			//delete shaderProgram;
 
 			return nullptr;
 		}
@@ -360,93 +362,96 @@ namespace xcEngineSDK {
 		//pixel shader
 		RealName = FileNamePS + "_OGL.txt";
 
-		ShaderProgram->m_pixelShaderProgram = new PixelShaderOGL();
+		shaderProgram->m_pixelShaderProgram = new PixelShaderOGL();
 
-		Temp = ShaderProgram->m_pixelShaderProgram->readFile(RealName);
+		Temp = shaderProgram->m_pixelShaderProgram->readFile(RealName);
 
 		const char* PixelCode = Temp.c_str();
 
-		ShaderProgram->m_pixelShaderProgram->m_pixelShader = glCreateShader(GL_FRAGMENT_SHADER);
+		shaderProgram->m_pixelShaderProgram->m_pixelShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-		glShaderSource(ShaderProgram->m_pixelShaderProgram->m_pixelShader,
+		glShaderSource(shaderProgram->m_pixelShaderProgram->m_pixelShader,
 			NumPixelShader,
 			&PixelCode,
 			nullptr);
 
-		glCompileShader(ShaderProgram->m_pixelShaderProgram->m_pixelShader);
+		glCompileShader(shaderProgram->m_pixelShaderProgram->m_pixelShader);
 
-		glGetShaderiv(ShaderProgram->m_pixelShaderProgram->m_pixelShader, GL_COMPILE_STATUS, &isCompiled);
+		glGetShaderiv(shaderProgram->m_pixelShaderProgram->m_pixelShader, GL_COMPILE_STATUS, &isCompiled);
 
 		if (isCompiled == GL_FALSE) {
 
 			GLint maxLength = 0;
-			glGetShaderiv(ShaderProgram->m_pixelShaderProgram->m_pixelShader, GL_INFO_LOG_LENGTH, &maxLength);
+			glGetShaderiv(shaderProgram->m_pixelShaderProgram->m_pixelShader, GL_INFO_LOG_LENGTH, &maxLength);
 
 			// The maxLength includes the NULL character
 			std::vector<GLchar> infoLog(maxLength);
-			glGetShaderInfoLog(ShaderProgram->m_pixelShaderProgram->m_pixelShader, maxLength, &maxLength, &infoLog[0]);
+			glGetShaderInfoLog(shaderProgram->m_pixelShaderProgram->m_pixelShader, maxLength, &maxLength, &infoLog[0]);
 
 			// We don't need the shader anymore.
-			glDeleteShader(ShaderProgram->m_pixelShaderProgram->m_pixelShader);
-			delete ShaderProgram;
+			glDeleteShader(shaderProgram->m_pixelShaderProgram->m_pixelShader);
+			//delete shaderProgram;
 
 			return nullptr;
 		}
 
 
 		//set del shader
-		glAttachShader(ShaderProgram->m_attachShaderID,
-			ShaderProgram->m_vertexShaderProgram->m_vertexShader);
-		glAttachShader(ShaderProgram->m_attachShaderID,
-			ShaderProgram->m_pixelShaderProgram->m_pixelShader);
-		glLinkProgram(ShaderProgram->m_attachShaderID);
+		glAttachShader(shaderProgram->m_attachShaderID,
+			shaderProgram->m_vertexShaderProgram->m_vertexShader);
+		glAttachShader(shaderProgram->m_attachShaderID,
+			shaderProgram->m_pixelShaderProgram->m_pixelShader);
+		glLinkProgram(shaderProgram->m_attachShaderID);
 
 
-		return ShaderProgram;
+		return shaderProgram;
 	}
 
-	PixelShader* 
-	OGLGraphiAPI::createPixelShaders(const std::string& FileName,
-		                               const std::string& Entry,
-		                               const std::string& ShaderModel,
+	SPtr<PixelShader> 
+	OGLGraphiAPI::createPixelShaders(const String& FileName,
+		                               const String& Entry,
+		                               const String& ShaderModel,
 		                               int32 NumPixelShader) {
 		XC_UNREFERENCED_PARAMETER(Entry);
 		XC_UNREFERENCED_PARAMETER(ShaderModel);
 
 		// Pixel Shader
-		std::string RealName = FileName + "_OGL.txt";
+		String RealName = FileName + "_OGL.txt";
 
-		auto PixelShader = new PixelShaderOGL();
+    SPtr<PixelShaderOGL> pixelShader;
+		pixelShader.reset(new PixelShaderOGL());
 
-		std::string Temp = PixelShader->readFile(RealName);
+		String Temp = pixelShader->readFile(RealName);
 
 		const char* PixelCode = Temp.c_str();
 
-		PixelShader->m_pixelShader = glCreateShader(GL_FRAGMENT_SHADER);
+		pixelShader->m_pixelShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-		glShaderSource(PixelShader->m_pixelShader,
-			NumPixelShader,
-			&PixelCode,
-			nullptr);
+		glShaderSource(pixelShader->m_pixelShader,
+			             NumPixelShader,
+			             &PixelCode,
+			             nullptr);
 
-		glCompileShader(PixelShader->m_pixelShader);
+		glCompileShader(pixelShader->m_pixelShader);
 
 		GLint isCompiled = 0;
 
-		glGetShaderiv(PixelShader->m_pixelShader, GL_COMPILE_STATUS, &isCompiled);
+		glGetShaderiv(pixelShader->m_pixelShader, GL_COMPILE_STATUS, &isCompiled);
 
 		if (isCompiled == GL_FALSE) {
 
 			GLint maxLength = 0;
-			glGetShaderiv(PixelShader->m_pixelShader, GL_INFO_LOG_LENGTH, &maxLength);
+			glGetShaderiv(pixelShader->m_pixelShader, GL_INFO_LOG_LENGTH, &maxLength);
 
 			// The maxLength includes the NULL character
 			Vector<GLchar> infoLog(maxLength);
-			glGetShaderInfoLog(PixelShader->m_pixelShader, maxLength, &maxLength, &infoLog[0]);
+			glGetShaderInfoLog(pixelShader->m_pixelShader, 
+				                 maxLength, 
+				                 &maxLength, 
+				                 &infoLog[0]);
 
 			// We don't need the shader anymore.
-			glDeleteShader(PixelShader->m_pixelShader);
-			delete PixelShader;
+			glDeleteShader(pixelShader->m_pixelShader);
 
 			return nullptr;
 		}
@@ -455,67 +460,67 @@ namespace xcEngineSDK {
 
 		//set del shader
 		glAttachShader(m_attachShaderID,
-			PixelShader->m_pixelShader);
+			             pixelShader->m_pixelShader);
 
 		glLinkProgram(m_attachShaderID);
 
-		return PixelShader;
+		return pixelShader;
 
 	}
 
 
 
-	VertexShader*
-	OGLGraphiAPI::createVertexShaders(const std::string& FileName,
-			                              const std::string& Entry,
-			                              const std::string& ShaderModel,
+	SPtr<VertexShader>
+	OGLGraphiAPI::createVertexShaders(const String& FileName,
+			                              const String& Entry,
+			                              const String& ShaderModel,
 			                              int32 NumVertexShader) {
 		
 		XC_UNREFERENCED_PARAMETER(Entry);
 		XC_UNREFERENCED_PARAMETER(ShaderModel);
 		// vertex Shader
-		std::string RealName = FileName + "_OGL.txt";
+		String RealName = FileName + "_OGL.txt";
 
-		auto VertexShader = new VertexShaderOGL();
+    SPtr<VertexShaderOGL> vertexShader;
+		vertexShader.reset(new VertexShaderOGL());
 
-		std::string Temp = VertexShader->readFile(RealName);
+		String Temp = vertexShader->readFile(RealName);
 
 		const char* VertexCode = Temp.c_str();
 
-		VertexShader->m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		vertexShader->m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
-		glShaderSource(VertexShader->m_vertexShader,
-			NumVertexShader,
-			&VertexCode,
-			nullptr);
+		glShaderSource(vertexShader->m_vertexShader,
+			             NumVertexShader,
+			             &VertexCode,
+			             nullptr);
 
-		glCompileShader(VertexShader->m_vertexShader);
+		glCompileShader(vertexShader->m_vertexShader);
 
 		GLint isCompiled = 0;
 
-		glGetShaderiv(VertexShader->m_vertexShader, GL_COMPILE_STATUS, &isCompiled);
+		glGetShaderiv(vertexShader->m_vertexShader, GL_COMPILE_STATUS, &isCompiled);
 
 		if (isCompiled == GL_FALSE) {
 
 			GLint maxLength = 0;
-			glGetShaderiv(VertexShader->m_vertexShader, GL_INFO_LOG_LENGTH, &maxLength);
+			glGetShaderiv(vertexShader->m_vertexShader, GL_INFO_LOG_LENGTH, &maxLength);
 
 			// The maxLength includes the NULL character
 			Vector<GLchar> infoLog(maxLength);
-			glGetShaderInfoLog(VertexShader->m_vertexShader, maxLength, &maxLength, &infoLog[0]);
+			glGetShaderInfoLog(vertexShader->m_vertexShader, maxLength, &maxLength, &infoLog[0]);
 
 			// We don't need the shader anymore.
-			glDeleteShader(VertexShader->m_vertexShader);
-			delete VertexShader;
+			glDeleteShader(vertexShader->m_vertexShader);
 
 			return nullptr;
 		}
 
 		glAttachShader(m_attachShaderID,
-			VertexShader->m_vertexShader);
+			             vertexShader->m_vertexShader);
 
 
-		return VertexShader;
+		return vertexShader;
 	}
 
 	InputLayout_Desc 
@@ -538,82 +543,85 @@ namespace xcEngineSDK {
 		}
 	}
 
-	InputLayout*
+	SPtr<InputLayout>
 	OGLGraphiAPI::createInputLayout(ShaderProgram& Vertex,
 			                            InputLayout_Desc& LayoutDesc,
 			                            uint32 NumInputLayout) {
 
 		XC_UNREFERENCED_PARAMETER(Vertex);
 
-		auto InputLa = new InputLayoutOGL();
-	  InputLa->m_numberOfInputLayout = NumInputLayout;
+    SPtr<InputLayoutOGL> inputLa;
+		inputLa.reset(new InputLayoutOGL());
+
+		inputLa->m_numberOfInputLayout = NumInputLayout;
 	  glGenVertexArrays(NumInputLayout,
-		                  &InputLa->m_iPLA);
+		                  &inputLa->m_iPLA);
 	checkGLError();
 
 
-	glBindVertexArray(InputLa->m_iPLA);
+	glBindVertexArray(inputLa->m_iPLA);
 	checkGLError();
 
 
-	for (int i = 0; i < LayoutDesc.Formats.size(); i++)
-	{
+	for (int i = 0; i < LayoutDesc.Formats.size(); i++) {
 		glVertexAttribFormat(i,
-			                 InputLa->getSize(LayoutDesc.Formats.at(i)), 
-			                 GL_FLOAT,
-			                 GL_TRUE, 
-			                 InputLa->m_offset);
+			                   inputLa->getSize(LayoutDesc.Formats.at(i)), 
+			                   GL_FLOAT,
+			                   GL_TRUE, 
+			                   inputLa->m_offset);
 		checkGLError();
 		glVertexAttribBinding(i, 0);
 		checkGLError();
 		glEnableVertexAttribArray(i);
 		checkGLError();
-		InputLa->m_offset += InputLa->getSize(LayoutDesc.Formats.at(i)) * 4;
+		inputLa->m_offset += inputLa->getSize(LayoutDesc.Formats.at(i)) * 4;
 	}
 	
 
-	return InputLa;
+	return inputLa;
 	}
 
-	InputLayout* 
+	SPtr<InputLayout> 
 	OGLGraphiAPI::createAutomaticInputLayout(ShaderProgram& VS) {
 		return nullptr;
 	}
 
 	//mas parametros para diferentes samplers
-	SamplerState*
-		OGLGraphiAPI::createSamplerState(uint32 NumSamplerState) {
-		auto SamplerState = new SamplerStateOGL();
+	SPtr<SamplerState>
+	OGLGraphiAPI::createSamplerState(uint32 NumSamplerState) {
+
+    SPtr<SamplerStateOGL> samplerState;
+		samplerState.reset(new SamplerStateOGL());
 
 		glGenSamplers(NumSamplerState,
-			&SamplerState->m_samSt);
+			            &samplerState->m_samSt);
 
-		glSamplerParameteri(SamplerState->m_samSt,
-			GL_TEXTURE_WRAP_S,
-			GL_REPEAT);
+		glSamplerParameteri(samplerState->m_samSt,
+			                  GL_TEXTURE_WRAP_S,
+			                  GL_REPEAT);
 
-		glSamplerParameteri(SamplerState->m_samSt,
-			GL_TEXTURE_WRAP_T,
-			GL_REPEAT);
+		glSamplerParameteri(samplerState->m_samSt,
+			                  GL_TEXTURE_WRAP_T,
+			                  GL_REPEAT);
 
-		glSamplerParameteri(SamplerState->m_samSt,
-			GL_TEXTURE_MAG_FILTER,
-			GL_LINEAR);
+		glSamplerParameteri(samplerState->m_samSt,
+			                  GL_TEXTURE_MAG_FILTER,
+			                  GL_LINEAR);
 
-		glSamplerParameteri(SamplerState->m_samSt,
-			GL_TEXTURE_MIN_FILTER,
-			GL_LINEAR_MIPMAP_LINEAR);
+		glSamplerParameteri(samplerState->m_samSt,
+			                  GL_TEXTURE_MIN_FILTER,
+			                  GL_LINEAR_MIPMAP_LINEAR);
 
-		return SamplerState;
+		return samplerState;
 	}
 
-	RasterizerState*
-		OGLGraphiAPI::createRasterizerState() {
+	SPtr<RasterizerState>
+	OGLGraphiAPI::createRasterizerState() {
 		return nullptr;
 	}
 
 	void
-	OGLGraphiAPI::setVertexBuffer(VertexBuffer* VerBuff,
+	OGLGraphiAPI::setVertexBuffer(WeakSptr<VertexBuffer> VerBuff,
 			                          uint32 StartSlot,
 			                          uint32 NumBuffer,
 			                          uint32 stride,
@@ -621,7 +629,9 @@ namespace xcEngineSDK {
 
 
 		XC_UNREFERENCED_PARAMETER(NumBuffer);
-		auto* VertBuff = reinterpret_cast<VertexBufferOGL*>(VerBuff);
+		VertexBufferOGL* VertBuff = 
+	  reinterpret_cast<VertexBufferOGL*>(VerBuff.lock().get());
+
 		glBindVertexBuffer(StartSlot,
 			                 VertBuff->m_vBO,
 			                 offset,
@@ -632,12 +642,13 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setIndexBuffer(IndexBuffer* IndBuff,
+	OGLGraphiAPI::setIndexBuffer(WeakSptr<IndexBuffer> IndBuff,
 			                         uint32 offset) {
 
 		XC_UNREFERENCED_PARAMETER(offset);
 
-		auto* IndexBuff = reinterpret_cast<IndexBufferOGL*>(IndBuff);
+		IndexBufferOGL* IndexBuff = 
+		reinterpret_cast<IndexBufferOGL*>(IndBuff.lock().get());
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,
 			           IndexBuff->m_IBO);
@@ -646,27 +657,30 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setVSConstantBuffer(ConstantBuffer* ConstBuff,
+	OGLGraphiAPI::setVSConstantBuffer(WeakSptr<ConstantBuffer> constBuff,
 			                              uint32 StartSlot,
 			                              uint32 NumBuffer) {
 
 		XC_UNREFERENCED_PARAMETER(NumBuffer);
 
-		auto* ConstantBuffer = reinterpret_cast<ConstantBufferOGL*>(ConstBuff);
-		glBindBufferBase(GL_UNIFORM_BUFFER,
-			               StartSlot,
-			               ConstantBuffer->m_CBO);
+    ConstantBufferOGL* ConstantBuffer =
+      reinterpret_cast<ConstantBufferOGL*>(constBuff.lock().get());
+
+    glBindBufferBase(GL_UNIFORM_BUFFER,
+      StartSlot,
+      ConstantBuffer->m_CBO);
 		checkGLError();
 	}
 
 	void
-	OGLGraphiAPI::setPSConstantBuffer(ConstantBuffer* ConstBuff,
+	OGLGraphiAPI::setPSConstantBuffer(WeakSptr<ConstantBuffer> constBuff,
 			                              uint32 StartSlot,
 			                              uint32 NumBuffer) {
 
 		XC_UNREFERENCED_PARAMETER(NumBuffer);
 
-		auto* ConstantBuffer = reinterpret_cast<ConstantBufferOGL*>(ConstBuff);
+		ConstantBufferOGL* ConstantBuffer = 
+		reinterpret_cast<ConstantBufferOGL*>(constBuff.lock().get());
 		
 		glBindBufferBase(GL_UNIFORM_BUFFER,
 			               StartSlot,
@@ -675,32 +689,36 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setShaderProgram(ShaderProgram* ShaderProgram) {
-		auto* ShaderPro = reinterpret_cast<ShaderProgramOGL*>(ShaderProgram);
+	OGLGraphiAPI::setShaderProgram(WeakSptr<ShaderProgram> shaderProgram) {
+
+		ShaderProgramOGL* ShaderPro = 
+		reinterpret_cast<ShaderProgramOGL*>(shaderProgram.lock().get());
 		glUseProgram(ShaderPro->m_attachShaderID);
 		checkGLError();
 	}
 
 	void
-	OGLGraphiAPI::setPS(PixelShader* Pixel) {
+	OGLGraphiAPI::setPS(WeakSptr<PixelShader> pixel) {
 		/*glAttachShader(m_attachShaderID,
 			VertexShader->m_vertexShader)*/
-		XC_UNREFERENCED_PARAMETER(Pixel);
+		XC_UNREFERENCED_PARAMETER(pixel);
 		glUseProgram(m_attachShaderID);
 		checkGLError();
 	}
 
 	void
-	OGLGraphiAPI::setVS(VertexShader* Vertex) {
+	OGLGraphiAPI::setVS(WeakSptr<VertexShader> vertex) {
 
-		XC_UNREFERENCED_PARAMETER(Vertex);
+		XC_UNREFERENCED_PARAMETER(vertex);
 		glUseProgram(m_attachShaderID);
 		checkGLError();
 	}
 
 	void
-	OGLGraphiAPI::setInputLayout(InputLayout* Inp) {
-		auto* InpL = reinterpret_cast<InputLayoutOGL*>(Inp);
+	OGLGraphiAPI::setInputLayout(WeakSptr<InputLayout> Inp) {
+
+		InputLayoutOGL* InpL = 
+		reinterpret_cast<InputLayoutOGL*>(Inp.lock().get());
 		glBindVertexArray(InpL->m_iPLA);
 		checkGLError();
 	}
@@ -719,11 +737,11 @@ namespace xcEngineSDK {
 
 
 	void
-	OGLGraphiAPI::setDepthStencil(Texture* pDSTex) {
+	OGLGraphiAPI::setDepthStencil(WeakSptr<Texture> pDSTex) {
 
 
 
-		auto* DepSten = reinterpret_cast<TextureOGL*>(pDSTex);
+		TextureOGL* DepSten = reinterpret_cast<TextureOGL*>(pDSTex.lock().get());
 
 		glBindRenderbuffer(GL_RENDERBUFFER,
 			                 DepSten->m_dSV);
@@ -791,7 +809,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::clearRenderTarget(Texture* RT,
+	OGLGraphiAPI::clearRenderTarget(WeakSptr<Texture> RT,
 			                            ColorStruct Color) {
 
 		XC_UNREFERENCED_PARAMETER(RT);
@@ -803,7 +821,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::clearDepthStencil(Texture* RT,
+	OGLGraphiAPI::clearDepthStencil(WeakSptr<Texture> RT,
 			                            uint32 ClerFlag,
 			                            float Depth,
 			                            uint32 Stencil) {
@@ -839,11 +857,11 @@ namespace xcEngineSDK {
 
 	}
 
-	Texture* 
+	Texture*
 	OGLGraphiAPI::textureFromFile(String path,
 		                            const String& directory, 
 		                            bool gamma) {
-		auto texture = new Texture();
+    Texture* texture = new Texture();
 
     String filename = directory + path;//std::string(path);
     //filename = directory + '/' + filename;
@@ -891,14 +909,14 @@ namespace xcEngineSDK {
 	}
 
 	void 
-	OGLGraphiAPI::setRasterizerState(RasterizerState* RasState) {
+	OGLGraphiAPI::setRasterizerState(WeakSptr<RasterizerState> RasState) {
 
 		XC_UNREFERENCED_PARAMETER(RasState);
 	}
 
 	void 
 	OGLGraphiAPI::setRenderTarget(const Vector<Texture*>& pRTTex,
-		                            Texture* pDSTex) {
+		                            WeakSptr<Texture> pDSTex) {
 		XC_UNREFERENCED_PARAMETER(pDSTex);
 
 		for (uint32 i = 0; i < pRTTex.size(); ++i) {

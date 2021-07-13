@@ -13,9 +13,9 @@ namespace xcEngineSDK {
   }
 
   bool 
-  VertexShaderDX::compileVertexShaderFromFile(const std::wstring& FileName,
-                                              const std::string& EntryPoint,
-                                              const std::string& ShaderModel,
+  VertexShaderDX::compileVertexShaderFromFile(const WString& FileName,
+                                              const String& EntryPoint,
+                                              const String& ShaderModel,
                                               ID3DBlob** ppBlobOut) {
     HRESULT hr = S_OK;
 

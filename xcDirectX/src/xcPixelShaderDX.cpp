@@ -14,9 +14,9 @@ namespace xcEngineSDK {
   }
 
   bool 
-  PixelShaderDX::compilePixelShaderFromFile(const std::wstring& FileName,
-                                            const std::string& EntryPoint,
-                                            const std::string& ShaderModel,
+  PixelShaderDX::compilePixelShaderFromFile(const WString& FileName,
+                                            const String& EntryPoint,
+                                            const String& ShaderModel,
                                             ID3DBlob** ppBlobOut) {
     HRESULT hr = S_OK;
 

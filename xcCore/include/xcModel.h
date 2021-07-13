@@ -133,7 +133,7 @@ namespace xcEngineSDK {
      /**
        * @Variable m_Sampler, sampler of model
      */
-     SamplerState* m_sampler;
+     SPtr<SamplerState> m_sampler;
      Assimp::Importer m_importer;
      const aiScene* m_scene;
 

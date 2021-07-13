@@ -20,6 +20,8 @@
 
 #include "xcPrerequisitesCore.h"
 #include "xcGraphiAPI.h"
+#include "xcSceneGraph.h"
+
 
 using namespace xcEngineSDK;
 
@@ -124,10 +126,6 @@ namespace xcEngineSDK {
 
 		 //TODO Cambiar al la clase base
      Plugin m_plugin;
-
-
-		//Modulo
-		GraphicsAPI* m_GraphicsAPI = nullptr;
 
 		 
 

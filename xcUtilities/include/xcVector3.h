@@ -229,6 +229,9 @@ namespace xcEngineSDK {
      */
     float z;
 
+    static const Vector3 ZERO;
+    static const Vector3 UNIT;
+
   };
 }
 

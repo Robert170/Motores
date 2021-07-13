@@ -26,24 +26,25 @@ namespace xcEngineSDK {
 	class SceneGraph : public Module<SceneGraph>
 	{
 	 public:
-		SceneGraph() = default;
+		SceneGraph();
 		virtual ~SceneGraph() = default;
 
+		
 
 		void
-		addActor(const SPtr<Actor>& actor);
+		addActor(const WeakSptr<SceneNode>& parent, const SPtr<Actor>& child);
 
 		void
 		removeActor(const SPtr<Actor>& actor);
 
 		void
-		selectActor(const uint32& index);
+		selectActor(const SPtr<Actor>& actor);
 
     void
-    renameActor(const uint32& index);
+    renameActor(const SPtr<Actor>& actor, const String& newName);
 
 	 public:
-		UPtr<SceneNode> m_pRoot;
+		SPtr<SceneNode> m_pRoot;
 
 	 private:
 		 

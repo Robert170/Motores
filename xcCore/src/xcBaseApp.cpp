@@ -5,7 +5,7 @@ namespace xcEngineSDK {
 
   int32
   BaseApp::run() {
-
+    
     initSystems();
 
     onCreate();
@@ -14,18 +14,20 @@ namespace xcEngineSDK {
 
     float deltaTime;
 
-    while (m_GraphicsAPI->m_window.isOpen()) {
+    auto myGraphicsApi = g_graphicsAPI().instancePtr();
+
+    while (myGraphicsApi->m_window.isOpen()) {
 
       sf::Event event;
       deltaTime = delta.getElapsedTime().asSeconds();
 
-      while (m_GraphicsAPI->m_window.pollEvent(event)) {
+      while (myGraphicsApi->m_window.pollEvent(event)) {
 
 
         handleWindowEvent(event);
 
         if (event.type == sf::Event::Closed) {
-          m_GraphicsAPI->m_window.close();
+          myGraphicsApi->m_window.close();
           break;
         }
         
@@ -48,23 +50,19 @@ namespace xcEngineSDK {
 
   void 
   BaseApp::handleWindowEvent(sf::Event event){
- 
-    /*
-     if (event.type == sf::Event::KeyPressed ||
-         event.type == sf::Event::KeyReleased) {
 
-       onEvents(event);
-
-     }*/
     onEvents(event);
     return;
   }
 
   void 
   BaseApp::createWindow() {
-    m_GraphicsAPI->m_window.create(sf::VideoMode(m_GraphicsAPI->m_width, 
-                                   m_GraphicsAPI->m_height),
-                                   "SFML Window");
+
+    auto myGraphicsApi = g_graphicsAPI().instancePtr();
+
+    myGraphicsApi->m_window.create(sf::VideoMode(myGraphicsApi->m_width,
+                                                 myGraphicsApi->m_height),
+                                                 "SFML Window");
   }
 
   void 
@@ -92,12 +90,11 @@ namespace xcEngineSDK {
                              (m_plugin.getProcedureByName("createGraphisAPI"));
 
       GraphicsAPI::startUp();
-      GraphicsAPI* GraphiAPI = createGraphiAPI();
-      g_graphicsAPI().setObject(GraphiAPI);
-      m_GraphicsAPI = &g_graphicsAPI();
+      SceneGraph::startUp();
+      g_graphicsAPI().setObject(createGraphiAPI());
       createWindow();
+      //m_GraphicsAPI->init(m_GraphicsAPI->m_window.getSystemHandle());
 
-      m_GraphicsAPI->init(m_GraphicsAPI->m_window.getSystemHandle());
     }
 
   }

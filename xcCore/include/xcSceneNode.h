@@ -29,19 +29,19 @@ namespace xcEngineSDK {
 		SceneNode() = default;
 		~SceneNode() = default;
 
-		SceneNode(WeakSptr<Actor> parent, WeakSptr<Actor> actor);
+		SceneNode(WeakSptr<SceneNode> parent, SPtr<Actor> actor);
 
 		void
-		addChild(WeakSptr<Actor> parent, WeakSptr<Actor> child);
+		addChild(WeakSptr<SceneNode> parent, SPtr<Actor> child);
 
     void
     removeChild(WeakSptr<Actor> child);
 
     void
-    selectChild(const uint32& index);
+    selectChild(WeakSptr<Actor> child);
 
 		void
-		renameChild(const uint32& index);
+		renameChild(WeakSptr<Actor> child, const String& newName);
 
 	 public:
 

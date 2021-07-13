@@ -18,15 +18,22 @@
  /*****************************************************************************/
 #include "xcPrerequisitesCore.h"
 #include "xcGameObject.h"
+#include "xcModel.h"
+
 namespace xcEngineSDK {
 
-	class Component
+	class XC_CORE_EXPORT Component
 	{
 	 public:
 		Component() = default;
 		~Component() = default;
 
+		void
+		setComponent(SPtr<Model> model);
+
 	 private:
+
+	  SPtr<Model> m_model;
 
 	};
 }

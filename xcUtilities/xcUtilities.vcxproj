@@ -199,6 +199,7 @@
     <ClInclude Include="include\xcRay.h" />
     <ClInclude Include="include\xcSphere.h" />
     <ClInclude Include="include\xcStdHeaders.h" />
+    <ClInclude Include="include\xcTransform.h" />
     <ClInclude Include="include\xcVector2.h" />
     <ClInclude Include="include\xcVector3.h" />
     <ClInclude Include="include\xcVector4.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="src\xcRadians.cpp" />
     <ClCompile Include="src\xcRay.cpp" />
     <ClCompile Include="src\xcSphere.cpp" />
+    <ClCompile Include="src\xcTransform.cpp" />
     <ClCompile Include="src\xcVector2.cpp" />
     <ClCompile Include="src\xcVector3.cpp" />
     <ClCompile Include="src\xcVector4.cpp" />

@@ -262,6 +262,14 @@ namespace xcEngineSDK {
     float G { };
     float B { };
     float A { };
+
+    void
+    setColor(float r, float g, float b, float a) {
+      R = r;
+      G = g;
+      B = b;
+      A = a;
+    }
   };
 
   struct InputLayout_Desc
@@ -438,7 +446,7 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CBuffer
      */
 
-    virtual VertexBuffer* 
+    virtual SPtr<VertexBuffer>
     createVertexBuffer(const Vector<BoneVertex>&,
                        uint32 = 0) { return nullptr; };
 
@@ -449,7 +457,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CBuffer
      */
-    virtual IndexBuffer* 
+    virtual SPtr<IndexBuffer>
     createIndexBuffer(const Vector<uint32_t>&,
                       uint32 = 0) { return nullptr; };
 
@@ -462,7 +470,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CBuffer
      */
-    virtual ConstantBuffer* 
+    virtual SPtr<ConstantBuffer>
     createConstantBuffer(uint32,
                          uint32 = 0,
                          const void* = nullptr) { return nullptr; };
@@ -518,7 +526,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CPixelShader
      */
-    virtual ShaderProgram* 
+    virtual SPtr<ShaderProgram>
     createShaderProgram(const String&,
                         const String&,
                         const String& = "",
@@ -537,7 +545,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CPixelShader
      */
-    virtual PixelShader* 
+    virtual SPtr<PixelShader>
     createPixelShaders(const String&,
                        const String& = "",
                        const String& = "",
@@ -553,7 +561,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CVertexShader
      */
-    virtual	VertexShader* 
+    virtual	SPtr<VertexShader>
     createVertexShaders(const String&,
                         const String& = "",
                         const String& = "",
@@ -566,12 +574,12 @@ namespace xcEngineSDK {
 	   * @param      FormatsVector parameter two, a vector of formats
 	   * @bug		No know Bugs
 	   * @return     Returns a pointer of InputLayout_Desc
-	  */
+	   */
 	  virtual InputLayout_Desc 
     CreateInputLayoutDesc(Vector<String> SemanticsVector,
                           Vector<uint32> FormatsVector) {
-                           InputLayout_Desc Temp;
-                           return Temp; };
+                          InputLayout_Desc Temp;
+                          return Temp; };
 
     /**
      * @brief      createInputLayout function, to create the input layout
@@ -581,7 +589,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CInputLayout
      */
-    virtual InputLayout* 
+    virtual SPtr<InputLayout>
     createInputLayout(ShaderProgram&,
                       InputLayout_Desc&,
                       uint32 = 0) { return nullptr; }; //no va
@@ -593,7 +601,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CInputLayout
      */
-    virtual InputLayout* 
+    virtual SPtr<InputLayout>
     createAutomaticInputLayout(ShaderProgram&) { return nullptr; };
 
 
@@ -603,7 +611,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CSamplerState
      */
-    virtual SamplerState* 
+    virtual SPtr<SamplerState>
     createSamplerState(uint32 = 0) { return nullptr; }; //no va
 
     /**
@@ -611,7 +619,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CRasterizerState
      */
-    virtual RasterizerState* 
+    virtual SPtr<RasterizerState>
     createRasterizerState() { return nullptr; }; //falta parametros
 
 
@@ -628,7 +636,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setVertexBuffer(VertexBuffer*,
+    setVertexBuffer(WeakSptr<VertexBuffer>,
                     uint32,
                     uint32,
                     uint32, //deben estar en la clase buffer
@@ -642,7 +650,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setIndexBuffer(IndexBuffer*,
+    setIndexBuffer(WeakSptr<IndexBuffer>,
                    uint32) { }; //deben estar en la clase buffer
 
     /**
@@ -655,7 +663,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setVSConstantBuffer(ConstantBuffer*,
+    setVSConstantBuffer(WeakSptr<ConstantBuffer>,
                         uint32,
                         uint32) { };
 
@@ -669,7 +677,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setPSConstantBuffer(ConstantBuffer*,
+    setPSConstantBuffer(WeakSptr<ConstantBuffer>,
                         uint32,
                         uint32) { };
 
@@ -680,7 +688,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setShaderProgram(ShaderProgram*) { };
+    setShaderProgram(WeakSptr<ShaderProgram>) { };
 
 
     /**
@@ -690,7 +698,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setPS(PixelShader*) { };
+    setPS(WeakSptr<PixelShader>) { };
 
     /**
      * @brief      setVS function, to set vertex shader
@@ -699,7 +707,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setVS(VertexShader*) { };
+    setVS(WeakSptr<VertexShader>) { };
 
     /**
      * @brief      setInputLayout function, to set input layout
@@ -708,7 +716,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setInputLayout(InputLayout*) { };
+    setInputLayout(WeakSptr<InputLayout>) { };
 
     /**
      * @brief      setSamplerState function, to set sampler state
@@ -728,7 +736,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setDepthStencil(Texture*) { }; ///necesita recibir una textura
+    setDepthStencil(WeakSptr<Texture>) { }; ///necesita recibir una textura
 
     /**
      * @brief      setRasterizerState function, to set rasteraizer state
@@ -737,7 +745,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setRasterizerState(RasterizerState*) { };
+    setRasterizerState(WeakSptr<RasterizerState>) { };
 
     /**
      * @brief      setRenderTarget function, to set render target
@@ -749,12 +757,12 @@ namespace xcEngineSDK {
      */
     virtual void 
     setRenderTarget(const Vector<Texture*>&,
-                    Texture* = nullptr) { };
+                    WeakSptr<Texture>) { };
 
     /**
      * @brief      setShaderResouerce function, to set shader resource
      * @param      pRTTex parameter one, a pointer of CTexture
-     * @param      pDSTex parameter two, a pointer of CTexture
+     * @param      pDSTex parameter two, 
      * @param      NumView parameter three, number of render target view
      * @bug		     No know Bugs
      * @return     Returns nothing
@@ -812,7 +820,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearRenderTarget(Texture*,
+    clearRenderTarget(WeakSptr<Texture>,
                       ColorStruct) { };
 
     /**
@@ -825,7 +833,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearDepthStencil(Texture*,
+    clearDepthStencil(WeakSptr<Texture>,
                       uint32 = CLEAR_DEPTH,
                       float = 1.0f,
                       uint32 = 0) { };

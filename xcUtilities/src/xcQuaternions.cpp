@@ -4,6 +4,8 @@
 
 namespace xcEngineSDK {
 
+  const Quaternion Quaternion::IDENTITY = Quaternion(0.f, 0.f, 0.f, 1.f);
+
   Quaternion 
   Quaternion::operator+(const Quaternion& quaternion) {
 

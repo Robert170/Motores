@@ -15,29 +15,48 @@
  * Includes
  */
  /*****************************************************************************/
-#include <xcMatrix4x4.h>
-#include <xcQuaternions.h>
+#include <xcTransform.h>
 #include "xcPrerequisitesCore.h"
 #include "xcGameObject.h"
+#include "xcComponent.h"
+
 
 namespace xcEngineSDK {
 
-	class Actor : public GameObject
+
+	class XC_CORE_EXPORT Actor : public GameObject
 	{
 	 public:
 		Actor() = default;
+
+		Actor(String name);
+
 		virtual ~Actor() = default;
+		
+
+		void
+		addComponent(Component& component);
+
+    void
+    removeComponent(Component& component);
+
+		void
+		setName(String name);
+
+    void
+    setSelect(bool selected);
 
 	 public:
 
-		bool m_isSelected;
+		bool m_isSelected = false;
 	  String m_actorName;
 
 	 private:
 
-	  Matrix4x4 m_location;
-		Quaternion m_rotation;
-		Matrix4x4 m_scale;
+		
+		Transfom m_actorTrasform;
+
+		Vector<Component> m_vComponents;
 	};
 
 

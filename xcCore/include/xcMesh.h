@@ -119,8 +119,8 @@ namespace xcEngineSDK {
    private:
     // render data 
 
-    IndexBuffer* m_indexBuffer;
-    VertexBuffer* m_vertexBuffer;
+    SPtr<IndexBuffer> m_indexBuffer;
+    SPtr<VertexBuffer> m_vertexBuffer;
     const aiScene* m_scene;
 
 

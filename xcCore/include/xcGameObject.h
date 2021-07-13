@@ -19,7 +19,7 @@
 #include "xcPrerequisitesCore.h"
 
 namespace xcEngineSDK {
-  class GameObject
+  class XC_CORE_EXPORT GameObject
   {
    public:
     GameObject() = default;

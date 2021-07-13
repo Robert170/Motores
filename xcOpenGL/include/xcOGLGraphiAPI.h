@@ -159,7 +159,7 @@ namespace xcEngineSDK {
 	   * @return     Returns a pointer of CBuffer
 	   */
 
-		VertexBuffer* 
+		SPtr<VertexBuffer> 
 		createVertexBuffer(const Vector <BoneVertex>& Ver,
 			                 uint32 NumBuffer = 0) override;
 
@@ -170,7 +170,7 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CBuffer
 		 */
-		IndexBuffer* 
+		SPtr<IndexBuffer> 
 		createIndexBuffer(const Vector<uint32>& Ind,
 			                uint32 NumBuffer = 0) override;
 
@@ -183,7 +183,7 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CBuffer
 		 */
-		ConstantBuffer* 
+		SPtr<ConstantBuffer> 
 		createConstantBuffer(uint32 BufferSize,
 			                   uint32 NumBuffer = 0,
 			                   const void* Data = nullptr) override;
@@ -239,13 +239,13 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CPixelShader
 		 */
-		ShaderProgram* 
-		createShaderProgram(const std::string& FileNameVS,
-			                  const std::string& FileNamePS,
-			                  const std::string& EntryVS = "",
-			                  const std::string& EntryPS = "",
-			                  const std::string& ShaderModelVS = "",
-			                  const std::string& ShaderModelPS = "",
+		SPtr<ShaderProgram> 
+		createShaderProgram(const String& FileNameVS,
+			                  const String& FileNamePS,
+			                  const String& EntryVS = "",
+			                  const String& EntryPS = "",
+			                  const String& ShaderModelVS = "",
+			                  const String& ShaderModelPS = "",
 			                  int32 NumVertexShader = 0,
 			                  int32 NumPixelShader = 0) override; //no va
 
@@ -258,10 +258,10 @@ namespace xcEngineSDK {
 	   * @bug		     No know Bugs
 	   * @return     Returns a pointer of CPixelShader
      */
-		PixelShader* 
-		createPixelShaders(const std::string& FileName,
-			                 const std::string& Entry = "",
-			                 const std::string& ShaderModel = "",
+		SPtr<PixelShader> 
+		createPixelShaders(const String& FileName,
+			                 const String& Entry = "",
+			                 const String& ShaderModel = "",
 			                 int32 NumPixelShader = 0) override; //no va
 
 
@@ -274,10 +274,10 @@ namespace xcEngineSDK {
 	   * @bug		     No know Bugs
 	   * @return     Returns a pointer of CVertexShader
      */
-		VertexShader* 
-		createVertexShaders(const std::string& FileName,
-			                  const std::string& Entry = "",
-			                  const std::string& ShaderModel = "",
+		SPtr<VertexShader> 
+		createVertexShaders(const String& FileName,
+			                  const String& Entry = "",
+			                  const String& ShaderModel = "",
 			                  int32 NumVertexShader = 0) override; //no va
 
 		/**
@@ -300,7 +300,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CInputLayout
      */
-		InputLayout* 
+		SPtr<InputLayout>
 		createInputLayout(ShaderProgram& Vertex,
 			                InputLayout_Desc& LayoutDesc,
 			                uint32 NumInputLayout = 0) override; //no va
@@ -312,8 +312,8 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CInputLayout
      */
-    virtual InputLayout* 
-    createAutomaticInputLayout(ShaderProgram& VS);
+    SPtr<InputLayout> 
+    createAutomaticInputLayout(ShaderProgram& VS) override;
 
 		/**
      * @brief      createSamplerState function, to create the sampler state
@@ -321,7 +321,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns a pointer of CSamplerState
      */
-		SamplerState* 
+		SPtr<SamplerState> 
 		createSamplerState(uint32 NumSamplerState = 0) override; //no va
 
 		/**
@@ -329,7 +329,7 @@ namespace xcEngineSDK {
 		 * @bug		     No know Bugs
 		 * @return     Returns a pointer of CRasterizerState
 		 */
-		RasterizerState* 
+		SPtr<RasterizerState> 
 		createRasterizerState() override; //falta parametros
 
 
@@ -346,7 +346,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setVertexBuffer(VertexBuffer* VerBuff,
+		setVertexBuffer(WeakSptr<VertexBuffer> VerBuff,
 			              uint32 StartSlot,
 			              uint32 NumBuffers,
 			              uint32 stride, //deben estar en la clase buffer
@@ -360,7 +360,7 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setIndexBuffer(IndexBuffer* IndBuff,
+		setIndexBuffer(WeakSptr<IndexBuffer> IndBuff,
 			             uint32 offset) override; //deben estar en la clase buffer
 
 
@@ -374,7 +374,7 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setVSConstantBuffer(ConstantBuffer* ConstBuff,
+		setVSConstantBuffer(WeakSptr<ConstantBuffer> ConstBuff,
 			                  uint32 StartSlot,
 			                  uint32 NumBuffers) override;
 
@@ -388,7 +388,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setPSConstantBuffer(ConstantBuffer* ConstBuff,
+		setPSConstantBuffer(WeakSptr<ConstantBuffer> ConstBuff,
 			                  uint32 StartSlot,
 			                  uint32 NumBuffers) override;
 
@@ -399,7 +399,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setShaderProgram(ShaderProgram* ShaderProgram) override;
+		setShaderProgram(WeakSptr<ShaderProgram> shaderProgram) override;
 
 
 		/**
@@ -409,7 +409,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setPS(PixelShader* Pixel) override;
+		setPS(WeakSptr<PixelShader> Pixel) override;
 
 		/**
 		 * @brief      setVS function, to set vertex shader
@@ -418,7 +418,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setVS(VertexShader* Vertex) override;
+		setVS(WeakSptr<VertexShader> Vertex) override;
 
 		/**
 		 * @brief      setInputLayout function, to set input layout
@@ -427,7 +427,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setInputLayout(InputLayout* Inp) override;
+		setInputLayout(WeakSptr<InputLayout> Inp) override;
 
 		/**
 		 * @brief      setSamplerState function, to set sampler state
@@ -447,7 +447,7 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setDepthStencil(Texture* pDSTex) override; ///necesita recibir una textura
+		setDepthStencil(WeakSptr<Texture> pDSTex) override; ///necesita recibir una textura
 
 		/**
 		 * @brief      setRasterizerState function, to set rasteraizer state
@@ -456,7 +456,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setRasterizerState(RasterizerState* RasState) override;
+		setRasterizerState(WeakSptr<RasterizerState> RasState) override;
 
 		/**
 		 * @brief      setRenderTarget function, to set render target
@@ -468,7 +468,7 @@ namespace xcEngineSDK {
 		 */
 		void 
 		setRenderTarget(const Vector<Texture*>& pRTTex,
-			              Texture* pDSTex = nullptr) override;
+			              WeakSptr<Texture> pDSTex) override;
 
 		/**
 		 * @brief      setShaderResouerce function, to set shader resource
@@ -530,7 +530,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		clearRenderTarget(Texture* RT,
+		clearRenderTarget(WeakSptr<Texture> RT,
 			                ColorStruct Color) override;
 
 		/**
@@ -543,7 +543,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
 		void 
-		clearDepthStencil(Texture* RT,
+		clearDepthStencil(WeakSptr<Texture> RT,
 			                uint32 ClerFlag = CLEAR_DEPTH,
 			                float Depth = 1.0f,
 			                uint32 Stencil = 0) override;

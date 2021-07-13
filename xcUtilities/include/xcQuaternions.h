@@ -199,5 +199,7 @@ namespace xcEngineSDK {
 		 */
 		float w;
 
+		static const Quaternion IDENTITY;
+
 	};
 }

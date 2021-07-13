@@ -1,5 +1,6 @@
 #include "xcGameAppUnitTest.h"
-
+#include "xcComponent.h"
+#include "xcActor.h"
 
 
 
@@ -10,7 +11,11 @@ GameAppUnitTest::onCreate() {
 
   auto& graphicsApi = g_graphicsAPI();
 
-  m_camera.setPosition(Vector3(0.0f, 3.0f, -6.0f ));
+  auto& sceneGraph = g_sceneGraph();
+
+  graphicsApi.init(graphicsApi.m_window.getSystemHandle());
+  
+  m_camera.setPosition(Vector3(0.0f, 1.0f, -10.0f ));
   m_camera.setLookAt(Vector3(0.0f, 1.0f, 0.0f));
   m_camera.setUp(Vector3(0.0f, 1.0f, 0.0f));
   m_camera.setfar(30000);
@@ -21,18 +26,28 @@ GameAppUnitTest::onCreate() {
 
   m_camera.init();
   
-  
   //load model
-  //TODO, poder crear modelo vacio, puntero inteligente
-  //m_model = new Model("Models/s/silly_dancing.fbx");
 
-  //m_model = new Model("Models/Agnaktor/idle2.fbx");
-  
-  m_model = new Model("Models/Bea/bea_geo.fbx");
+  //m_model.reset(new Model("Models/s/silly_dancing.fbx"));
 
-  //m_model = new Model("Models/Gwen/Angry.fbx");
+  //m_model.reset(new Model("Models/Agnaktor/idle2.fbx"));
 
-  //m_model = new Model("Models/Bibi/bibi_geo.fbx");
+  m_model.reset(new Model("Models/Bea/bea_geo.fbx"));
+
+  //m_model.reset(new Model("Models/Gwen/Angry.fbx"));
+
+  //m_model.reset(new Model("Models/Bibi/bibi_geo.fbx"));
+
+  //m_model.reset(new Model("Models/Alien/Xenomorphs_Queen.fbx"));
+
+  //m_model.reset(new Model("Models/Grimoires/grimoires.fbx"));
+
+  Component testComponent;
+  testComponent.setComponent(m_model);
+
+  SPtr<Actor> testActor(new Actor("test"));
+
+
  
   Vector<uint32_t> indices =
   {
@@ -94,10 +109,6 @@ GameAppUnitTest::onCreate() {
   m_meshColor.x = 1;
   m_meshColor.y = 1;
   m_meshColor.z = 1;
-
-
-  /*g_graphicsAPI().Init(800,
-          600);*/
   
   //Create render Target
   /*g_pRenderTarget = g_graphicsAPI().CreateTexture2D(800,
@@ -248,7 +259,7 @@ GameAppUnitTest::onUpdate(float deltaTime) {
   }
   
   graphicsApi.updateSubresource(&m_bonesBuffer,
-      		                        *m_cbBonesAnimation);
+      		                      *m_cbBonesAnimation);
   
 }
 
@@ -256,11 +267,12 @@ void
 GameAppUnitTest::onRender() {
 
   auto& graphicsApi = g_graphicsAPI();
-  //TODO todo en una sola linea
-  m_color.R = 0.0f;
+ 
+  m_color.setColor(0.5f, 0.3f, 0.1f, 1.0f);
+  /*m_color.R = 0.0f;
   m_color.G = 0.125f;
   m_color.B = 0.3f;
-  m_color.A = 1.0f;
+  m_color.A = 1.0f;*/
  
  
   /*g_graphicsAPI().SetRenderTarget(m_renderTargets,
@@ -377,17 +389,17 @@ GameAppUnitTest::onDestroy() {
   //index buffer
   //delete g_pIndexBuffer;
   
-  //input layout
-  delete m_inputLayout;
-  
-  //vertex shader
-  delete m_vertexShader;
-  
-  //pixel shader
-  delete m_pixelShader;
-  
-  //depthstencil
-  delete m_depthStencil;
+  ////input layout
+  //delete m_inputLayout;
+  //
+  ////vertex shader
+  //delete m_vertexShader;
+  //
+  ////pixel shader
+  //delete m_pixelShader;
+  //
+  ////depthstencil
+  //delete m_depthStencil;
   
   //render targets
   /*for (int i = m_renderTargets.size() - 1; i >= 0; i--)

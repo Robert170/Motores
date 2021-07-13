@@ -2,10 +2,10 @@
 #include <xcShaderProgram.h>
 #include <xcGraphiAPI.h>
 namespace xcEngineSDK {
-
+  
   Model::Model(String const& path, 
                bool gamma) {
-
+    auto graphicsApi = g_graphicsAPI().instancePtr();
     gammaCorrection = gamma;
 
     
@@ -14,14 +14,18 @@ namespace xcEngineSDK {
 
     //create sampler
 
-    m_sampler = g_graphicsAPI().createSamplerState(1);
+    m_sampler = graphicsApi->createSamplerState(1);
 
-    m_vSamplers.push_back(m_sampler);
+    m_vSamplers.push_back(m_sampler.get());
   }
 
   void 
   Model::draw(ShaderProgram& shader) {
-    for (uint32 i = 0; i < m_vMeshes.size(); i++) {
+
+    uint32 numMeshes = m_vMeshes.size();
+    
+
+    for (uint32 i = 0; i < numMeshes; i++) {
 
       m_vMeshes[i].draw(shader, 
                         m_vSamplers);
@@ -31,7 +35,9 @@ namespace xcEngineSDK {
   void 
   Model::update(float delta, Vector<Matrix4x4>& transform) {
 
-    for (uint32 i = 0; i < m_vMeshes.size(); i++) {
+    uint32 numMeshes = m_vMeshes.size();
+
+    for (uint32 i = 0; i < numMeshes; i++) {
       m_vMeshes[i].boneTrasnform(delta, transform);
     }
   }
@@ -255,9 +261,9 @@ namespace xcEngineSDK {
   Model::loadMaterialTextures(aiMaterial* mat, 
                               aiTextureType type, 
                               String typeName) {
+    auto graphicsApi = g_graphicsAPI().instancePtr();
     Vector<Texture*> Textures;
-    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
-    {
+    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
       aiString str;
       mat->GetTexture(type, i, &str);
 
@@ -274,16 +280,15 @@ namespace xcEngineSDK {
         {
           Textures.push_back(m_texturesloaded[j]);
           skip = true; // a texture with the same filepath has already been loaded, 
-          //continue to next one. (optimization)
           break;
         }
         
       }
       if (!skip) {   // if texture hasn't been loaded already, load it
 
-
-        m_texturesloaded.push_back(g_graphicsAPI().textureFromFile(filename,
-                                   this->m_directory));
+        
+        m_texturesloaded.push_back(graphicsApi->textureFromFile(filename,
+                                                                this->m_directory));
       }
       
     }
