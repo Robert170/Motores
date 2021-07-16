@@ -42,7 +42,7 @@ namespace xcEngineSDK {
 
   void 
   SceneGraph::update(float deltaTime) {
-
+    m_pRoot->update(deltaTime);
   }
 
   void 

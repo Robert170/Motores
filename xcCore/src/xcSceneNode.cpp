@@ -38,7 +38,26 @@ namespace xcEngineSDK {
   
   void 
   SceneNode::update(float deltaTime) {
+    //TODO ActorRender
 
+    m_pActor->update(deltaTime);
+
+    if (m_pChild.empty()) {
+
+      return;
+
+    }
+
+
+    for (auto node : m_pChild) {
+
+      auto temp = node;
+
+      if (temp) {
+        temp-> update(deltaTime);
+      }
+
+    }
   }
 
   void 

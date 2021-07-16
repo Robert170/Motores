@@ -30,4 +30,12 @@ namespace xcEngineSDK {
         component->render();
       }
     }
+
+    void 
+    Actor::update(const float& deltaTime) {
+
+      for (auto component : m_vComponents) {
+        component->update(deltaTime);
+      }
+    }
 }

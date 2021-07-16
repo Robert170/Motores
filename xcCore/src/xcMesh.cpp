@@ -26,11 +26,12 @@ namespace xcEngineSDK {
   }
 
   void 
-  Mesh::render(Vector<SamplerState*> samplers) {
+  Mesh::render() {
 
     auto graphicsApi = g_graphicsAPI().instancePtr();
 
-   
+   graphicsApi->updateSubresource(&m_bonesTransforms,
+                                   *graphicsApi->getConstBufferBones());
 
     uint32 textureSize = m_vTextures.size();
 
@@ -40,11 +41,11 @@ namespace xcEngineSDK {
                                        1);
     }
 
-    uint32 samplerSize = samplers.size();
+    uint32 samplerSize = m_vSamplers.size();
 
     //set sampler state
     for (uint32 i = 0; i < samplerSize; ++i) {
-      graphicsApi->setSamplerState(samplers,
+      graphicsApi->setSamplerState(m_vSamplers,
                                    1);
     }
 
@@ -67,6 +68,13 @@ namespace xcEngineSDK {
   }
 
   void 
+  Mesh::update(const float& deltaTime) {
+
+    boneTrasnform(deltaTime);
+
+  }
+
+  void 
   Mesh::setupMesh() {
 
     auto graphicsApi = g_graphicsAPI().instancePtr();
@@ -79,8 +87,7 @@ namespace xcEngineSDK {
   }
 
   Matrix4x4 
-  Mesh::boneTrasnform(float time, 
-                      Vector<Matrix4x4>& transform) {
+  Mesh::boneTrasnform(float time) {
 
     Matrix4x4 identity = Matrix4x4::IDENTITY_MATRIX;
     if (nullptr == m_scene->mAnimations) {
@@ -92,13 +99,13 @@ namespace xcEngineSDK {
     float TimeInTicks = time * TicksPerSecond;
     float AnimationTime = fmod(TimeInTicks, m_scene->mAnimations[0]->mDuration);
 
-    nodeHeirarchy(AnimationTime, m_scene->mRootNode, identity);
+    nodeHeirarchy(AnimationTime, m_scene->mRootNode);
 
-    transform.resize(m_pBonesInfo->NumBones);
+    m_bonesTransforms.resize(m_pBonesInfo->NumBones);
 
     for (uint32 i = 0; i < m_pBonesInfo->NumBones; ++i) {
 
-      transform[i] = m_pBonesInfo->VecSkeletal[i].Transformation;
+      m_bonesTransforms[i] = m_pBonesInfo->VecSkeletal[i].Transformation;
 
     }
 
@@ -107,8 +114,7 @@ namespace xcEngineSDK {
 
   void 
   Mesh::nodeHeirarchy(float time,
-                      const aiNode* node, 
-                      const Matrix4x4& transform) {
+                      const aiNode* node) {
 
     String nodeName(node->mName.data);
 
@@ -134,8 +140,10 @@ namespace xcEngineSDK {
       //rotation
       aiQuaternion RotationQ;
       calcInterpolatedRotation(RotationQ, time, animNode);
-      Quaternion quaternionRotation(RotationQ.x, RotationQ.y,
-        RotationQ.z, RotationQ.w);
+      Quaternion quaternionRotation(RotationQ.x, 
+                                    RotationQ.y,
+                                    RotationQ.z, 
+                                    RotationQ.w);
 
       Matrix4x4 RotationM = RotationM.quatToMatRot(quaternionRotation);
 
@@ -154,35 +162,9 @@ namespace xcEngineSDK {
       NodeTransformation.transpose();
     }
 
-
-    /*  Matrix4x4 globalInverseTransform(m_scene->mRootNode->mTransformation.a1,
-                                       m_scene->mRootNode->mTransformation.b1,
-                                       m_scene->mRootNode->mTransformation.c1,
-                                       m_scene->mRootNode->mTransformation.d1,
-                                       m_scene->mRootNode->mTransformation.a2,
-                                       m_scene->mRootNode->mTransformation.b2,
-                                       m_scene->mRootNode->mTransformation.c2,
-                                       m_scene->mRootNode->mTransformation.d2,
-                                       m_scene->mRootNode->mTransformation.a3,
-                                       m_scene->mRootNode->mTransformation.b3,
-                                       m_scene->mRootNode->mTransformation.c3,
-                                       m_scene->mRootNode->mTransformation.d3,
-                                       m_scene->mRootNode->mTransformation.a4,
-                                       m_scene->mRootNode->mTransformation.b4,
-                                       m_scene->mRootNode->mTransformation.c4,
-                                       m_scene->mRootNode->mTransformation.d4);
-
-      globalInverseTransform.inverse();*/
-
     Matrix4x4 globalInverseTransform = Matrix4x4::IDENTITY_MATRIX;
 
-   // glm::mat4 glmTransform = glm::transpose(glm::make_mat4(&Node->mTransformation.a1));
-
-    
-
-    Matrix4x4 temp = transform;
-
-    Matrix4x4 globalTransform = temp * NodeTransformation;
+    Matrix4x4 globalTransform = NodeTransformation * Matrix4x4::IDENTITY_MATRIX;
 
     if (m_pBonesInfo->BonesMap.find(nodeName) != m_pBonesInfo->BonesMap.end()) {
 
@@ -196,7 +178,7 @@ namespace xcEngineSDK {
     }
 
     for (uint32 i = 0; i < node->mNumChildren; ++i) {
-      nodeHeirarchy(time, node->mChildren[i], globalTransform);
+      nodeHeirarchy(time, node->mChildren[i]);
     }
 
   }

@@ -42,6 +42,9 @@ namespace xcEngineSDK {
     void 
     render() override;
 
+    void 
+    update(float deltaTime) override;
+
     void
     update(float delta, Vector<Matrix4x4>& transform);
 

@@ -27,18 +27,27 @@ namespace xcEngineSDK {
 
     for (uint32 i = 0; i < numMeshes; i++) {
 
-      m_vMeshes[i].render(m_vSamplers);
+      m_vMeshes[i].render();
+    }
+  }
+
+  void 
+  Model::update(float deltaTime) {
+    uint32 numMeshes = m_vMeshes.size();
+
+    for (uint32 i = 0; i < numMeshes; ++i) {
+      m_vMeshes[i].update(deltaTime);
     }
   }
 
   void 
   Model::update(float delta, Vector<Matrix4x4>& transform) {
 
-    uint32 numMeshes = m_vMeshes.size();
+    /*uint32 numMeshes = m_vMeshes.size();
 
     for (uint32 i = 0; i < numMeshes; i++) {
       m_vMeshes[i].boneTrasnform(delta, transform);
-    }
+    }*/
   }
 
   void 

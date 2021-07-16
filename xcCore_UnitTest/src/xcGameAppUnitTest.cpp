@@ -42,14 +42,14 @@ GameAppUnitTest::onCreate() {
 
   //m_model.reset(new Model("Models/Grimoires/grimoires.fbx"));
 
-  SPtr<Component> testComponent(new Model("Models/Bea/bea_geo.fbx"));
+  SPtr<Component> testComponent(new Model("Models/s/silly_dancing.fbx"));
 
   SPtr<Actor> testActor(new Actor("test"));
   testActor->addComponent(testComponent);
 
-  SPtr<Component> testComponent2(new Model("Models/Bibi/bibi_geo.fbx"));
+  SPtr<Component> testComponent2(new Model("Models/Gwen/Angry.fbx"));
 
-  SPtr<Actor> testActor2(new Actor("test"));
+  SPtr<Actor> testActor2(new Actor("test2"));
   testActor2->addComponent(testComponent2);
 
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
@@ -226,9 +226,9 @@ GameAppUnitTest::onCreate() {
  	                                                      &m_constantBuffer);
 
   m_cbBonesAnimation = graphicsApi.createConstantBuffer(sizeof(CBBones),
-	                                                        1, 
-	                                                        &m_bonesBuffer);
- 
+	                                                      1, 
+	                                                      &m_bonesBuffer);
+
   //// Create the sample state
  
   //g_pSamplerState = g_graphicsAPI().CreateSamplerState();
@@ -246,6 +246,9 @@ GameAppUnitTest::onEvents(sf::Event event) {
 void 
 GameAppUnitTest::onUpdate(float deltaTime) {
   auto& graphicsApi = g_graphicsAPI();
+
+  auto& sceneGraph = g_sceneGraph();
+
  
   m_camera.update();
   
@@ -253,17 +256,8 @@ GameAppUnitTest::onUpdate(float deltaTime) {
   m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());
   graphicsApi.updateSubresource(&m_constantBuffer,
       		                      *m_cbNeverChanges);
-  
-  uint32 transformSize = m_transform.size();
-  for (uint32 i = 0; i < transformSize; ++i) {
-    if (i < 200) {
-      m_bonesBuffer.Bones_CB[i] = m_transform[i];
-    }
-  }
-  
-  graphicsApi.updateSubresource(&m_bonesBuffer,
-      		                      *m_cbBonesAnimation);
-  
+
+  sceneGraph.update(deltaTime);
 }
 
 void 
@@ -351,6 +345,8 @@ GameAppUnitTest::onRender() {
  	                 0);*/
 
   //m_model->render();
+  graphicsApi.setConstBufferBones(m_cbBonesAnimation);
+
   sceneGraph.render();
 
   /*g_graphicsAPI().drawIndexed(36,

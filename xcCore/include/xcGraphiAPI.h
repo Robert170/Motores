@@ -938,6 +938,15 @@ namespace xcEngineSDK {
     virtual void 
     destroy() { };
 
+    void
+    setConstBufferBones(WeakSptr<ConstantBuffer> consBuff) {
+      m_bufferBonesAnimation = consBuff.lock();
+    }
+
+    SPtr<ConstantBuffer>
+    getConstBufferBones() {
+      return m_bufferBonesAnimation;
+    }
 
    public:
 
@@ -954,6 +963,11 @@ namespace xcEngineSDK {
      * @Variable m_Height, height of the window
      */
     uint32 m_height = 900;
+
+    /**
+     * @Variable m_cbBonesAni, constant buffer of animations
+     */
+    SPtr<ConstantBuffer> m_bufferBonesAnimation = nullptr;
 
 
     sf::Window m_window;

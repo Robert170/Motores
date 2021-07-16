@@ -49,6 +49,9 @@ namespace xcEngineSDK {
 		void
 		renderComponent();
 
+    void
+    update(const float& deltaTime);
+
 	 public:
 
 		bool m_isSelected = false;

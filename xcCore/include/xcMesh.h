@@ -47,12 +47,6 @@ namespace xcEngineSDK {
     Vector2 TexCoords;
   };
 
-  /*struct Texture {
-    uint32 id;
-    String type;
-    String path;
-  };*/
-
   class XC_CORE_EXPORT Mesh
   {
    public:
@@ -71,7 +65,10 @@ namespace xcEngineSDK {
 
     // render the mesh
     void
-    render(Vector<SamplerState*> samplers);
+    render();
+
+    void
+    update(const float& deltaTime);
 
    public:
     /**
@@ -130,13 +127,11 @@ namespace xcEngineSDK {
 
   public:
     Matrix4x4
-    boneTrasnform(float time, 
-                  Vector<Matrix4x4>& transform);
+    boneTrasnform(float time);
 
     void 
     nodeHeirarchy(float time,
-                  const aiNode* node, 
-                  const Matrix4x4& transform);
+                  const aiNode* node);
 
     const aiNodeAnim* 
     FindNodeAnimation(const String NameNod,
