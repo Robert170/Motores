@@ -29,10 +29,8 @@ namespace xcEngineSDK {
 		SceneGraph();
 		virtual ~SceneGraph() = default;
 
-		
-
 		void
-		addActor(SPtr<SceneNode> parent, SPtr<Actor> child);
+		addActor(SPtr<Actor> child, WeakSptr<SceneNode> parent);
 
 		void
 		removeActor(const SPtr<Actor> actor);
@@ -41,7 +39,13 @@ namespace xcEngineSDK {
 		selectActor(const SPtr<Actor> actor);
 
     void
-    renameActor(const SPtr<Actor> actor, const String& newName);
+    renameActor(const SPtr<Actor>& actor, const String& newName);
+
+		void
+		update(float deltaTime);
+
+		void
+		render();
 
 	
 

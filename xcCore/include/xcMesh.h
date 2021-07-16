@@ -71,8 +71,7 @@ namespace xcEngineSDK {
 
     // render the mesh
     void
-    draw(ShaderProgram& shader,
-         Vector<SamplerState*> samplers);
+    render(Vector<SamplerState*> samplers);
 
    public:
     /**

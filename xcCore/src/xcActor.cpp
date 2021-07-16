@@ -6,8 +6,12 @@ namespace xcEngineSDK {
     }
 
     void 
-    Actor::addComponent(Component& component) {
-      m_vComponents.push_back(component);
+    Actor::addComponent(WeakSptr<Component> component) {
+      m_vComponents.push_back(component.lock());
+    }
+
+    void 
+    Actor::removeComponent(WeakSptr<Component>& component) {
     }
 
     void
@@ -18,5 +22,12 @@ namespace xcEngineSDK {
     void
     Actor::setSelect(bool selected) {
       m_isSelected = selected;
+    }
+
+    void
+    Actor::renderComponent() {
+      for (auto component : m_vComponents) {
+        component->render();
+      }
     }
 }

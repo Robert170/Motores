@@ -26,11 +26,11 @@ namespace xcEngineSDK {
   }
 
   void 
-  Mesh::draw(ShaderProgram& shader,
-             Vector<SamplerState*> samplers) {
+  Mesh::render(Vector<SamplerState*> samplers) {
 
-    XC_UNREFERENCED_PARAMETER(shader);
     auto graphicsApi = g_graphicsAPI().instancePtr();
+
+   
 
     uint32 textureSize = m_vTextures.size();
 
@@ -56,6 +56,7 @@ namespace xcEngineSDK {
 
     graphicsApi->setIndexBuffer(m_indexBuffer,
                                 0);
+
 
     // draw mesh
     graphicsApi->drawIndexed(m_Indices.size(),
@@ -113,35 +114,10 @@ namespace xcEngineSDK {
 
     const aiAnimation* animation = m_scene->mAnimations[0];
 
-    Matrix4x4 NodeTransformation(node->mTransformation.a1, node->mTransformation.b1, 
-                                 node->mTransformation.c1, node->mTransformation.d1, 
-                                 node->mTransformation.a2, node->mTransformation.b2, 
-                                 node->mTransformation.c2, node->mTransformation.d2, 
-                                 node->mTransformation.a3, node->mTransformation.b3, 
-                                 node->mTransformation.c3, node->mTransformation.d3, 
-                                 node->mTransformation.a4, node->mTransformation.b4, 
-                                 node->mTransformation.c4, node->mTransformation.d4);
+    Matrix4x4 NodeTransformation;
 
-    Matrix4x4 globalInverseTransform(m_scene->mRootNode->mTransformation.a1, 
-                                     m_scene->mRootNode->mTransformation.b1, 
-                                     m_scene->mRootNode->mTransformation.c1, 
-                                     m_scene->mRootNode->mTransformation.d1, 
-                                     m_scene->mRootNode->mTransformation.a2, 
-                                     m_scene->mRootNode->mTransformation.b2, 
-                                     m_scene->mRootNode->mTransformation.c2, 
-                                     m_scene->mRootNode->mTransformation.d2, 
-                                     m_scene->mRootNode->mTransformation.a3, 
-                                     m_scene->mRootNode->mTransformation.b3, 
-                                     m_scene->mRootNode->mTransformation.c3, 
-                                     m_scene->mRootNode->mTransformation.d3, 
-                                     m_scene->mRootNode->mTransformation.a4, 
-                                     m_scene->mRootNode->mTransformation.b4, 
-                                     m_scene->mRootNode->mTransformation.c4, 
-                                     m_scene->mRootNode->mTransformation.d4);
+    std::memcpy(&NodeTransformation, &node->mTransformation, sizeof(Matrix4x4));
 
-    globalInverseTransform.inverse();
-
-   // glm::mat4 glmTransform = glm::transpose(glm::make_mat4(&Node->mTransformation.a1));
 
     const aiNodeAnim* animNode = FindNodeAnimation(nodeName, animation);
 
@@ -158,9 +134,9 @@ namespace xcEngineSDK {
       //rotation
       aiQuaternion RotationQ;
       calcInterpolatedRotation(RotationQ, time, animNode);
-      Quaternion quaternionRotation(RotationQ.x, RotationQ.y, 
-                                    RotationQ.z, RotationQ.w);
-    
+      Quaternion quaternionRotation(RotationQ.x, RotationQ.y,
+        RotationQ.z, RotationQ.w);
+
       Matrix4x4 RotationM = RotationM.quatToMatRot(quaternionRotation);
 
 
@@ -177,6 +153,32 @@ namespace xcEngineSDK {
 
       NodeTransformation.transpose();
     }
+
+
+    /*  Matrix4x4 globalInverseTransform(m_scene->mRootNode->mTransformation.a1,
+                                       m_scene->mRootNode->mTransformation.b1,
+                                       m_scene->mRootNode->mTransformation.c1,
+                                       m_scene->mRootNode->mTransformation.d1,
+                                       m_scene->mRootNode->mTransformation.a2,
+                                       m_scene->mRootNode->mTransformation.b2,
+                                       m_scene->mRootNode->mTransformation.c2,
+                                       m_scene->mRootNode->mTransformation.d2,
+                                       m_scene->mRootNode->mTransformation.a3,
+                                       m_scene->mRootNode->mTransformation.b3,
+                                       m_scene->mRootNode->mTransformation.c3,
+                                       m_scene->mRootNode->mTransformation.d3,
+                                       m_scene->mRootNode->mTransformation.a4,
+                                       m_scene->mRootNode->mTransformation.b4,
+                                       m_scene->mRootNode->mTransformation.c4,
+                                       m_scene->mRootNode->mTransformation.d4);
+
+      globalInverseTransform.inverse();*/
+
+    Matrix4x4 globalInverseTransform = Matrix4x4::IDENTITY_MATRIX;
+
+   // glm::mat4 glmTransform = glm::transpose(glm::make_mat4(&Node->mTransformation.a1));
+
+    
 
     Matrix4x4 temp = transform;
 

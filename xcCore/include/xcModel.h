@@ -14,18 +14,14 @@
  */
 #pragma once
 #include <xcPrerequisitesCore.h>
-
 #include <xcShaderProgram.h>
 #include <xcInputLayout.h>
+#include "xcComponent.h"
 #include "xcMesh.h"
 
 namespace xcEngineSDK {
 
-  
-
-  class GraphiAPI;
-
-  class XC_CORE_EXPORT Model
+  class XC_CORE_EXPORT Model : public Component
   {
    public:
 
@@ -44,7 +40,7 @@ namespace xcEngineSDK {
 
     // draws the model, and thus all its meshes
     void 
-    draw(ShaderProgram& shader);
+    render() override;
 
     void
     update(float delta, Vector<Matrix4x4>& transform);

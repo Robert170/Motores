@@ -32,7 +32,7 @@ GameAppUnitTest::onCreate() {
 
   //m_model.reset(new Model("Models/Agnaktor/idle2.fbx"));
 
-  m_model.reset(new Model("Models/Bea/bea_geo.fbx"));
+  //m_model.reset(new Model("Models/Bea/bea_geo.fbx"));
 
   //m_model.reset(new Model("Models/Gwen/Angry.fbx"));
 
@@ -42,13 +42,19 @@ GameAppUnitTest::onCreate() {
 
   //m_model.reset(new Model("Models/Grimoires/grimoires.fbx"));
 
-  Component testComponent;
-  testComponent.setComponent(m_model);
+  SPtr<Component> testComponent(new Model("Models/Bea/bea_geo.fbx"));
 
   SPtr<Actor> testActor(new Actor("test"));
   testActor->addComponent(testComponent);
 
-  sceneGraph.addActor(SPtr<SceneNode>(nullptr), testActor);
+  SPtr<Component> testComponent2(new Model("Models/Bibi/bibi_geo.fbx"));
+
+  SPtr<Actor> testActor2(new Actor("test"));
+  testActor2->addComponent(testComponent2);
+
+  sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
+
+  sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
 
   Vector<uint32_t> indices =
   {
@@ -248,10 +254,6 @@ GameAppUnitTest::onUpdate(float deltaTime) {
   graphicsApi.updateSubresource(&m_constantBuffer,
       		                      *m_cbNeverChanges);
   
-  
-  
-  //TODO la actualizacion del modelo no es aqui, es del componente
-  m_model->update(deltaTime, m_transform);
   uint32 transformSize = m_transform.size();
   for (uint32 i = 0; i < transformSize; ++i) {
     if (i < 200) {
@@ -268,12 +270,10 @@ void
 GameAppUnitTest::onRender() {
 
   auto& graphicsApi = g_graphicsAPI();
+  auto& sceneGraph = g_sceneGraph();
  
   m_color.setColor(0.5f, 0.3f, 0.1f, 1.0f);
-  /*m_color.R = 0.0f;
-  m_color.G = 0.125f;
-  m_color.B = 0.3f;
-  m_color.A = 1.0f;*/
+
  
  
   /*g_graphicsAPI().SetRenderTarget(m_renderTargets,
@@ -350,7 +350,8 @@ GameAppUnitTest::onRender() {
   /*g_graphicsAPI().SetSamplerState(g_vSamplers,
  	                 0);*/
 
-  m_model->draw(*m_shaderProgram);
+  //m_model->render();
+  sceneGraph.render();
 
   /*g_graphicsAPI().drawIndexed(36,
                            0,

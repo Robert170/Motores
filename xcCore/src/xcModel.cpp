@@ -20,15 +20,14 @@ namespace xcEngineSDK {
   }
 
   void 
-  Model::draw(ShaderProgram& shader) {
+  Model::render() {
 
     uint32 numMeshes = m_vMeshes.size();
     
 
     for (uint32 i = 0; i < numMeshes; i++) {
 
-      m_vMeshes[i].draw(shader, 
-                        m_vSamplers);
+      m_vMeshes[i].render(m_vSamplers);
     }
   }
 
@@ -162,7 +161,7 @@ namespace xcEngineSDK {
 
     if (mesh->mNumBones != 0) {
 
-      for (uint32 i = 0; i < mesh->mNumBones; i++) {
+      for (uint32 i = 0; i < mesh->mNumBones; ++i) {
 
         uint32 boneIndex = 0;
         String boneName(mesh->mBones[i]->mName.data);
@@ -183,7 +182,7 @@ namespace xcEngineSDK {
                     &mesh->mBones[i]->mOffsetMatrix, 
                     sizeof(Matrix4x4));
 
-        for (uint32 j = 0; j < mesh->mBones[i]->mNumWeights; j++) {
+        for (uint32 j = 0; j < mesh->mBones[i]->mNumWeights; ++j) {
          
           uint32 temp = mesh->mBones[i]->mWeights[j].mVertexId;
           float temp2 = mesh->mBones[i]->mWeights[j].mWeight;

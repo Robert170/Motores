@@ -18,7 +18,6 @@
  /*****************************************************************************/
 #include "xcPrerequisitesCore.h"
 #include "xcGameObject.h"
-#include "xcModel.h"
 
 namespace xcEngineSDK {
 
@@ -28,12 +27,10 @@ namespace xcEngineSDK {
 		Component() = default;
 		~Component() = default;
 
-		void
-		setComponent(SPtr<Model> model);
+		virtual void 
+		render() = 0;
 
 	 private:
-
-	  SPtr<Model> m_model;
 
 	};
 }

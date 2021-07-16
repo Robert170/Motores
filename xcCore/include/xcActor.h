@@ -35,16 +35,19 @@ namespace xcEngineSDK {
 		
 
 		void
-		addComponent(Component& component);
+		addComponent(WeakSptr<Component> component);
 
     void
-    removeComponent(Component& component);
+    removeComponent(WeakSptr<Component>& component);
 
 		void
 		setName(String name);
 
     void
     setSelect(bool selected);
+
+		void
+		renderComponent();
 
 	 public:
 
@@ -55,8 +58,8 @@ namespace xcEngineSDK {
 
 		
 		Transfom m_actorTrasform;
-
-		Vector<Component> m_vComponents;
+		//TODO cambiar a map
+		Vector<SPtr<Component>> m_vComponents;
 	};
 
 
