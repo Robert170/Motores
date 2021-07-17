@@ -1,0 +1,58 @@
+//--------------------------------------------------------------------------------------
+// Constant Buffer Variables
+//--------------------------------------------------------------------------------------
+#define MAX_BONES 200
+
+
+cbuffer cbNeverChanges : register( b0 )
+{
+    matrix View;
+    matrix Projection;
+    matrix World;
+    float4 vMeshColor;
+};
+
+cbuffer CBBones : register(b1)
+{
+    matrix Bones_CB[MAX_BONES];
+};
+
+//--------------------------------------------------------------------------------------
+struct VS_INPUT
+{
+    float4 Pos : POSITION;
+    float2 Texcoord : TEXCOORD0;
+    float4 BoneW : BLENDWEIGHT;
+    int4 IdBone  : BLENDINDICES;
+};
+
+struct PS_INPUT
+{
+    float4 Pos : SV_POSITION;
+    float2 Tex : TEXCOORD0;
+};
+
+
+
+//--------------------------------------------------------------------------------------
+// Vertex Shader
+//--------------------------------------------------------------------------------------
+PS_INPUT VS( VS_INPUT input )
+{
+
+    PS_INPUT output = (PS_INPUT)0;
+
+    //matrix BoneTransform = mul(Bones_CB[input.IdBone.x], input.BoneW.x);
+    //BoneTransform += mul(Bones_CB[input.IdBone.y], input.BoneW.y);
+    //BoneTransform += mul(Bones_CB[input.IdBone.z], input.BoneW.z);
+    //BoneTransform += mul(Bones_CB[input.IdBone.w], input.BoneW.w);
+    //output.Pos = mul(float4(input.Pos.xyz, 1.0),BoneTransform);
+    //output.Pos = mul( output.Pos, World );
+	output.Pos = mul( float4(input.Pos.xyz, 1.0), World );
+    output.Pos = mul( output.Pos, View );
+    output.Pos = mul( output.Pos, Projection );
+	output.Tex = input.Texcoord;
+    
+    return output;
+
+}
