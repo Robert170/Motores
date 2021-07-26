@@ -58,9 +58,6 @@ namespace xcEngineSDK {
           Vector<uint32> indices,
           Vector<Texture*> Textures,
           Vector<SamplerState*> Samplers,
-          BONES_INFO* Skull,
-          BoneVertex* BonVer,
-          uint32 NumBones,
           const aiScene* m_scene);
 
     // render the mesh
@@ -106,9 +103,9 @@ namespace xcEngineSDK {
      */
      Vector<Mesh*>	m_Children;
 
-     SPtr<BONES_INFO> m_pBonesInfo = nullptr;
+     SPtr<BONES_INFO> m_pBonesInfo;
 
-     SPtr<BoneVertex> m_pBoneVertex = nullptr;
+     //SPtr<BoneVertex> m_pBoneVertex = nullptr;
 
      Vector<Matrix4x4> m_bonesTransforms;
 

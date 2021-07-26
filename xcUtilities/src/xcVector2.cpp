@@ -105,8 +105,7 @@ namespace xcEngineSDK {
 
 	float 
 	Vector2::magnitud() {
-		float x= sqrtf(powf(x, 2) + powf(y, 2));
-		return x;
+		return sqrtf(powf(x, 2) + powf(y, 2));
 	}
 
 	Vector2

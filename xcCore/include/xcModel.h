@@ -73,7 +73,7 @@ namespace xcEngineSDK {
        * @bug		 No know Bugs
        * @return     Returns a mesh
      */
-    Mesh 
+    Mesh*
     processMesh(aiMesh* mesh, 
                 const aiScene* scene);
 
@@ -114,7 +114,7 @@ namespace xcEngineSDK {
      /**
        * @Variable m_vMeshes, is for all Meshes
      */
-     Vector<Mesh>  m_vMeshes;
+     Vector<Mesh*>  m_vMeshes;
 
      InputLayout_Desc m_inpLayDesc;
 
@@ -136,7 +136,7 @@ namespace xcEngineSDK {
      Assimp::Importer m_importer;
      const aiScene* m_scene;
 
-     Mesh* m_mesh = nullptr;
+     Mesh* m_mesh;
 
   };
 

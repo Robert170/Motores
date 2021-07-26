@@ -15,7 +15,6 @@
 #pragma once
 #include <windows.h>
 #include <iostream>
-#include <vector>
 #include <xcVector4.h>
 #include <xcMatrix4x4.h>
 #include <xcModule.h>
@@ -251,8 +250,10 @@ namespace xcEngineSDK {
 
   struct BoneVertex {
     Vector4 Position;
+    //Vector4 normal;
+    //Vector4 tangent;
     Vector2 TexCoords;
-    Vector4 bonesWeight = { 0,0,0,0 };
+    Vector4 bonesWeight[4] = { 0.0f, 0.0f, 0.0f, 0.0f};
     uint32 id_Bones[4] = { 0 };
   };
 
@@ -336,6 +337,7 @@ namespace xcEngineSDK {
      * @bug		     No know Bugs
      * @return     Returns nothing
      */
+    
     virtual void 
     createDeviceandSwap(sf::WindowHandle window) { };
 
@@ -373,6 +375,7 @@ namespace xcEngineSDK {
       * @bug		    No know Bugs
       * @return     Returns nothing
     */
+    //init(sf::WindowHandle window)
     virtual void 
     init(sf::WindowHandle window) {
 

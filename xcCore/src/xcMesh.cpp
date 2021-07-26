@@ -7,19 +7,12 @@ namespace xcEngineSDK {
              Vector<uint32> indices,
              Vector<Texture*> Textures,
              Vector<SamplerState*> Samplers,
-             BONES_INFO* Skull,
-             BoneVertex* BonVer,
-             uint32 NumBones,
              const aiScene* scene) {
 
     this->m_Vertices = Vertices;
     this->m_Indices = indices;
     this->m_vTextures = Textures;
     this->m_vSamplers = Samplers;
-    m_pBonesInfo.reset(Skull);
-    m_pBoneVertex.reset(BonVer);
-    m_bonesTransforms.clear();
-    m_bonesTransforms.resize(NumBones);
     m_scene = scene; 
 
     setupMesh();
@@ -70,7 +63,7 @@ namespace xcEngineSDK {
   void 
   Mesh::update(const float& deltaTime) {
 
-    boneTrasnform(deltaTime);
+    //boneTrasnform(deltaTime);
 
   }
 

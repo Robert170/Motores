@@ -4,8 +4,8 @@
 
 namespace xcEngineSDK {
 
-  const VectorI3 VectorI3::ZERO = VectorI3(0.f, 0.f, 0.f);
-  const VectorI3 VectorI3::UNIT = VectorI3(1.f, 1.f, 1.f);
+  const VectorI3 VectorI3::ZERO = VectorI3(0, 0, 0);
+  const VectorI3 VectorI3::UNIT = VectorI3(1, 1, 1);
 
   VectorI3
   VectorI3::operator + (const VectorI3& V) {

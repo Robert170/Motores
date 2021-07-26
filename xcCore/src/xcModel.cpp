@@ -27,7 +27,7 @@ namespace xcEngineSDK {
 
     for (uint32 i = 0; i < numMeshes; i++) {
 
-      m_vMeshes[i].render();
+      m_vMeshes[i]->render();
     }
   }
 
@@ -36,7 +36,7 @@ namespace xcEngineSDK {
     uint32 numMeshes = m_vMeshes.size();
 
     for (uint32 i = 0; i < numMeshes; ++i) {
-      m_vMeshes[i].update(deltaTime);
+      m_vMeshes[i]->update(deltaTime);
     }
   }
 
@@ -97,7 +97,7 @@ namespace xcEngineSDK {
     }
   }
 
-  Mesh
+  Mesh*
   Model::processMesh(aiMesh* mesh,
                      const aiScene* scene) {
     // data to fill
@@ -214,53 +214,48 @@ namespace xcEngineSDK {
       for (uint32 i = 0; i < mesh->mNumVertices; i++) {
         for (uint32 j = 0; j < 4; j++) {
 
-          vertices[i].bonesWeight = 1;
+          vertices[i].bonesWeight[j] = 1;
         }
       }
     }
 
-
     // process materials
     aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-    // 1. diffuse maps
+     // 1. diffuse maps
     loadMaterialTextures(material,
                          aiTextureType_DIFFUSE, 
                          "texture_diffuse");
-   /*Textures.insert(Textures.end(),
-                    diffuseMaps.begin(), 
-                    diffuseMaps.end());*/
+
     //// 2. specular maps
     //loadMaterialTextures(material,
     //                     aiTextureType_SPECULAR, 
     //                     "texture_specular");
-    ///*Textures.insert(Textures.end(),
-    //                        specularMaps.begin(), 
-    //                        specularMaps.end());*/
+
     //// 3. normal maps
     //loadMaterialTextures(material,
     //                     aiTextureType_HEIGHT,
     //                     "texture_normal");
-    ///*Textures.insert(Textures.end(),
-    //                        normalMaps.begin(), 
-    //                        normalMaps.end());*/
+   
     //// 4. height maps
     //loadMaterialTextures(material, 
     //                     aiTextureType_AMBIENT, 
     //                     "texture_height");
-   /* Textures.insert(Textures.end(),
-                            heightMaps.begin(), 
-                            heightMaps.end());*/
+    m_mesh = new Mesh(vertices,
+                      indices,
+                      m_texturesloaded,
+                      m_vSamplers,
+                      m_scene);
+    
 
-    // return a mesh object created from the extracted mesh data
-    return Mesh(vertices,
-                indices,
-                m_texturesloaded,
-                m_vSamplers,
-                skeletal,
-                structVertex,
-                skeletal->NumBones,
-                m_scene);
+    SPtr<BONES_INFO> boneVertexData(skeletal);
+    m_mesh->m_pBonesInfo.reset(skeletal);
+    m_mesh->m_bonesTransforms.clear();
+    m_mesh->m_bonesTransforms.resize(skeletal->NumBones);
+   
+
+    //SPtr<Mesh> finalMesh(m_mesh);
+    return m_mesh;
 
     
   }

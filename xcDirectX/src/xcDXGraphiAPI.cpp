@@ -3,7 +3,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-
 #include "xcDXGraphiAPI.h"
 //#include "TextureDX.h"
 #include "xcInputLayoutDX.h"
@@ -152,6 +151,7 @@ namespace xcEngineSDK {
   void 
   DXGraphiAPI::createDeviceandSwap(sf::WindowHandle window) {
     RECT rc;
+   
     GetClientRect(window, &rc);
     m_width = rc.right - rc.left;
     m_height = rc.bottom - rc.top;
@@ -338,7 +338,7 @@ namespace xcEngineSDK {
                                     const void* Data) {
 
     XC_UNREFERENCED_PARAMETER(NumBuffer);
-    XC_UNREFERENCED_PARAMETER(Data);
+    
 
     SPtr<ConstantBufferDX>consBuffer;
     consBuffer.reset(new ConstantBufferDX());

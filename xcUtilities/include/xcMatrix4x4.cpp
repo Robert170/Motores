@@ -381,32 +381,32 @@ namespace xcEngineSDK {
 
     Matrix4x4 rotationMatrix = Matrix4x4::IDENTITY_MATRIX;
 
-    rotationMatrix.m_matrix[0].x = 1 - 2 * (Math::pow(Quat.y, 2) 
-                                           + Math::pow(Quat.z, 2));
+    rotationMatrix.m_matrix[0].x = 1.0f - 2.0f * (Math::pow(Quat.y, 2.0f)
+                                                  + Math::pow(Quat.z, 2.0f));
 
-    rotationMatrix.m_matrix[0].y = 2 * (Quat.x * Quat.y 
-                                        - Quat.w * Quat.z);
+    rotationMatrix.m_matrix[0].y = 2.0f * (Quat.x * Quat.y
+                                           - Quat.w * Quat.z);
 
-    rotationMatrix.m_matrix[0].z = 2 * (Quat.x * Quat.z 
-                                        + Quat.w * Quat.y);
+    rotationMatrix.m_matrix[0].z = 2.0f * (Quat.x * Quat.z
+                                           + Quat.w * Quat.y);
 
-    rotationMatrix.m_matrix[1].x = 2 * (Quat.x * Quat.y 
-                                        + Quat.w * Quat.z);
+    rotationMatrix.m_matrix[1].x = 2.0f * (Quat.x * Quat.y
+                                           + Quat.w * Quat.z);
 
-    rotationMatrix.m_matrix[1].y = 1 - 2 * (Math::pow(Quat.x, 2) 
-                                           + Math::pow(Quat.z, 2));
+    rotationMatrix.m_matrix[1].y = 1.0f - 2.0f * (Math::pow(Quat.x, 2.0f)
+                                                  + Math::pow(Quat.z, 2.0f));
 
-    rotationMatrix.m_matrix[1].z = 2 * (Quat.y * Quat.z 
-                                        - Quat.w * Quat.x);
+    rotationMatrix.m_matrix[1].z = 2.0f * (Quat.y * Quat.z
+                                           - Quat.w * Quat.x);
 
-    rotationMatrix.m_matrix[2].x = 2 * (Quat.x * Quat.z 
-                                        - Quat.w * Quat.y);
+    rotationMatrix.m_matrix[2].x = 2.0f * (Quat.x * Quat.z
+                                           - Quat.w * Quat.y);
 
-    rotationMatrix.m_matrix[2].y = 2 * (Quat.y * Quat.z 
-                                        + Quat.w * Quat.x);
+    rotationMatrix.m_matrix[2].y = 2.0f * (Quat.y * Quat.z
+                                           + Quat.w * Quat.x);
 
-    rotationMatrix.m_matrix[2].z = 1 - 2 * (Math::pow(Quat.x, 2) 
-                                            + Math::pow(Quat.y, 2));
+    rotationMatrix.m_matrix[2].z = 1.0f - 2.0f * (Math::pow(Quat.x, 2.0f)
+                                                  + Math::pow(Quat.y, 2.0f));
 
     rotationMatrix.m_matrix[3].w = 1.0f;
     return rotationMatrix;

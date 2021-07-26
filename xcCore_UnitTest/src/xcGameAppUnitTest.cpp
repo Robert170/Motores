@@ -47,14 +47,14 @@ GameAppUnitTest::onCreate() {
   SPtr<Actor> testActor(new Actor("test"));
   testActor->addComponent(testComponent);
 
-  SPtr<Component> testComponent2(new Model("Models/Gwen/Angry.fbx"));
+  //SPtr<Component> testComponent2(new Model("Models/Gwen/Angry.fbx"));
 
-  SPtr<Actor> testActor2(new Actor("test2"));
-  testActor2->addComponent(testComponent2);
+  //SPtr<Actor> testActor2(new Actor("test2"));
+  //testActor2->addComponent(testComponent2);
 
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
 
-  sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
+  //sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
 
   Vector<uint32_t> indices =
   {

@@ -48,10 +48,10 @@ namespace xcEngineSDK {
   //MAGNITUD
   float 
   Quaternion::magnitud() {
-    return Math::sqrt(Math::pow(w, 2) +
-                      Math::pow(x, 2) +
-                      Math::pow(y, 2) +
-                      Math::pow(z, 2));
+    return Math::sqrt(Math::pow(w, 2.0f) +
+                      Math::pow(x, 2.0f) +
+                      Math::pow(y, 2.0f) +
+                      Math::pow(z, 2.0f));
   }
 
   Quaternion& 
