@@ -26,9 +26,11 @@ namespace xcEngineSDK {
 
     void
     Actor::renderComponent() {
+
       for (auto component : m_vComponents) {
         component->render();
       }
+
     }
 
     void 

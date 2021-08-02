@@ -215,6 +215,9 @@ namespace xcEngineSDK {
 		 */
 		float y;
 
+    static const Vector2 ZERO;
+    static const Vector2 UNIT;
+
 	};
 }
 

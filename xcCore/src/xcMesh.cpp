@@ -7,12 +7,16 @@ namespace xcEngineSDK {
              Vector<uint32> indices,
              Vector<Texture*> Textures,
              Vector<SamplerState*> Samplers,
+             BONES_INFO2* skeletal,
              const aiScene* scene) {
 
     this->m_Vertices = Vertices;
     this->m_Indices = indices;
     this->m_vTextures = Textures;
     this->m_vSamplers = Samplers;
+    m_pBonesInfo.reset(skeletal);
+    m_bonesTransforms.clear();
+    m_bonesTransforms.resize(skeletal->NumBones);
     m_scene = scene; 
 
     setupMesh();

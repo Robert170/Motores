@@ -42,10 +42,10 @@ GameAppUnitTest::onCreate() {
 
   //m_model.reset(new Model("Models/Grimoires/grimoires.fbx"));
 
-  SPtr<Component> testComponent(new Model("Models/s/silly_dancing.fbx"));
+  SPtr<Component> testComponent(/*new Model("Models/Bea/bea_geo.fbx")*/);
 
   SPtr<Actor> testActor(new Actor("test"));
-  testActor->addComponent(testComponent);
+  //testActor->addComponent(testComponent);
 
   //SPtr<Component> testComponent2(new Model("Models/Gwen/Angry.fbx"));
 
@@ -407,4 +407,7 @@ GameAppUnitTest::onDestroy() {
       delete m_renderTargets.at(i);
     }
   }*/
+
+  
+  
 }

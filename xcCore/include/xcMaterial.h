@@ -1,11 +1,13 @@
 /*****************************************************************************/
 /**
- * @file    xcGameObject.h
+ * @file    xcMaterial.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
- * @date    2021/06/7
- * @brief   Represents the GameObject of the scene
+ * @date    2021/07/26
+ * @brief   Represents the material 
  *
- * Represent the GameObject, the lowest level of the scene
+ * This class load the resources of textures to convert in material
+ * 
+ * 
  * @bug	    No known bugs.
  */
  /*****************************************************************************/
@@ -15,17 +17,19 @@
  * Includes
  */
  /*****************************************************************************/
-
 #include "xcPrerequisitesCore.h"
 
+
 namespace xcEngineSDK {
-  class XC_CORE_EXPORT GameObject
+
+  class Material
   {
    public:
-    GameObject() = default;
-    virtual ~GameObject() = default;
+    Material() = default;
+    ~Material() = default;
 
    private:
 
   };
+
 }

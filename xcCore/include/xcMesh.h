@@ -27,25 +27,19 @@
 
 namespace xcEngineSDK {
 
-  struct BONES 
+  struct BONES2
   {
     Matrix4x4 Offset;
     Matrix4x4 Transformation;
   };
 
-  struct BONES_INFO
+  struct BONES_INFO2
   {
     uint32 NumBones = 0;
-    Vector<BONES> VecSkeletal;
+    Vector<BONES2> VecSkeletal;
     std::map<String, uint32> BonesMap;
   };
 
-  struct Vertex {
-    // position
-    Vector3 Position;
-    // texCoords
-    Vector2 TexCoords;
-  };
 
   class XC_CORE_EXPORT Mesh
   {
@@ -58,6 +52,7 @@ namespace xcEngineSDK {
           Vector<uint32> indices,
           Vector<Texture*> Textures,
           Vector<SamplerState*> Samplers,
+          BONES_INFO2* skeletal,
           const aiScene* m_scene);
 
     // render the mesh
@@ -95,15 +90,15 @@ namespace xcEngineSDK {
      /*
      variable pointer CMesh for the Parent.
     */
-     Mesh* m_Parent = nullptr;
+     //Mesh* m_Parent = nullptr;
 
      //! A public variable.
      /*!
        variable vector of CMesh for the m_Children.
      */
-     Vector<Mesh*>	m_Children;
+    // Vector<Mesh*>	m_Children;
 
-     SPtr<BONES_INFO> m_pBonesInfo;
+     SPtr<BONES_INFO2> m_pBonesInfo;
 
      //SPtr<BoneVertex> m_pBoneVertex = nullptr;
 
@@ -122,7 +117,7 @@ namespace xcEngineSDK {
     void 
     setupMesh();
 
-  public:
+   public:
     Matrix4x4
     boneTrasnform(float time);
 

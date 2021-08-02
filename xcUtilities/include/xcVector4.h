@@ -264,5 +264,8 @@ namespace xcEngineSDK {
 		 */
 		float w;
 
+    static const Vector4 ZERO;
+    static const Vector4 UNIT;
+
 	};
 }

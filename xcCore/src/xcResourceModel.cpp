@@ -1,185 +1,190 @@
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
 #include "xcResourceModel.h"
-
 
 
 namespace xcEngineSDK {
 
   ResourceModel::ResourceModel(const String& path) {
 
-    auto& graphicsApi = g_graphicsAPI();
-
     loadModel(path);
-
-    //create sampler
-
-    m_sampler = graphicsApi.createSamplerState(1);
-
-    m_vSamplers.push_back(m_sampler.get());
-  }
-  void 
-  ResourceModel::render() {
-    uint32 numMeshes = m_vMeshes.size();
-
-
-    for (uint32 i = 0; i < numMeshes; i++) {
-
-      m_vMeshes[i].render();
-    }
-  }
-
-  void 
-  ResourceModel::update(float deltaTime) {
-    uint32 numMeshes = m_vMeshes.size();
-
-    for (uint32 i = 0; i < numMeshes; ++i) {
-      m_vMeshes[i].update(deltaTime);
-    }
   }
 
   void 
   ResourceModel::loadModel(const String& path) {
+    const aiScene* scene;
 
-    m_scene = m_importer.ReadFile(path,
-                                  aiProcessPreset_TargetRealtime_MaxQuality |
-                                  aiProcess_ConvertToLeftHanded | 
-                                  aiProcess_Triangulate);
+    // read file via ASSIMP
+    Assimp::Importer importer;
+
+    scene = importer.ReadFile(path,
+                                aiProcessPreset_TargetRealtime_MaxQuality |
+                                aiProcess_ConvertToLeftHanded | 
+                                aiProcess_Triangulate);
+   
+
     // check for errors
-    if (!m_scene ||
-        m_scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE ||
-        !m_scene->mRootNode) { // if is Not Zero
+    if (!scene ||
+        scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE ||
+        !scene->mRootNode) { // if is Not Zero
 
-      std::cout << "ERROR::ASSIMP:: " << m_importer.GetErrorString() << std::endl;
+      std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
       return;
     }
-
     // retrieve the directory path of the filepath
     m_directory = path.substr(0, path.find_last_of('/'));
 
     // process ASSIMP's root node recursively
-    processNode(m_scene->mRootNode,
-                m_scene);
+    processNode(scene->mRootNode, scene);
+
+    
+   
   }
 
   void 
-  ResourceModel::processNode(aiNode* node, const aiScene* scene) {
+  ResourceModel::processNode(const void* node, const void* scene) {
 
-    for (uint32 i = 0; i < node->mNumMeshes; ++i) {
-      
-      aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+    auto& tempNode = reinterpret_cast<aiNode&>(node);
+    auto& tempScene = reinterpret_cast<aiScene&>(scene);
 
-      m_vMeshes.push_back(processMesh(mesh, scene));
+    // process each mesh located at the current node
+    for (uint32 i = 0; i < tempNode.mNumMeshes; ++i) {
+      // the node object only contains indices to index the actual objects in the scene. 
+      // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
+      aiMesh* mesh = tempScene.mMeshes[tempNode.mMeshes[i]];
+
+      m_vModelsData.push_back(processMesh(mesh, scene));
     }
-    
-    for (uint32 i = 0; i < node->mNumChildren; ++i) {
-      processNode(node->mChildren[i], scene);
+ 
+    for (uint32 i = 0; i < tempNode.mNumChildren; ++i) {
+      processNode(tempNode.mChildren[i], scene);
     }
 
   }
 
-  Mesh 
-  ResourceModel::processMesh(aiMesh* mesh, const aiScene* scene) {
-    // data to fill
-    Vector<BoneVertex> vertices;
-    Vector<uint32> indices;
-    //Vector<Texture> Textures;
-    BoneVertex* structVertex = new BoneVertex[mesh->mNumVertices];
-    // walk through each of the mesh's vertices
-    for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
-        Vector4 vector; 
+  ModelData 
+  ResourceModel::processMesh(const void* mesh, const void* scene) {
 
-        // positions
-        vector.x = mesh->mVertices[i].x;
-        vector.y = mesh->mVertices[i].y;
-        vector.z = mesh->mVertices[i].z;
-        vector.w = 1;
-        structVertex[i].Position = vector;
-        // normals
-        if (mesh->HasNormals()) {
-          /*vector.x = mesh->mNormals[i].x;
-          vector.y = mesh->mNormals[i].y;
-          vector.z = mesh->mNormals[i].z;
-          structVertex[i].normal = vector;*/
-        }
-        if (mesh->HasTangentsAndBitangents()) {
-          // tangent
-            /*vector.x = mesh->mTangents[i].x;
-            vector.y = mesh->mTangents[i].y;
-            vector.z = mesh->mTangents[i].z;
-            structVertex[i].tangent = vector;*/
-            // bi tangent
-            /*vector.x = mesh->mBitangents[i].x;
-            vector.y = mesh->mBitangents[i].y;
-            vector.z = mesh->mBitangents[i].z;
-            Vertex.Bitangent = vector;*/
-        }
-        // texture coordinates
-        if (mesh->mTextureCoords[0]) {
-            Vector2 vec;
-            
-            vec.x = mesh->mTextureCoords[0][i].x;
-            vec.y = mesh->mTextureCoords[0][i].y;
-            structVertex[i].TexCoords = vec;
-        }
-        else {
-          structVertex[i].TexCoords = Vector2(0.f,0.f);
-        }
+    auto& tempMesh = reinterpret_cast<aiMesh&>(mesh);
+    auto& tempScene = reinterpret_cast<aiScene&>(scene);
 
-        vertices.push_back(structVertex[i]);
-    }
+    ModelData fullData;
 
-    for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
-        aiFace face = mesh->mFaces[i];
-        // retrieve all indices of the face and store them in the indices vector
-        for (unsigned int j = 0; j < face.mNumIndices; ++j) {
-            indices.push_back(face.mIndices[j]);
-        }
-    }
-
-
+    loadVertexData(mesh, fullData);
+    
     //Charge bones
-    BONES_INFO* skeletal = new BONES_INFO(); 
-    loadAnimation(mesh, vertices, skeletal);
-  
-    // process materials
-    aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-    // 1. diffuse maps
+    loadAnimationData(mesh, fullData);
+
+    // process materials
+    aiMaterial* material = tempScene.mMaterials[tempMesh.mMaterialIndex];
+
+     // 1. diffuse maps
     loadMaterialTextures(material,
-                         aiTextureType_DIFFUSE);
+                         TextureType_DIFFUSE, 
+                         fullData);
 
     //// 2. specular maps
-    //loadMaterialTextures(material,
-    //                     aiTextureType_SPECULAR);
+    loadMaterialTextures(material,
+                         TextureType_SPECULAR, 
+                         fullData);
 
     //// 3. normal maps
-    //loadMaterialTextures(material,
-    //                     aiTextureType_HEIGHT);
-    
+    loadMaterialTextures(material,
+                         TextureType_HEIGHT,
+                         fullData);
+   
     //// 4. height maps
-    //loadMaterialTextures(material, 
-    //                     aiTextureType_AMBIENT);
+    loadMaterialTextures(material, 
+                         TextureType_AMBIENT, 
+                         fullData);
+    
+      
 
-    // return a mesh object created from the extracted mesh data
-    return Mesh(vertices,
-                indices,
-                m_texturesloaded,
-                m_vSamplers,
-                m_scene);
+    /*SPtr<BONES_INFO> boneVertexData(skeletal);
+    m_mesh->m_pBonesInfo.reset(skeletal);
+    m_mesh->m_bonesTransforms.clear();
+    m_mesh->m_bonesTransforms.resize(skeletal->NumBones);*/
+
+    return fullData;
   }
 
   void 
-  ResourceModel::loadAnimation(aiMesh* mesh,
-                               Vector<BoneVertex>& vertex, 
-                               BONES_INFO* skeletal) {
-    if (mesh->mNumBones != 0) {
+  ResourceModel::loadVertexData(const void* mesh, ModelData& data) {
 
-      uint32 numBones = mesh->mNumBones;
+    auto& tempMesh = reinterpret_cast<aiMesh&>(mesh);
 
-      for (uint32 i = 0; i < numBones; ++i) {
+    // walk through each of the mesh's vertices
+    for (uint32 i = 0; i < tempMesh.mNumVertices; ++i) {
 
-        auto bone = mesh->mBones[i];
+      MeshInfo meshInfo;
+      Vector4 vector; 
+
+      // positions
+      vector.x = tempMesh.mVertices[i].x;
+      vector.y = tempMesh.mVertices[i].y;
+      vector.z = tempMesh.mVertices[i].z;
+      vector.w = 1;
+      meshInfo.vertex = vector;
+      // normals
+      if (tempMesh.HasNormals()) {
+        vector.x = tempMesh.mNormals[i].x;
+        vector.y = tempMesh.mNormals[i].y;
+        vector.z = tempMesh.mNormals[i].z;
+        meshInfo.normal = vector;
+      }
+      if (tempMesh.HasTangentsAndBitangents()) {
+        // tangent
+        vector.x = tempMesh.mTangents[i].x;
+        vector.y = tempMesh.mTangents[i].y;
+        vector.z = tempMesh.mTangents[i].z;
+        meshInfo.tangent = vector;
+        // bi tangent
+        /*vector.x = tempMesh.mBitangents[i].x;
+        vector.y = tempMesh.mBitangents[i].y;
+        vector.z = tempMesh.mBitangents[i].z;
+        modelData. = vector;*/
+      }
+      // texture coordinates
+      if (tempMesh.mTextureCoords[0]) {
+
+        Vector2 vec;
+        vec.x = tempMesh.mTextureCoords[0][i].x;
+        vec.y = tempMesh.mTextureCoords[0][i].y;
+        meshInfo.texCoords = vec;
+      }
+      else
+      {
+        meshInfo.texCoords = Vector2::ZERO;
+      }
+      
+      data.meshData.push_back(meshInfo);
+    }
+
+    //Charge index
+    for (uint32 i = 0; i < tempMesh.mNumFaces; ++i) {
+      aiFace face = tempMesh.mFaces[i];
+
+      for (uint32 j = 0; j < face.mNumIndices; ++j) {
+        data.index.push_back(face.mIndices[j]);
+      }
+    }
+  }
+
+  void 
+  ResourceModel::loadAnimationData(const void* mesh, ModelData& data) {
+
+    auto& tempMesh = reinterpret_cast<aiMesh&>(mesh);
+
+    BONES_INFO* skeletal = new BONES_INFO();
+
+    if (tempMesh.mNumBones != 0) {
+
+      for (uint32 i = 0; i < tempMesh.mNumBones; ++i) {
+
         uint32 boneIndex = 0;
-        String boneName(bone->mName.data);
+        String boneName(tempMesh.mBones[i]->mName.data);
 
         if (skeletal->BonesMap.find(boneName) == skeletal->BonesMap.end()) {
           boneIndex = skeletal->NumBones;
@@ -194,23 +199,21 @@ namespace xcEngineSDK {
         skeletal->BonesMap[boneName] = boneIndex;
 
         std::memcpy(&skeletal->VecSkeletal[boneIndex].Offset,
-                    &bone->mOffsetMatrix,
-                    sizeof(Matrix4x4));
+          &tempMesh.mBones[i]->mOffsetMatrix,
+          sizeof(Matrix4x4));
 
-        uint32 numWeights = bone->mNumWeights;
+        for (uint32 j = 0; j < tempMesh.mBones[i]->mNumWeights; ++j) {
 
-        for (uint32 j = 0; j < numWeights; ++j) {
-
-          uint32 temp = bone->mWeights[j].mVertexId;
-          float temp2 = bone->mWeights[j].mWeight;
+          uint32 temp = tempMesh.mBones[i]->mWeights[j].mVertexId;
+          float temp2 = tempMesh.mBones[i]->mWeights[j].mWeight;
 
           for (uint32 k = 0; k < 4; k++) {
 
 
-            if (vertex[temp].bonesWeight[k] == 0) {
+            if (data.meshData[temp].bonesWeight[k] == 0) {
 
-              vertex[temp].id_Bones[k] = boneIndex;
-              vertex[temp].bonesWeight[k] = temp2;
+              data.meshData[temp].id_Bones[k] = boneIndex;
+              data.meshData[temp].bonesWeight[k] = temp2;
               break;
             }
 
@@ -219,60 +222,66 @@ namespace xcEngineSDK {
       }
     }
     else {
-      for (uint32 i = 0; i < mesh->mNumVertices; ++i) {
-        for (uint32 j = 0; j < 4; ++j) {
+      for (uint32 i = 0; i < tempMesh.mNumVertices; i++) {
+        for (uint32 j = 0; j < 4; j++) {
 
-          vertex[i].bonesWeight[j] = 1;
+          data.meshData[i].bonesWeight[j] = 1;
         }
       }
     }
 
-    SPtr<BONES_INFO> boneVertexData(skeletal);
-    m_mesh->m_pBonesInfo.reset(skeletal);
-    m_mesh->m_bonesTransforms.clear();
-    m_mesh->m_bonesTransforms.resize(skeletal->NumBones);
+    data.skeletal = skeletal;
   }
 
   void 
-  ResourceModel::loadMaterialTextures(aiMaterial* mat, 
-                                      aiTextureType type) {
+  ResourceModel::loadMaterialTextures(const void* mat,
+                                      TEXTURE_TYPE type,
+                                      ModelData& data) {
 
-    auto graphicsApi = g_graphicsAPI().instancePtr();
-    Vector<Texture*> Textures;
-    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
+    auto& tempMaterial = reinterpret_cast<aiMaterial&>(mat);
+   
+    auto& graphicsApi = g_graphicsAPI();
+    Vector<Texture*> Texturesload;
+    Vector<Texture*> TexturesToload;
+    for (unsigned int i = 0; i < 
+      tempMaterial.GetTextureCount(static_cast<aiTextureType>(type)); ++i) {
+
       aiString str;
-      mat->GetTexture(type, i, &str);
+      tempMaterial.GetTexture(static_cast<aiTextureType>(type), i, &str);
 
       String filename = str.C_Str();
       filename = m_directory + getTexturePath(filename);
       //check if texture was loaded before and if so, continue to next iteration: 
       //skip loading a new texture
       bool skip = false;
-      for (unsigned int j = 0; j < m_texturesloaded.size(); j++)
+      for (unsigned int j = 0; j < data.modelTextures.size(); j++)
       {
         //TODO MeshTexture
 
-        if (m_texturesloaded[j] != nullptr)
+        if (data.modelTextures[j] != nullptr)
         {
-          Textures.push_back(m_texturesloaded[j]);
+          Texturesload.push_back(data.modelTextures[j]);
           skip = true; // a texture with the same filepath has already been loaded, 
           break;
         }
 
       }
       if (!skip) {   // if texture hasn't been loaded already, load it
-
-
-        m_texturesloaded.push_back(graphicsApi->textureFromFile(filename));
+        
+        data.modelTextures.push_back(graphicsApi.textureFromFile(filename));
       }
 
     }
+
+    
+
     return;
 
   }
 
   String 
   ResourceModel::getTexturePath(String file) {
+
     size_t realPos = 0;
     size_t posInvSlash = file.rfind('\\');
     size_t posSlash = file.rfind('/');
@@ -293,4 +302,5 @@ namespace xcEngineSDK {
     }
     return file.substr(realPos, file.length() - realPos);
   }
+  
 }

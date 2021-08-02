@@ -184,10 +184,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\xcPase.cpp" />
+    <ClCompile Include="src\xcPass.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\xcPase.h" />
+    <ClInclude Include="include\xcPass.h" />
     <ClInclude Include="include\xcPrerequisitesRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

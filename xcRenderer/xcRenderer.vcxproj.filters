@@ -9,7 +9,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\xcPase.cpp">
+    <ClCompile Include="src\xcPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -17,7 +17,7 @@
     <ClInclude Include="include\xcPrerequisitesRenderer.h">
       <Filter>Source Files\Prerequisites</Filter>
     </ClInclude>
-    <ClInclude Include="include\xcPase.h">
+    <ClInclude Include="include\xcPass.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

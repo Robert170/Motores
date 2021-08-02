@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /**
- * @file    xcPase.h
+ * @file    xcPass.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
  * @date    2021/07/25
  * @brief   Represents pases of GBuffer
@@ -25,12 +25,12 @@ namespace xcEngineSDK {
   class VertexShader;
   class PixelShader;
   class InputLayout;
-
-  class Pase
+  //render pass
+  class Pass
   {
    public:
-    Pase() = default;
-    ~Pase() = default;
+     Pass() = default;
+    ~Pass() = default;
 
     void 
     update();

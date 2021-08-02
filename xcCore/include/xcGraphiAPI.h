@@ -249,10 +249,10 @@ namespace xcEngineSDK {
   };
 
   struct BoneVertex {
-    Vector4 Position;
-    //Vector4 normal;
-    //Vector4 tangent;
-    Vector2 TexCoords;
+    Vector4 vertex;
+    Vector4 normal;
+    Vector4 tangent;
+    Vector2 texCoords;
     Vector4 bonesWeight[4] = { 0.0f, 0.0f, 0.0f, 0.0f};
     uint32 id_Bones[4] = { 0 };
   };

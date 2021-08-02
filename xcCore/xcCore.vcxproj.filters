@@ -79,6 +79,9 @@
     <ClCompile Include="src\xcResourceModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xcMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcCamera.h">
@@ -148,6 +151,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\xcResourceModel.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcMaterial.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

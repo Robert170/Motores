@@ -2,6 +2,9 @@
 
 namespace xcEngineSDK {
 
+  const Vector4 Vector4::ZERO = Vector4(0.f, 0.f, 0.f, 0.0f);
+  const Vector4 Vector4::UNIT = Vector4(1.f, 1.f, 1.f, 1.0f);
+
   Vector4
   Vector4::operator + (const Vector4& V) {
 

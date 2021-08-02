@@ -23,6 +23,7 @@
 #include "xcSceneNode.h"
 
 namespace xcEngineSDK {
+
 	class XC_CORE_EXPORT SceneGraph : public Module<SceneGraph>
 	{
 	 public:
