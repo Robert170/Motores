@@ -13,16 +13,13 @@ namespace xcEngineSDK {
 
   void 
   ResourceModel::loadModel(const String& path) {
-    const aiScene* scene;
 
     // read file via ASSIMP
     Assimp::Importer importer;
-
-    scene = importer.ReadFile(path,
-                                aiProcessPreset_TargetRealtime_MaxQuality |
-                                aiProcess_ConvertToLeftHanded | 
-                                aiProcess_Triangulate);
-   
+    const aiScene* scene = importer.ReadFile(path,
+                              aiProcessPreset_TargetRealtime_MaxQuality |
+                              aiProcess_ConvertToLeftHanded | 
+                              aiProcess_Triangulate);
 
     // check for errors
     if (!scene ||
@@ -37,8 +34,6 @@ namespace xcEngineSDK {
 
     // process ASSIMP's root node recursively
     processNode(scene->mRootNode, scene);
-
-    
    
   }
 
@@ -54,7 +49,7 @@ namespace xcEngineSDK {
       // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
       aiMesh* mesh = tempScene.mMeshes[tempNode.mMeshes[i]];
 
-      m_vModelsData.push_back(processMesh(mesh, scene));
+      m_vModelData.push_back(processMesh(mesh, scene));
     }
  
     for (uint32 i = 0; i < tempNode.mNumChildren; ++i) {
@@ -66,6 +61,7 @@ namespace xcEngineSDK {
   ModelData 
   ResourceModel::processMesh(const void* mesh, const void* scene) {
 
+    auto& graphicsApi = g_graphicsAPI();
     auto& tempMesh = reinterpret_cast<aiMesh&>(mesh);
     auto& tempScene = reinterpret_cast<aiScene&>(scene);
 
@@ -99,6 +95,8 @@ namespace xcEngineSDK {
     loadMaterialTextures(material, 
                          TextureType_AMBIENT, 
                          fullData);
+
+    fullData.scene = scene;
     
       
 
@@ -106,6 +104,10 @@ namespace xcEngineSDK {
     m_mesh->m_pBonesInfo.reset(skeletal);
     m_mesh->m_bonesTransforms.clear();
     m_mesh->m_bonesTransforms.resize(skeletal->NumBones);*/
+
+    //create sampler
+
+    //fullData.samplers.push_back(graphicsApi.createSamplerState(1).get());
 
     return fullData;
   }
@@ -118,7 +120,7 @@ namespace xcEngineSDK {
     // walk through each of the mesh's vertices
     for (uint32 i = 0; i < tempMesh.mNumVertices; ++i) {
 
-      MeshInfo meshInfo;
+      BoneVertex meshInfo;
       Vector4 vector; 
 
       // positions

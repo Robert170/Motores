@@ -161,7 +161,7 @@ namespace xcEngineSDK {
     std::map<String, uint32> BonesMap;
   };
 
-  struct MeshInfo
+  /*struct MeshInfo
   {
     Vector4 vertex;
     Vector4 normal;
@@ -169,14 +169,16 @@ namespace xcEngineSDK {
     Vector2 texCoords;
     Vector4 bonesWeight[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
     uint32 id_Bones[4] = { 0 };
-  };
+  };*/
 
   struct ModelData
   {
-    Vector<MeshInfo> meshData;
+    Vector<BoneVertex> meshData;
     Vector<uint32> index;
     Vector<Texture*> modelTextures;
     BONES_INFO* skeletal;
+    Vector<SamplerState*> samplers;
+    const void* scene;
   };
 
   
@@ -249,37 +251,28 @@ namespace xcEngineSDK {
     String 
     getTexturePath(String file);
 
+   public:
+
+    Vector<ModelData> m_vModelData;
+
+
    private:
 
-   // /**
-   //  * @brief private variables
-   //  */
-   // // model data 
-   // 
-   // /**
-   //  * @Variable m_Texturesloaded, is for all textures of the model
-   //  */
-   // Vector<Texture*> m_texturesloaded;
-   // 
+    /**
+     * @brief private variables
+     */
+    // model data 
    // /**
    //  * @Variable m_vSamplers, is for all samplers
    //  */
    // Vector<SamplerState*> m_vSamplers;
    // 
-   // /**
-   //  * @Variable m_vMeshes, is for all Meshes
-   //  */
-   // Vector<Mesh>  m_vMeshes;
+  
+     /**
+      * @Variable m_Directory, directory of textures
+      */
+     String m_directory;
 
-   // /**
-   //  * @Variable m_Directory, directory of textures
-   //  */
-   String m_directory;
-
-   // /**
-   //  * @Variable m_Texture, texture of model
-   //  */
-   // Texture* m_texture = nullptr;
 
    // /**
    //  * @Variable m_Sampler, sampler of model
@@ -288,7 +281,6 @@ namespace xcEngineSDK {
 
 
 
-    Vector<ModelData> m_vModelsData;
 
   };
 

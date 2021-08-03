@@ -13,21 +13,21 @@
  * @bug	No know Bugs
  */
 #pragma once
+
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
-
 #include <xcQuaternions.h>
-
 #include"xcPrerequisitesCore.h"
 #include "xcShaderProgram.h"
 #include "xcInputLayout.h"
 #include "xcVertexBuffer.h"
 #include "xcIndexBuffer.h"
+#include "xcResourceModel.h"
 
 namespace xcEngineSDK {
 
-  struct BONES2
+  /*struct BONES2
   {
     Matrix4x4 Offset;
     Matrix4x4 Transformation;
@@ -38,7 +38,7 @@ namespace xcEngineSDK {
     uint32 NumBones = 0;
     Vector<BONES2> VecSkeletal;
     std::map<String, uint32> BonesMap;
-  };
+  };*/
 
 
   class XC_CORE_EXPORT Mesh
@@ -46,14 +46,14 @@ namespace xcEngineSDK {
    public:
 
      Mesh() = default;
-
     // constructor
      Mesh(Vector<BoneVertex> Vertices,
           Vector<uint32> indices,
           Vector<Texture*> Textures,
           Vector<SamplerState*> Samplers,
-          BONES_INFO2* skeletal,
-          const aiScene* m_scene);
+          BONES_INFO* skeletal);
+
+     Mesh(ModelData data);
 
     // render the mesh
     void
@@ -87,29 +87,21 @@ namespace xcEngineSDK {
     */
     Vector<SamplerState*> m_vSamplers;
 
-     /*
-     variable pointer CMesh for the Parent.
-    */
-     //Mesh* m_Parent = nullptr;
+     
 
-     //! A public variable.
-     /*!
-       variable vector of CMesh for the m_Children.
-     */
-    // Vector<Mesh*>	m_Children;
-
-     SPtr<BONES_INFO2> m_pBonesInfo;
+     SPtr<BONES_INFO> m_pBonesInfo;
 
      //SPtr<BoneVertex> m_pBoneVertex = nullptr;
 
      Vector<Matrix4x4> m_bonesTransforms;
+
 
    private:
     // render data 
 
     SPtr<IndexBuffer> m_indexBuffer;
     SPtr<VertexBuffer> m_vertexBuffer;
-    const aiScene* m_scene;
+    const void* m_scene;
 
 
    private:
@@ -123,33 +115,33 @@ namespace xcEngineSDK {
 
     void 
     nodeHeirarchy(float time,
-                  const aiNode* node);
+                  const void* node);
 
     const aiNodeAnim* 
     FindNodeAnimation(const String NameNod,
-                      const aiAnimation* Anim);
+                      const void* Anim);
 
     int32 
-    findPosition(float AnimationTime, const aiNodeAnim* pNodeAnim);
+    findPosition(float AnimationTime, const void* pNodeAnim);
 
     int32 
-    findRotation(float AnimationTime, const aiNodeAnim* pNodeAnim);
+    findRotation(float AnimationTime, const void* pNodeAnim);
 
     int32 
-    findScaling(float AnimationTime, const aiNodeAnim* pNodeAnim);
+    findScaling(float AnimationTime, const void* pNodeAnim);
 
     void 
-    calcInterpolatedPosition(aiVector3D& Out, 
+    calcInterpolatedPosition(const void* Out, 
                              float AnimationTime, 
-                             const aiNodeAnim* pNodeAnim);
+                             const void* pNodeAnim);
     void 
-    calcInterpolatedRotation(aiQuaternion& Out, 
+    calcInterpolatedRotation(const void* Out, 
                              float AnimationTime, 
-                             const aiNodeAnim* pNodeAnim);
+                             const void* pNodeAnim);
     void 
-    calcInterpolatedScaling(aiVector3D& Out, 
+    calcInterpolatedScaling(const void* Out, 
                             float AnimationTime, 
-                            const aiNodeAnim* pNodeAnim);
+                            const void* pNodeAnim);
   };
 
 }

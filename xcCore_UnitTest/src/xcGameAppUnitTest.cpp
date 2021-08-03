@@ -1,5 +1,7 @@
 #include "xcGameAppUnitTest.h"
+#include "xcModel.h"
 #include "xcComponent.h"
+#include "xcStaticMesh.h"
 #include "xcActor.h"
 
 
@@ -42,19 +44,15 @@ GameAppUnitTest::onCreate() {
 
   //m_model.reset(new Model("Models/Grimoires/grimoires.fbx"));
 
-  SPtr<Component> testComponent(/*new Model("Models/Bea/bea_geo.fbx")*/);
+  SPtr<Model> exampleModel(new Model("Models/Bea/bea_geo.fbx"));
+
+  SPtr<Component> testComponent(new StaticMesh(exampleModel));
 
   SPtr<Actor> testActor(new Actor("test"));
-  //testActor->addComponent(testComponent);
-
-  //SPtr<Component> testComponent2(new Model("Models/Gwen/Angry.fbx"));
-
-  //SPtr<Actor> testActor2(new Actor("test2"));
-  //testActor2->addComponent(testComponent2);
+  testActor->addComponent(testComponent);
 
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
 
-  //sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
 
   Vector<uint32_t> indices =
   {

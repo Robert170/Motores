@@ -40,6 +40,7 @@
     <ClCompile Include="src\xcSamplerState.cpp" />
     <ClCompile Include="src\xcSceneGraph.cpp" />
     <ClCompile Include="src\xcShaderProgram.cpp" />
+    <ClCompile Include="src\xcStaticMesh.cpp" />
     <ClCompile Include="src\xcTexture.cpp" />
     <ClCompile Include="src\xcVertexBuffer.cpp" />
     <ClCompile Include="src\xcVertexShader.cpp" />
@@ -66,6 +67,7 @@
     <ClInclude Include="include\xcSamplerState.h" />
     <ClInclude Include="include\xcSceneGraph.h" />
     <ClInclude Include="include\xcShaderProgram.h" />
+    <ClInclude Include="include\xcStaticMesh.h" />
     <ClInclude Include="include\xcTexture.h" />
     <ClInclude Include="include\xcVertexBuffer.h" />
     <ClInclude Include="include\xcVertexShader.h" />
