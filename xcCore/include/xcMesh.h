@@ -23,22 +23,21 @@
 #include "xcInputLayout.h"
 #include "xcVertexBuffer.h"
 #include "xcIndexBuffer.h"
-#include "xcResourceModel.h"
 
 namespace xcEngineSDK {
 
-  /*struct BONES2
+  struct BONES
   {
     Matrix4x4 Offset;
     Matrix4x4 Transformation;
   };
 
-  struct BONES_INFO2
+  struct BONES_INFO
   {
     uint32 NumBones = 0;
-    Vector<BONES2> VecSkeletal;
+    Vector<BONES> VecSkeletal;
     std::map<String, uint32> BonesMap;
-  };*/
+  };
 
 
   class XC_CORE_EXPORT Mesh
@@ -53,7 +52,7 @@ namespace xcEngineSDK {
           Vector<SamplerState*> Samplers,
           BONES_INFO* skeletal);
 
-     Mesh(ModelData data);
+     //Mesh(ModelData data);
 
     // render the mesh
     void
@@ -61,6 +60,9 @@ namespace xcEngineSDK {
 
     void
     update(const float& deltaTime);
+
+    void
+    setupMesh();
 
    public:
     /**
@@ -106,8 +108,7 @@ namespace xcEngineSDK {
 
    private:
     // initializes all the buffer objects/arrays
-    void 
-    setupMesh();
+   
 
    public:
     Matrix4x4
@@ -115,33 +116,33 @@ namespace xcEngineSDK {
 
     void 
     nodeHeirarchy(float time,
-                  const void* node);
+                  void* node);
 
     const aiNodeAnim* 
-    FindNodeAnimation(const String NameNod,
-                      const void* Anim);
+    FindNodeAnimation(const String& NameNod,
+                      void* Anim);
 
     int32 
-    findPosition(float AnimationTime, const void* pNodeAnim);
+    findPosition(float AnimationTime, void* pNodeAnim);
 
     int32 
-    findRotation(float AnimationTime, const void* pNodeAnim);
+    findRotation(float AnimationTime, void* pNodeAnim);
 
     int32 
-    findScaling(float AnimationTime, const void* pNodeAnim);
+    findScaling(float AnimationTime, void* pNodeAnim);
 
     void 
-    calcInterpolatedPosition(const void* Out, 
+    calcInterpolatedPosition(void* Out, 
                              float AnimationTime, 
-                             const void* pNodeAnim);
+                             void* pNodeAnim);
     void 
-    calcInterpolatedRotation(const void* Out, 
+    calcInterpolatedRotation(void* Out, 
                              float AnimationTime, 
-                             const void* pNodeAnim);
+                             void* pNodeAnim);
     void 
-    calcInterpolatedScaling(const void* Out, 
+    calcInterpolatedScaling(void* Out, 
                             float AnimationTime, 
-                            const void* pNodeAnim);
+                            void* pNodeAnim);
   };
 
 }

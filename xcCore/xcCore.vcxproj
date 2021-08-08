@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\xcActor.cpp" />
     <ClCompile Include="src\xcMaterial.cpp" />
-    <ClCompile Include="src\xcResourceModel.cpp" />
+    <ClCompile Include="src\xcResource.cpp" />
     <ClCompile Include="src\xcSceneNode.cpp" />
     <ClCompile Include="src\xcApi.cpp" />
     <ClCompile Include="src\xcBaseApp.cpp" />
@@ -48,7 +48,7 @@
   <ItemGroup>
     <ClInclude Include="include\xcActor.h" />
     <ClInclude Include="include\xcMaterial.h" />
-    <ClInclude Include="include\xcResourceModel.h" />
+    <ClInclude Include="include\xcResource.h" />
     <ClInclude Include="include\xcSceneNode.h" />
     <ClInclude Include="include\xcBaseApp.h" />
     <ClInclude Include="include\xcCamera.h" />

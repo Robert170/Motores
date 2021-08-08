@@ -22,18 +22,6 @@ namespace xcEngineSDK {
     setupMesh();
   }
 
-  Mesh::Mesh(ModelData data) {
-    this->m_Vertices = data.meshData;
-    this->m_Indices = data.index;
-    this->m_vTextures = data.modelTextures;
-    this->m_vSamplers = data.samplers;
-    m_pBonesInfo.reset(data.skeletal);
-    m_bonesTransforms.clear();
-    m_bonesTransforms.resize(data.skeletal->NumBones);
-    m_scene = data.scene;
-    setupMesh();
-  }
-
   void 
   Mesh::render() {
 
@@ -125,27 +113,27 @@ namespace xcEngineSDK {
 
   void 
   Mesh::nodeHeirarchy(float time,
-                      const void* node) {
+                      void* node) {
 
-    auto& tempScene = reinterpret_cast<aiScene&>(m_scene);
+    auto tempScene = reinterpret_cast<aiScene*>(&m_scene);
 
-    auto& tempNode = reinterpret_cast<aiNode&>(node);
+    auto tempNode = reinterpret_cast<aiNode*>(node);
 
-    String nodeName(tempNode.mName.data);
+    String nodeName(tempNode->mName.data);
 
-    const aiAnimation* animation = tempScene.mAnimations[0];
+    const aiAnimation* animation = tempScene->mAnimations[0];
 
     Matrix4x4 NodeTransformation;
 
-    std::memcpy(&NodeTransformation, &tempNode.mTransformation, sizeof(Matrix4x4));
+    std::memcpy(&NodeTransformation, &tempNode->mTransformation, sizeof(Matrix4x4));
 
 
-    const aiNodeAnim* animNode = FindNodeAnimation(nodeName, animation);
+    const aiNodeAnim* animNode = FindNodeAnimation(nodeName, &animation);
 
     if (animNode) {
       //scale
       aiVector3D Scaling;
-      calcInterpolatedScaling(&Scaling, time, animNode);
+      calcInterpolatedScaling(&Scaling, time, &animNode);
       Matrix4x4 ScalingM = Matrix4x4::IDENTITY_MATRIX;
       ScalingM.m_matrix[0].x = Scaling.x;
       ScalingM.m_matrix[1].y = Scaling.y;
@@ -154,7 +142,7 @@ namespace xcEngineSDK {
 
       //rotation
       aiQuaternion RotationQ;
-      calcInterpolatedRotation(&RotationQ, time, animNode);
+      calcInterpolatedRotation(&RotationQ, time, &animNode);
       Quaternion quaternionRotation(RotationQ.x, 
                                     RotationQ.y,
                                     RotationQ.z, 
@@ -165,7 +153,7 @@ namespace xcEngineSDK {
 
       //translation
       aiVector3D Traslation;
-      calcInterpolatedPosition(&Traslation, time, animNode);
+      calcInterpolatedPosition(&Traslation, time, &animNode);
       Matrix4x4 TraslationM = Matrix4x4::IDENTITY_MATRIX;
       TraslationM.m_matrix[3].x = Traslation.x;
       TraslationM.m_matrix[3].y = Traslation.y;
@@ -192,21 +180,21 @@ namespace xcEngineSDK {
                                m_pBonesInfo->VecSkeletal[BoneIndex].Offset;
     }
 
-    for (uint32 i = 0; i < tempNode.mNumChildren; ++i) {
-      nodeHeirarchy(time, tempNode.mChildren[i]);
+    for (uint32 i = 0; i < tempNode->mNumChildren; ++i) {
+      nodeHeirarchy(time, tempNode->mChildren[i]);
     }
 
   }
 
   const aiNodeAnim*
-  Mesh::FindNodeAnimation(const String NameNod,
-                          const void* Anim) {
+  Mesh::FindNodeAnimation(const String& NameNod,
+                          void* Anim) {
 
-    auto& tempAnim = reinterpret_cast<aiAnimation&>(Anim);
+    auto tempAnim = reinterpret_cast<aiAnimation*>(Anim);
     
-    for (uint32 i = 0; i < tempAnim.mNumChannels; ++i) {
+    for (uint32 i = 0; i < tempAnim->mNumChannels; ++i) {
 
-      const aiNodeAnim* Temp = tempAnim.mChannels[i];
+      const aiNodeAnim* Temp = tempAnim->mChannels[i];
       if (String(Temp->mNodeName.data) == NameNod) {
 
         return Temp;
@@ -217,12 +205,12 @@ namespace xcEngineSDK {
   }
 
   int32 
-  Mesh::findPosition(float AnimationTime, const void* pNodeAnim) {
+  Mesh::findPosition(float AnimationTime, void* pNodeAnim) {
 
-    auto& tempNodeAnim = reinterpret_cast<aiNodeAnim&>(pNodeAnim);
+    auto tempNodeAnim = reinterpret_cast<aiNodeAnim*>(pNodeAnim);
 
-    for (uint32 i = 0; i < tempNodeAnim.mNumPositionKeys - 1; ++i) {
-      if (AnimationTime < (float)tempNodeAnim.mPositionKeys[i + 1].mTime)  {
+    for (uint32 i = 0; i < tempNodeAnim->mNumPositionKeys - 1; ++i) {
+      if (AnimationTime < (float)tempNodeAnim->mPositionKeys[i + 1].mTime)  {
         return i;
       }
 
@@ -232,14 +220,14 @@ namespace xcEngineSDK {
   }
 
   int32 
-  Mesh::findRotation(float AnimationTime, const void* pNodeAnim) {
+  Mesh::findRotation(float AnimationTime, void* pNodeAnim) {
 
-    auto& tempNodeAnim = reinterpret_cast<aiNodeAnim&>(pNodeAnim);
+    auto tempNodeAnim = reinterpret_cast<aiNodeAnim*>(pNodeAnim);
 
-    assert(tempNodeAnim.mNumRotationKeys > 0);
+    assert(tempNodeAnim->mNumRotationKeys > 0);
 
-    for (uint32 i = 0; i < tempNodeAnim.mNumRotationKeys - 1; ++i) {
-      if (AnimationTime < (float)tempNodeAnim.mRotationKeys[i + 1].mTime) {
+    for (uint32 i = 0; i < tempNodeAnim->mNumRotationKeys - 1; ++i) {
+      if (AnimationTime < (float)tempNodeAnim->mRotationKeys[i + 1].mTime) {
         return i;
       }
     }
@@ -248,14 +236,14 @@ namespace xcEngineSDK {
   }
 
   int32 
-  Mesh::findScaling(float AnimationTime, const void* pNodeAnim) {
+  Mesh::findScaling(float AnimationTime, void* pNodeAnim) {
 
-    auto& tempNodeAnim = reinterpret_cast<aiNodeAnim&>(pNodeAnim);
+    auto tempNodeAnim = reinterpret_cast<aiNodeAnim*>(pNodeAnim);
 
-    assert(tempNodeAnim.mNumScalingKeys > 0);
+    assert(tempNodeAnim->mNumScalingKeys > 0);
 
-    for (uint32 i = 0; i < tempNodeAnim.mNumScalingKeys - 1; ++i) {
-      if (AnimationTime < (float)tempNodeAnim.mScalingKeys[i + 1].mTime) {
+    for (uint32 i = 0; i < tempNodeAnim->mNumScalingKeys - 1; ++i) {
+      if (AnimationTime < (float)tempNodeAnim->mScalingKeys[i + 1].mTime) {
         return i;
       }
     }
@@ -264,16 +252,16 @@ namespace xcEngineSDK {
   }
 
   void 
-  Mesh::calcInterpolatedPosition(const void* Out, 
+  Mesh::calcInterpolatedPosition(void* Out, 
                                  float AnimationTime, 
-                                 const void* pNodeAnim) {
+                                 void* pNodeAnim) {
 
-    auto& tempNodeAnim = reinterpret_cast<aiNodeAnim&>(pNodeAnim);
+    auto tempNodeAnim = reinterpret_cast<aiNodeAnim*>(pNodeAnim);
     auto& tempout = reinterpret_cast<aiVector3D&>(Out);
     
 
-    if (tempNodeAnim.mNumPositionKeys == 1) {
-      tempout = tempNodeAnim.mPositionKeys[0].mValue;
+    if (tempNodeAnim->mNumPositionKeys == 1) {
+      tempout = tempNodeAnim->mPositionKeys[0].mValue;
       return;
     }
 
@@ -281,52 +269,52 @@ namespace xcEngineSDK {
 
     unsigned int NextPositionIndex = (PositionIndex + 1);
 
-    assert(NextPositionIndex < tempNodeAnim.mNumPositionKeys);
+    assert(NextPositionIndex < tempNodeAnim->mNumPositionKeys);
 
-    float DeltaTime = (float)(tempNodeAnim.mPositionKeys[NextPositionIndex].mTime 
-                              - tempNodeAnim.mPositionKeys[PositionIndex].mTime);
+    float DeltaTime = (float)(tempNodeAnim->mPositionKeys[NextPositionIndex].mTime
+                              - tempNodeAnim->mPositionKeys[PositionIndex].mTime);
     float Factor = (AnimationTime - 
-                   (float)tempNodeAnim.mPositionKeys[PositionIndex].mTime) 
+                   (float)tempNodeAnim->mPositionKeys[PositionIndex].mTime)
                    / DeltaTime;
 
     assert(Factor >= 0.0f && Factor <= 1.0f);
 
-    const aiVector3D& Start = tempNodeAnim.mPositionKeys[PositionIndex].mValue;
-    const aiVector3D& End = tempNodeAnim.mPositionKeys[NextPositionIndex].mValue;
+    const aiVector3D& Start = tempNodeAnim->mPositionKeys[PositionIndex].mValue;
+    const aiVector3D& End = tempNodeAnim->mPositionKeys[NextPositionIndex].mValue;
     aiVector3D Delta = End - Start;
     tempout = Start + Factor * Delta;
 
   }
 
   void
-  Mesh::calcInterpolatedRotation(const void* Out, 
+  Mesh::calcInterpolatedRotation(void* Out, 
                                  float AnimationTime, 
-                                 const void* pNodeAnim) {
+                                 void* pNodeAnim) {
 
-    auto& tempNodeAnim = reinterpret_cast<aiNodeAnim&>(pNodeAnim);
+    auto tempNodeAnim = reinterpret_cast<aiNodeAnim*>(pNodeAnim);
     auto& tempout = reinterpret_cast<aiQuaternion&>(Out);
 
-    if (tempNodeAnim.mNumRotationKeys == 1) {
-      tempout = tempNodeAnim.mRotationKeys[0].mValue;
+    if (tempNodeAnim->mNumRotationKeys == 1) {
+      tempout = tempNodeAnim->mRotationKeys[0].mValue;
       return;
     }
 
     unsigned int RotationIndex = findRotation(AnimationTime, pNodeAnim);
     unsigned int NextRotationIndex = (RotationIndex + 1);
-    assert(NextRotationIndex < tempNodeAnim.mNumRotationKeys);
-    float DeltaTime = (float)(tempNodeAnim.mRotationKeys[NextRotationIndex].mTime 
-                              - tempNodeAnim.mRotationKeys[RotationIndex].mTime);
+    assert(NextRotationIndex < tempNodeAnim->mNumRotationKeys);
+    float DeltaTime = (float)(tempNodeAnim->mRotationKeys[NextRotationIndex].mTime
+                              - tempNodeAnim->mRotationKeys[RotationIndex].mTime);
     float Factor = (AnimationTime - 
-                   (float)tempNodeAnim.mRotationKeys[RotationIndex].mTime) 
+                   (float)tempNodeAnim->mRotationKeys[RotationIndex].mTime)
                    / DeltaTime;
 
     assert(Factor >= 0.0f && Factor <= 1.0f);
 
     const aiQuaternion& StartRotationQ = 
-                        tempNodeAnim.mRotationKeys[RotationIndex].mValue;
+                        tempNodeAnim->mRotationKeys[RotationIndex].mValue;
 
     const aiQuaternion& EndRotationQ = 
-                        tempNodeAnim.mRotationKeys[NextRotationIndex].mValue;
+                        tempNodeAnim->mRotationKeys[NextRotationIndex].mValue;
 
     aiQuaternion::Interpolate(tempout, StartRotationQ, EndRotationQ, Factor);
 
@@ -334,15 +322,15 @@ namespace xcEngineSDK {
   }
 
   void 
-  Mesh::calcInterpolatedScaling(const void* Out, 
+  Mesh::calcInterpolatedScaling(void* Out, 
                                 float AnimationTime, 
-                                const void* pNodeAnim) {
+                                void* pNodeAnim) {
 
-    auto& tempNodeAnim = reinterpret_cast<aiNodeAnim&>(pNodeAnim);
+    auto tempNodeAnim = reinterpret_cast<aiNodeAnim*>(pNodeAnim);
     auto& tempout = reinterpret_cast<aiVector3D&>(Out);
 
-    if (tempNodeAnim.mNumScalingKeys == 1) {
-      tempout = tempNodeAnim.mScalingKeys[0].mValue;
+    if (tempNodeAnim->mNumScalingKeys == 1) {
+      tempout = tempNodeAnim->mScalingKeys[0].mValue;
       return;
     }
 
@@ -350,20 +338,20 @@ namespace xcEngineSDK {
 
     unsigned int NextScalingIndex = (ScalingIndex + 1);
 
-    assert(NextScalingIndex < tempNodeAnim.mNumScalingKeys);
+    assert(NextScalingIndex < tempNodeAnim->mNumScalingKeys);
 
-    float DeltaTime = (float)(tempNodeAnim.mScalingKeys[NextScalingIndex].mTime 
-                             - tempNodeAnim.mScalingKeys[ScalingIndex].mTime);
+    float DeltaTime = (float)(tempNodeAnim->mScalingKeys[NextScalingIndex].mTime
+                             - tempNodeAnim->mScalingKeys[ScalingIndex].mTime);
 
     float Factor = (AnimationTime - 
-                   (float)tempNodeAnim.mScalingKeys[ScalingIndex].mTime) 
+                   (float)tempNodeAnim->mScalingKeys[ScalingIndex].mTime)
                    / DeltaTime;
 
     assert(Factor >= 0.0f && Factor <= 1.0f);
 
-    const aiVector3D& Start = tempNodeAnim.mScalingKeys[ScalingIndex].mValue;
+    const aiVector3D& Start = tempNodeAnim->mScalingKeys[ScalingIndex].mValue;
 
-    const aiVector3D& End = tempNodeAnim.mScalingKeys[NextScalingIndex].mValue;
+    const aiVector3D& End = tempNodeAnim->mScalingKeys[NextScalingIndex].mValue;
 
     aiVector3D Delta = End - Start;
 

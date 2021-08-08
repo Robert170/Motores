@@ -16,20 +16,27 @@
 #include <xcPrerequisitesCore.h>
 #include <xcShaderProgram.h>
 #include <xcInputLayout.h>
+#include "xcResource.h"
 #include "xcMesh.h"
 
 namespace xcEngineSDK {
 
-  class XC_CORE_EXPORT Model : public ResourceModel
+  class XC_CORE_EXPORT Model : public Resource
   {
    public:
 
     Model() = default;
     ~Model() = default;
 
-    Model(const ResourceModel& resourse);
-
     Model(const String& path);
+
+    bool loadFromFile(const String& filePath) override;
+    bool loadFromMemory(const char* pData, size_t sizeOfData) override;
+
+    void unload() override;
+
+    void saveToFile(const String& filePath) override;
+
 
     void
     update(float delta);
@@ -37,15 +44,14 @@ namespace xcEngineSDK {
     void
     render();
 
-   private:
-    void
-    setMeshes();
-
-   private:
-
+   public:
     Vector<Mesh> m_vMeshes;
+    String m_directory;
 
-    ResourceModel m_resource;
+
+   private:
+
+    
   };
 
 }
