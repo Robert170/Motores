@@ -49,6 +49,9 @@
     <ClInclude Include="include\xcPrerequisitesDX.h">
       <Filter>Source Files\Prerequisites</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcDepthStencilStateDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcConstantBufferDX.cpp">
@@ -85,6 +88,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\xcVertexShaderDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcDepthStencilStateDX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

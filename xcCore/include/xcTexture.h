@@ -22,5 +22,8 @@ namespace xcEngineSDK {
 
 		/// Destructor
 		virtual ~Texture() = default;
+
+	 public:
+
 	};
 }

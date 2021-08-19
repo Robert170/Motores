@@ -19,17 +19,19 @@
 namespace xcEngineSDK {
 	class PixelShaderOGL : public PixelShader
 	{
+		/**
+			* @brief protected functions
+		 */
 	 public:
 		/// Destructor
 		~PixelShaderOGL() = default;
+    /// Default Constructor
+    PixelShaderOGL() = default;
 
 	 protected:
-		/**
-			* @brief protected functions
-		*/
+		
 
-		/// Default Constructor
-		PixelShaderOGL() = default;
+		
 
 
 		/**

@@ -16,24 +16,25 @@
 #include "xcIndexBuffer.h"
 
 namespace xcEngineSDK {
-	class IndexBufferOGL : public IndexBuffer
-	{
+  class IndexBufferOGL : public IndexBuffer
+  {
+   public:
+    /// Default Constructor
+    IndexBufferOGL() = default;
 
-		/// Default Constructor
-		IndexBufferOGL() = default;
+    /// Destructor
+    ~IndexBufferOGL() = default;
 
-		/// Destructor
-		~IndexBufferOGL() = default;
+   protected:
+    /**
+      * @brief protected variables member
+    */
 
-		/**
-			* @brief protected variables member
-		*/
+    /**
+      * @Variable m_IBO, is for a index buffer
+    */
+    uint32 m_IBO = 0;
 
-		/**
-			* @Variable m_IBO, is for a index buffer
-		*/
-		uint32 m_IBO = 0;
-
-		friend class OGLGraphiAPI;
-	};
+    friend class OGLGraphiAPI;
+  };
 }

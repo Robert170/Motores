@@ -14,6 +14,7 @@
 #include "xcPixelShaderDX.h"
 #include "xcSamplerStateDX.h"
 #include "xcRasterizerStateDX.h"
+#include "xcDepthStencilStateDX.h"
 #include "resource.h"
 
 
@@ -50,8 +51,8 @@ namespace xcEngineSDK {
     m_pImmediateContext = nullptr;
     m_pSwapChain = nullptr;
     m_hWnd = nullptr;
-    m_BackBuffer = nullptr;
-    m_DepthStencil = nullptr;
+    m_backBuffer = nullptr;
+    m_depthStencil = nullptr;
   }
 
   DXGraphiAPI::~DXGraphiAPI() {
@@ -232,7 +233,7 @@ namespace xcEngineSDK {
       return;
     }
 
-    m_BackBuffer.reset(BackBuffer);
+    m_backBuffer.reset(BackBuffer);
 
 
     // Create default depth stencil texture
@@ -267,7 +268,7 @@ namespace xcEngineSDK {
     if (FAILED(hr))
       return;
 
-    m_DepthStencil.reset(DepthStencil);
+    m_depthStencil.reset(DepthStencil);
 
   }
 
@@ -430,7 +431,7 @@ namespace xcEngineSDK {
 
       CD3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc(D3D11_DSV_DIMENSION_TEXTURE2D,
                                              static_cast<DXGI_FORMAT>(format));
-
+      
       hr = m_pd3dDevice->CreateDepthStencilView(texture->m_pTexture,
                                                 &dsvDesc,
                                                 &texture->m_pDSV);
@@ -899,19 +900,83 @@ namespace xcEngineSDK {
   }
 
   //function to create a rasterizer state
-
-  //faltan parametros
   SPtr<RasterizerState>
-  DXGraphiAPI::createRasterizerState() {
+  DXGraphiAPI::createRasterizerState(FILL_MODE::E fillMode, 
+                                     CULL_MODE::E cullMode, 
+                                     bool counterClockwise) {
+
     SPtr<RasterizerStateDX> rasState;
     rasState.reset(new RasterizerStateDX());
-
+    
     CD3D11_RASTERIZER_DESC RasDesc;
+    switch (fillMode) {
+
+    case FILL_MODE::FILL_WIREFRAME:
+      RasDesc.FillMode = D3D11_FILL_WIREFRAME;
+      break;
+
+    case FILL_MODE::FILL_SOLID:
+      RasDesc.FillMode = D3D11_FILL_SOLID;
+      break;
+
+    default:
+      break;
+    }
+
+    switch (cullMode) {
+    case CULL_MODE::CULL_NONE:
+      RasDesc.CullMode = D3D11_CULL_NONE;
+      break;
+    case CULL_MODE::CULL_FRONT:
+      RasDesc.CullMode = D3D11_CULL_FRONT;
+      break;
+    case CULL_MODE::CULL_BACK:
+      RasDesc.CullMode = D3D11_CULL_BACK;
+      break;
+    default:
+      break;
+    }
+
+    RasDesc.FrontCounterClockwise = counterClockwise;
 
     m_pd3dDevice->CreateRasterizerState(&RasDesc,
                                         &rasState->m_pRasterizerState);
     return rasState;
   }
+
+  SPtr<DepthStencilState> 
+  DXGraphiAPI::createDepthStencilState(bool stencilEnable, bool depthEnable) {
+
+    SPtr<DepthStencilStateDX> depthState;
+    depthState.reset(new DepthStencilStateDX());
+
+    D3D11_DEPTH_STENCIL_DESC  depthDesc;
+    ZeroMemory(&depthDesc, sizeof(depthDesc));
+    depthDesc.StencilEnable = stencilEnable;
+    depthDesc.DepthEnable = depthEnable;
+    //Valores predeterminados
+    depthDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+    depthDesc.DepthFunc = D3D11_COMPARISON_LESS;
+    
+    depthDesc.StencilReadMask = 0xFF; //255;
+    depthDesc.StencilWriteMask = 0xFF; //255;
+    
+    depthDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+    depthDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+    depthDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+    depthDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+    
+    depthDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+    depthDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+    depthDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+    depthDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+
+    m_pd3dDevice->CreateDepthStencilState(&depthDesc,
+                                          &depthState->m_pDepthStencilState);
+    return depthState;
+  }
+
 
 
   //TODO multiples buffers, vector de constantbuffer, tantro para VS y PS
@@ -1054,12 +1119,12 @@ namespace xcEngineSDK {
 
   //function to set a sampler state 
   void 
-  DXGraphiAPI::setSamplerState(const Vector<SamplerState*>& Sam,
+  DXGraphiAPI::setSamplerState(const Vector<SPtr<SamplerState>>& Sam,
                                uint32 StartSlot) {
     for (uint32 i = 0; i < Sam.size(); ++i) {
 
       SamplerStateDX* Sampler = 
-      reinterpret_cast<SamplerStateDX*>(Sam.at(i));
+      reinterpret_cast<SamplerStateDX*>(Sam[i].get());
 
       m_pImmediateContext->PSSetSamplers(i,
                                          Sam.size(),
@@ -1086,7 +1151,7 @@ namespace xcEngineSDK {
       TextureDX* pRTDX = reinterpret_cast<TextureDX*>(pRTTex[i]);
 
       m_pImmediateContext->PSSetShaderResources(i,
-                                                pRTTex.size(),
+                                                1,
                                                 &pRTDX->m_pSRV);
     }
     XC_UNREFERENCED_PARAMETER(StartSlot);
@@ -1118,8 +1183,8 @@ namespace xcEngineSDK {
 
   void 
   DXGraphiAPI::setDefaultRenderTarget() {
-    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(m_BackBuffer.get());
-    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(m_DepthStencil.get());
+    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(m_backBuffer.get());
+    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(m_depthStencil.get());
 
     m_pImmediateContext->OMSetRenderTargets(1,
                                             &pRTDX->m_pRTV,
@@ -1141,6 +1206,17 @@ namespace xcEngineSDK {
     reinterpret_cast<RasterizerStateDX*>(RasState.lock().get());
 
     m_pImmediateContext->RSSetState(pRasteState->m_pRasterizerState);
+  }
+
+  void 
+  DXGraphiAPI::setDepthStencilState(WeakSptr<DepthStencilState> depthStelcilState, 
+                                    uint32 stencilRef) {
+    DepthStencilStateDX* pDepthStencilState = 
+    reinterpret_cast<DepthStencilStateDX*>(depthStelcilState.lock().get());
+
+    m_pImmediateContext->OMSetDepthStencilState(pDepthStencilState->m_pDepthStencilState,
+                                                stencilRef);
+
   }
 
   //function to clear render target view
@@ -1172,8 +1248,8 @@ namespace xcEngineSDK {
   void 
   DXGraphiAPI::clearDefaultRenderTargetAndDepthStencil(ColorStruct Color) {
 
-    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(m_BackBuffer.get());
-    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(m_DepthStencil.get());
+    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(m_backBuffer.get());
+    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(m_depthStencil.get());
 
     m_pImmediateContext->ClearRenderTargetView(pRTDX->m_pRTV, &Color.R);
 
@@ -1261,6 +1337,7 @@ namespace xcEngineSDK {
                     uint32 StartVertexLocation) {
     m_pImmediateContext->Draw(VertexCount,
                               StartVertexLocation);
+
   }
 
   //function to present the swap chain
@@ -1277,12 +1354,12 @@ namespace xcEngineSDK {
     }
 
     //depthstencil
-    TextureDX* DepthStencil = reinterpret_cast<TextureDX*>(m_DepthStencil.get());
+    TextureDX* DepthStencil = reinterpret_cast<TextureDX*>(m_depthStencil.get());
     if (nullptr != DepthStencil) {
       DepthStencil->m_pTexture->Release();
     }
 
-    TextureDX* BackBuffer = reinterpret_cast<TextureDX*>(m_BackBuffer.get());
+    TextureDX* BackBuffer = reinterpret_cast<TextureDX*>(m_backBuffer.get());
     if (nullptr != BackBuffer) {
       BackBuffer->m_pRTV->Release();
     }

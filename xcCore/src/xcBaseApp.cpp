@@ -1,5 +1,8 @@
-#include "xcBaseApp.h"
 #include <xcPlugin.h>
+#include "xcSceneGraph.h"
+
+#include "xcBaseApp.h"
+
 
 namespace xcEngineSDK {
 
@@ -9,6 +12,11 @@ namespace xcEngineSDK {
     initSystems();
 
     onCreate();
+    auto& renderer = g_renderer();
+
+    auto& sceneGraph = g_sceneGraph();
+
+    renderer.setModels(sceneGraph.getModels());
 
     sf::Clock delta;
 
@@ -93,7 +101,12 @@ namespace xcEngineSDK {
       SceneGraph::startUp();
       g_graphicsAPI().setObject(createGraphiAPI());
       createWindow();
-      //m_GraphicsAPI->init(m_GraphicsAPI->m_window.getSystemHandle());
+
+    }
+
+    if (m_renderer.loadPlugin("xcRenderer_d.dll")) {
+
+      Renderer::startUp();
 
     }
 
@@ -102,6 +115,7 @@ namespace xcEngineSDK {
   void 
   BaseApp::destroySystems() {
     m_plugin.destroy();
+    m_renderer.destroy();
   }
 
 }

@@ -19,6 +19,8 @@
 #include "xcPrerequisitesCore.h"
 #include "xcGameObject.h"
 #include "xcComponent.h"
+#include "xcModel.h"
+
 
 
 namespace xcEngineSDK {
@@ -52,6 +54,10 @@ namespace xcEngineSDK {
     void
     update(const float& deltaTime);
 
+
+    void
+    getModels(Vector<SPtr<Model>>& model);
+
 	 public:
 
 		bool m_isSelected = false;
@@ -63,6 +69,7 @@ namespace xcEngineSDK {
 		Transfom m_actorTrasform;
 		//TODO cambiar a map
 		Vector<SPtr<Component>> m_vComponents;
+
 	};
 
 

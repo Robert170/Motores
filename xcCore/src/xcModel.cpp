@@ -20,13 +20,17 @@ namespace xcEngineSDK {
 
       BoneVertex meshInfo;
       Vector4 vector;
+      Vector3 bitan;
 
-      // positions
-      vector.x = pMesh->mVertices[i].x;
-      vector.y = pMesh->mVertices[i].y;
-      vector.z = pMesh->mVertices[i].z;
-      vector.w = 1;
-      meshInfo.vertex = vector;
+      if (pMesh->HasPositions()) {
+        // positions
+        vector.x = pMesh->mVertices[i].x;
+        vector.y = pMesh->mVertices[i].y;
+        vector.z = pMesh->mVertices[i].z;
+        vector.w = 1;
+        meshInfo.vertex = vector;
+      }
+      
       // normals
       if (pMesh->HasNormals()) {
         vector.x = pMesh->mNormals[i].x;
@@ -40,11 +44,12 @@ namespace xcEngineSDK {
         vector.y = pMesh->mTangents[i].y;
         vector.z = pMesh->mTangents[i].z;
         meshInfo.tangent = vector;
+
         // bi tangent
-        /*vector.x = tempMesh.mBitangents[i].x;
-        vector.y = tempMesh.mBitangents[i].y;
-        vector.z = tempMesh.mBitangents[i].z;
-        modelData. = vector;*/
+        bitan.x = pMesh->mBitangents[i].x;
+        bitan.y = pMesh->mBitangents[i].y;
+        bitan.z = pMesh->mBitangents[i].z;
+        meshInfo.biTangent = bitan;
       }
       // texture coordinates
       if (pMesh->mTextureCoords[0]) {
@@ -178,11 +183,12 @@ namespace xcEngineSDK {
       //check if texture was loaded before and if so, continue to next iteration: 
       //skip loading a new texture
       bool skip = false;
-      for (uint32 j = 0; j < myMesh.m_vTextures.size(); ++j) {
+      uint32 it = 0;
+      for (auto& phats : myMesh.m_vPhats) {
         //TODO MeshTexture
-
-        if (myMesh.m_vTextures[j] != nullptr) {
-          Texturesload.push_back(myMesh.m_vTextures[j]);
+        
+        if (strcmp(phats.data(), filename.data()) ==  0) {
+          Texturesload.push_back(myMesh.m_vTextures[it]);
           skip = true; // a texture with the same filepath has already been loaded, 
           break;
         }
@@ -191,7 +197,9 @@ namespace xcEngineSDK {
       if (!skip) {   // if texture hasn't been loaded already, load it
         
         myMesh.m_vTextures.push_back(graphicsApi.textureFromFile(filename));
+        myMesh.m_vPhats.push_back(filename);
       }
+      ++it;
 
     }
 
@@ -216,21 +224,21 @@ namespace xcEngineSDK {
                          myMesh,
                          directory);
 
-    //// 2. specular maps
+    //// 2. normal maps
     loadMaterialTextures(material,
-                         aiTextureType_SPECULAR, 
+                         aiTextureType_NORMALS, 
                          myMesh, 
                          directory);
 
-    //// 3. normal maps
+    //// 3. metallic maps
     loadMaterialTextures(material,
-                         aiTextureType_HEIGHT,
+                         aiTextureType_SPECULAR,
                          myMesh, 
                          directory);
    
-    //// 4. height maps
+    //// 4. Roughness  maps
     loadMaterialTextures(material, 
-                         aiTextureType_AMBIENT, 
+                         aiTextureType_SHININESS, 
                          myMesh,
                          directory);
   }
@@ -244,11 +252,13 @@ namespace xcEngineSDK {
 
     pModel->m_vMeshes.resize(pScene->mNumMeshes);
 
+
+
     for (uint32 i = 0; i < pScene->mNumMeshes; ++i) {
       auto assipMesh = pScene->mMeshes[i];
       auto& myMesh = pModel->m_vMeshes[i];
       processMeshData(assipMesh, myMesh);
-      processMeeshAnimation(assipMesh, myMesh);
+      //processMeeshAnimation(assipMesh, myMesh);
       processMeeshTexture(pScene, assipMesh, myMesh, pModel->m_directory);
     }
 
@@ -281,8 +291,13 @@ namespace xcEngineSDK {
     // process ASSIMP's root node recursively
     addMeshNode(this, scene, scene->mRootNode);
 
+    auto& graphicsApi = g_graphicsAPI();
+
+    SPtr<SamplerState> Samplers = graphicsApi.createSamplerState();
+
     for (uint32 i = 0; i < m_vMeshes.size(); ++i) {
-      m_vMeshes[i].setupMesh();
+      m_vMeshes[i].m_vSamplers.push_back(Samplers);
+      m_vMeshes[i].setUpGPUMesh();
     }
     
     return true;

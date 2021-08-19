@@ -7,7 +7,7 @@ namespace xcEngineSDK {
   StaticMesh::StaticMesh(WeakSptr<Model> model) {
 
     m_model = model.lock();
-
+    Component::setID(COMPONENT_ID::kModel);
   }
 
   void 
@@ -23,6 +23,11 @@ namespace xcEngineSDK {
   void 
   StaticMesh::setModel(WeakSptr<Model> model) {
     m_model = model.lock();
+  }
+
+  SPtr<Model> 
+  StaticMesh::getModel() {
+    return m_model;
   }
 
 }

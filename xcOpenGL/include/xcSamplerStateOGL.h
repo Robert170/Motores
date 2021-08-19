@@ -17,15 +17,17 @@
 namespace xcEngineSDK {
 	class SamplerStateOGL : public SamplerState
 	{
-	 protected:
-
 		/**
 		 * @brief protected functions
 		 */
-
+	 public:
 		/// Default Constructor
 		SamplerStateOGL() = default;
 		~SamplerStateOGL() = default;
+
+	 protected:
+
+		
 
 		/**
 		 * @brief protected variables member

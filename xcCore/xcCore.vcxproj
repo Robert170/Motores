@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcActor.cpp" />
+    <ClCompile Include="src\xcDepthStencilState.cpp" />
     <ClCompile Include="src\xcMaterial.cpp" />
     <ClCompile Include="src\xcResource.cpp" />
     <ClCompile Include="src\xcSceneNode.cpp" />
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcActor.h" />
+    <ClInclude Include="include\xcDepthStencilState.h" />
     <ClInclude Include="include\xcMaterial.h" />
     <ClInclude Include="include\xcResource.h" />
     <ClInclude Include="include\xcSceneNode.h" />
@@ -154,7 +156,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;$(SolutionDir)xcRenderer/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -163,7 +165,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>xcUtilities_d.lib;assimp-vc142-mtd.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies);sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib</AdditionalDependencies>
+      <AdditionalDependencies>xcUtilities_d.lib;xcRenderer_d.lib;assimp-vc142-mtd.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies);sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>

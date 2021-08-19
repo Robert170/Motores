@@ -17,12 +17,13 @@
 namespace xcEngineSDK {
 	class  ConstantBufferOGL : public ConstantBuffer
 	{
+	 public:
 		/// Default Constructor
 		ConstantBufferOGL() = default;
 
 		/// Destructor
 		~ConstantBufferOGL() = default;
-
+	 protected:
 		/**
 			* @brief protected variables member
 		*/

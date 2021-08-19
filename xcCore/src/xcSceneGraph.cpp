@@ -45,6 +45,14 @@ namespace xcEngineSDK {
     m_pRoot->update(deltaTime);
   }
 
+  Vector<SPtr<Model>> 
+  SceneGraph::getModels() {
+
+    m_pRoot->getModels(m_models);
+
+    return m_models;
+  }
+
   void 
   SceneGraph::render() {
 
@@ -53,6 +61,7 @@ namespace xcEngineSDK {
     
     
   }
+
 
   SceneGraph& g_sceneGraph() {
 

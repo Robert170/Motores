@@ -12,12 +12,18 @@
     <ClCompile Include="src\xcPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xcRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcPrerequisitesRenderer.h">
       <Filter>Source Files\Prerequisites</Filter>
     </ClInclude>
     <ClInclude Include="include\xcPass.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcRenderer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

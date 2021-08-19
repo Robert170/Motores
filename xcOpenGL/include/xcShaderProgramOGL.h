@@ -19,17 +19,19 @@
 namespace xcEngineSDK {
 	class ShaderProgramOGL : public ShaderProgram
 	{
-	 protected:
-
+		
 		/**
 		 * @brief protected functions
 		 */
+   public:
+    /// Default Constructor
+    ShaderProgramOGL() = default;
 
-		/// Default Constructor
-		ShaderProgramOGL() = default;
+    /// Destructor
+    ~ShaderProgramOGL();
 
-		/// Destructor
-		~ShaderProgramOGL();
+	 protected:
+	 
 
 		/**
 		 * @brief protected variables member

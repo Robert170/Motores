@@ -17,12 +17,14 @@
 namespace xcEngineSDK {
 	class VertexBufferOGL : public VertexBuffer
 	{
+	 public:
 		/// Default Constructor
 		VertexBufferOGL() = default;
 
 		/// Destructor
 		~VertexBufferOGL() = default;
 
+	 protected:
 		/**
 			* @brief protected variables member
 		*/

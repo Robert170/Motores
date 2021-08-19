@@ -18,15 +18,28 @@
  */
  /*****************************************************************************/
 #include "xcPrerequisitesCore.h"
+#include "xcResource.h"
 
 
 namespace xcEngineSDK {
 
-  class Material
+  class Material : public Resource
   {
    public:
     Material() = default;
     ~Material() = default;
+
+    bool 
+    loadFromFile(const String& filePath) override;
+    bool 
+    loadFromMemory(const char* pData, size_t sizeOfData) override;
+
+    void 
+    unload() override;
+
+    void 
+    saveToFile(const String& filePath) override;
+
 
    private:
 

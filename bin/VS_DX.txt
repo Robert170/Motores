@@ -20,7 +20,9 @@ cbuffer CBBones : register(b1)
 //--------------------------------------------------------------------------------------
 struct VS_INPUT
 {
-    float4 Pos : POSITION;
+    float4 Pos : POSITION0;
+	float4 Normal : NORMAL0;
+    float4 Tang : TANGENT0;
     float2 Texcoord : TEXCOORD0;
     float4 BoneW : BLENDWEIGHT;
     int4 IdBone  : BLENDINDICES;

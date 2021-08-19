@@ -3,6 +3,7 @@
 #include <xcBaseApp.h>
 #include <xcModel.h>
 
+
 struct CBNeverChanges
 {
   Matrix4x4 mView;
@@ -78,6 +79,14 @@ class GameAppUnitTest : public BaseApp
 
   //Sampler
   SamplerState* m_samplerState = nullptr;
+
+  //depth stencil state
+  SPtr<DepthStencilState> m_depthStencilState = nullptr;
+  SPtr<DepthStencilState> m_depthStencilStateSAQ = nullptr;
+
+  //Rasterizer
+  SPtr<RasterizerState> m_rasterizerGbuffer = nullptr;
+  SPtr<RasterizerState> m_rasterizerSAQ = nullptr;
 
   //World matrix
   Matrix4x4 m_world;

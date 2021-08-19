@@ -117,8 +117,7 @@ namespace xcEngineSDK {
 	OGLGraphiAPI::createVertexBuffer(const Vector <BoneVertex>& Ver,
 			                             uint32 NumBuffers) {
 
-    SPtr<VertexBufferOGL> vertexBuffer;
-		vertexBuffer.reset(new VertexBufferOGL());
+		SPtr<VertexBufferOGL> vertexBuffer = std::make_shared<VertexBufferOGL>();
 	
 
 		glGenBuffers(NumBuffers,
@@ -145,8 +144,7 @@ namespace xcEngineSDK {
 	OGLGraphiAPI::createIndexBuffer(const Vector<uint32>& Ind,
 			                            uint32 NumBuffer) {
 
-		SPtr<IndexBufferOGL> indexBuffer;
-		indexBuffer.reset(new IndexBufferOGL());
+		SPtr<IndexBufferOGL> indexBuffer = std::make_shared<IndexBufferOGL>();
 
 
 		glGenBuffers(NumBuffer,
@@ -168,8 +166,8 @@ namespace xcEngineSDK {
 			                               uint32 NumBuffer, //1
 			                               const void* Data) {//3
 
-    SPtr<ConstantBufferOGL> constantBuffer;
-    constantBuffer.reset(new ConstantBufferOGL());
+    SPtr<ConstantBufferOGL> constantBuffer = std::make_shared<ConstantBufferOGL>();
+    
 
     glGenBuffers(NumBuffer,
       &constantBuffer->m_CBO);
@@ -299,8 +297,8 @@ namespace xcEngineSDK {
 		XC_UNREFERENCED_PARAMETER(EntryPS);
 		XC_UNREFERENCED_PARAMETER(EntryVS);
 
-    SPtr<ShaderProgramOGL> shaderProgram;
-		shaderProgram.reset(new ShaderProgramOGL());
+    SPtr<ShaderProgramOGL> shaderProgram = std::make_shared<ShaderProgramOGL>();
+
 		
 
 		shaderProgram->m_attachShaderID = glCreateProgram();
@@ -412,8 +410,7 @@ namespace xcEngineSDK {
 		// Pixel Shader
 		String RealName = FileName + "_OGL.txt";
 
-    SPtr<PixelShaderOGL> pixelShader;
-		pixelShader.reset(new PixelShaderOGL());
+    SPtr<PixelShaderOGL> pixelShader = std::make_shared<PixelShaderOGL>();
 
 		String Temp = pixelShader->readFile(RealName);
 
@@ -475,8 +472,7 @@ namespace xcEngineSDK {
 		// vertex Shader
 		String RealName = FileName + "_OGL.txt";
 
-    SPtr<VertexShaderOGL> vertexShader;
-		vertexShader.reset(new VertexShaderOGL());
+    SPtr<VertexShaderOGL> vertexShader = std::make_shared<VertexShaderOGL>();
 
 		String Temp = vertexShader->readFile(RealName);
 
@@ -544,8 +540,7 @@ namespace xcEngineSDK {
 
 		XC_UNREFERENCED_PARAMETER(Vertex);
 
-    SPtr<InputLayoutOGL> inputLa;
-		inputLa.reset(new InputLayoutOGL());
+    SPtr<InputLayoutOGL> inputLa = std::make_shared<InputLayoutOGL>();
 
 		inputLa->m_numberOfInputLayout = NumInputLayout;
 	  glGenVertexArrays(NumInputLayout,
@@ -584,8 +579,8 @@ namespace xcEngineSDK {
 	SPtr<SamplerState>
 	OGLGraphiAPI::createSamplerState(uint32 NumSamplerState) {
 
-    SPtr<SamplerStateOGL> samplerState;
-		samplerState.reset(new SamplerStateOGL());
+    //new SamplerStateOGL();
+    SPtr<SamplerStateOGL> samplerState = std::make_shared<SamplerStateOGL>();
 
 		glGenSamplers(NumSamplerState,
 			            &samplerState->m_samSt);
@@ -610,7 +605,9 @@ namespace xcEngineSDK {
 	}
 
 	SPtr<RasterizerState>
-	OGLGraphiAPI::createRasterizerState() {
+   OGLGraphiAPI::createRasterizerState(FILL_MODE::E fillMode,
+                                       CULL_MODE::E cullMode,
+                                       bool counterClockwise) {
 		return nullptr;
 	}
 
@@ -718,11 +715,11 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setSamplerState(const Vector<SamplerState*>& Sam,
+	OGLGraphiAPI::setSamplerState(const Vector<SPtr<SamplerState>>& Sam,
 			                          uint32 StartSlot) {
 
 		for (uint32 i = 0; i < Sam.size(); ++i) {
-			auto SamSt = reinterpret_cast<SamplerStateOGL*>(Sam.at(i));
+			auto SamSt = reinterpret_cast<SamplerStateOGL*>(Sam[i].get());
 
 			glBindSampler(StartSlot, SamSt->m_samSt);
 			checkGLError();

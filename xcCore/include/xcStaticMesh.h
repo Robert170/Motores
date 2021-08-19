@@ -45,6 +45,9 @@ namespace xcEngineSDK {
     void
     setModel(WeakSptr<Model> model);
 
+    SPtr<Model>
+    getModel();
+
    private:
     
      SPtr<Model> m_model;

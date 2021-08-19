@@ -25,12 +25,18 @@ namespace xcEngineSDK {
   class VertexShader;
   class PixelShader;
   class InputLayout;
+  class Texture;
+ 
+
   //render pass
-  class Pass
+  class XC_RENDERER_EXPORT Pass
   {
    public:
      Pass() = default;
     ~Pass() = default;
+
+    void
+    init();
 
     void 
     update();
@@ -39,6 +45,10 @@ namespace xcEngineSDK {
     render();
 
    private:
+    SPtr<Texture> m_backBuffer;
+    SPtr<Texture> m_depthStencil;
+    SPtr<Texture> m_depthStencilView;
+
     SPtr<VertexShader> m_VS;
     SPtr<PixelShader> m_PS;
     SPtr<InputLayout> m_InputLayout;

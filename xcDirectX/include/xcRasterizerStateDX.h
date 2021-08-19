@@ -39,7 +39,7 @@ namespace xcEngineSDK {
 			* @Variable m_pRasterizerState, pointer for the rasterizer state
 		*/
 		ID3D11RasterizerState* m_pRasterizerState = nullptr;
-
+		
 
 		friend class DXGraphiAPI;
 	};

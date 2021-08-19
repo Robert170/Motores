@@ -42,6 +42,7 @@ namespace xcEngineSDK {
   class InputLayout;
   class RasterizerState;
   class ShaderProgram;
+  class DepthStencilState;
   
 
   using TEXTURE_FORMAT = enum
@@ -242,6 +243,23 @@ namespace xcEngineSDK {
 
   };
 
+  namespace FILL_MODE {
+    enum E {
+
+      FILL_WIREFRAME = 2,
+      FILL_SOLID = 3
+    };
+  }
+
+  namespace CULL_MODE {
+    enum E {
+
+      CULL_NONE = 1,
+      CULL_FRONT = 2,
+      CULL_BACK = 3
+    };
+  }
+
   struct SimpleVertex
   {
     Vector3	Position;
@@ -250,9 +268,10 @@ namespace xcEngineSDK {
 
   struct BoneVertex {
     Vector4 vertex;
+    Vector2 texCoords;
     Vector4 normal;
     Vector4 tangent;
-    Vector2 texCoords;
+    Vector3 biTangent;
     Vector4 bonesWeight[4] = { 0.0f, 0.0f, 0.0f, 0.0f};
     uint32 id_Bones[4] = { 0 };
   };
@@ -610,7 +629,7 @@ namespace xcEngineSDK {
 
     /**
      * @brief      createSamplerState function, to create the sampler state
-     * @param      NumSamplerState parameter two, number of sampler state
+     * @param      NumSamplerState parameter one, number of sampler state
      * @bug		     No know Bugs
      * @return     Returns a pointer of CSamplerState
      */
@@ -618,12 +637,25 @@ namespace xcEngineSDK {
     createSamplerState(uint32 = 0) { return nullptr; }; //no va
 
     /**
-     * @brief      createRasterizerState function, to create the sampler state
+     * @brief      createRasterizerState function, to create the rasterizer state
+     * @param      fill_mode parameter one, fill mode
+     * @param      cull_mode parameter two, cull mode
      * @bug		     No know Bugs
      * @return     Returns a pointer of CRasterizerState
      */
     virtual SPtr<RasterizerState>
-    createRasterizerState() { return nullptr; }; //falta parametros
+    createRasterizerState(FILL_MODE::E, CULL_MODE::E, bool) { return nullptr;};
+
+    /**
+     * @brief      creteaDepthStencilState function, to create the depth 
+     *             stencil state
+     * @param      stencilEnable parameter one, 
+     * @param      depthEnable parameter two, 
+     * @bug		     No know Bugs
+     * @return     Returns a pointer of CRasterizerState
+     */
+    virtual SPtr<DepthStencilState>
+    createDepthStencilState(bool stencilEnable, bool depthEnable) { return nullptr; };
 
 
     //set
@@ -730,7 +762,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    setSamplerState(const Vector<SamplerState*>& ,
+    setSamplerState(const Vector<SPtr<SamplerState>>& ,
                     uint32) { }; //
 
     /**
@@ -743,12 +775,22 @@ namespace xcEngineSDK {
 
     /**
      * @brief      setRasterizerState function, to set rasteraizer state
-     * @param      RasState parameter one, a pointer of CRasterizerState
+     * @param      RasState parameter one, a pointer of RasterizerState
      * @bug		     No know Bugs
      * @return     Returns nothing
      */
     virtual void 
     setRasterizerState(WeakSptr<RasterizerState>) { };
+
+    /**
+     * @brief      setDepthStencilState function, to set depth stencil state
+     * @param      depthStelcilState parameter one, a pointer of DepthStencilState
+     * @param      stencilRef parameter two, a uint32 
+     * @bug		     No know Bugs
+     * @return     Returns nothing
+     */
+    virtual void
+    setDepthStencilState(WeakSptr<DepthStencilState>, uint32) { };
 
     /**
      * @brief      setRenderTarget function, to set render target

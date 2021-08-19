@@ -52,9 +52,9 @@ namespace xcEngineSDK {
 
 
 
-		SPtr<Texture> m_BackBuffer;
+		SPtr<Texture> m_backBuffer;
 
-		SPtr<Texture> m_DepthStencil;
+		SPtr<Texture> m_depthStencil;
 
 
 	 protected:
@@ -338,7 +338,20 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CRasterizerState
 		 */
 		SPtr<RasterizerState> 
-		createRasterizerState() override; //falta parametros
+		createRasterizerState(FILL_MODE::E fillMode,
+			                    CULL_MODE::E cullMode,
+			                    bool counterClockwise) override; //falta parametros
+
+		/**
+     * @brief      creteDepthStencilState function, to create the depth 
+     *             stencil state
+     * @param      stencilEnable parameter one, 
+     * @param      depthEnable parameter two, 
+     * @bug		     No know Bugs
+     * @return     Returns a pointer of CRasterizerState
+     */
+    virtual SPtr<DepthStencilState>
+    createDepthStencilState(bool stencilEnable, bool depthEnable) override;
 
 
 		//set
@@ -446,7 +459,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setSamplerState(const Vector<SamplerState*>& Sam,
+		setSamplerState(const Vector<SPtr<SamplerState>>& Sam,
 			              uint32 StartSlot) override; //
 
     /**
@@ -465,6 +478,17 @@ namespace xcEngineSDK {
 		 */
 		void 
 		setRasterizerState(WeakSptr<RasterizerState> RasState) override;
+
+		/**
+     * @brief      setDepthStencilState function, to set depth stencil state
+     * @param      depthStelcilState parameter one, a pointer of DepthStencilState
+     * @param      stencilRef parameter two, a uint32 
+     * @bug		     No know Bugs
+     * @return     Returns nothing
+     */
+    void
+    setDepthStencilState(WeakSptr<DepthStencilState> depthStelcilState, 
+			                   uint32 stencilRef) override;
 
 		/**
 		 * @brief      setRenderTarget function, to set render target

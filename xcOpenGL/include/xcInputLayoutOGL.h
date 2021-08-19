@@ -18,12 +18,16 @@
 namespace xcEngineSDK {
 	class InputLayoutOGL : public InputLayout
 	{
-	 protected:
+
+	 public:
 		/// Default Constructor
 		InputLayoutOGL();
 
 		/// Destructor
 		~InputLayoutOGL() = default;
+	 protected:
+
+	 
 
 		/**
 			* @brief protected variables member

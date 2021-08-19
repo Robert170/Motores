@@ -2,7 +2,7 @@
 
 namespace xcEngineSDK {
   
-  //TODO padres e hijos deben se weak
+  //TODO padres e hijos deben ser weak
   SceneNode::SceneNode(SPtr<Actor> child, WeakSptr<SceneNode> parent) {
     
     m_pParent = parent;
@@ -84,6 +84,28 @@ namespace xcEngineSDK {
 
     }
 
+  }
+
+  void 
+  SceneNode::getModels(Vector<SPtr<Model>>& model) {
+    m_pActor->getModels(model);
+
+    if (m_pChild.empty()) {
+
+      return;
+
+    }
+
+
+    for (auto node : m_pChild) {
+
+      auto temp = node;
+
+      if (temp) {
+        temp->getModels(model);
+      }
+
+    }
   }
 
 }

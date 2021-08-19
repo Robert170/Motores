@@ -61,8 +61,9 @@ namespace xcEngineSDK {
     void
     update(const float& deltaTime);
 
+   
     void
-    setupMesh();
+    setUpGPUMesh();
 
    public:
     /**
@@ -85,9 +86,14 @@ namespace xcEngineSDK {
     Vector<Texture*> m_vTextures;
 
     /**
+      * @Variable m_vTextures, all textures
+    */
+    Vector<String> m_vPhats;
+
+    /**
       * @Variable m_vSamplers, all samplers
     */
-    Vector<SamplerState*> m_vSamplers;
+    Vector< SPtr<SamplerState>> m_vSamplers;
 
      
 

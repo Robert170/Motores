@@ -3,6 +3,10 @@
 namespace xcEngineSDK {
 
   void 
+  Pass::init() {
+    
+  }
+  void
   Pass::update() {
 
   }

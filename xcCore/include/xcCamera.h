@@ -17,6 +17,7 @@
 #include <xcMatrix4x4.h>
 #include "xcPrerequisitesCore.h"
 #include "xcConstantBuffer.h"
+#include <SFML/Window.hpp>
 
 
 

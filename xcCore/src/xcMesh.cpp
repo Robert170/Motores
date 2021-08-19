@@ -13,13 +13,13 @@ namespace xcEngineSDK {
     this->m_Vertices = Vertices;
     this->m_Indices = indices;
     this->m_vTextures = Textures;
-    this->m_vSamplers = Samplers;
+    //this->m_vSamplers = Samplers;
     m_pBonesInfo.reset(skeletal);
     m_bonesTransforms.clear();
     m_bonesTransforms.resize(skeletal->NumBones);
     
 
-    setupMesh();
+    setUpGPUMesh();
   }
 
   void 
@@ -27,8 +27,8 @@ namespace xcEngineSDK {
 
     auto graphicsApi = g_graphicsAPI().instancePtr();
 
-   graphicsApi->updateSubresource(&m_bonesTransforms,
-                                   *graphicsApi->getConstBufferBones());
+   /*graphicsApi->updateSubresource(&m_bonesTransforms,
+                                   *graphicsApi->getConstBufferBones());*/
 
     uint32 textureSize = m_vTextures.size();
 
@@ -72,15 +72,17 @@ namespace xcEngineSDK {
   }
 
   void 
-  Mesh::setupMesh() {
+  Mesh::setUpGPUMesh() {
 
     auto graphicsApi = g_graphicsAPI().instancePtr();
 
-    m_vertexBuffer = graphicsApi->createVertexBuffer(m_Vertices,
-                                                     1);
+    m_vertexBuffer = nullptr;
+
+    m_indexBuffer = nullptr;
+
+    m_vertexBuffer = graphicsApi->createVertexBuffer(m_Vertices, 1);
      
-    m_indexBuffer = graphicsApi->createIndexBuffer(m_Indices,
-                                                   1);
+    m_indexBuffer = graphicsApi->createIndexBuffer(m_Indices, 1);
   }
 
   Matrix4x4 

@@ -21,6 +21,7 @@
 #include "xcPrerequisitesCore.h"
 #include "xcActor.h"
 
+
 namespace xcEngineSDK {
 
 	class SceneNode
@@ -48,6 +49,9 @@ namespace xcEngineSDK {
 
 		void
 		render();
+
+		void
+	  getModels(Vector<SPtr<Model>>& model);
 
 	 public:
 

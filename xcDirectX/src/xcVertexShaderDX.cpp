@@ -1,13 +1,12 @@
 #include "xcVertexShaderDX.h"
 namespace xcEngineSDK {
+
   VertexShaderDX::~VertexShaderDX()
   {
-    if (m_vertexShader)
-    {
+    if (m_vertexShader) {
       m_vertexShader->Release();
     }
-    if (m_pVSBlob)
-    {
+    if (m_pVSBlob) {
       m_pVSBlob->Release();
     }
   }

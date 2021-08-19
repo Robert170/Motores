@@ -18,6 +18,7 @@
 #include "GLFW/glfw3.h"
 #include "xcGraphiAPI.h"
 #include "xcPrerequisitesOGL.h"
+#include "xcSamplerStateOGL.h"
 
 namespace xcEngineSDK {
 	class XC_CORE_EXPORT OGLGraphiAPI : public GraphicsAPI
@@ -318,7 +319,9 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CRasterizerState
 		 */
 		SPtr<RasterizerState> 
-		createRasterizerState() override; //falta parametros
+    createRasterizerState(FILL_MODE::E fillMode,
+                          CULL_MODE::E cullMode,
+                          bool counterClockwise) override; //falta parametros
 
 
 		//set
@@ -426,7 +429,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		setSamplerState(const Vector<SamplerState*>& Sam,
+		setSamplerState(const Vector<SPtr<SamplerState>>& Sam,
 			              uint32 StartSlot) override; //
 
     /**

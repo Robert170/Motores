@@ -17,7 +17,7 @@
 
 
 #include <xcPlugin.h>
-
+#include <xcRenderer.h>
 #include "xcPrerequisitesCore.h"
 #include "xcGraphiAPI.h"
 #include "xcSceneGraph.h"
@@ -126,7 +126,7 @@ namespace xcEngineSDK {
 
 		 //TODO Cambiar al la clase base
      Plugin m_plugin;
-
+		 Plugin m_renderer;
 		 
 
 	};

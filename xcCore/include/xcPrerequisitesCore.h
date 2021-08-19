@@ -1,7 +1,7 @@
 #pragma once
 
 #include <xcPrerequisitesUtilities.h>
-#include <SFML/Window.hpp>
+//#include <SFML/Window.hpp>
 
 //library export specific
 #if XC_PLATFORM == XC_PLATFORM_WIN32

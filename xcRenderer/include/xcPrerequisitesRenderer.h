@@ -25,8 +25,8 @@
 #     endif
 #   endif
 # endif
-# define XC_CORE_HIDDEN
+# define XC_RENDERER_HIDDEN
 #else //Linux/Mac setting
 # define XC_RENDERER_EXPORT __attribute__ ((visibility ("default")))
-# define XC_CORE_HIDDEN __attribute__ ((visibility ("hidden")))
+# define XC_RENDERER_HIDDEN __attribute__ ((visibility ("hidden")))
 #endif

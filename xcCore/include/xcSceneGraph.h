@@ -48,10 +48,14 @@ namespace xcEngineSDK {
 		void
 		render();
 
+		Vector<SPtr<Model>>
+		getModels();
 	
 
 	 public:
+
 		SPtr<SceneNode> m_pRoot;
+		Vector<SPtr<Model>> m_models;
 
 	 private:
 		 

@@ -6,6 +6,7 @@
 
 
 
+
 //TODO ERRORES CRITICOS
   
 void 
@@ -30,86 +31,27 @@ GameAppUnitTest::onCreate() {
   
   //load model
 
-  //m_model.reset(new Model("Models/s/silly_dancing.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/s/silly_dancing.fbx")); //
 
-  //m_model.reset(new Model("Models/Agnaktor/idle2.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Agnaktor/idle2.fbx"));
 
-  //m_model.reset(new Model("Models/Bea/bea_geo.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Bea/bea_geo.fbx")); //
 
-  //m_model.reset(new Model("Models/Gwen/Angry.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Gwen/Angry.fbx")); //
 
-  //m_model.reset(new Model("Models/Bibi/bibi_geo.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Alien/Xenomorphs_Queen.fbx"));
 
-  //m_model.reset(new Model("Models/Alien/Xenomorphs_Queen.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
 
-  //m_model.reset(new Model("Models/Grimoires/grimoires.fbx"));
-
-  SPtr<Model> exampleModel(new Model("Models/Bea/bea_geo.fbx"));
+  SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
 
   SPtr<Component> testComponent(new StaticMesh(exampleModel));
+  
 
   SPtr<Actor> testActor(new Actor("test"));
   testActor->addComponent(testComponent);
 
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
-
-
-  Vector<uint32_t> indices =
-  {
-	  	3,1,0,
-	  	2,1,3,
-	  
-	  	6,4,5,
-	  	7,4,6,
-	  
-	  	11,9,8,
-	  	10,9,11,
-	  
-	  	14,12,13,
-	  	15,12,14,
-	  
-	  	19,17,16,
-	  	18,17,19,
-	  
-	  	22,20,21,
-	  	23,20,22
-	  };
-
-
-  Vector<SimpleVertex> vertices =
-  {
-	  	// positions                    // texture cords
-	  	{Vector3(-1.0f, 1.0f, -1.0f),  Vector2(0.0f, 0.0f) },
-	  	{Vector3(1.0f, 1.0f, -1.0f),   Vector2(1.0f, 0.0f) },
-	  	{Vector3(1.0f, 1.0f, 1.0f),    Vector2(1.0f, 1.0f) },
-	  	{Vector3(-1.0f, 1.0f, 1.0f),   Vector2(0.0f, 1.0f) },
-	  
-	  	{Vector3(-1.0f, -1.0f, -1.0f), Vector2(0.0f, 0.0f) },
-	  	{Vector3(1.0f, -1.0f, -1.0f),  Vector2(1.0f, 0.0f) },
-	  	{Vector3(1.0f, -1.0f, 1.0f),   Vector2(1.0f, 1.0f) },
-	  	{Vector3(-1.0f, -1.0f, 1.0f),  Vector2(0.0f, 1.0f) },
-	  
-	  	{Vector3(-1.0f, -1.0f, 1.0f),  Vector2(0.0f, 0.0f) },
-	  	{Vector3(-1.0f, -1.0f, -1.0f), Vector2(1.0f, 0.0f) },
-	  	{Vector3(-1.0f, 1.0f, -1.0f),  Vector2(1.0f, 1.0f) },
-	  	{Vector3(-1.0f, 1.0f, 1.0f),   Vector2(0.0f, 1.0f) },
-	  
-	  	{Vector3(1.0f, -1.0f, 1.0f),   Vector2(0.0f, 0.0f) },
-	  	{Vector3(1.0f, -1.0f, -1.0f),  Vector2(1.0f, 0.0f) },
-	  	{Vector3(1.0f, 1.0f, -1.0f),   Vector2(1.0f, 1.0f) },
-	  	{Vector3(1.0f, 1.0f, 1.0f),    Vector2(0.0f, 1.0f) },
-	  
-	  	{Vector3(-1.0f, -1.0f, -1.0f), Vector2(0.0f, 0.0f) },
-	  	{Vector3(1.0f, -1.0f, -1.0f),  Vector2(1.0f, 0.0f) },
-	  	{Vector3(1.0f, 1.0f, -1.0f),   Vector2(1.0f, 1.0f) },
-	  	{Vector3(-1.0f, 1.0f, -1.0f),  Vector2(0.0f, 1.0f) },
-	  
-	  	{Vector3(-1.0f, -1.0f, 1.0f),  Vector2(0.0f, 0.0f) },
-	  	{Vector3(1.0f, -1.0f, 1.0f),   Vector2(1.0f, 0.0f) },
-	  	{Vector3(1.0f, 1.0f, 1.0f),    Vector2(1.0f, 1.0f) },
-	  	{Vector3(-1.0f, 1.0f, 1.0f),   Vector2(0.0f, 1.0f) },
-	  };
-
 
   m_meshColor.x = 1;
   m_meshColor.y = 1;
@@ -144,13 +86,13 @@ GameAppUnitTest::onCreate() {
  
 
   m_shaderProgram = graphicsApi.createShaderProgram("VS",
- 	                                                  "PS", 
- 	                                                  "VS", 
- 	                                                  "PS", 
- 	                                                  "vs_4_0", 
- 	                                                  "ps_4_0", 
- 	                                                  1,
- 	                                                  1);
+                                                    "PS",
+                                                    "VS",
+                                                    "PS",
+                                                    "vs_4_0",
+                                                    "ps_4_0",
+                                                    1,
+                                                    1);
 
 
   // //Set semantic 
@@ -223,9 +165,19 @@ GameAppUnitTest::onCreate() {
  	                                                      1, 
  	                                                      &m_constantBuffer);
 
-  m_cbBonesAnimation = graphicsApi.createConstantBuffer(sizeof(CBBones),
-	                                                      1, 
-	                                                      &m_bonesBuffer);
+  //create rasterizer
+  m_rasterizerGbuffer = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID, 
+                                                          CULL_MODE::CULL_FRONT, 
+                                                          true);
+
+  m_rasterizerSAQ = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
+                                                      CULL_MODE::CULL_NONE, 
+                                                      false);
+
+  //create depth stencil state
+  m_depthStencilState = graphicsApi.createDepthStencilState(true, true);
+
+  m_depthStencilStateSAQ = graphicsApi.createDepthStencilState(false, false);
 
   //// Create the sample state
  
@@ -326,15 +278,15 @@ GameAppUnitTest::onRender() {
                                   0,
                                   1);
 
-  graphicsApi.setVSConstantBuffer(m_cbBonesAnimation,
- 	                                1,
- 	                                1);
+  //graphicsApi.setVSConstantBuffer(m_cbBonesAnimation,
+ 	//                                1,
+ 	//                                1);
  
-  //set pixel shader constant buffer
+  ////set pixel shader constant buffer
  
-  graphicsApi.setPSConstantBuffer(m_cbBonesAnimation,
- 	                                1,
- 	                                1);
+  //graphicsApi.setPSConstantBuffer(m_cbBonesAnimation,
+ 	//                                1,
+ 	//                                1);
  
   /*g_graphicsAPI().SetShaderResource(g_vShaderResources,
  	                                     0);*/

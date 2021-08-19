@@ -1,5 +1,5 @@
 #include "xcActor.h"
-
+#include "xcStaticMesh.h"
 namespace xcEngineSDK {
     Actor::Actor(String name) {
       m_actorName = name;
@@ -38,6 +38,23 @@ namespace xcEngineSDK {
 
       for (auto component : m_vComponents) {
         component->update(deltaTime);
+      }
+    }
+
+    void 
+    Actor::getModels(Vector<SPtr<Model>>& model) {
+
+      for (auto component : m_vComponents) {
+
+        if (component->getID() == COMPONENT_ID::kModel) {
+
+          StaticMesh* temp =
+          reinterpret_cast<StaticMesh*>(component.get());
+
+
+          model.push_back(temp->getModel());
+
+        }
       }
     }
 }

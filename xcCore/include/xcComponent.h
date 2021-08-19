@@ -21,6 +21,14 @@
 
 namespace xcEngineSDK {
 
+  namespace COMPONENT_ID {
+    enum E {
+
+      kModel = 0,
+      kMaterial
+    };
+  }
+
 	class XC_CORE_EXPORT Component
 	{
 	 public:
@@ -33,7 +41,13 @@ namespace xcEngineSDK {
 		virtual void 
 		render() = 0;
 
-	 private:
+		void
+	  setID(COMPONENT_ID::E id);
 
+		COMPONENT_ID::E
+		getID();
+
+	 private:
+		 COMPONENT_ID::E m_ID;
 	};
 }

@@ -85,6 +85,9 @@
     <ClCompile Include="src\xcStaticMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xcDepthStencilState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcCamera.h">
@@ -160,6 +163,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\xcStaticMesh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcDepthStencilState.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
