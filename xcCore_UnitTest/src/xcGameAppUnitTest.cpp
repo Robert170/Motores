@@ -3,6 +3,7 @@
 #include "xcComponent.h"
 #include "xcStaticMesh.h"
 #include "xcActor.h"
+#include "xcSceneGraph.h"
 
 
 
@@ -23,13 +24,13 @@ GameAppUnitTest::onCreate() {
   // Set primitive topology
   graphicsApi.setPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-      //TODO depth
-    // Setup the viewport
-    graphicsApi.setViewport(1,
-                            graphicsApi.m_width,
-                            graphicsApi.m_height,
-                            0,
-                            0);
+  //TODO depth
+  // Setup the viewport
+  graphicsApi.setViewport(1,
+                          graphicsApi.m_width,
+                          graphicsApi.m_height,
+                          0,
+                          0);
   
   //load model
 
@@ -198,7 +199,7 @@ GameAppUnitTest::onRender() {
   auto& sceneGraph = g_sceneGraph();
  
 
- 
+   
  
   /*g_graphicsAPI().SetRenderTarget(m_renderTargets,
  	                  m_depthStencil);*/

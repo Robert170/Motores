@@ -139,7 +139,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/OpenGL/glfw-3.3.2.bin.WIN32\lib-vc2019;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities_d.lib;opengl32.lib;glfw3.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'">
@@ -163,7 +164,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
@@ -183,7 +185,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/OpenGL/glfw-3.3.2.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities_d.lib;opengl32.lib;glfw3.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
@@ -207,7 +210,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/OpenGL/glfw-3.3.2.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

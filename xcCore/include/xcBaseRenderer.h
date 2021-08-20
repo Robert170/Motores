@@ -19,16 +19,34 @@
 #include <xcPrerequisitesCore.h>
 
 namespace xcEngineSDK {
-	class XC_CORE_EXPORT BaseRenderer : public Module<BaseRenderer>
+  class Model;
+	class BaseRenderer : public Module<BaseRenderer>
 	{
 	public:
 		BaseRenderer() = default;
+
+    virtual
 		~BaseRenderer() = default;
 
     FORCEINLINE void
       setObject(BaseRenderer* render) {
 			BaseRenderer::_instance() = render;
     }
+
+    virtual void
+    init() {};
+
+    virtual void
+    update() {};
+
+    virtual void
+    render() {};
+
+    virtual void
+    setModels(Vector<SPtr<Model>> models) {};
+
+    virtual void
+    setModel(SPtr<Model> model) {};
 	private:
 
 	};

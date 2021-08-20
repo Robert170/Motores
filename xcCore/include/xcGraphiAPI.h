@@ -273,6 +273,14 @@ namespace xcEngineSDK {
     Matrix4x4 mWorld;
   };
 
+  struct CBSSAO
+  {
+    float mSampleradius;
+    float mIntensity;
+    float mScale;
+    float mBias;
+  };
+
   struct BoneVertex {
     Vector3 vertex;
     Vector2 texCoords;

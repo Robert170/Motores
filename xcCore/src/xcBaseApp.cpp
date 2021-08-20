@@ -1,6 +1,7 @@
-#include <xcPlugin.h>
-#include "xcSceneGraph.h"
 
+#include "xcSceneGraph.h"
+#include "xcGraphiAPI.h"
+#include "xcBaseRenderer.h"
 #include "xcBaseApp.h"
 
 
@@ -65,9 +66,10 @@ namespace xcEngineSDK {
   }
 
   void 
-  BaseApp::handleWindowEvent(sf::Event event){
-
-    onEvents(event);
+  BaseApp::handleWindowEvent(sf::Event eventInput){
+    auto& sceneGraph = g_sceneGraph();
+    sceneGraph.m_mainCamera.event(eventInput);
+    onEvents(eventInput);
     return;
   }
 
@@ -113,7 +115,14 @@ namespace xcEngineSDK {
 
     if (m_renderer.loadPlugin("xcRenderer_d.dll")) {
 
-      Renderer::startUp();
+      auto createRenderer = reinterpret_cast<funProtoRenderer>
+        (m_renderer.getProcedureByName("create_Renderer"));
+
+
+      BaseRenderer::startUp();
+
+      g_renderer().setObject(createRenderer());
+
 
     }
 

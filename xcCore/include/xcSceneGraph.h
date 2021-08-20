@@ -56,9 +56,9 @@ namespace xcEngineSDK {
 
 		SPtr<SceneNode> m_pRoot;
 		Vector<SPtr<Model>> m_models;
+    Camera m_mainCamera;
 
 	 private:
-    Camera m_mainCamera;
 
 	};
 

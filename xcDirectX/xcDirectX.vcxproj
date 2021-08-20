@@ -140,7 +140,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities_d.lib;d3d11.lib;d3dcompiler.lib;dxguid.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'">
@@ -164,7 +165,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
@@ -184,7 +186,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities_d.lib;d3d11.lib;d3dcompiler.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
@@ -208,7 +211,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>xcUtilities.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

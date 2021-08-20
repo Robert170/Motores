@@ -917,7 +917,8 @@ namespace xcEngineSDK {
     SPtr<RasterizerStateDX> rasState;
     rasState.reset(new RasterizerStateDX());
     
-    CD3D11_RASTERIZER_DESC RasDesc;
+    D3D11_RASTERIZER_DESC RasDesc;
+    ZeroMemory(&RasDesc, sizeof(RasDesc));
     switch (fillMode) {
 
     case FILL_MODE::FILL_WIREFRAME:
@@ -1112,15 +1113,8 @@ namespace xcEngineSDK {
     uint32 numRt = pRTTex.size();
 
     for (int32 i = 0; i < numRt; ++i) {
-      if (nullptr != pRTTex[i]) {
-        tmpRTV[i] = static_cast<TextureDX*>(pRTTex[i])->m_pRTV;
-      }
-      else {
-        m_pImmediateContext->OMSetRenderTargets(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT,
-                                                tmpRTV,
-                                                pDSV);
-        return;
-      }
+     
+      tmpRTV[i] = static_cast<TextureDX*>(pRTTex[i])->m_pRTV;
     }
 
     m_pImmediateContext->OMSetRenderTargets(numRt, tmpRTV, pDSV);

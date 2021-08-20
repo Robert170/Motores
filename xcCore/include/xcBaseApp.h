@@ -17,10 +17,9 @@
 
 
 #include <xcPlugin.h>
-#include <xcRenderer.h>
 #include "xcPrerequisitesCore.h"
-#include "xcGraphiAPI.h"
-#include "xcSceneGraph.h"
+#include <SFML/Window.hpp>
+
 
 
 using namespace xcEngineSDK;

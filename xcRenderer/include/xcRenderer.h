@@ -18,8 +18,7 @@
  * Includes
  */
  /*****************************************************************************/
-#include <xcModule.h>
-#include <xcGraphiAPI.h>
+#include <xcBaseRenderer.h>
 #include "xcPrerequisitesRenderer.h"
 
 namespace xcEngineSDK {
@@ -32,46 +31,86 @@ namespace xcEngineSDK {
   class Pass;
   class Texture;
 
-  class XC_RENDERER_EXPORT Renderer : public Module<Renderer>
+  struct ColorStruct;
+
+  class Renderer : public BaseRenderer
   {
    public:
     Renderer() = default;
     ~Renderer() = default;
 
-
-    /*FORCEINLINE void
-      setObject(Renderer* api) {
-      Renderer::_instance() = api;
-    }*/
+    void
+    init() override;
 
     void
-    init();
+    update() override;
 
     void
-    update();
+    render() override;
 
     void
-    render();
+    setModels(Vector<SPtr<Model>> models) override;
 
     void
-    setModels(Vector<SPtr<Model>> models);
-
-    void
-    setModel(SPtr<Model> model);
+    setModel(SPtr<Model> model) override;
     
+   private:
+    
+    void
+    createGbuffer();
+
+    void
+    createSSAO();
+
+    void
+    createBlurH();
+
+    void
+    createBlurV();
+
+    void
+    createBlurH_1();
+
+    void
+    createBlurV_1();
+
+    void
+    createLigth();
+
+    void
+    setGbuffer();
+
+    void
+    setSSAO();
+
+    void
+    setBlurH();
+
+    void
+    setBlurV();
+
+    void
+    setBlurH_1();
+
+    void
+    setBlurV_1();
+
+    void
+    setLigth();
 
    private:
 
     Vector<SPtr<Model>> m_vModels;
-
+     
+    //**Gbufer**//
     //Shader
-    SPtr<ShaderProgram> m_shaderProgram = nullptr;
+    SPtr<ShaderProgram> m_shaderProgramGbuffer = nullptr;
 
     //Input layout
-    SPtr<InputLayout> m_inputLayout = nullptr;
+    SPtr<InputLayout> m_inputLayoutGbuffer = nullptr;
 
     //depth stencil state
-    SPtr<DepthStencilState> m_depthStencilState = nullptr;
+    SPtr<DepthStencilState> m_depthStencilStateGbuffer = nullptr;
     SPtr<DepthStencilState> m_depthStencilStateSAQ = nullptr;
 
     //Rasterizer
@@ -83,38 +122,87 @@ namespace xcEngineSDK {
     Texture* m_normalTxture;
     Texture* m_albedoTexture;
 
-    //DepthStencil view
-    Texture* m_depthStencilView;
-
-
     //Vector of render targets
     Vector<Texture*> m_vRenderTargets;
-
-    //Color
-    ColorStruct m_color;
 
     //Constant buffer
     CBNeverChanges m_constantBuffer;
     SPtr<ConstantBuffer> m_cbNeverChanges = nullptr;
 
-    //Matrix
-    Matrix4x4 m_world;
-    Matrix4x4 m_view;
-    Matrix4x4 m_projection;
+    //////////////////////////
+
+    //**SSAO**//
+    //Shader
+    SPtr<ShaderProgram> m_shaderProgramSSAO = nullptr;
+
+    //Input layout
+    SPtr<InputLayout> m_inputLayoutSSAO = nullptr;
+
+    //depth stencil state
+    SPtr<DepthStencilState> m_depthStencilStateSSAO = nullptr;
+
+    //Rasterizer
+    SPtr<RasterizerState> m_rasterizerSSAO = nullptr;
+
+    //Texture
+    Texture* m_ssaoTexture;
+
+    //Vector of render targets
+    Vector<Texture*> m_vRenderTargetsSSAO;
+
+    //Vector of render targets
+    Vector<Texture*> m_vTextures;
+
+    //Constant buffer
+    CBSSAO m_constantBufferSSAO;
+    SPtr<ConstantBuffer> m_cbSSAO = nullptr;
+    /////////////////////////////////////////////////////////////////
+
+
+    //**BlurH**//
+
+    //Shader
+    SPtr<ShaderProgram> m_shaderProgramBlurH = nullptr;
+
+    //Input layout
+    SPtr<InputLayout> m_inputLayoutBlurH = nullptr;
+
+    //depth stencil state
+    SPtr<DepthStencilState> m_depthStencilStateBlurH = nullptr;
+
+    //Rasterizer
+    SPtr<RasterizerState> m_rasterizerBlurH = nullptr;
+
+    //Texture
+    Texture* m_blurOutTexture;
+
+    //Vector of render targets
+    Vector<Texture*> m_vRenderTargetsBlurH;
+
+    //Vector of render targets
+    Vector<Texture*> m_vTexturesBlurH;
+
+    //**BlurV**//
+
+    //DepthStencil view
+    Texture* m_depthStencilView;
+
+    //Color
+    ColorStruct m_color;
+
+    //Models
+    SPtr<Model> m_SAQ;
 
 
   };
 
-  /**
-   * @brief export the instance
-   */
-  XC_RENDERER_EXPORT Renderer& 
-  g_renderer();
+  extern "C" XC_PLUGIN_EXPORT Renderer * create_Renderer() {
 
-  /**
-   * @Variable funProtoGraphiAPI, instance of the class
-   */
-  using funProtoRenderer = Renderer * (*)();
+    auto m_renderer = new Renderer();
+
+    return m_renderer;
+
+  }
 
 
 }

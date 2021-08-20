@@ -56,6 +56,7 @@ namespace xcEngineSDK {
   void 
   SceneGraph::update(float deltaTime) {
     m_pRoot->update(deltaTime);
+    m_mainCamera.update();
   }
 
   Vector<SPtr<Model>> 
