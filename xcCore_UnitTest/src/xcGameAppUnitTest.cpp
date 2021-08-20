@@ -18,16 +18,18 @@ GameAppUnitTest::onCreate() {
 
   graphicsApi.init(graphicsApi.m_window.getSystemHandle());
   
-  m_camera.setPosition(Vector3(0.0f, 1.0f, -10.0f ));
-  m_camera.setLookAt(Vector3(0.0f, 1.0f, 0.0f));
-  m_camera.setUp(Vector3(0.0f, 1.0f, 0.0f));
-  m_camera.setfar(30000);
-  m_camera.setNear(0.1f);
-  m_camera.setFielOfView(0.78539816339f);
-  m_camera.setWidth(graphicsApi.m_width);
-  m_camera.setHeight(graphicsApi.m_height);
+  
 
-  m_camera.init();
+  // Set primitive topology
+  graphicsApi.setPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+      //TODO depth
+    // Setup the viewport
+    graphicsApi.setViewport(1,
+                            graphicsApi.m_width,
+                            graphicsApi.m_height,
+                            0,
+                            0);
   
   //load model
 
@@ -85,14 +87,7 @@ GameAppUnitTest::onCreate() {
  
  
 
-  m_shaderProgram = graphicsApi.createShaderProgram("VS",
-                                                    "PS",
-                                                    "VS",
-                                                    "PS",
-                                                    "vs_4_0",
-                                                    "ps_4_0",
-                                                    1,
-                                                    1);
+  
 
 
   // //Set semantic 
@@ -117,7 +112,6 @@ GameAppUnitTest::onCreate() {
   //                                                  1);
   
   
-  m_inputLayout = graphicsApi.createAutomaticInputLayout(*m_shaderProgram);
 
   // Create the pixel shader
   /*m_pixelShader = g_graphicsAPI().CreatePixelShaders("PS",
@@ -140,44 +134,32 @@ GameAppUnitTest::onCreate() {
 
   //TODO nombre de funcion intuitivo es de las matrices no del graphi Api
   // Create the constant buffers
-  m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());
-  /*m_constantBuffer.mView = g_graphicsAPI().initMatrixView(m_view,
-                                                       Eye,
-                                                       At,
-                                                       Up);*/
+  //m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());
+  ///*m_constantBuffer.mView = g_graphicsAPI().initMatrixView(m_view,
+  //                                                     Eye,
+  //                                                     At,
+  //                                                     Up);*/
  
-  m_constantBuffer.mProjection = graphicsApi.
-	                             matri4x4Context(m_camera.getProyeccion());
-  /*m_constantBuffer.mProjection = g_graphicsAPI().initMatrixProjection(m_projection,
- 	                                                               Data.fov,
- 	                                                               Data.height,
- 	                                                               Data.width,
- 	                                                               Data.Near,
- 	                                                               Data.Far);*/
+  //m_constantBuffer.mProjection = graphicsApi.
+	 //                            matri4x4Context(m_camera.getProyeccion());
+  ///*m_constantBuffer.mProjection = g_graphicsAPI().initMatrixProjection(m_projection,
+ 	//                                                               Data.fov,
+ 	//                                                               Data.height,
+ 	//                                                               Data.width,
+ 	//                                                               Data.Near,
+ 	//                                                               Data.Far);*/
  
-  m_constantBuffer.mWorld = graphicsApi.initMatrixWorld(m_world);
+  //m_constantBuffer.mWorld = graphicsApi.initMatrixWorld(m_world);
  
-  m_constantBuffer.vMeshColor = m_meshColor;
+  //m_constantBuffer.vMeshColor = m_meshColor;
  
 
   //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
-  m_cbNeverChanges = graphicsApi.createConstantBuffer(sizeof(CBNeverChanges),
+  /*m_cbNeverChanges = graphicsApi.createConstantBuffer(sizeof(CBNeverChanges),
  	                                                      1, 
- 	                                                      &m_constantBuffer);
+ 	                                                      &m_constantBuffer);*/
 
-  //create rasterizer
-  m_rasterizerGbuffer = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID, 
-                                                          CULL_MODE::CULL_FRONT, 
-                                                          true);
-
-  m_rasterizerSAQ = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                      CULL_MODE::CULL_NONE, 
-                                                      false);
-
-  //create depth stencil state
-  m_depthStencilState = graphicsApi.createDepthStencilState(true, true);
-
-  m_depthStencilStateSAQ = graphicsApi.createDepthStencilState(false, false);
+  
 
   //// Create the sample state
  
@@ -190,7 +172,6 @@ GameAppUnitTest::onCreate() {
 void
 GameAppUnitTest::onEvents(sf::Event event) {
 
-  m_camera.event(event);
 
 }
 void 
@@ -200,14 +181,14 @@ GameAppUnitTest::onUpdate(float deltaTime) {
   auto& sceneGraph = g_sceneGraph();
 
  
-  m_camera.update();
+  //m_camera.update();
   
   //todo CONSTANBUFFER GENERICOS NO ESPECIFICOS
-  m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());
+  /*m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());
   graphicsApi.updateSubresource(&m_constantBuffer,
-      		                      *m_cbNeverChanges);
+      		                      *m_cbNeverChanges);*/
 
-  sceneGraph.update(deltaTime);
+  
 }
 
 void 
@@ -216,28 +197,13 @@ GameAppUnitTest::onRender() {
   auto& graphicsApi = g_graphicsAPI();
   auto& sceneGraph = g_sceneGraph();
  
-  m_color.setColor(0.5f, 0.3f, 0.1f, 1.0f);
 
  
  
   /*g_graphicsAPI().SetRenderTarget(m_renderTargets,
  	                  m_depthStencil);*/
- 
-  graphicsApi.setDefaultRenderTarget();
- 
-  graphicsApi.clearDefaultRenderTargetAndDepthStencil(m_color);
- 
 
-  //TODO falta la profundidad
-  // Setup the viewport
-  graphicsApi.setViewport(1,
-	                        graphicsApi.m_width,
- 	                        graphicsApi.m_height,
-	                        0,
-	                        0);
- 
-  //set input layout
-  graphicsApi.setInputLayout(m_inputLayout);
+  
  
   ////set vertex buffer
   //g_graphicsAPI().setVertexBuffer(g_pVertexBuffer,
@@ -250,8 +216,7 @@ GameAppUnitTest::onRender() {
   //g_graphicsAPI().setIndexBuffer(g_pIndexBuffer, 
   //	                          0);
   
-  // Set primitive topology
-  graphicsApi.setPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  
  
  
   //// Clear the render target
@@ -263,20 +228,18 @@ GameAppUnitTest::onRender() {
  
 
  
-  //shader program
-  graphicsApi.setShaderProgram(m_shaderProgram);
  
   //set all vertex shader constant buffer
   
-  graphicsApi.setVSConstantBuffer(m_cbNeverChanges,
- 	                                0,
- 	                                1);
+  //graphicsApi.setVSConstantBuffer(m_cbNeverChanges,
+ 	//                                0,
+ 	//                                1);
  
-  //set pixel shader constant buffer
+  ////set pixel shader constant buffer
  
-  graphicsApi.setPSConstantBuffer(m_cbNeverChanges,
-                                  0,
-                                  1);
+  //graphicsApi.setPSConstantBuffer(m_cbNeverChanges,
+  //                                0,
+  //                                1);
 
   //graphicsApi.setVSConstantBuffer(m_cbBonesAnimation,
  	//                                1,
@@ -294,10 +257,6 @@ GameAppUnitTest::onRender() {
   /*g_graphicsAPI().SetSamplerState(g_vSamplers,
  	                 0);*/
 
-  //m_model->render();
-  graphicsApi.setConstBufferBones(m_cbBonesAnimation);
-
-  sceneGraph.render();
 
   /*g_graphicsAPI().drawIndexed(36,
                            0,
@@ -325,11 +284,11 @@ GameAppUnitTest::onDestroy() {
   }
  */
   //constant Buffers
-  for (int i = m_constantBuffers.size() - 1; i >= 0; --i) {
+  /*for (int i = m_constantBuffers.size() - 1; i >= 0; --i) {
  	  if (nullptr != m_constantBuffers.at(i)) {
  		  delete m_constantBuffers.at(i);
  	  }
-  }
+  }*/
  
   //vertex buffer
   //delete g_pVertexBuffer;

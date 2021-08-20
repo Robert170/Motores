@@ -2,7 +2,7 @@
 /**
  * @file    xcActor.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
- * @date    2021/05/25
+ * @date    19/08/2021
  * @brief   Represents the actor of the scene 
  *
  * Represent the actor of the scene
@@ -15,6 +15,7 @@
  * Includes
  */
  /*****************************************************************************/
+ 
 #include <xcTransform.h>
 #include "xcPrerequisitesCore.h"
 #include "xcGameObject.h"

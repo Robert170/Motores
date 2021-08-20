@@ -168,5 +168,8 @@
     <ClInclude Include="include\xcDepthStencilState.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcBaseRenderer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

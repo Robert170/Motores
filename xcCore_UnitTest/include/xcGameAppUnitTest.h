@@ -4,13 +4,13 @@
 #include <xcModel.h>
 
 
-struct CBNeverChanges
-{
-  Matrix4x4 mView;
-  Matrix4x4 mProjection;
-  Matrix4x4 mWorld;
-  Vector4 vMeshColor;
-};
+//struct CBNeverChanges
+//{
+//  Matrix4x4 mView;
+//  Matrix4x4 mProjection;
+//  Matrix4x4 mWorld;
+//  Vector4 vMeshColor;
+//};
 
 struct CBBones
 {
@@ -64,12 +64,10 @@ class GameAppUnitTest : public BaseApp
   Vector<uint32> m_vFormats;
   Vector<Matrix4x4> m_transform;
 
-  //Shader
-  SPtr<VertexShader> m_vertexShader = nullptr;
-  SPtr<PixelShader> m_pixelShader = nullptr;
-  SPtr<ShaderProgram> m_shaderProgram = nullptr;
+  ////Shader
+  //SPtr<ShaderProgram> m_shaderProgram = nullptr;
 
-  SPtr<InputLayout> m_inputLayout = nullptr;
+  //SPtr<InputLayout> m_inputLayout = nullptr;
 
   //Buffers
   //VertexBuffer* m_pVertexBuffer = nullptr;
@@ -80,13 +78,13 @@ class GameAppUnitTest : public BaseApp
   //Sampler
   SamplerState* m_samplerState = nullptr;
 
-  //depth stencil state
-  SPtr<DepthStencilState> m_depthStencilState = nullptr;
-  SPtr<DepthStencilState> m_depthStencilStateSAQ = nullptr;
+  ////depth stencil state
+  //SPtr<DepthStencilState> m_depthStencilState = nullptr;
+  //SPtr<DepthStencilState> m_depthStencilStateSAQ = nullptr;
 
-  //Rasterizer
-  SPtr<RasterizerState> m_rasterizerGbuffer = nullptr;
-  SPtr<RasterizerState> m_rasterizerSAQ = nullptr;
+  ////Rasterizer
+  //SPtr<RasterizerState> m_rasterizerGbuffer = nullptr;
+  //SPtr<RasterizerState> m_rasterizerSAQ = nullptr;
 
   //World matrix
   Matrix4x4 m_world;
@@ -95,16 +93,15 @@ class GameAppUnitTest : public BaseApp
 
   Vector4 m_meshColor;
 
-  ColorStruct m_color;
+  //ColorStruct m_color;
 
   InputLayout_Desc m_inpLayDesc;
 
   SPtr<Model> m_model;
 
-  CBNeverChanges m_constantBuffer;
+  //CBNeverChanges m_constantBuffer;
 
   CBBones m_bonesBuffer;
 
-  Camera m_camera;
 };
 

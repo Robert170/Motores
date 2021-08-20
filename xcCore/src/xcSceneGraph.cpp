@@ -11,6 +11,19 @@ namespace xcEngineSDK {
     m_pRoot->m_pActor = empyActor;
    //m_pRoot->m_pParent = SPtr<SceneNode>(nullptr);
 
+    auto& graphicsApi = g_graphicsAPI();
+
+    m_mainCamera.setPosition(Vector3(0.0f, 1.0f, -10.0f));
+    m_mainCamera.setLookAt(Vector3(0.0f, 1.0f, 0.0f));
+    m_mainCamera.setUp(Vector3(0.0f, 1.0f, 0.0f));
+    m_mainCamera.setfar(30000);
+    m_mainCamera.setNear(0.1f);
+    m_mainCamera.setFielOfView(0.78539816339f);
+    m_mainCamera.setWidth(graphicsApi.m_width);
+    m_mainCamera.setHeight(graphicsApi.m_height);
+
+    m_mainCamera.init();
+
   }
 
   void

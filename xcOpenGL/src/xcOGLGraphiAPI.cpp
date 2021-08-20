@@ -800,7 +800,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::clearRenderTarget(WeakSptr<Texture> RT,
+	OGLGraphiAPI::clearRenderTarget(Texture* RT,
 			                            ColorStruct Color) {
 
 		XC_UNREFERENCED_PARAMETER(RT);
@@ -812,7 +812,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::clearDepthStencil(WeakSptr<Texture> RT,
+	OGLGraphiAPI::clearDepthStencil(Texture* RT,
 			                            uint32 ClerFlag,
 			                            float Depth,
 			                            uint32 Stencil) {
@@ -903,7 +903,7 @@ namespace xcEngineSDK {
 
 	void 
 	OGLGraphiAPI::setRenderTarget(const Vector<Texture*>& pRTTex,
-		                            WeakSptr<Texture> pDSTex) {
+		                            Texture* pDSTex) {
 		XC_UNREFERENCED_PARAMETER(pDSTex);
 
 		for (uint32 i = 0; i < pRTTex.size(); ++i) {

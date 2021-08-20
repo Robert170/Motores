@@ -500,7 +500,7 @@ namespace xcEngineSDK {
 		 */
 		void 
 		setRenderTarget(const Vector<Texture*>& pRTTex,
-			              WeakSptr<Texture> pDSTex) override;
+			              Texture* pDSTex) override;
 
 		/**
 		 * @brief      setShaderResouerce function, to set shader resource
@@ -563,7 +563,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		 */
 		void 
-		clearRenderTarget(WeakSptr<Texture> RT,
+		clearRenderTarget(Texture* RT,
 			                ColorStruct Color) override;
 
 		/**
@@ -576,7 +576,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
 		void 
-		clearDepthStencil(WeakSptr<Texture> RT,
+		clearDepthStencil(Texture* RT,
 			                uint32 ClerFlag = CLEAR_DEPTH,
 			                float Depth = 1.0f,
 			                uint32 Stencil = 0) override;

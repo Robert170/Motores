@@ -396,15 +396,24 @@ namespace xcEngineSDK {
                                bindFlags,
                                static_cast<D3D11_USAGE>(Usage));
 
-    D3D11_SUBRESOURCE_DATA ResourceDataDesc;
-    ResourceDataDesc.pSysMem = Data;
-    ResourceDataDesc.SysMemPitch = desc.Width * 4;
-    ResourceDataDesc.SysMemSlicePitch = 0;
+    if (nullptr != Data ) {
+      D3D11_SUBRESOURCE_DATA ResourceDataDesc;
+      ResourceDataDesc.pSysMem = Data;
+      ResourceDataDesc.SysMemPitch = desc.Width * 4;
+      ResourceDataDesc.SysMemSlicePitch = 0;
 
-    //create texture
-    hr = m_pd3dDevice->CreateTexture2D(&desc, 
-                                       &ResourceDataDesc,
-                                       &texture->m_pTexture);
+      //create texture
+      hr = m_pd3dDevice->CreateTexture2D(&desc, 
+                                         &ResourceDataDesc,
+                                         &texture->m_pTexture);
+    }
+    else {
+      //create texture
+      hr = m_pd3dDevice->CreateTexture2D(&desc, 
+                                         nullptr,
+                                         &texture->m_pTexture);
+    }
+
     if (FAILED(hr)) {
       std::cout << "//Error fail the creation of la texture" << std::endl;
       //TODO
@@ -431,6 +440,7 @@ namespace xcEngineSDK {
 
       CD3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc(D3D11_DSV_DIMENSION_TEXTURE2D,
                                              static_cast<DXGI_FORMAT>(format));
+
       
       hr = m_pd3dDevice->CreateDepthStencilView(texture->m_pTexture,
                                                 &dsvDesc,
@@ -463,7 +473,6 @@ namespace xcEngineSDK {
       m_pd3dDevice->CreateUnorderedAccessView(texture->m_pTexture,
                                               &uavDesc,
                                               &texture->m_pUAV);
-
     }
     return texture;
 
@@ -1086,25 +1095,36 @@ namespace xcEngineSDK {
   //function to set a render target 
   void 
   DXGraphiAPI::setRenderTarget(const Vector<Texture*>& pRTTex,
-                               WeakSptr<Texture> pDSTex) {
+                               Texture* pDSTex) {
 
-    for (uint32 i = 0; i < pRTTex.size(); ++i) {
-
-      TextureDX* pRTDX = 
-      reinterpret_cast<TextureDX*>(pRTTex.at(i));
-
-      ID3D11DepthStencilView* pDSV = nullptr;
-
-      if (nullptr != pDSTex.lock()) {
-        TextureDX* pDSDX = reinterpret_cast<TextureDX*>(pDSTex.lock().get());
-        pDSV = pDSDX->m_pDSV;
-      }
-
-      m_pImmediateContext->OMSetRenderTargets(pRTTex.size(),
-                                              &pRTDX->m_pRTV,
-                                              pDSV);
-
+    ID3D11RenderTargetView* tmpRTV[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
+    for (int32 i = 0; i < D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; ++i) {
+      tmpRTV[i] = nullptr;
     }
+
+    ID3D11DepthStencilView* pDSV = nullptr;
+
+    if (nullptr != pDSTex) {
+      TextureDX* pDSDX = reinterpret_cast<TextureDX*>(pDSTex);
+      pDSV = pDSDX->m_pDSV;
+    }
+
+    uint32 numRt = pRTTex.size();
+
+    for (int32 i = 0; i < numRt; ++i) {
+      if (nullptr != pRTTex[i]) {
+        tmpRTV[i] = static_cast<TextureDX*>(pRTTex[i])->m_pRTV;
+      }
+      else {
+        m_pImmediateContext->OMSetRenderTargets(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT,
+                                                tmpRTV,
+                                                pDSV);
+        return;
+      }
+    }
+
+    m_pImmediateContext->OMSetRenderTargets(numRt, tmpRTV, pDSV);
+ 
   }
 
 
@@ -1221,21 +1241,21 @@ namespace xcEngineSDK {
 
   //function to clear render target view
   void 
-  DXGraphiAPI::clearRenderTarget(WeakSptr<Texture> RT,
+  DXGraphiAPI::clearRenderTarget(Texture* RT,
                                  ColorStruct Color) {
-    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(RT.lock().get());
+    TextureDX* pRTDX = reinterpret_cast<TextureDX*>(RT);
 
     m_pImmediateContext->ClearRenderTargetView(pRTDX->m_pRTV, &Color.R);
   }
 
   //function to clear depth stenci view
   void 
-  DXGraphiAPI::clearDepthStencil(WeakSptr<Texture> DS,
+  DXGraphiAPI::clearDepthStencil(Texture* DS,
                                  uint32 ClerFlag,
                                  float Depth,
                                  uint32 Stencil) {
 
-    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(DS.lock().get());
+    TextureDX* pDSDX = reinterpret_cast<TextureDX*>(DS);
 
 
 

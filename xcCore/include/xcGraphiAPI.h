@@ -266,12 +266,20 @@ namespace xcEngineSDK {
     Vector2 TexCoords;
   };
 
+  struct CBNeverChanges
+  {
+    Matrix4x4 mView;
+    Matrix4x4 mProjection;
+    Matrix4x4 mWorld;
+  };
+
   struct BoneVertex {
-    Vector4 vertex;
+    Vector3 vertex;
     Vector2 texCoords;
-    Vector4 normal;
-    Vector4 tangent;
+    Vector3 normal;
+    Vector3 tangent;
     Vector3 biTangent;
+
     Vector4 bonesWeight[4] = { 0.0f, 0.0f, 0.0f, 0.0f};
     uint32 id_Bones[4] = { 0 };
   };
@@ -802,7 +810,7 @@ namespace xcEngineSDK {
      */
     virtual void 
     setRenderTarget(const Vector<Texture*>&,
-                    WeakSptr<Texture>) { };
+                    Texture*) { };
 
     /**
      * @brief      setShaderResouerce function, to set shader resource
@@ -865,7 +873,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearRenderTarget(WeakSptr<Texture>,
+    clearRenderTarget(Texture*,
                       ColorStruct) { };
 
     /**
@@ -878,7 +886,7 @@ namespace xcEngineSDK {
      * @return     Returns nothing
      */
     virtual void 
-    clearDepthStencil(WeakSptr<Texture>,
+    clearDepthStencil(Texture*,
                       uint32 = CLEAR_DEPTH,
                       float = 1.0f,
                       uint32 = 0) { };

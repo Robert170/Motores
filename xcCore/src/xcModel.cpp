@@ -19,7 +19,7 @@ namespace xcEngineSDK {
     for (uint32 i = 0; i < pMesh->mNumVertices; ++i) {
 
       BoneVertex meshInfo;
-      Vector4 vector;
+      Vector3 vector;
       Vector3 bitan;
 
       if (pMesh->HasPositions()) {
@@ -27,7 +27,7 @@ namespace xcEngineSDK {
         vector.x = pMesh->mVertices[i].x;
         vector.y = pMesh->mVertices[i].y;
         vector.z = pMesh->mVertices[i].z;
-        vector.w = 1;
+        //vector.w = 1;
         meshInfo.vertex = vector;
       }
       

@@ -12,11 +12,15 @@ namespace xcEngineSDK {
     initSystems();
 
     onCreate();
+
     auto& renderer = g_renderer();
 
     auto& sceneGraph = g_sceneGraph();
 
+    renderer.init();
+
     renderer.setModels(sceneGraph.getModels());
+
 
     sf::Clock delta;
 
@@ -40,9 +44,13 @@ namespace xcEngineSDK {
         }
         
       }
-      
+
+      sceneGraph.update(deltaTime);
+
       //update
       update(deltaTime);
+
+      renderer.render();
 
       //render
       render();
@@ -75,7 +83,6 @@ namespace xcEngineSDK {
 
   void 
   BaseApp::update(float deltaTime) {
-
     onUpdate(deltaTime);
   }
 

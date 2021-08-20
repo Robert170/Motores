@@ -50,6 +50,7 @@
     <ClInclude Include="include\xcActor.h" />
     <ClInclude Include="include\xcDepthStencilState.h" />
     <ClInclude Include="include\xcMaterial.h" />
+    <ClInclude Include="include\xcBaseRenderer.h" />
     <ClInclude Include="include\xcResource.h" />
     <ClInclude Include="include\xcSceneNode.h" />
     <ClInclude Include="include\xcBaseApp.h" />
