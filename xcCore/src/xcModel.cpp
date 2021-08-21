@@ -275,6 +275,7 @@ namespace xcEngineSDK {
     const aiScene* scene = importer.ReadFile(filePath,
                               aiProcessPreset_TargetRealtime_MaxQuality |
                               aiProcess_ConvertToLeftHanded | 
+                              aiProcess_TransformUVCoords |
                               aiProcess_Triangulate);
 
     // check for errors

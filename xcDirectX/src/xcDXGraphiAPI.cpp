@@ -1098,7 +1098,9 @@ namespace xcEngineSDK {
   DXGraphiAPI::setRenderTarget(const Vector<Texture*>& pRTTex,
                                Texture* pDSTex) {
 
-    ID3D11RenderTargetView* tmpRTV[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
+    static ID3D11RenderTargetView* tmpRTV[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
+
+
     for (int32 i = 0; i < D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; ++i) {
       tmpRTV[i] = nullptr;
     }
@@ -1237,6 +1239,7 @@ namespace xcEngineSDK {
   void 
   DXGraphiAPI::clearRenderTarget(Texture* RT,
                                  ColorStruct Color) {
+
     TextureDX* pRTDX = reinterpret_cast<TextureDX*>(RT);
 
     m_pImmediateContext->ClearRenderTargetView(pRTDX->m_pRTV, &Color.R);

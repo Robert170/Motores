@@ -14,8 +14,11 @@ namespace xcEngineSDK {
     //SPtr<Model> saqModel(new Model("Models/ScreenAlignedQuad.3ds"));
     m_SAQ = std::make_shared<Model>();
     m_SAQ->loadFromFile("Models/ScreenAlignedQuad.3ds");
+    m_color.setColor(0.1f, 0.5f, 1.0f, 1.0f);
     createGbuffer();
     createSSAO();
+    createBlurH();
+    createBlurV();
 
   }
 
@@ -37,6 +40,10 @@ namespace xcEngineSDK {
 
     setGbuffer();
     setSSAO();
+    setBlurH();
+    setBlurV();
+    setBlurH();
+    setBlurV();
 
   }
 
@@ -168,6 +175,7 @@ namespace xcEngineSDK {
                                                 nullptr);
 
     m_vRenderTargetsSSAO.push_back(m_ssaoTexture);
+    m_vTexturesBlurH.push_back(m_ssaoTexture);
 
     //Shader program
     m_shaderProgramSSAO = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
@@ -206,22 +214,162 @@ namespace xcEngineSDK {
 
   void 
   Renderer::createBlurH() {
+
+    auto& graphicsApi = g_graphicsAPI();
+
+    m_blurOutTexture = graphicsApi.createTexture2D(graphicsApi.m_width,
+                                                  graphicsApi.m_height,
+                                                  1,
+                                                  TF_R16G16B16A16_FLOAT,
+                                                  TEXTURE_BIND_SHADER_RESOURCE
+                                                  | TEXTURE_BIND_RENDER_TARGET,
+                                                  TYPE_USAGE_DEFAULT,
+                                                  nullptr);
+
+    m_vRenderTargetsBlurH.push_back(m_blurOutTexture);
+    m_vTexturesBlurV.push_back(m_blurOutTexture);
+
+    //Shader program
+    m_shaderProgramBlurH = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
+                                                           "gaussyan_blur", //file name PS
+                                                           "vs_ssaligned", //Entry point vs
+                                                           "ps_gaussian_blurH", //entry point ps
+                                                           "vs_4_0",
+                                                           "ps_4_0",
+                                                           1,
+                                                           1);
+
+
+    //Input Layout
+    m_inputLayoutBlurH = graphicsApi.createAutomaticInputLayout
+                                    (*m_shaderProgramBlurH);
+
+    // Create the constant buffers
+    m_constantBufferBlurH.mViewporDimension.x = graphicsApi.m_width;
+    m_constantBufferBlurH.mViewporDimension.y = graphicsApi.m_width;
+    m_constantBufferBlurH.mViewporDimension.z = 0;
+    m_constantBufferBlurH.mViewporDimension.w = 0;
+
+    //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
+    m_cbBlurH = graphicsApi.createConstantBuffer(sizeof(CBBLUR),
+                                                1,
+                                                &m_constantBufferBlurH);
+
+
+    ////create rasterizer
+    m_rasterizerBlurH = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
+                                                          CULL_MODE::CULL_FRONT,
+                                                          true);
+
+    ////create depth stencil state
+    m_depthStencilStateBlurH = graphicsApi.createDepthStencilState(false, false);
   }
 
   void 
   Renderer::createBlurV() {
-  }
 
-  void 
-  Renderer::createBlurH_1() {
-  }
+    auto& graphicsApi = g_graphicsAPI();
 
-  void 
-  Renderer::createBlurV_1() {
+    m_vRenderTargetsBlurV.push_back(m_ssaoTexture);
+    
+
+    //Shader program
+    m_shaderProgramBlurV = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
+                                                           "gaussyan_blur", //file name PS
+                                                           "vs_ssaligned", //Entry point vs
+                                                           "ps_gaussian_blurV", //entry point ps
+                                                           "vs_4_0",
+                                                           "ps_4_0",
+                                                           1,
+                                                           1);
+
+
+    //Input Layout
+    m_inputLayoutBlurV = graphicsApi.createAutomaticInputLayout
+                                    (*m_shaderProgramBlurV);
+
+    // Create the constant buffers
+    m_constantBufferBlurV.mViewporDimension.x = graphicsApi.m_width;
+    m_constantBufferBlurV.mViewporDimension.y = graphicsApi.m_width;
+    m_constantBufferBlurV.mViewporDimension.z = 0;
+    m_constantBufferBlurV.mViewporDimension.w = 0;
+
+    //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
+    m_cbBlurV = graphicsApi.createConstantBuffer(sizeof(CBBLUR),
+                                                1,
+                                                &m_constantBufferBlurV);
+
+
+    ////create rasterizer
+    m_rasterizerBlurV = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
+                                                          CULL_MODE::CULL_FRONT,
+                                                          true);
+
+    ////create depth stencil state
+    m_depthStencilStateBlurV = graphicsApi.createDepthStencilState(false, false);
   }
 
   void 
   Renderer::createLigth() {
+
+    auto& graphicsApi = g_graphicsAPI();
+    auto& sceneGraph = g_sceneGraph();
+
+    m_vTexturesLight.push_back(m_positionTexture);
+    m_vTexturesLight.push_back(m_albedoTexture);
+    m_vTexturesLight.push_back(m_ssaoTexture);
+
+
+
+    //Shader program
+    m_shaderProgramLight = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
+                                                           "Light", //file name PS
+                                                           "vs_ssaligned", //Entry point vs
+                                                           "ps_main", //entry point ps
+                                                           "vs_4_0",
+                                                           "ps_4_0",
+                                                            1,
+                                                            1);
+    //Input Layout
+    m_inputLayoutLight = graphicsApi.createAutomaticInputLayout
+                                     (*m_shaderProgramLight);
+
+
+    // Create the constant buffers
+   
+
+
+
+    //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
+    m_cbNeverChanges = graphicsApi.createConstantBuffer(sizeof(CBNeverChanges),
+                                                        1,
+                                                        &m_constantBuffer);
+
+
+    ////create rasterizer
+    m_rasterizerGbuffer = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
+                                                            CULL_MODE::CULL_FRONT,
+                                                            true);
+
+    m_rasterizerSAQ = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
+                                                        CULL_MODE::CULL_NONE,
+                                                        false);
+
+    
+    //create depth stencil view
+    m_depthStencilView = graphicsApi.createTexture2D(graphicsApi.m_width,
+                                                     graphicsApi.m_height,
+                                                     1, 
+                                                     TF_D24_UNORM_S8_UINT, 
+                                                     TEXTURE_BIND_DEPTH_STENCIL, 
+                                                     TYPE_USAGE_DEFAULT,
+                                                     nullptr);
+
+    ////create depth stencil state
+    m_depthStencilStateGbuffer = graphicsApi.createDepthStencilState(true, true);
+
+    m_depthStencilStateSAQ = graphicsApi.createDepthStencilState(false, false);
+
   }
 
   void 
@@ -267,6 +415,10 @@ namespace xcEngineSDK {
 
     auto& sceneGraph = g_sceneGraph();
 
+    //set render target
+    graphicsApi.setRenderTarget(m_vRenderTargetsSSAO, m_depthStencilView);
+
+
     graphicsApi.clearRenderTarget(m_ssaoTexture, m_color);
 
     //graphicsApi.clearDepthStencil(m_depthStencilView);
@@ -290,8 +442,7 @@ namespace xcEngineSDK {
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutSSAO);
 
-    //set render target
-    graphicsApi.setRenderTarget(m_vRenderTargetsSSAO, m_depthStencilView);
+    
 
     
     //shader program
@@ -303,18 +454,83 @@ namespace xcEngineSDK {
 
   void 
   Renderer::setBlurH() {
+
+    auto& graphicsApi = g_graphicsAPI();
+
+    auto& sceneGraph = g_sceneGraph();
+
+    graphicsApi.clearRenderTarget(m_blurOutTexture, m_color);
+
+    //graphicsApi.clearDepthStencil(m_depthStencilView);
+
+    //set rasterizer
+    graphicsApi.setRasterizerState(m_rasterizerBlurH);
+
+
+    //set depth stencil state
+    graphicsApi.setDepthStencilState(m_depthStencilStateBlurH, 0);
+
+    //set all vertex shader constant buffer
+
+    graphicsApi.setPSConstantBuffer(m_cbBlurH,
+                                    0,
+                                    1);
+
+    graphicsApi.setShaderResource(m_vTexturesBlurH);
+
+    //set input layout
+    graphicsApi.setInputLayout(m_inputLayoutBlurH);
+
+    //set render target
+    graphicsApi.setRenderTarget(m_vRenderTargetsBlurH, m_depthStencilView);
+
+    
+    //shader program
+    graphicsApi.setShaderProgram(m_shaderProgramBlurH);
+
+
+    m_SAQ->render();
   }
 
   void 
   Renderer::setBlurV() {
-  }
 
-  void 
-  Renderer::setBlurH_1() {
-  }
+    auto& graphicsApi = g_graphicsAPI();
 
-  void 
-  Renderer::setBlurV_1() {
+    auto& sceneGraph = g_sceneGraph();
+
+    graphicsApi.clearRenderTarget(m_ssaoTexture, m_color);
+
+    //graphicsApi.clearDepthStencil(m_depthStencilView);
+
+    //set rasterizer
+    graphicsApi.setRasterizerState(m_rasterizerBlurV);
+
+
+    //set depth stencil state
+    graphicsApi.setDepthStencilState(m_depthStencilStateBlurV, 0);
+
+    //set all vertex shader constant buffer
+
+    graphicsApi.setPSConstantBuffer(m_cbBlurV,
+                                    0,
+                                    1);
+
+    graphicsApi.setShaderResource(m_vTexturesBlurV);
+
+    //set input layout
+    graphicsApi.setInputLayout(m_inputLayoutBlurV);
+
+    //set render target
+    graphicsApi.setRenderTarget(m_vRenderTargetsBlurV, m_depthStencilView);
+
+    
+    //shader program
+    graphicsApi.setShaderProgram(m_shaderProgramBlurV);
+
+
+
+    m_SAQ->render();
   }
 
   void 

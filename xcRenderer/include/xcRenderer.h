@@ -69,12 +69,6 @@ namespace xcEngineSDK {
     createBlurV();
 
     void
-    createBlurH_1();
-
-    void
-    createBlurV_1();
-
-    void
     createLigth();
 
     void
@@ -88,12 +82,6 @@ namespace xcEngineSDK {
 
     void
     setBlurV();
-
-    void
-    setBlurH_1();
-
-    void
-    setBlurV_1();
 
     void
     setLigth();
@@ -182,7 +170,53 @@ namespace xcEngineSDK {
     //Vector of render targets
     Vector<Texture*> m_vTexturesBlurH;
 
+    //Constant buffer
+    CBBLUR m_constantBufferBlurH;
+    SPtr<ConstantBuffer> m_cbBlurH = nullptr;
+
     //**BlurV**//
+    //Shader
+    SPtr<ShaderProgram> m_shaderProgramBlurV = nullptr;
+
+    //Input layout
+    SPtr<InputLayout> m_inputLayoutBlurV = nullptr;
+
+    //depth stencil state
+    SPtr<DepthStencilState> m_depthStencilStateBlurV = nullptr;
+
+    //Rasterizer
+    SPtr<RasterizerState> m_rasterizerBlurV = nullptr;
+
+    //Vector of render targets
+    Vector<Texture*> m_vRenderTargetsBlurV;
+
+    //Vector of textures
+    Vector<Texture*> m_vTexturesBlurV;
+
+    //Constant buffer
+    CBBLUR m_constantBufferBlurV;
+    SPtr<ConstantBuffer> m_cbBlurV = nullptr;
+    ///////////////////////////////////////////////////
+
+    //**Ligth**//
+    //Shader
+    SPtr<ShaderProgram> m_shaderProgramLight = nullptr;
+
+    //Input layout
+    SPtr<InputLayout> m_inputLayoutLight = nullptr;
+
+    //depth stencil state
+    SPtr<DepthStencilState> m_depthStencilStateLight = nullptr;
+
+    //Rasterizer
+    SPtr<RasterizerState> m_rasterizerLight = nullptr;
+    
+    //Vector of textures
+    Vector<Texture*> m_vTexturesLight;
+
+    //Constant buffer
+    CBNeverChanges m_constantBufferLight;
+    SPtr<ConstantBuffer> m_cbLight = nullptr;
 
     //DepthStencil view
     Texture* m_depthStencilView;

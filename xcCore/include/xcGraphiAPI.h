@@ -281,6 +281,11 @@ namespace xcEngineSDK {
     float mBias;
   };
 
+  struct CBBLUR
+  {
+    Vector4 mViewporDimension;
+  };
+
   struct BoneVertex {
     Vector3 vertex;
     Vector2 texCoords;
