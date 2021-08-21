@@ -171,8 +171,8 @@ namespace xcEngineSDK {
     Vector<Texture*> m_vTexturesBlurH;
 
     //Constant buffer
-    CBBLUR m_constantBufferBlurH;
-    SPtr<ConstantBuffer> m_cbBlurH = nullptr;
+    CBBLUR m_constantBufferBlur;
+    SPtr<ConstantBuffer> m_cbBlur = nullptr;
 
     //**BlurV**//
     //Shader
@@ -188,14 +188,11 @@ namespace xcEngineSDK {
     SPtr<RasterizerState> m_rasterizerBlurV = nullptr;
 
     //Vector of render targets
-    Vector<Texture*> m_vRenderTargetsBlurV;
+    //Vector<Texture*> m_vRenderTargetsBlurV;
 
     //Vector of textures
     Vector<Texture*> m_vTexturesBlurV;
-
-    //Constant buffer
-    CBBLUR m_constantBufferBlurV;
-    SPtr<ConstantBuffer> m_cbBlurV = nullptr;
+  
     ///////////////////////////////////////////////////
 
     //**Ligth**//

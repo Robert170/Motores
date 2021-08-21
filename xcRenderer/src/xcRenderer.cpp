@@ -42,8 +42,8 @@ namespace xcEngineSDK {
     setSSAO();
     setBlurH();
     setBlurV();
-    setBlurH();
-    setBlurV();
+    //setBlurH();
+    //setBlurV();
 
   }
 
@@ -245,15 +245,15 @@ namespace xcEngineSDK {
                                     (*m_shaderProgramBlurH);
 
     // Create the constant buffers
-    m_constantBufferBlurH.mViewporDimension.x = graphicsApi.m_width;
-    m_constantBufferBlurH.mViewporDimension.y = graphicsApi.m_width;
-    m_constantBufferBlurH.mViewporDimension.z = 0;
-    m_constantBufferBlurH.mViewporDimension.w = 0;
+    m_constantBufferBlur.mViewporDimension.x = graphicsApi.m_width;
+    m_constantBufferBlur.mViewporDimension.y = graphicsApi.m_width;
+    m_constantBufferBlur.mViewporDimension.z = 0;
+    m_constantBufferBlur.mViewporDimension.w = 0;
 
     //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
-    m_cbBlurH = graphicsApi.createConstantBuffer(sizeof(CBBLUR),
+    m_cbBlur = graphicsApi.createConstantBuffer(sizeof(CBBLUR),
                                                 1,
-                                                &m_constantBufferBlurH);
+                                                &m_constantBufferBlur);
 
 
     ////create rasterizer
@@ -269,8 +269,6 @@ namespace xcEngineSDK {
   Renderer::createBlurV() {
 
     auto& graphicsApi = g_graphicsAPI();
-
-    m_vRenderTargetsBlurV.push_back(m_ssaoTexture);
     
 
     //Shader program
@@ -288,19 +286,8 @@ namespace xcEngineSDK {
     m_inputLayoutBlurV = graphicsApi.createAutomaticInputLayout
                                     (*m_shaderProgramBlurV);
 
-    // Create the constant buffers
-    m_constantBufferBlurV.mViewporDimension.x = graphicsApi.m_width;
-    m_constantBufferBlurV.mViewporDimension.y = graphicsApi.m_width;
-    m_constantBufferBlurV.mViewporDimension.z = 0;
-    m_constantBufferBlurV.mViewporDimension.w = 0;
 
-    //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
-    m_cbBlurV = graphicsApi.createConstantBuffer(sizeof(CBBLUR),
-                                                1,
-                                                &m_constantBufferBlurV);
-
-
-    ////create rasterizer
+    //create rasterizer
     m_rasterizerBlurV = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
                                                           CULL_MODE::CULL_FRONT,
                                                           true);
@@ -459,7 +446,9 @@ namespace xcEngineSDK {
 
     auto& sceneGraph = g_sceneGraph();
 
-    graphicsApi.clearRenderTarget(m_blurOutTexture, m_color);
+    //set render target
+
+    graphicsApi.setRenderTarget(m_vRenderTargetsBlurH, m_depthStencilView);
 
     //graphicsApi.clearDepthStencil(m_depthStencilView);
 
@@ -472,7 +461,7 @@ namespace xcEngineSDK {
 
     //set all vertex shader constant buffer
 
-    graphicsApi.setPSConstantBuffer(m_cbBlurH,
+    graphicsApi.setPSConstantBuffer(m_cbBlur,
                                     0,
                                     1);
 
@@ -481,12 +470,13 @@ namespace xcEngineSDK {
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutBlurH);
 
-    //set render target
-    graphicsApi.setRenderTarget(m_vRenderTargetsBlurH, m_depthStencilView);
 
     
     //shader program
     graphicsApi.setShaderProgram(m_shaderProgramBlurH);
+
+    graphicsApi.clearRenderTarget(m_blurOutTexture, m_color);
+
 
 
     m_SAQ->render();
@@ -498,6 +488,10 @@ namespace xcEngineSDK {
     auto& graphicsApi = g_graphicsAPI();
 
     auto& sceneGraph = g_sceneGraph();
+
+    //set render target
+    graphicsApi.setRenderTarget(m_vRenderTargetsSSAO, m_depthStencilView);
+
 
     graphicsApi.clearRenderTarget(m_ssaoTexture, m_color);
 
@@ -512,7 +506,7 @@ namespace xcEngineSDK {
 
     //set all vertex shader constant buffer
 
-    graphicsApi.setPSConstantBuffer(m_cbBlurV,
+    graphicsApi.setPSConstantBuffer(m_cbBlur,
                                     0,
                                     1);
 
@@ -521,8 +515,7 @@ namespace xcEngineSDK {
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutBlurV);
 
-    //set render target
-    graphicsApi.setRenderTarget(m_vRenderTargetsBlurV, m_depthStencilView);
+    
 
     
     //shader program
