@@ -203,8 +203,6 @@ GameAppUnitTest::onRender() {
  
   /*g_graphicsAPI().SetRenderTarget(m_renderTargets,
  	                  m_depthStencil);*/
-
-  
  
   ////set vertex buffer
   //g_graphicsAPI().setVertexBuffer(g_pVertexBuffer,

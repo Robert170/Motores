@@ -14,11 +14,12 @@ namespace xcEngineSDK {
     //SPtr<Model> saqModel(new Model("Models/ScreenAlignedQuad.3ds"));
     m_SAQ = std::make_shared<Model>();
     m_SAQ->loadFromFile("Models/ScreenAlignedQuad.3ds");
-    m_color.setColor(0.1f, 0.5f, 1.0f, 1.0f);
+    m_color.setColor(0.0f, 0.0f, 0.0f, 1.0f);
     createGbuffer();
     createSSAO();
     createBlurH();
     createBlurV();
+    createLigth();
 
   }
 
@@ -42,8 +43,9 @@ namespace xcEngineSDK {
     setSSAO();
     setBlurH();
     setBlurV();
-    //setBlurH();
-    //setBlurV();
+    setBlurH();
+    setBlurV();
+    setLigth();
 
   }
 
@@ -303,6 +305,7 @@ namespace xcEngineSDK {
     auto& sceneGraph = g_sceneGraph();
 
     m_vTexturesLight.push_back(m_positionTexture);
+    m_vTexturesLight.push_back(m_normalTxture);
     m_vTexturesLight.push_back(m_albedoTexture);
     m_vTexturesLight.push_back(m_ssaoTexture);
 
@@ -323,40 +326,27 @@ namespace xcEngineSDK {
 
 
     // Create the constant buffers
-   
+    //m_constantBufferLight.EmissiveIntensity = 1.0F;
+    m_constantBufferLight.Light_pos0.x = 650.0f;
+    m_constantBufferLight.Light_pos0.y = 300.0f;
+    m_constantBufferLight.Light_pos0.z = -200.0f;
+    m_constantBufferLight.LightIntensity_0 = 2.0f;
+    m_constantBufferLight.vViewPosition = Vector4::UNIT;
+    m_constantBufferLight.matView = graphicsApi.matri4x4Context
+                                    (sceneGraph.m_mainCamera.getView());
+
+    m_constantBufferLight.matWorld = Matrix4x4(Vector4(0.05f, 0.f, 0.f, 0.f),
+                                               Vector4(0.f, 0.05f, 0.f, 0.f),
+                                               Vector4(0.f, 0.f, 0.05f, 0.f),
+                                               Vector4(0.f, 0.f, 0.f, 1.f));
+
 
 
 
     //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
-    m_cbNeverChanges = graphicsApi.createConstantBuffer(sizeof(CBNeverChanges),
-                                                        1,
-                                                        &m_constantBuffer);
-
-
-    ////create rasterizer
-    m_rasterizerGbuffer = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                            CULL_MODE::CULL_FRONT,
-                                                            true);
-
-    m_rasterizerSAQ = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                        CULL_MODE::CULL_NONE,
-                                                        false);
-
-    
-    //create depth stencil view
-    m_depthStencilView = graphicsApi.createTexture2D(graphicsApi.m_width,
-                                                     graphicsApi.m_height,
-                                                     1, 
-                                                     TF_D24_UNORM_S8_UINT, 
-                                                     TEXTURE_BIND_DEPTH_STENCIL, 
-                                                     TYPE_USAGE_DEFAULT,
-                                                     nullptr);
-
-    ////create depth stencil state
-    m_depthStencilStateGbuffer = graphicsApi.createDepthStencilState(true, true);
-
-    m_depthStencilStateSAQ = graphicsApi.createDepthStencilState(false, false);
-
+    m_cbLight = graphicsApi.createConstantBuffer(sizeof(CBLIGHT),
+                                                 1,
+                                                 &m_constantBufferLight);
   }
 
   void 
@@ -420,9 +410,7 @@ namespace xcEngineSDK {
 
     //set all vertex shader constant buffer
 
-    graphicsApi.setPSConstantBuffer(m_cbSSAO,
-                                    0,
-                                    1);
+    graphicsApi.setPSConstantBuffer(m_cbSSAO, 0, 1);
 
     graphicsApi.setShaderResource(m_vTextures);
 
@@ -528,6 +516,19 @@ namespace xcEngineSDK {
 
   void 
   Renderer::setLigth() {
+
+    auto& graphicsApi = g_graphicsAPI();
+
+
+    graphicsApi.setDefaultRenderTarget();
+    graphicsApi.clearDefaultRenderTargetAndDepthStencil(m_color);
+
+    graphicsApi.setShaderResource(m_vTexturesLight);
+
+    graphicsApi.setPSConstantBuffer(m_cbLight, 0, 1);
+
+    m_SAQ->render();
+
   }
 
 }

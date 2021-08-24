@@ -212,7 +212,7 @@ namespace xcEngineSDK {
     Vector<Texture*> m_vTexturesLight;
 
     //Constant buffer
-    CBNeverChanges m_constantBufferLight;
+    CBLIGHT m_constantBufferLight;
     SPtr<ConstantBuffer> m_cbLight = nullptr;
 
     //DepthStencil view

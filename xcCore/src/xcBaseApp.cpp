@@ -50,10 +50,12 @@ namespace xcEngineSDK {
 
       //update
       update(deltaTime);
+      renderer.update();
 
-      renderer.render();
 
       //render
+      renderer.render();
+
       render();
 
     }

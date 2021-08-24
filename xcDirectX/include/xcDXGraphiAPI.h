@@ -441,6 +441,9 @@ namespace xcEngineSDK {
 		void 
 		setVS(WeakSptr<VertexShader> Vertex) override;
 
+    void
+    setBackBuffer(Texture* backBuff);
+
 		/**
 		 * @brief      setInputLayout function, to set input layout
 		 * @param      Inp parameter one, a pointer of CInputLayout

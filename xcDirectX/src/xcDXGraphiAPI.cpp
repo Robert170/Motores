@@ -1093,6 +1093,11 @@ namespace xcEngineSDK {
                                      0);
   }
 
+  void DXGraphiAPI::setBackBuffer(Texture* backBuff) {
+
+    
+  }
+
   //function to set a render target 
   void 
   DXGraphiAPI::setRenderTarget(const Vector<Texture*>& pRTTex,

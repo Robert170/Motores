@@ -286,6 +286,17 @@ namespace xcEngineSDK {
     Vector4 mViewporDimension;
   };
 
+  struct CBLIGHT 
+  {
+    Vector3 Light_pos0;
+    Vector4 vViewPosition;
+    float LightIntensity_0;
+    //float EmissiveIntensity;
+
+    Matrix4x4 matView;
+    Matrix4x4 matWorld;
+  };
+
   struct BoneVertex {
     Vector3 vertex;
     Vector2 texCoords;
@@ -764,6 +775,9 @@ namespace xcEngineSDK {
      */
     virtual void 
     setVS(WeakSptr<VertexShader>) { };
+
+    virtual void
+    setBackBuffer(Texture*) {};
 
     /**
      * @brief      setInputLayout function, to set input layout
