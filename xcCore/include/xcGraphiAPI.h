@@ -260,6 +260,16 @@ namespace xcEngineSDK {
     };
   }
 
+  struct TextureDesc
+  {
+    uint32 width;
+    uint32 height;
+    uint32 numTexture;
+    TEXTURE_FORMAT textureFormat;
+    uint32 bindFlags;
+    TYPE_USAGE usage;
+  };
+
   struct SimpleVertex
   {
     Vector3	Position;

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcActor.h" />
+    <ClInclude Include="include\xcBasePhysics.h" />
     <ClInclude Include="include\xcDepthStencilState.h" />
     <ClInclude Include="include\xcMaterial.h" />
     <ClInclude Include="include\xcBaseRenderer.h" />

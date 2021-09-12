@@ -24,13 +24,7 @@ GameAppUnitTest::onCreate() {
   // Set primitive topology
   graphicsApi.setPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-  //TODO depth
-  // Setup the viewport
-  graphicsApi.setViewport(1,
-                          graphicsApi.m_width,
-                          graphicsApi.m_height,
-                          0,
-                          0);
+  
   
   //load model
 
@@ -168,6 +162,12 @@ GameAppUnitTest::onCreate() {
  
   //g_vSamplers.push_back(g_pSamplerState);
 
+  graphicsApi.setViewport(1,
+                          graphicsApi.m_width,
+                          graphicsApi.m_height,
+                          0,
+                          0);
+
 }
 
 void
@@ -196,10 +196,6 @@ void
 GameAppUnitTest::onRender() {
 
   auto& graphicsApi = g_graphicsAPI();
-  auto& sceneGraph = g_sceneGraph();
- 
-
-   
  
   /*g_graphicsAPI().SetRenderTarget(m_renderTargets,
  	                  m_depthStencil);*/

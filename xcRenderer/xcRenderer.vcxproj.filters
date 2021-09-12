@@ -20,5 +20,8 @@
     <ClInclude Include="include\xcRenderer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcPass.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

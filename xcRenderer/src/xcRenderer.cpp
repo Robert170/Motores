@@ -55,7 +55,7 @@ namespace xcEngineSDK {
   }
 
   void
-  Renderer::setModel(SPtr<Model> model) {
+  Renderer::setModel(SPtr<Model> model) {                                                
     m_vModels.push_back(model);
   }
 
@@ -76,7 +76,7 @@ namespace xcEngineSDK {
                                                     nullptr);
 
     m_vRenderTargets.push_back(m_positionTexture);
-    m_vTextures.push_back(m_positionTexture);
+    m_vTexturesSSAO.push_back(m_positionTexture);
 
     m_normalTxture = graphicsApi.createTexture2D(graphicsApi.m_width,
                                                  graphicsApi.m_height,
@@ -87,7 +87,7 @@ namespace xcEngineSDK {
                                                  TYPE_USAGE_DEFAULT,
                                                  nullptr);
     m_vRenderTargets.push_back(m_normalTxture);
-    m_vTextures.push_back(m_normalTxture);
+    m_vTexturesSSAO.push_back(m_normalTxture);
 
 
 
@@ -100,8 +100,6 @@ namespace xcEngineSDK {
                                                   TYPE_USAGE_DEFAULT,
                                                   nullptr);
     m_vRenderTargets.push_back(m_albedoTexture);
-
-
 
 
     //Shader program
@@ -355,6 +353,9 @@ namespace xcEngineSDK {
 
     auto& sceneGraph = g_sceneGraph();
 
+    graphicsApi.setRenderTarget(m_vRenderTargets, m_depthStencilView);
+
+
     graphicsApi.clearRenderTarget(m_positionTexture, m_color);
     graphicsApi.clearRenderTarget(m_normalTxture, m_color);
     graphicsApi.clearRenderTarget(m_albedoTexture, m_color);
@@ -380,7 +381,6 @@ namespace xcEngineSDK {
     //shader program
     graphicsApi.setShaderProgram(m_shaderProgramGbuffer);
 
-    graphicsApi.setRenderTarget(m_vRenderTargets, m_depthStencilView);
 
     sceneGraph.render();
   }
@@ -412,7 +412,7 @@ namespace xcEngineSDK {
 
     graphicsApi.setPSConstantBuffer(m_cbSSAO, 0, 1);
 
-    graphicsApi.setShaderResource(m_vTextures);
+    graphicsApi.setShaderResource(m_vTexturesSSAO);
 
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutSSAO);
@@ -466,7 +466,6 @@ namespace xcEngineSDK {
     graphicsApi.clearRenderTarget(m_blurOutTexture, m_color);
 
 
-
     m_SAQ->render();
   }
 
@@ -502,8 +501,6 @@ namespace xcEngineSDK {
 
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutBlurV);
-
-    
 
     
     //shader program

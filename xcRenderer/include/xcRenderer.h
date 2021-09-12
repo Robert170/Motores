@@ -1,9 +1,9 @@
 /*****************************************************************************/
 /**
- * @file    xcPipeline.h
+ * @file    xcRenderer.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
  * @date    2021/07/25
- * @brief   Represents pases of GBuffer
+ * @brief   Represents pases of renderer
  *
  * Represents the pase of the Gbuffer that the engine will use to compile
  * different shaders
@@ -32,6 +32,8 @@ namespace xcEngineSDK {
   class Texture;
 
   struct ColorStruct;
+  struct TextureDesc;
+ 
 
   class Renderer : public BaseRenderer
   {
@@ -90,7 +92,9 @@ namespace xcEngineSDK {
 
     Vector<SPtr<Model>> m_vModels;
      
-    //**Gbufer**//
+    //**Gbuffer**//
+    SPtr<Pass> Gbuffer;
+
     //Shader
     SPtr<ShaderProgram> m_shaderProgramGbuffer = nullptr;
 
@@ -139,7 +143,7 @@ namespace xcEngineSDK {
     Vector<Texture*> m_vRenderTargetsSSAO;
 
     //Vector of render targets
-    Vector<Texture*> m_vTextures;
+    Vector<Texture*> m_vTexturesSSAO;
 
     //Constant buffer
     CBSSAO m_constantBufferSSAO;
