@@ -524,6 +524,10 @@ namespace xcEngineSDK {
 
     graphicsApi.setPSConstantBuffer(m_cbLight, 0, 1);
 
+
+    //shader program
+    graphicsApi.setShaderProgram(m_shaderProgramLight);
+
     m_SAQ->render();
 
   }
