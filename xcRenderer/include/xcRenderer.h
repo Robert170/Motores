@@ -74,6 +74,9 @@ namespace xcEngineSDK {
     createLigth();
 
     void
+    createShadowMap();
+
+    void
     setGbuffer();
 
     void
@@ -87,6 +90,9 @@ namespace xcEngineSDK {
 
     void
     setLigth();
+
+    void
+    setShadowMap();
 
    private:
 
@@ -124,6 +130,9 @@ namespace xcEngineSDK {
     //////////////////////////
 
     //**SSAO**//
+    
+    Camera m_shadowCamera;
+
     //Shader
     SPtr<ShaderProgram> m_shaderProgramSSAO = nullptr;
 
@@ -218,6 +227,23 @@ namespace xcEngineSDK {
     //Constant buffer
     CBLIGHT m_constantBufferLight;
     SPtr<ConstantBuffer> m_cbLight = nullptr;
+
+    //**Shadow**//
+    
+    //Texture
+    Texture* m_shadowTexture;
+
+    //Shader
+    SPtr<ShaderProgram> m_shaderProgramShadow = nullptr;
+
+    //Input layout
+    SPtr<InputLayout> m_inputLayoutShadow = nullptr;
+
+    CBNeverChanges m_constantBufferShadow;
+    SPtr<ConstantBuffer> m_cbShadow = nullptr;
+
+    //Vector of textures
+    Vector<Texture*> m_vTexturesShadow;
 
     //DepthStencil view
     Texture* m_depthStencilView;

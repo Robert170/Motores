@@ -19,6 +19,7 @@ namespace xcEngineSDK {
     createSSAO();
     createBlurH();
     createBlurV();
+    createShadowMap();
     createLigth();
 
   }
@@ -45,6 +46,7 @@ namespace xcEngineSDK {
     setBlurV();
     setBlurH();
     setBlurV();
+    setShadowMap();
     setLigth();
 
   }
@@ -348,6 +350,69 @@ namespace xcEngineSDK {
   }
 
   void 
+  Renderer::createShadowMap() {
+
+    auto& graphicsApi = g_graphicsAPI();
+    auto& sceneGraph = g_sceneGraph();
+
+    m_shadowCamera.setPosition(Vector3(650.0f, 300.0f, -200.0f));
+    m_shadowCamera.setLookAt((Vector3(0.0f, 0.0f, 0.0f) - 
+                             m_shadowCamera.getPosition()).normalize());
+    m_shadowCamera.setUp(Vector3(0.0f, 1.0f, 0.0f));
+    m_shadowCamera.setfar(30000);
+    m_shadowCamera.setNear(0.1f);
+    m_shadowCamera.setFielOfView(0.78539816339f);
+    m_shadowCamera.setWidth(graphicsApi.m_width);
+    m_shadowCamera.setHeight(graphicsApi.m_height);
+
+    m_shadowCamera.init();
+
+
+    //Textures
+    m_shadowTexture = graphicsApi.createTexture2D(graphicsApi.m_width,
+                                                  graphicsApi.m_height,
+                                                  1,
+                                                  TF_R16_FLOAT,
+                                                  TEXTURE_BIND_SHADER_RESOURCE
+                                                  | TEXTURE_BIND_RENDER_TARGET,
+                                                  TYPE_USAGE_DEFAULT,
+                                                  nullptr);
+
+    m_vTexturesShadow.push_back(m_shadowTexture);
+
+
+    m_shaderProgramShadow = graphicsApi.createShaderProgram("ShadowMapVS",
+                                                            "ShadowMapPS",
+                                                            "ShadowVS",
+                                                            "ShadowPS",
+                                                            "vs_4_0",
+                                                            "ps_4_0",
+                                                            1,
+                                                            1);
+
+    //Input Layout
+    m_inputLayoutShadow = graphicsApi.createAutomaticInputLayout
+                                     (*m_shaderProgramShadow);
+
+    // Create the constant buffers
+    m_constantBufferShadow.mView =
+    graphicsApi.matri4x4Context(m_shadowCamera.getView());
+      
+    m_constantBufferShadow.mProjection =
+    graphicsApi.matri4x4Context(m_shadowCamera.getProyeccion());
+
+    m_constantBufferShadow.mWorld = Matrix4x4(Vector4(0.05f, 0.f, 0.f, 0.f),
+                                              Vector4(0.f, 0.05f, 0.f, 0.f),
+                                              Vector4(0.f, 0.f, 0.05f, 0.f),
+                                              Vector4(0.f, 0.f, 0.f, 1.f));
+
+    m_cbShadow = graphicsApi.createConstantBuffer(sizeof(CBNeverChanges),
+                                                  1,
+                                                  &m_constantBufferShadow);
+
+  }
+
+  void 
   Renderer::setGbuffer() {
     auto& graphicsApi = g_graphicsAPI();
 
@@ -530,6 +595,22 @@ namespace xcEngineSDK {
 
     m_SAQ->render();
 
+  }
+
+  void 
+  Renderer::setShadowMap() {
+
+    auto& graphicsApi = g_graphicsAPI();
+
+    graphicsApi.setRenderTarget(m_vTexturesShadow, m_depthStencilView);
+    graphicsApi.clearRenderTarget(m_shadowTexture, m_color);
+
+    graphicsApi.setVSConstantBuffer(m_cbShadow,
+                                    0,
+                                    1);
+    //set input layout
+    graphicsApi.setInputLayout(m_inputLayoutShadow);
+    m_SAQ->render();
   }
 
 }
