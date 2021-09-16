@@ -46,7 +46,7 @@ namespace xcEngineSDK {
     setBlurV();
     setBlurH();
     setBlurV();
-    setShadowMap();
+    //setShadowMap();
     setLigth();
 
   }
@@ -355,9 +355,8 @@ namespace xcEngineSDK {
     auto& graphicsApi = g_graphicsAPI();
     auto& sceneGraph = g_sceneGraph();
 
-    m_shadowCamera.setPosition(Vector3(650.0f, 300.0f, -200.0f));
-    m_shadowCamera.setLookAt((Vector3(0.0f, 0.0f, 0.0f) - 
-                             m_shadowCamera.getPosition()).normalize());
+    m_shadowCamera.setPosition(Vector3(0.0f, 1.0f, -10.0f));
+    m_shadowCamera.setLookAt((Vector3(0.0f, 1.0f, 0.0f)));
     m_shadowCamera.setUp(Vector3(0.0f, 1.0f, 0.0f));
     m_shadowCamera.setfar(30000);
     m_shadowCamera.setNear(0.1f);
@@ -601,16 +600,15 @@ namespace xcEngineSDK {
   Renderer::setShadowMap() {
 
     auto& graphicsApi = g_graphicsAPI();
+    auto& sceneGraph = g_sceneGraph();
 
     graphicsApi.setRenderTarget(m_vTexturesShadow, m_depthStencilView);
     graphicsApi.clearRenderTarget(m_shadowTexture, m_color);
 
-    graphicsApi.setVSConstantBuffer(m_cbShadow,
-                                    0,
-                                    1);
+    graphicsApi.setVSConstantBuffer(m_cbShadow, 0, 1);
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutShadow);
-    m_SAQ->render();
+    sceneGraph.render();
   }
 
 }
