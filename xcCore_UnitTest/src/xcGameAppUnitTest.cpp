@@ -32,7 +32,8 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Agnaktor/idle2.fbx"));
 
-  //SPtr<Model> exampleModel(new Model("Models/Bea/bea_geo.fbx")); //
+  SPtr<Model> exampleModel2(new Model("Models/Bea/bea_geo.fbx")); //
+  SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
 
   //SPtr<Model> exampleModel(new Model("Models/Gwen/Angry.fbx")); //
 
@@ -49,7 +50,11 @@ GameAppUnitTest::onCreate() {
   SPtr<Actor> testActor(new Actor("test"));
   testActor->addComponent(testComponent);
 
+  SPtr<Actor> testActor2(new Actor("test2"));
+  testActor2->addComponent(testComponent2);
+
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
+  sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
 
   m_meshColor.x = 1;
   m_meshColor.y = 1;
