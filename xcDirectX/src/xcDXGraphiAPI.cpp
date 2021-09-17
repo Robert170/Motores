@@ -498,9 +498,11 @@ namespace xcEngineSDK {
     SPtr<ShaderProgramDX> shaderProgram;
     shaderProgram.reset(new ShaderProgramDX());
 
+    String pathPrefix = "C:/Usefs/F_A_R/source/repos/clase-shaders/Motores/bin/";
+
     //TODO EL VS y PS dben ser objetos
     //vertexShder
-    String Temp = FileNameVS + "_DX.txt";
+    String Temp = pathPrefix + FileNameVS + "_DX.txt";
     shaderProgram->m_vertexShaderProgram = new VertexShaderDX();
     WString FileVS(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), FileVS.begin());
@@ -530,7 +532,7 @@ namespace xcEngineSDK {
 
 
     //pixel shader
-    Temp = FileNamePS + "_DX.txt";
+    Temp = pathPrefix + FileNamePS + "_DX.txt";
     shaderProgram->m_pixelShaderProgram = new PixelShaderDX();
 
     WString FilePS(Temp.length(), L' ');
@@ -570,7 +572,9 @@ namespace xcEngineSDK {
                                                int32 NumPixelShader) {
     XC_UNREFERENCED_PARAMETER(NumPixelShader);
 
-    String Temp = FileName + "_DX.txt";
+    String pathPrefix = "C:/Usefs/F_A_R/source/repos/clase-shaders/Motores/bin/";
+
+    String Temp = pathPrefix + FileName + "_DX.txt";
     SPtr<PixelShaderDX> pixelShader;
     pixelShader.reset(new PixelShaderDX());
 
@@ -608,8 +612,10 @@ namespace xcEngineSDK {
                                    const String& ShaderModel,
                                    int32 NumVextexShader) {
 
+    String pathPrefix = "C:/Usefs/F_A_R/source/repos/clase-shaders/Motores/bin/";
+
     XC_UNREFERENCED_PARAMETER(NumVextexShader);
-    String Temp = FileName + "_DX.txt";
+    String Temp = pathPrefix + FileName + "_DX.txt";
     SPtr<VertexShaderDX>vertexShaders;
     vertexShaders.reset(new VertexShaderDX());
     WString File(Temp.length(), L' ');

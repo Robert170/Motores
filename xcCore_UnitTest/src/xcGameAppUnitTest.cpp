@@ -40,7 +40,8 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
 
-  SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
+  SPtr<Model> exampleModel(new Model("C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/Models/Vela2/Vela2.fbx"));
 
   SPtr<Component> testComponent(new StaticMesh(exampleModel));
   

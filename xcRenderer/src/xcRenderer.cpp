@@ -13,7 +13,8 @@ namespace xcEngineSDK {
 
     //SPtr<Model> saqModel(new Model("Models/ScreenAlignedQuad.3ds"));
     m_SAQ = std::make_shared<Model>();
-    m_SAQ->loadFromFile("Models/ScreenAlignedQuad.3ds");
+    //m_SAQ->loadFromFile("Models/ScreenAlignedQuad.3ds");
+    m_SAQ->loadFromFile("C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/Models/ScreenAlignedQuad.3ds");
     m_color.setColor(0.0f, 0.0f, 0.0f, 1.0f);
     createGbuffer();
     createSSAO();
