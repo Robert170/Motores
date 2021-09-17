@@ -1,0 +1,60 @@
+//--------------------------------------------------------------------------------------
+// Constant Buffer Variables
+//--------------------------------------------------------------------------------------
+
+//Revisar que se carguen iguaol que el modelo
+Texture2D albedoTexture : register( t0 ); //albedo
+Texture2D normalTexture : register( t1 ); //normal
+Texture2D metalTexture : register( t2 ); //Metalic
+Texture2D rougTexture : register( t3 ); //Rougnes
+
+//Sampler
+SamplerState samLinear : register( s0 );
+
+
+struct PS_INPUT
+{
+  float4 Position : SV_POSITION;
+  float2 Texcoord : TEXCOORD0;
+  float3 PosView : TEXCOORD1;
+  float3x3 TBN    : TEXCOORD2;
+};
+
+
+struct PS_OUTPUT
+{
+  float4 Albedo : SV_TARGET0;
+  float4 Normal   : SV_TARGET1;
+  float4 Position : SV_TARGET2;
+};
+
+//--------------------------------------------------------------------------------------
+// Pixel Shader
+//--------------------------------------------------------------------------------------
+PS_OUTPUT ps_gbuffer(PS_INPUT Input) : SV_TARGET
+{
+
+  PS_OUTPUT Output = (PS_OUTPUT)0;
+  
+  //Position
+  Output.Position = float4(Input.PosView.xyz, 1.0f);
+
+  //Normal
+  float3 normal = normalTexture.Sample(samLinear, Input.Texcoord).xyz;
+  normal = (normal * 2.0f) - 1.0f;
+  normal = normalize(mul(normal, Input.TBN).xyz);
+  Output.Normal.xyz = normal;
+  
+  //Roughness
+  Output.Normal.w = rougTexture.Sample(samLinear, Input.Texcoord).x;
+  
+  //Albedo
+  float3 albedo = albedoTexture.Sample(samLinear, Input.Texcoord).xyz;
+  Output.Albedo.xyz = albedo;
+  
+  //Metallic
+  Output.Albedo.w = metalTexture.Sample(samLinear, Input.Texcoord).x;
+  
+  return Output;
+
+}

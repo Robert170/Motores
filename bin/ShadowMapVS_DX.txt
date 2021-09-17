@@ -1,0 +1,48 @@
+
+
+
+//////////////////////
+// CONSTANT BUFFERS //
+//////////////////////
+cbuffer cbNeverChanges : register( b0 )
+{
+    matrix View;
+    matrix Projection;
+    matrix World;
+};
+
+
+//////////////
+// TYPEDEFS //
+//////////////
+struct VS_INPUT
+{
+    float4 position : POSITION;
+};
+
+struct VS_OUTPUT
+{
+    float4 position : SV_POSITION;
+    float4 Dposition    : TEXCOORD0;
+
+};
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Vertex Shader
+////////////////////////////////////////////////////////////////////////////////
+VS_OUTPUT ShadowVS(VS_INPUT input)
+{
+    VS_OUTPUT output;
+	
+	input.position.w = 1.0f;
+	
+	output.position = mul(input.position, World);
+    output.position = mul(output.position, View);
+    output.position = mul(output.position, Projection);
+	
+	output.Dposition = output.position;
+    
+
+    return output;
+}

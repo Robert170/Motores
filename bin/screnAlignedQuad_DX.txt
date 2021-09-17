@@ -1,0 +1,33 @@
+
+
+struct VS_INPUT
+{
+    float3 Position : POSITION0;
+	float2 TexCoord : TEXCOORD0;
+	float3 Normal : NORMAL0;
+    float3 Tangent : TANGENT0;
+	float3 Binormal : BINORMAL0;
+	
+	//Animation
+    float4 BoneW : BLENDWEIGHT;
+    int4 IdBone  : BLENDINDICES;
+
+};
+
+struct VS_OUTPUT
+{
+  float4 Position : SV_POSITION;
+  float2 TexCoord : TEXCOORD0;
+};
+
+VS_OUTPUT vs_ssaligned(VS_INPUT Input)
+{
+  VS_OUTPUT Output = (VS_OUTPUT)0;
+
+  Output.Position = float4(Input.Position, 1.0f);
+
+  Output.TexCoord = float2(Input.TexCoord.x, 1 - Input.TexCoord.y);
+
+  return(Output);
+
+}

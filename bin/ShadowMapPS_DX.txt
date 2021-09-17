@@ -1,0 +1,16 @@
+
+struct PS_INPUT
+{
+    float4 position : SV_POSITION;
+    float4 Depthposition    : TEXCOORD0;
+};
+
+float4 ShadowPS(PS_INPUT input) : SV_Target
+
+{
+    float depthVal = input.Depthposition.z / input.Depthposition.w;
+	depthVal /= 30000;
+    float4 colour = float4(depthVal, depthVal, depthVal, 1.0f);
+
+    return colour;
+}
