@@ -236,6 +236,12 @@ namespace xcEngineSDK {
     //Shader
     SPtr<ShaderProgram> m_shaderProgramShadow = nullptr;
 
+    //depth stencil state
+    SPtr<DepthStencilState> m_depthStencilStateDepth = nullptr;
+
+    //Rasterizer
+    SPtr<RasterizerState> m_rasterizerDepth = nullptr;
+
     //Input layout
     SPtr<InputLayout> m_inputLayoutShadow = nullptr;
 

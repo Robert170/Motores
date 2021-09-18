@@ -14,12 +14,13 @@ namespace xcEngineSDK {
     //SPtr<Model> saqModel(new Model("Models/ScreenAlignedQuad.3ds"));
     m_SAQ = std::make_shared<Model>();
     m_SAQ->loadFromFile("Models/ScreenAlignedQuad.3ds");
-    m_color.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+    m_color.setColor(0.0f, 0.0f, 1.0f, 1.0f);
+
+    createShadowMap();
     createGbuffer();
     createSSAO();
     createBlurH();
     createBlurV();
-    createShadowMap();
     createLigth();
 
   }
@@ -40,13 +41,13 @@ namespace xcEngineSDK {
 
     auto& sceneGraph = g_sceneGraph();
 
+    setShadowMap();
     setGbuffer();
     setSSAO();
     setBlurH();
     setBlurV();
     setBlurH();
     setBlurV();
-    //setShadowMap();
     setLigth();
 
   }
@@ -409,6 +410,14 @@ namespace xcEngineSDK {
                                                   1,
                                                   &m_constantBufferShadow);
 
+    ////create rasterizer
+    m_rasterizerDepth = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
+                                                         CULL_MODE::CULL_FRONT,
+                                                         true);
+
+    ////create depth stencil state
+    m_depthStencilStateDepth = graphicsApi.createDepthStencilState(false, false);
+
   }
 
   void 
@@ -557,9 +566,7 @@ namespace xcEngineSDK {
 
     //set all vertex shader constant buffer
 
-    graphicsApi.setPSConstantBuffer(m_cbBlur,
-                                    0,
-                                    1);
+    graphicsApi.setPSConstantBuffer(m_cbBlur, 0, 1);
 
     graphicsApi.setShaderResource(m_vTexturesBlurV);
 
@@ -573,6 +580,31 @@ namespace xcEngineSDK {
 
 
     m_SAQ->render();
+  }
+
+  void 
+  Renderer::setShadowMap() {
+
+    auto& graphicsApi = g_graphicsAPI();
+    auto& sceneGraph = g_sceneGraph();
+
+    graphicsApi.setRenderTarget(m_vTexturesShadow, m_depthStencilView);
+    graphicsApi.clearRenderTarget(m_shadowTexture, m_color);
+
+
+    //set rasterizer
+    graphicsApi.setRasterizerState(m_rasterizerDepth);
+
+    //set depth stencil state
+    graphicsApi.setDepthStencilState(m_depthStencilStateDepth, 0);
+
+    graphicsApi.setVSConstantBuffer(m_cbShadow, 0, 1);
+    //set input layout
+    graphicsApi.setInputLayout(m_inputLayoutShadow);
+
+    //Shader program
+    graphicsApi.setShaderProgram(m_shaderProgramShadow);
+    sceneGraph.render();
   }
 
   void 
@@ -596,19 +628,6 @@ namespace xcEngineSDK {
 
   }
 
-  void 
-  Renderer::setShadowMap() {
-
-    auto& graphicsApi = g_graphicsAPI();
-    auto& sceneGraph = g_sceneGraph();
-
-    graphicsApi.setRenderTarget(m_vTexturesShadow, m_depthStencilView);
-    graphicsApi.clearRenderTarget(m_shadowTexture, m_color);
-
-    graphicsApi.setVSConstantBuffer(m_cbShadow, 0, 1);
-    //set input layout
-    graphicsApi.setInputLayout(m_inputLayoutShadow);
-    sceneGraph.render();
-  }
+  
 
 }
