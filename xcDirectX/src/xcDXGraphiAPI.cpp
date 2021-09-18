@@ -162,7 +162,8 @@ namespace xcEngineSDK {
 
     UINT createDeviceFlags = 0;
 #ifdef _DEBUG
-    createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+    //createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+    createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUGGABLE;
 #endif
 
     Vector<D3D_DRIVER_TYPE> driverTypes =
@@ -498,7 +499,7 @@ namespace xcEngineSDK {
     SPtr<ShaderProgramDX> shaderProgram;
     shaderProgram.reset(new ShaderProgramDX());
 
-    String pathPrefix = "C:/Usefs/F_A_R/source/repos/clase-shaders/Motores/bin/";
+    String pathPrefix = "C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/";
 
     //TODO EL VS y PS dben ser objetos
     //vertexShder
@@ -508,9 +509,9 @@ namespace xcEngineSDK {
     std::copy(Temp.begin(), Temp.end(), FileVS.begin());
 
     if (!shaderProgram->m_vertexShaderProgram->compileVertexShaderFromFile(FileVS,
-        EntryVS,
-        ShaderModelVS,
-        &shaderProgram->m_vertexShaderProgram->m_pVSBlob)) {
+                                                                           EntryVS,
+                                                                           ShaderModelVS,
+                                                                           &shaderProgram->m_vertexShaderProgram->m_pVSBlob)) {
       std::cout << "//Error fallo la compilacion del shader" << std::endl;
       //delete shaderProgram;
       return nullptr;
@@ -572,7 +573,7 @@ namespace xcEngineSDK {
                                                int32 NumPixelShader) {
     XC_UNREFERENCED_PARAMETER(NumPixelShader);
 
-    String pathPrefix = "C:/Usefs/F_A_R/source/repos/clase-shaders/Motores/bin/";
+    String pathPrefix = "C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/";
 
     String Temp = pathPrefix + FileName + "_DX.txt";
     SPtr<PixelShaderDX> pixelShader;
@@ -612,7 +613,7 @@ namespace xcEngineSDK {
                                    const String& ShaderModel,
                                    int32 NumVextexShader) {
 
-    String pathPrefix = "C:/Usefs/F_A_R/source/repos/clase-shaders/Motores/bin/";
+    String pathPrefix = "C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/";
 
     XC_UNREFERENCED_PARAMETER(NumVextexShader);
     String Temp = pathPrefix + FileName + "_DX.txt";

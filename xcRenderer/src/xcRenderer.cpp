@@ -3,14 +3,10 @@
 #include <xcGraphiAPI.h>
 #include "xcRenderer.h"
 
-
 namespace xcEngineSDK {
-
-  
 
   void
   Renderer::init() {
-
     //SPtr<Model> saqModel(new Model("Models/ScreenAlignedQuad.3ds"));
     m_SAQ = std::make_shared<Model>();
     //m_SAQ->loadFromFile("Models/ScreenAlignedQuad.3ds");
@@ -22,7 +18,6 @@ namespace xcEngineSDK {
     createBlurV();
     createShadowMap();
     createLigth();
-
   }
 
   void 
@@ -38,16 +33,15 @@ namespace xcEngineSDK {
 
   void
   Renderer::render() {
-
     auto& sceneGraph = g_sceneGraph();
 
+    setShadowMap();
     setGbuffer();
     setSSAO();
     setBlurH();
     setBlurV();
     setBlurH();
     setBlurV();
-    //setShadowMap();
     setLigth();
 
   }
@@ -356,9 +350,12 @@ namespace xcEngineSDK {
     auto& graphicsApi = g_graphicsAPI();
     auto& sceneGraph = g_sceneGraph();
 
-    m_shadowCamera.setPosition(Vector3(0.0f, 1.0f, -10.0f));
-    m_shadowCamera.setLookAt((Vector3(0.0f, 1.0f, 0.0f)));
-    m_shadowCamera.setUp(Vector3(0.0f, 1.0f, 0.0f));
+    m_shadowCamera.setPosition(Vector3(14.0f, 0.0f, -8.0f));
+    m_shadowCamera.setLookAt((Vector3(0.0f, 0.0f, -5.0f)));
+    m_shadowCamera.setUp(Vector3(0.0f, 0.0f, -1.0f));
+    //m_shadowCamera.setPosition(Vector3(0.0f, 1.0f, -10.0f));
+    //m_shadowCamera.setLookAt((Vector3(0.0f, 1.0f, 0.0f)));
+    //m_shadowCamera.setUp(Vector3(0.0f, 1.0f, 0.0f));
     m_shadowCamera.setfar(30000);
     m_shadowCamera.setNear(0.1f);
     m_shadowCamera.setFielOfView(0.78539816339f);
@@ -589,6 +586,8 @@ namespace xcEngineSDK {
 
     graphicsApi.setPSConstantBuffer(m_cbLight, 0, 1);
 
+    //set input layout
+    graphicsApi.setInputLayout(m_inputLayoutSSAO);
 
     //shader program
     graphicsApi.setShaderProgram(m_shaderProgramLight);
@@ -609,6 +608,10 @@ namespace xcEngineSDK {
     graphicsApi.setVSConstantBuffer(m_cbShadow, 0, 1);
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutShadow);
+
+    //shader program
+    graphicsApi.setShaderProgram(m_shaderProgramShadow);
+
     sceneGraph.render();
   }
 

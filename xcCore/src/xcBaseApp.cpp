@@ -1,15 +1,12 @@
-
 #include "xcSceneGraph.h"
 #include "xcGraphiAPI.h"
 #include "xcBaseRenderer.h"
 #include "xcBaseApp.h"
 
-
 namespace xcEngineSDK {
 
   int32
   BaseApp::run() {
-    
     initSystems();
 
     onCreate();
@@ -21,7 +18,6 @@ namespace xcEngineSDK {
     renderer.init();
 
     renderer.setModels(sceneGraph.getModels());
-
 
     sf::Clock delta;
 
@@ -35,15 +31,12 @@ namespace xcEngineSDK {
       deltaTime = delta.getElapsedTime().asSeconds();
 
       while (myGraphicsApi->m_window.pollEvent(event)) {
-
-
         handleWindowEvent(event);
 
         if (event.type == sf::Event::Closed) {
           myGraphicsApi->m_window.close();
           break;
         }
-        
       }
 
       sceneGraph.update(deltaTime);
@@ -52,17 +45,14 @@ namespace xcEngineSDK {
       update(deltaTime);
       renderer.update();
 
-
       //render
       renderer.render();
 
       render();
-
     }
 
     onDestroy();
     destroySystems();
-    
 
     return 0;
   }
@@ -112,7 +102,6 @@ namespace xcEngineSDK {
       SceneGraph::startUp();
       g_graphicsAPI().setObject(createGraphiAPI());
       createWindow();
-
     }
 
     if (m_renderer.loadPlugin("xcRenderer_d.dll")) {
@@ -120,14 +109,10 @@ namespace xcEngineSDK {
       auto createRenderer = reinterpret_cast<funProtoRenderer>
         (m_renderer.getProcedureByName("create_Renderer"));
 
-
       BaseRenderer::startUp();
 
       g_renderer().setObject(createRenderer());
-
-
     }
-
   }
 
   void 
@@ -135,5 +120,4 @@ namespace xcEngineSDK {
     m_plugin.destroy();
     m_renderer.destroy();
   }
-
 }

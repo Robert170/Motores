@@ -1,10 +1,7 @@
-
-
-
 //////////////////////
 // CONSTANT BUFFERS //
 //////////////////////
-cbuffer cbNeverChanges : register( b0 )
+cbuffer cbNeverChanges : register(b0)
 {
     matrix View;
     matrix Projection;
@@ -22,11 +19,9 @@ struct VS_INPUT
 
 struct VS_OUTPUT
 {
-    float4 position : SV_POSITION;
+    float4 position     : SV_POSITION;
     float4 Dposition    : TEXCOORD0;
-
 };
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Vertex Shader
@@ -34,15 +29,13 @@ struct VS_OUTPUT
 VS_OUTPUT ShadowVS(VS_INPUT input)
 {
     VS_OUTPUT output;
-	
+
 	input.position.w = 1.0f;
-	
-	output.position = mul(input.position, World);
-    output.position = mul(output.position, View);
-    output.position = mul(output.position, Projection);
-	
-	output.Dposition = output.position;
     
+    matrix matWV = mul(World, View);
+    float4 PosView = mul(float4(input.position.xyz, 1.0f), matWV);
+    output.position = mul(PosView, Projection);
+    output.Dposition = float4(PosView.z, PosView.z, PosView.z, 1.0f);
 
     return output;
 }
