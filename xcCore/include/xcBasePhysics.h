@@ -19,5 +19,28 @@
 #include <xcPrerequisitesCore.h>
 
 namespace xcEngineSDK {
+	class BasePhysics : public Module<BasePhysics>
+	{
+  	public:
+		BasePhysics() = default;
+		~BasePhysics() = default;
+    FORCEINLINE void
+      setObject(BasePhysics* input) {
+			BasePhysics::_instance() = input;
+    }
 
+	 private:
+
+	};
+
+	/**
+	 * @brief export the instance
+	 */
+	XC_CORE_EXPORT BasePhysics&
+  g_physics();
+
+	/**
+	 * @Variable funProtoGraphiAPI, instance of the class
+	 */
+	using funProtoPhysics = BasePhysics * (*)();
 }

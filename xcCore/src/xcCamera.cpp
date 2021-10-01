@@ -5,8 +5,6 @@ namespace xcEngineSDK {
   void 
   Camera::init() {
     
-
-
     m_fowarMove = false;
     m_backMove = false;
     m_rigthMove = false;
@@ -184,25 +182,43 @@ namespace xcEngineSDK {
 
   }
 
-
   void 
   Camera::createViewMatrix() {
 
-    m_matrixAxis = {
+    /*m_matrixAxis = {
       m_rigth.x, m_trueUp.x, m_front.x, 0,
       m_rigth.y, m_trueUp.y, m_front.y, 0,
       m_rigth.z, m_trueUp.z, m_front.z, 0,
       0, 0, 0, 1
     };
-    
+
     m_matrixPosition = {
       1, 0, 0, -m_position.x,
       0, 1, 0, -m_position.y,
       0, 0, 1, -m_position.z,
       0, 0, 0, 1
     };
-   
-    m_matrixView = m_matrixPosition * m_matrixAxis;
+
+    m_matrixView = m_matrixPosition * m_matrixAxis;*/
+
+    Vector3 Axis[3];
+    Vector3 negativePosition = -m_position;
+
+    Axis[2] = m_front;//(m_at - m_position).normalize();  //zaxis
+    Axis[0] = m_rigth;//m_up.cross(Axis[2]).normalize();  //xaxis
+    Axis[1] = m_trueUp;// Axis[2].cross(Axis[0]).normalize(); //yaxis
+
+    for (size_t i = 0; i < 3; ++i) {
+      m_matrixView.m_matrix[0][i] = Axis[i].x;
+      m_matrixView.m_matrix[1][i] = Axis[i].y;
+      m_matrixView.m_matrix[2][i] = Axis[i].z;
+      m_matrixView.m_matrix[3][i] = Axis[i].dot(negativePosition);
+    }
+
+    m_matrixView.m_matrix[0][3] = 0.0f;
+    m_matrixView.m_matrix[1][3] = 0.0f;
+    m_matrixView.m_matrix[2][3] = 0.0f;
+    m_matrixView.m_matrix[3][3] = 1.0f;
     
    }
 

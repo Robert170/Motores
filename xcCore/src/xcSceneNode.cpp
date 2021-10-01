@@ -97,6 +97,7 @@ namespace xcEngineSDK {
     }
 
 
+
     for (auto node : m_pChild) {
 
       auto temp = node;

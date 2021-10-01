@@ -99,7 +99,7 @@
       <PreprocessorDefinitions>XC_INPUT_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;./include/;$(DEVLIBS)/OIS/include/;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -107,6 +107,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(DEVLIBS)/OIS/lib/$(PlatformTarget)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OIS_d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,7 +120,7 @@
       <PreprocessorDefinitions>XC_INPUT_EXPORTS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;./include/;$(DEVLIBS)/OIS/include/;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -128,6 +130,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(DEVLIBS)/OIS/lib/$(PlatformTarget)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OIS.lib;sfml-window.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -137,7 +141,7 @@
       <PreprocessorDefinitions>XC_INPUT_EXPORTS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;./include/;$(DEVLIBS)/OIS/include/;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -145,6 +149,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(DEVLIBS)/OIS/lib/$(PlatformTarget)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OIS_d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -156,7 +162,7 @@
       <PreprocessorDefinitions>XC_INPUT_EXPORTS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;./include/;$(DEVLIBS)/OIS/include/;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -166,10 +172,16 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(DEVLIBS)/OIS/lib/$(PlatformTarget)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OIS.lib;sfml-window.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Delete.cpp" />
+    <ClInclude Include="include\xcInput.h" />
+    <ClInclude Include="include\xcPrerequisitesInput.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\xcInput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

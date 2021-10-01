@@ -15,12 +15,9 @@
 
 #pragma once
 
-
 #include <xcPlugin.h>
 #include "xcPrerequisitesCore.h"
 #include <SFML/Window.hpp>
-
-
 
 using namespace xcEngineSDK;
 
@@ -126,7 +123,9 @@ namespace xcEngineSDK {
 		 //TODO Cambiar al la clase base
      Plugin m_plugin;
 		 Plugin m_renderer;
-		 
+		 Plugin m_input;
+     Plugin m_sound;
+     Plugin m_physics;
 
 	};
 

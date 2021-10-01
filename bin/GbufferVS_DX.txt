@@ -11,10 +11,17 @@ cbuffer cbNeverChanges : register( b0 )
     matrix World;
 };
 
+// cbuffer cbTransform : register( b1 )
+// {
+    // float3 ObjectPosition;
+// };
+
 cbuffer CBBones : register(b1)
 {
     matrix Bones_CB[MAX_BONES];
 };
+
+
 
 //--------------------------------------------------------------------------------------
 //Inputlayout
@@ -22,8 +29,8 @@ struct VS_INPUT
 {
     float3 Position : POSITION0;
 	float2 Texcoord : TEXCOORD0;
-	float3 Normal : NORMAL0;
-    float3 Tangent : TANGENT0;
+	float3 Normal   : NORMAL0;
+    float3 Tangent  : TANGENT0;
 	float3 Binormal : BINORMAL0;
 	
 	//Animation
@@ -35,12 +42,10 @@ struct VS_OUTPUT
 {
   float4 Position : SV_POSITION;
   float2 Texcoord : TEXCOORD0;
-  float3 PosView : TEXCOORD1;
+  float3 PosView  : TEXCOORD1;
   float3x3 TBN    : TEXCOORD2;
  
 };
-
-
 
 //--------------------------------------------------------------------------------------
 // Vertex Shader
@@ -48,12 +53,6 @@ struct VS_OUTPUT
 VS_OUTPUT vs_gbuffer(VS_INPUT Input)
 {
   VS_OUTPUT Output;
-
-  //matrix newMatWorld;
-  //newMatWorld[0] = float4(1, 0, 0, 0);
-  //newMatWorld[1] = float4(0, 1, 0, 0);
-  //newMatWorld[2] = float4(0, 0, 1, 0);
-  //newMatWorld[3] = float4(ObjectPosition, 1);
   
   matrix matWV = mul(World, View);
 

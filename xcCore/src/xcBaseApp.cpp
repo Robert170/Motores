@@ -1,7 +1,9 @@
-
+#include <imgui_impl_win32.h>
+#include <imgui_impl_dx11.h>
 #include "xcSceneGraph.h"
 #include "xcGraphiAPI.h"
 #include "xcBaseRenderer.h"
+#include "xcBaseInput.h"
 #include "xcBaseApp.h"
 
 
@@ -20,7 +22,7 @@ namespace xcEngineSDK {
 
     renderer.init();
 
-    renderer.setModels(sceneGraph.getModels());
+    //renderer.setModels(sceneGraph.getModels());
 
 
     sf::Clock delta;
@@ -97,6 +99,18 @@ namespace xcEngineSDK {
 
   void 
   BaseApp::initSystems() {
+
+
+    //// Setup Dear ImGui context
+    //IMGUI_CHECKVERSION();
+    //ImGui::CreateContext();
+    //ImGuiIO& io = ImGui::GetIO();
+    //// Setup Platform/Renderer bindings
+    //ImGui_ImplGlfw_InitForOpenGL(window, true);
+    //ImGui_ImplOpenGL3_Init(glsl_version);
+    //// Setup Dear ImGui style
+    //ImGui::StyleColorsDark();
+
     //debug
     if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
     //if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
@@ -127,6 +141,42 @@ namespace xcEngineSDK {
 
 
     }
+    if (m_input.loadPlugin("xcInput_d.dll")) {
+
+      auto createInput = reinterpret_cast<funProtoInput>
+        (m_input.getProcedureByName("create_Input"));
+
+
+      BaseInput::startUp();
+
+      g_input().setObject(createInput());
+
+
+    }
+    /*if (m_input.loadPlugin("xcSound_d.dll")) {
+
+      auto createInput = reinterpret_cast<funProtoInput>
+        (m_input.getProcedureByName("create_Input"));
+
+
+      BaseInput::startUp();
+
+      g_input().setObject(createInput());
+
+
+    }
+    if (m_input.loadPlugin("xcPhysics_d.dll")) {
+
+      auto createInput = reinterpret_cast<funProtoInput>
+        (m_input.getProcedureByName("create_Input"));
+
+
+      BaseInput::startUp();
+
+      g_input().setObject(createInput());
+
+
+    }*/
 
   }
 

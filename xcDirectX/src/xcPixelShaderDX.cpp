@@ -35,7 +35,9 @@ namespace xcEngineSDK {
                             &pErrorBlob);
     if (FAILED(hr)) {
       if (pErrorBlob != nullptr) {
+        std::cout << "Error al compilar el pixel shader" << std::endl;
         OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
+        std::cout << (char*)pErrorBlob->GetBufferPointer() << std::endl;
       }
 
       if (pErrorBlob) {

@@ -4,9 +4,8 @@
 #include "xcRenderer.h"
 
 
-namespace xcEngineSDK {
 
-  
+namespace xcEngineSDK {
 
   void
   Renderer::init() {
@@ -34,6 +33,9 @@ namespace xcEngineSDK {
     graphicsApi.matri4x4Context(sceneGraph.m_mainCamera.getView());
                                 graphicsApi.updateSubresource(&m_constantBuffer,
                                 *m_cbNeverChanges); 
+
+    m_CBufferInverse.matInverseView =
+    graphicsApi.matri4x4Context(sceneGraph.m_mainCamera.getView()).inverse();
   }
 
   void
@@ -131,12 +133,18 @@ namespace xcEngineSDK {
                                         Vector4(0.f, 0.f, 0.05f, 0.f),
                                         Vector4(0.f, 0.f, 0.f, 1.f));
 
+    //m_constantBufferTransform.mObjectPosition;
+
 
 
     //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
     m_cbNeverChanges = graphicsApi.createConstantBuffer(sizeof(CBNeverChanges),
                                                         1,
                                                         &m_constantBuffer);
+
+    /*m_cbTransform = graphicsApi.createConstantBuffer(sizeof(CBTransform),
+                                                     1,
+                                                     &m_constantBufferTransform);*/
 
 
     ////create rasterizer
@@ -309,6 +317,7 @@ namespace xcEngineSDK {
     m_vTexturesLight.push_back(m_normalTxture);
     m_vTexturesLight.push_back(m_albedoTexture);
     m_vTexturesLight.push_back(m_ssaoTexture);
+    m_vTexturesLight.push_back(m_shadowTexture);
 
 
 
@@ -343,11 +352,31 @@ namespace xcEngineSDK {
 
 
 
-
     //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
     m_cbLight = graphicsApi.createConstantBuffer(sizeof(CBLIGHT),
                                                  1,
                                                  &m_constantBufferLight);
+
+    m_constantBufferLightCamera.matProjection =
+    graphicsApi.matri4x4Context(m_shadowCamera.getProyeccion());
+
+    m_constantBufferLightCamera.matView =
+    graphicsApi.matri4x4Context(m_shadowCamera.getView());
+
+    m_cbLigthCamera = 
+    graphicsApi.createConstantBuffer(sizeof(CBLIGHTCAMERA),
+                                     1,
+                                     &m_constantBufferLightCamera);
+
+
+    m_CBufferInverse.matInverseView =
+    graphicsApi.matri4x4Context(sceneGraph.m_mainCamera.getView()).inverse();
+
+    m_cbInverseMatrix =
+    graphicsApi.createConstantBuffer(sizeof(CBINVERSE), 
+                                     1, 
+                                     &m_CBufferInverse);
+    
   }
 
   void 
@@ -356,9 +385,12 @@ namespace xcEngineSDK {
     auto& graphicsApi = g_graphicsAPI();
     auto& sceneGraph = g_sceneGraph();
 
-    m_shadowCamera.setPosition(Vector3(0.0f, 1.0f, -10.0f));
-    m_shadowCamera.setLookAt((Vector3(0.0f, 1.0f, 0.0f)));
-    m_shadowCamera.setUp(Vector3(0.0f, 1.0f, 0.0f));
+    m_shadowCamera.setPosition(Vector3(14.0f, 0.0f, -8.0f));
+    m_shadowCamera.setLookAt((Vector3(0.0f, 0.0f, -5.0f)));
+    m_shadowCamera.setUp(Vector3(0.0f, 0.0f, -1.0f));
+    //m_shadowCamera.setPosition(Vector3(0.0f, 1.0f, -10.0f));
+    //m_shadowCamera.setLookAt((Vector3(0.0f, 1.0f, 0.0f)));
+    //m_shadowCamera.setUp(Vector3(0.0f, 1.0f, 0.0f));
     m_shadowCamera.setfar(30000);
     m_shadowCamera.setNear(0.1f);
     m_shadowCamera.setFielOfView(0.78539816339f);
@@ -447,6 +479,10 @@ namespace xcEngineSDK {
     graphicsApi.setVSConstantBuffer(m_cbNeverChanges,
                                     0,
                                     1);
+
+    /*graphicsApi.setVSConstantBuffer(m_cbTransform,
+                                    1,
+                                    1);*/
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutGbuffer);
 
@@ -593,10 +629,10 @@ namespace xcEngineSDK {
 
 
     //set rasterizer
-    graphicsApi.setRasterizerState(m_rasterizerDepth);
+    //graphicsApi.setRasterizerState(m_rasterizerDepth);
 
     //set depth stencil state
-    graphicsApi.setDepthStencilState(m_depthStencilStateDepth, 0);
+    //graphicsApi.setDepthStencilState(m_depthStencilStateDepth, 0);
 
     graphicsApi.setVSConstantBuffer(m_cbShadow, 0, 1);
     //set input layout
@@ -604,6 +640,7 @@ namespace xcEngineSDK {
 
     //Shader program
     graphicsApi.setShaderProgram(m_shaderProgramShadow);
+
     sceneGraph.render();
   }
 
@@ -619,7 +656,11 @@ namespace xcEngineSDK {
     graphicsApi.setShaderResource(m_vTexturesLight);
 
     graphicsApi.setPSConstantBuffer(m_cbLight, 0, 1);
+    graphicsApi.setPSConstantBuffer(m_cbLigthCamera, 1, 1);
+    graphicsApi.setPSConstantBuffer(m_cbInverseMatrix, 2, 1);
 
+    //set input layout
+    graphicsApi.setInputLayout(m_inputLayoutSSAO);
 
     //shader program
     graphicsApi.setShaderProgram(m_shaderProgramLight);

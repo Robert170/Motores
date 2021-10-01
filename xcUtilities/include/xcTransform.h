@@ -34,6 +34,26 @@ namespace xcEngineSDK {
 			       const Quaternion& rotation,
 			       const Vector3& scale);
 
+    void
+    setTraslation(const Vector3& traslation);
+
+    void
+    setRotation(const Quaternion& rotation);
+
+    void
+    setScale(const Vector3& scale);
+
+    Vector3&
+    getTraslation();
+
+    Quaternion&
+    getRotation();
+
+    Vector3&
+    getScale();
+
+    //SRT
+
 
 	 public:
 

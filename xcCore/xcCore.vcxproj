@@ -19,8 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_draw.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_tables.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_widgets.cpp" />
     <ClCompile Include="src\xcActor.cpp" />
+    <ClCompile Include="src\xcBaseInput.cpp" />
+    <ClCompile Include="src\xcBasePhysics.cpp" />
     <ClCompile Include="src\xcBaseRenderer.cpp" />
+    <ClCompile Include="src\xcBaseSound.cpp" />
     <ClCompile Include="src\xcDepthStencilState.cpp" />
     <ClCompile Include="src\xcMaterial.cpp" />
     <ClCompile Include="src\xcResource.cpp" />
@@ -48,8 +57,18 @@
     <ClCompile Include="src\xcVertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Dev\Imgui\include\imconfig.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_impl_dx11.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_internal.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_rectpack.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_textedit.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_truetype.h" />
     <ClInclude Include="include\xcActor.h" />
+    <ClInclude Include="include\xcBaseInput.h" />
     <ClInclude Include="include\xcBasePhysics.h" />
+    <ClInclude Include="include\xcBaseSound.h" />
     <ClInclude Include="include\xcDepthStencilState.h" />
     <ClInclude Include="include\xcMaterial.h" />
     <ClInclude Include="include\xcBaseRenderer.h" />
@@ -159,7 +178,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;$(SolutionDir)xcRenderer/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;$(SolutionDir)xcRenderer/include;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -182,7 +201,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -193,7 +212,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>xcUtilities.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xcUtilities.lib;assimp-vc142-mtd.lib;sfml-window.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -205,7 +224,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -229,7 +248,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>

@@ -165,8 +165,7 @@ namespace xcEngineSDK {
     createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-    Vector<D3D_DRIVER_TYPE> driverTypes =
-    {
+    Vector<D3D_DRIVER_TYPE> driverTypes = {
         D3D_DRIVER_TYPE_HARDWARE,
         D3D_DRIVER_TYPE_WARP,
         D3D_DRIVER_TYPE_REFERENCE,
@@ -768,7 +767,6 @@ namespace xcEngineSDK {
     SPtr<InputLayoutDX> inputLayout;
     inputLayout.reset(new InputLayoutDX());
 
-
     if (FAILED(D3DReflect(vsBlob.m_vertexShaderProgram->m_pVSBlob->GetBufferPointer(),
         vsBlob.m_vertexShaderProgram->m_pVSBlob->GetBufferSize(),
         IID_ID3D11ShaderReflection, (void**) &pVertexShaderReflection)))  {
@@ -779,7 +777,7 @@ namespace xcEngineSDK {
  
     // Get shader info
     D3D11_SHADER_DESC shaderDesc;
-    pVertexShaderReflection->GetDesc( &shaderDesc );
+    pVertexShaderReflection->GetDesc(&shaderDesc);
  
     // Read input layout description from shader info
     Vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;

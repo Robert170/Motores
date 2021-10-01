@@ -5,9 +5,6 @@
 #include "xcActor.h"
 #include "xcSceneGraph.h"
 
-
-
-
 //TODO ERRORES CRITICOS
   
 void 
@@ -44,16 +41,19 @@ GameAppUnitTest::onCreate() {
   SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
 
   SPtr<Component> testComponent(new StaticMesh(exampleModel));
+
+  SPtr<Model> exampleModel2(new Model("Models/Plane/plano.fbx")); 
+  SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
   
 
   SPtr<Actor> testActor(new Actor("test"));
   testActor->addComponent(testComponent);
 
- // SPtr<Actor> testActor2(new Actor("test2"));
- // testActor2->addComponent(testComponent2);
+  SPtr<Actor> testActor2(new Actor("test2"));
+  testActor2->addComponent(testComponent2);
 
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
- // sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
+ sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
 
   m_meshColor.x = 1;
   m_meshColor.y = 1;

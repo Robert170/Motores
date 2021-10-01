@@ -57,4 +57,20 @@ namespace xcEngineSDK {
         }
       }
     }
+
+    Vector3& 
+    Actor::getTraslation() {
+
+      return m_actorTrasform.getTraslation();
+    }
+    Quaternion& 
+    Actor::getRotation() {
+
+      return m_actorTrasform.getRotation();
+    }
+    Vector3& 
+    Actor::getScale() {
+
+      return m_actorTrasform.getScale();
+    }
 }

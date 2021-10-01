@@ -366,13 +366,13 @@ namespace xcEngineSDK {
                               float& Near,
                               float& Far) {
     
-    float yScale = Math::cot(Fov / 2);
+    float yScale = Math::cot(Fov / 2.0f);
     float xScale = yScale / (Width / Height);
 
     return Matrix4x4(Vector4(xScale, 0.f, 0.f, 0.f),
                      Vector4(0.f, yScale, 0.f, 0.f),
                      Vector4(0.f, 0.f, Far / (Far - Near), 1.f),
-                     Vector4(0.f, 0.f, -Near * Far / (Far - Near), 0.f));
+                     Vector4(0.f, 0.f, -Near * (Far / (Far - Near)), 0.f));
   }
 
 
