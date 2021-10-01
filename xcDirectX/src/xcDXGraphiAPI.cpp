@@ -162,12 +162,10 @@ namespace xcEngineSDK {
 
     UINT createDeviceFlags = 0;
 #ifdef _DEBUG
-    //createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-    createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUGGABLE;
+    createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-    Vector<D3D_DRIVER_TYPE> driverTypes =
-    {
+    Vector<D3D_DRIVER_TYPE> driverTypes = {
         D3D_DRIVER_TYPE_HARDWARE,
         D3D_DRIVER_TYPE_WARP,
         D3D_DRIVER_TYPE_REFERENCE,
@@ -499,19 +497,17 @@ namespace xcEngineSDK {
     SPtr<ShaderProgramDX> shaderProgram;
     shaderProgram.reset(new ShaderProgramDX());
 
-    String pathPrefix = "C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/";
-
     //TODO EL VS y PS dben ser objetos
     //vertexShder
-    String Temp = pathPrefix + FileNameVS + "_DX.txt";
+    String Temp = FileNameVS + "_DX.txt";
     shaderProgram->m_vertexShaderProgram = new VertexShaderDX();
     WString FileVS(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), FileVS.begin());
 
     if (!shaderProgram->m_vertexShaderProgram->compileVertexShaderFromFile(FileVS,
-                                                                           EntryVS,
-                                                                           ShaderModelVS,
-                                                                           &shaderProgram->m_vertexShaderProgram->m_pVSBlob)) {
+        EntryVS,
+        ShaderModelVS,
+        &shaderProgram->m_vertexShaderProgram->m_pVSBlob)) {
       std::cout << "//Error fallo la compilacion del shader" << std::endl;
       //delete shaderProgram;
       return nullptr;
@@ -533,7 +529,7 @@ namespace xcEngineSDK {
 
 
     //pixel shader
-    Temp = pathPrefix + FileNamePS + "_DX.txt";
+    Temp = FileNamePS + "_DX.txt";
     shaderProgram->m_pixelShaderProgram = new PixelShaderDX();
 
     WString FilePS(Temp.length(), L' ');
@@ -573,9 +569,7 @@ namespace xcEngineSDK {
                                                int32 NumPixelShader) {
     XC_UNREFERENCED_PARAMETER(NumPixelShader);
 
-    String pathPrefix = "C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/";
-
-    String Temp = pathPrefix + FileName + "_DX.txt";
+    String Temp = FileName + "_DX.txt";
     SPtr<PixelShaderDX> pixelShader;
     pixelShader.reset(new PixelShaderDX());
 
@@ -613,10 +607,8 @@ namespace xcEngineSDK {
                                    const String& ShaderModel,
                                    int32 NumVextexShader) {
 
-    String pathPrefix = "C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/";
-
     XC_UNREFERENCED_PARAMETER(NumVextexShader);
-    String Temp = pathPrefix + FileName + "_DX.txt";
+    String Temp = FileName + "_DX.txt";
     SPtr<VertexShaderDX>vertexShaders;
     vertexShaders.reset(new VertexShaderDX());
     WString File(Temp.length(), L' ');
@@ -775,7 +767,6 @@ namespace xcEngineSDK {
     SPtr<InputLayoutDX> inputLayout;
     inputLayout.reset(new InputLayoutDX());
 
-
     if (FAILED(D3DReflect(vsBlob.m_vertexShaderProgram->m_pVSBlob->GetBufferPointer(),
         vsBlob.m_vertexShaderProgram->m_pVSBlob->GetBufferSize(),
         IID_ID3D11ShaderReflection, (void**) &pVertexShaderReflection)))  {
@@ -786,7 +777,7 @@ namespace xcEngineSDK {
  
     // Get shader info
     D3D11_SHADER_DESC shaderDesc;
-    pVertexShaderReflection->GetDesc( &shaderDesc );
+    pVertexShaderReflection->GetDesc(&shaderDesc);
  
     // Read input layout description from shader info
     Vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;

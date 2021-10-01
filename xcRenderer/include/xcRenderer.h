@@ -127,6 +127,9 @@ namespace xcEngineSDK {
     CBNeverChanges m_constantBuffer;
     SPtr<ConstantBuffer> m_cbNeverChanges = nullptr;
 
+    CBTransform m_constantBufferTransform;
+    SPtr<ConstantBuffer> m_cbTransform = nullptr;
+
     //////////////////////////
 
     //**SSAO**//
@@ -158,7 +161,6 @@ namespace xcEngineSDK {
     CBSSAO m_constantBufferSSAO;
     SPtr<ConstantBuffer> m_cbSSAO = nullptr;
     /////////////////////////////////////////////////////////////////
-
 
     //**BlurH**//
 
@@ -228,6 +230,12 @@ namespace xcEngineSDK {
     CBLIGHT m_constantBufferLight;
     SPtr<ConstantBuffer> m_cbLight = nullptr;
 
+    CBLIGHTCAMERA m_constantBufferLightCamera;
+    SPtr<ConstantBuffer> m_cbLigthCamera = nullptr;
+
+    CBINVERSE m_CBufferInverse;
+    SPtr<ConstantBuffer> m_cbInverseMatrix = nullptr;
+
     //**Shadow**//
     
     //Texture
@@ -235,6 +243,12 @@ namespace xcEngineSDK {
 
     //Shader
     SPtr<ShaderProgram> m_shaderProgramShadow = nullptr;
+
+    //depth stencil state
+    SPtr<DepthStencilState> m_depthStencilStateDepth = nullptr;
+
+    //Rasterizer
+    SPtr<RasterizerState> m_rasterizerDepth = nullptr;
 
     //Input layout
     SPtr<InputLayout> m_inputLayoutShadow = nullptr;

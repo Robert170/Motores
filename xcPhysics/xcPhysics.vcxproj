@@ -99,7 +99,7 @@
       <PreprocessorDefinitions>XC_PHYSICS_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;$(DEVLIBS)/PhysX/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;$(DEVLIBS)/PhysX/include;./include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -120,7 +120,7 @@
       <PreprocessorDefinitions>XC_PHYSICS_EXPORTS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;$(DEVLIBS)/PhysX/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;$(DEVLIBS)/PhysX/include;./include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -140,7 +140,7 @@
       <PreprocessorDefinitions>XC_PHYSICS_EXPORTS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;$(DEVLIBS)/PhysX/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;$(DEVLIBS)/PhysX/include;./include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -160,7 +160,7 @@
       <PreprocessorDefinitions>XC_PHYSICS_EXPORTS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;$(DEVLIBS)/PhysX/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)xcUtilities/include;$(DEVLIBS)/PhysX/include;./include/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>

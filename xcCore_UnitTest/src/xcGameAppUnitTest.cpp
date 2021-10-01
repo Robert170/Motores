@@ -5,9 +5,6 @@
 #include "xcActor.h"
 #include "xcSceneGraph.h"
 
-
-
-
 //TODO ERRORES CRITICOS
   
 void 
@@ -32,8 +29,8 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Agnaktor/idle2.fbx"));
 
-  SPtr<Model> exampleModel2(new Model("Models/Bea/bea_geo.fbx")); //
-  SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
+  //SPtr<Model> exampleModel2(new Model("Models/Bea/bea_geo.fbx")); //
+ // SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
 
   //SPtr<Model> exampleModel(new Model("Models/Gwen/Angry.fbx")); //
 
@@ -41,10 +38,12 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
 
-  //SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
-  SPtr<Model> exampleModel(new Model("C:/Users/F_A_R/source/repos/clase-shaders/Motores/bin/Models/Vela2/Vela2.fbx"));
+  SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
 
   SPtr<Component> testComponent(new StaticMesh(exampleModel));
+
+  SPtr<Model> exampleModel2(new Model("Models/Plane/plano.fbx")); 
+  SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
   
 
   SPtr<Actor> testActor(new Actor("test"));
@@ -54,7 +53,7 @@ GameAppUnitTest::onCreate() {
   testActor2->addComponent(testComponent2);
 
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
-  sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
+ sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
 
   m_meshColor.x = 1;
   m_meshColor.y = 1;

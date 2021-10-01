@@ -4,6 +4,7 @@ namespace xcEngineSDK {
 
   void 
   Camera::init() {
+    
     m_fowarMove = false;
     m_backMove = false;
     m_rigthMove = false;
@@ -17,6 +18,7 @@ namespace xcEngineSDK {
     createViewMatrix();
     updateViewMatrix();
     updateProyeccion();
+
   }
 
   void
@@ -31,8 +33,10 @@ namespace xcEngineSDK {
 
   void
   Camera::setClicked(bool isClicked) {
+    
     m_isClicked = isClicked;
   }
+
 
   void 
   Camera::setLookAt(const Vector3& at) {
@@ -42,6 +46,7 @@ namespace xcEngineSDK {
   void 
   Camera::setUp(const Vector3& up) {
     m_up = up;
+
   }
 
   void 
@@ -71,70 +76,92 @@ namespace xcEngineSDK {
 
   void
   Camera::setFront(Vector3 At, Vector3 Posicion) {
+
     m_front = Vector3(At - Posicion).normalize();
   }
 
   void 
   Camera::setRight(Vector3 Up, Vector3 Front) {
+
     m_rigth = Up.cross(Front).normalize();
   }
 
   void 
   Camera::setUpTrue(Vector3 Front, Vector3 Right) {
+
     m_trueUp = Front.cross(Right);
+    
   }
 
   void 
   Camera::event(sf::Event INPUT) {
+
     if (INPUT.key.code == sf::Keyboard::W &&
         INPUT.type == sf::Event::KeyPressed) {
+      
       m_fowarMove = true;
+      
     }
     else if (INPUT.key.code == sf::Keyboard::A &&
              INPUT.type == sf::Event::KeyPressed) {
+
       m_leftMove = true;
     }
     else if (INPUT.key.code == sf::Keyboard::S &&
              INPUT.type == sf::Event::KeyPressed) {
+      
       m_backMove = true;
+      
     }
     else if (INPUT.key.code == sf::Keyboard::D &&
              INPUT.type == sf::Event::KeyPressed) {
+
       m_rigthMove = true;
     }
     else if (INPUT.key.code == sf::Keyboard::Q &&
              INPUT.type == sf::Event::KeyPressed) {
+
       m_upMove = true;
     }
     else if (INPUT.key.code == sf::Keyboard::E &&
              INPUT.type == sf::Event::KeyPressed) {
+
       m_downtMove = true;
     }
     else if (INPUT.key.code == sf::Keyboard::W &&
              INPUT.type == sf::Event::KeyReleased) {
+      
       m_fowarMove = false;
+      
     }
     else if (INPUT.key.code == sf::Keyboard::A &&
              INPUT.type == sf::Event::KeyReleased) {
+
       m_leftMove = false;
     }
     else if (INPUT.key.code == sf::Keyboard::S &&
              INPUT.type == sf::Event::KeyReleased) {
+      
       m_backMove = false;
+      
     }
     else if (INPUT.key.code == sf::Keyboard::D &&
              INPUT.type == sf::Event::KeyReleased) {
+
       m_rigthMove = false;
     }
     else if (INPUT.key.code == sf::Keyboard::Q &&
              INPUT.type == sf::Event::KeyReleased) {
+
       m_upMove = false;
     }
     else if (INPUT.key.code == sf::Keyboard::E &&
              INPUT.type == sf::Event::KeyReleased) {
+
       m_downtMove = false;
     }
     if (INPUT.type == sf::Event::MouseButtonPressed) {
+
       if (INPUT.mouseButton.button == sf::Mouse::Left) {
         setInitialPosition({INPUT.mouseButton.x,
                             INPUT.mouseButton.y,
@@ -143,40 +170,43 @@ namespace xcEngineSDK {
       }
     }
     if (INPUT.type == sf::Event::MouseButtonReleased) {
+
       if (INPUT.mouseButton.button == sf::Mouse::Left) {
         setClicked(false);
       }
     }
     if (INPUT.type == sf::Event::MouseMoved) {
+      
     }
+    
+
   }
 
   void 
   Camera::createViewMatrix() {
-    /*
-    
-    m_matrixAxis = {
+
+    /*m_matrixAxis = {
       m_rigth.x, m_trueUp.x, m_front.x, 0,
       m_rigth.y, m_trueUp.y, m_front.y, 0,
       m_rigth.z, m_trueUp.z, m_front.z, 0,
       0, 0, 0, 1
     };
-    
+
     m_matrixPosition = {
       1, 0, 0, -m_position.x,
       0, 1, 0, -m_position.y,
       0, 0, 1, -m_position.z,
       0, 0, 0, 1
     };
-   
-    m_matrixView = m_matrixPosition * m_matrixAxis;
-    */
+
+    m_matrixView = m_matrixPosition * m_matrixAxis;*/
+
     Vector3 Axis[3];
     Vector3 negativePosition = -m_position;
 
-    Axis[2] = (m_at - m_position).normalize();  //zaxis
-    Axis[0] = m_up.cross(Axis[2]).normalize();  //xaxis
-    Axis[1] = Axis[2].cross(Axis[0]).normalize(); //yaxis
+    Axis[2] = m_front;//(m_at - m_position).normalize();  //zaxis
+    Axis[0] = m_rigth;//m_up.cross(Axis[2]).normalize();  //xaxis
+    Axis[1] = m_trueUp;// Axis[2].cross(Axis[0]).normalize(); //yaxis
 
     for (size_t i = 0; i < 3; ++i) {
       m_matrixView.m_matrix[0][i] = Axis[i].x;
@@ -189,12 +219,12 @@ namespace xcEngineSDK {
     m_matrixView.m_matrix[1][3] = 0.0f;
     m_matrixView.m_matrix[2][3] = 0.0f;
     m_matrixView.m_matrix[3][3] = 1.0f;
-
-    //return *this;
+    
    }
 
   void 
   Camera::updateProyeccion() {
+
     m_matrixProyeccion = m_matrixProyeccion.perspectiveFovLH(m_fov,
                                                              m_height, 
                                                              m_width, 
@@ -205,7 +235,7 @@ namespace xcEngineSDK {
 
   void 
   Camera::updateViewMatrix() {
-    /*
+    
     m_rigth = { m_matrixView.m_matrix[0].x,
                 m_matrixView.m_matrix[0].y,
                 m_matrixView.m_matrix[0].z };
@@ -219,27 +249,36 @@ namespace xcEngineSDK {
                 m_matrixView.m_matrix[2].z };
  
     m_at = m_position + m_front;
-    */
+ 
   }
 
   void 
   Camera::update() {
+
     if (m_fowarMove) {
+      
       m_position += m_front * 0.025f;
+      
     }
     else if (m_backMove) {
+
       m_position -= m_front * 0.025f;
+
     }
     else if (m_rigthMove) {
+
       m_position += m_rigth * 0.025f;
     }
     else if (m_leftMove) {
+
       m_position -= m_rigth * 0.025f;
     }
     else if (m_upMove) {
+
       m_position += m_trueUp * 0.025f;
     }
     else if (m_downtMove) {
+
       m_position -= m_trueUp * 0.025f;
     }
 
@@ -258,74 +297,89 @@ namespace xcEngineSDK {
     };
    
     m_matrixView = m_matrixPosition * m_matrixAxis;*/
-    //createViewMatrix();
-    //updateViewMatrix();
+    createViewMatrix();
+    updateViewMatrix();
 
     return;
   }
 
+
   bool 
   Camera::getClicked() {
+
     return m_isClicked;
   }
 
   float 
   Camera::getWidth() {
+
     return m_width;
   }
 
   float 
   Camera::getHeight() {
+
     return m_height;
   }
 
   float 
   Camera::getFar() {
+
     return m_far;
   }
 
   float 
   Camera::getFov() {
+
     return m_fov;
   }
 
   float 
   Camera::getNear() {
+
     return m_near;
   }
 
   Vector3 
   Camera::getPosition() {
+
     return m_position;
   }
 
   Vector3 
   Camera::getAt() {
+
     return m_at;
   }
 
   Vector3 
   Camera::getUp() {
+
     return m_up;
   }
 
   Vector3 
   Camera::getFront() {
+
     return m_front;
   }
 
   Vector3 
   Camera::getRight() {
+
     return m_rigth;
   }
 
   Matrix4x4 
   Camera::getView() {
+
     return m_matrixView;
   }
 
   Matrix4x4 
   Camera::getProyeccion() {
+
     return m_matrixProyeccion;
   }
+
 }

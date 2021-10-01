@@ -22,6 +22,8 @@
 using namespace xcEngineSDK;
 
 namespace xcEngineSDK {
+
+	
 	class XC_CORE_EXPORT BaseApp
 	{
 	 public:
@@ -91,13 +93,17 @@ namespace xcEngineSDK {
 		void
 		destroySystems();
 
+
+
 	 protected:
 
 		/**
 		 * @brief protected functions
 		 */
+
 		virtual void
 		onCreate() {};
+
 
     virtual void
     onEvents(sf::Event event) {};
@@ -111,9 +117,17 @@ namespace xcEngineSDK {
 		virtual void
 		onDestroy() {};
 
+
 	 protected:
+
 		 //TODO Cambiar al la clase base
      Plugin m_plugin;
 		 Plugin m_renderer;
+		 Plugin m_input;
+     Plugin m_sound;
+     Plugin m_physics;
+
 	};
+
 }
+

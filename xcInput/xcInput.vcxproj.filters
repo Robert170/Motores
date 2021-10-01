@@ -5,9 +5,20 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\Prerequisites">
+      <UniqueIdentifier>{d0b511a3-5bc8-48d0-8e2d-938b1243afb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Delete.cpp">
+    <ClInclude Include="include\xcPrerequisitesInput.h">
+      <Filter>Source Files\Prerequisites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcInput.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\xcInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -59,6 +59,17 @@ namespace xcEngineSDK {
     void
     getModels(Vector<SPtr<Model>>& model);
 
+    Vector3&
+    getTraslation();
+
+    Quaternion&
+    getRotation();
+
+    Vector3&
+    getScale();
+
+
+
 	 public:
 
 		bool m_isSelected = false;

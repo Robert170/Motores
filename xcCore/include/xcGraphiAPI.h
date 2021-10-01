@@ -283,6 +283,11 @@ namespace xcEngineSDK {
     Matrix4x4 mWorld;
   };
 
+  struct CBTransform
+  {
+    Vector3 mObjectPosition;
+  };
+
   struct CBSSAO
   {
     float mSampleradius;
@@ -305,6 +310,18 @@ namespace xcEngineSDK {
 
     Matrix4x4 matView;
     Matrix4x4 matWorld;
+  };
+
+  struct CBLIGHTCAMERA
+  {
+
+    Matrix4x4 matView;
+    Matrix4x4 matProjection;
+  };
+
+  struct CBINVERSE
+  {
+    Matrix4x4 matInverseView;
   };
 
   struct BoneVertex {
