@@ -1,32 +1,31 @@
+/*****************************************************************************/
 /**
- * @class CVertexShaderDX
- *
- * @brief class for the vertex shader of directx
- *
- * This class is to use the pointers of vertex shader that directx needs
- *
- * @author Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
- *
- * @date 10/6/2020
+ * @file    xcComputShaderDX.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    17/10/2021
+ * @brief   This class is to use the pointers of compute shader that directX needs
  *
  *
- * @bug	No know Bugs
+ * @bug	    No known bugs.
  */
-
+ /*****************************************************************************/
 #pragma once
-#include <windows.h>
-#include <xcVertexShader.h>
-//#include <d3d11.h>
-//#include <d3dcompiler.h>
+
+/*****************************************************************************/
+/**
+ * Includes
+ */
+ /*****************************************************************************/
+#include <xcComputShader.h>
 #include "xcPrerequisitesDX.h"
 
 
 namespace xcEngineSDK {
-	class VertexShaderDX :public VertexShader
+  class ComputeShaderDX :public ComputeShader
 	{
 	 public:
 		/// Destructor
-		~VertexShaderDX();
+		~ComputeShaderDX();
 	 protected:
 
 		/**
@@ -34,13 +33,13 @@ namespace xcEngineSDK {
 		*/
 
 		/// Default Constructor
-		VertexShaderDX() = default;
+		 ComputeShaderDX() = default;
 
 
 
 
 		/**
-		 * @brief      CompileVertexShaderFromFile function, to compile a shader from a file
+		 * @brief      compileComputeShaderFromFile function, to compile a shader from a file
 		 * @param      FileName parameter one, name of the file with the shader
 		 * @param      EntryPoint parameter two, entry point of the shader
 		 * @param      ShaderModel parameter three, shader model of the shader
@@ -49,7 +48,7 @@ namespace xcEngineSDK {
 		 * @return     Returns nothing
 		*/
 		bool 
-		compileVertexShaderFromFile(const WString& FileName,
+		compileComputeShaderFromFile(const WString& FileName,
 			                          const String& EntryPoint,
 			                          const String& ShaderModel,
 			                          ID3DBlob** ppBlobOut);
@@ -61,14 +60,13 @@ namespace xcEngineSDK {
 		/**
 			* @Variable m_VertexShader, pointer for the vertex shader
 		*/
-		ID3D11VertexShader* m_vertexShader = nullptr;
+		ID3D11ComputeShader* m_computeShader = nullptr;
 
 		/**
 			* @Variable m_pVSBlob, pointer for the blob of vertex shader
 		*/
-		ID3DBlob* m_pVSBlob = nullptr;
+		ID3DBlob* m_pCSBlob = nullptr;
 
 		friend class DXGraphiAPI;
 	};
-
 }

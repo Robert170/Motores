@@ -16,6 +16,7 @@
 #include "xcShaderProgram.h"
 #include "xcPixelShaderDX.h"
 #include "xcVertexShaderDX.h"
+#include "xcComputShaderDX.h"
 namespace xcEngineSDK {
 	class ShaderProgramDX : public ShaderProgram
 	{
@@ -38,16 +39,19 @@ namespace xcEngineSDK {
 		 */
 
 		/**
-		 * @Variable m_PixelShaderProgram, pointer for the pixel shader of directx
+		 * @Variable m_pixelShaderProgram, pointer for the pixel shader of directx
 		 */
 		PixelShaderDX* m_pixelShaderProgram = nullptr;
 
 		/**
-		 * @Variable m_PixelShaderProgram, pointer for the pixel shader of directx
+		 * @Variable m_vertexShaderProgram, pointer for the vertex shader of directx
 		 */
 		VertexShaderDX* m_vertexShaderProgram = nullptr;
 
-
+		/**
+		 * @Variable m_computeShaderProgram, pointer for the compute shader of directx
+		 */
+		ComputeShaderDX* m_computeShaderProgram = nullptr;
 
 
 		friend class DXGraphiAPI;

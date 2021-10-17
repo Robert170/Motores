@@ -237,5 +237,8 @@
     <ClInclude Include="include\xcBaseSound.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcComputShader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

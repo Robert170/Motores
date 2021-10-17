@@ -12,6 +12,7 @@
 #include "xcShaderProgramDX.h"
 #include "xcVertexShaderDX.h"
 #include "xcPixelShaderDX.h"
+#include "xcComputShaderDX.h"
 #include "xcSamplerStateDX.h"
 #include "xcRasterizerStateDX.h"
 #include "xcDepthStencilStateDX.h"
@@ -496,10 +497,11 @@ namespace xcEngineSDK {
 
     SPtr<ShaderProgramDX> shaderProgram;
     shaderProgram.reset(new ShaderProgramDX());
+    String Temp;
 
     //TODO EL VS y PS dben ser objetos
     //vertexShder
-    String Temp = FileNameVS + "_DX.txt";
+    Temp = FileNameVS + "_DX.txt";
     shaderProgram->m_vertexShaderProgram = new VertexShaderDX();
     WString FileVS(Temp.length(), L' ');
     std::copy(Temp.begin(), Temp.end(), FileVS.begin());
@@ -508,7 +510,7 @@ namespace xcEngineSDK {
         EntryVS,
         ShaderModelVS,
         &shaderProgram->m_vertexShaderProgram->m_pVSBlob)) {
-      std::cout << "//Error fallo la compilacion del shader" << std::endl;
+      std::cout << "//Error fallo la compilacion del vertex shader" << std::endl;
       //delete shaderProgram;
       return nullptr;
     }
@@ -540,7 +542,7 @@ namespace xcEngineSDK {
                                    EntryPS,
                                    ShaderModelPS,
                                    &shaderProgram->m_pixelShaderProgram->m_pPSBlob)) {
-      std::cout << " //error fallo la compilacion del shader" << std::endl;
+      std::cout << " //error fallo la compilacion del  pixelshader" << std::endl;
       return nullptr;
     }
 
@@ -560,6 +562,47 @@ namespace xcEngineSDK {
 
     return shaderProgram;
   }
+
+  SPtr<ShaderProgram>
+   DXGraphiAPI::createComputeShader(const String& FileNameCS,
+                                    const String& EntryCS,
+                                    const String& ShaderModelCS) {
+    SPtr<ShaderProgramDX> shaderProgram;
+    shaderProgram.reset(new ShaderProgramDX());
+    String Temp;
+
+    //computeShader
+    Temp = FileNameCS + "_DX.txt";
+    shaderProgram->m_computeShaderProgram = new ComputeShaderDX();
+    WString FileVS(Temp.length(), L' ');
+    std::copy(Temp.begin(), Temp.end(), FileVS.begin());
+
+    if (!shaderProgram->m_computeShaderProgram->compileComputeShaderFromFile(
+      FileVS,                                             
+      EntryCS,
+      ShaderModelCS,
+      &shaderProgram->m_computeShaderProgram->m_pCSBlob)) {
+      std::cout << "//Error fallo la compilacion del compute shader" << std::endl;
+      //delete shaderProgram;
+      return nullptr;
+    }
+
+    HRESULT hr = m_pd3dDevice->CreateComputeShader(shaderProgram->m_computeShaderProgram
+                                                  ->m_pCSBlob->GetBufferPointer(),
+                                                  shaderProgram->m_computeShaderProgram
+                                                  ->m_pCSBlob->GetBufferSize(),
+                                                  nullptr,
+                                                  &shaderProgram->m_computeShaderProgram->
+                                                  m_computeShader);
+    if (FAILED(hr)) {
+      //delete shaderProgram;
+      std::cout << "//Error fallo la creacion del vertex shader" << std::endl;
+      ///error
+      return nullptr;
+    }
+
+    return nullptr;
+  };
 
   //function to create a pixel shader
   SPtr<PixelShader> 

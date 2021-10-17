@@ -258,6 +258,19 @@ namespace xcEngineSDK {
 			                  int32 NumPixelShader = 0) override; //no va
 
 		/**
+     * @brief      createComputeProgram function, to create shader program
+     * @param      FileNameCS parameter one, name of the file of the vertex shader
+     * @param      EntryCS parameter three, point of entry in the file vertex shader
+     * @param      ShaderModelCS parameter five, shader model vertex shader
+     * @bug		     No know Bugs
+     * @return     Returns a pointer of ShaderProgram
+     */
+    SPtr<ShaderProgram>
+    createComputeShader(const String& FileNameCS,
+                        const String& EntryCS = "",
+                        const String& ShaderModelCS = "") { return nullptr; };
+
+		/**
 	   * @brief      createPixelShaders function, to create pixel shader
 	   * @param      FileName parameter one, name of the file of the pixel shader
 	   * @param      Entry parameter two, point of entry in the file

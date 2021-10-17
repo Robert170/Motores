@@ -31,17 +31,37 @@
 
 namespace xcEngineSDK {
 
+  class EventHandler : public OIS::KeyListener, public OIS::MouseListener
+  {
+   public:
+    EventHandler() { }
+    ~EventHandler() { }
+    bool
+    keyPressed(const OIS::KeyEvent& arg);
+    
+    bool 
+    keyReleased(const OIS::KeyEvent& arg);
+    
+    bool 
+    mouseMoved(const  OIS::MouseEvent& arg);
+
+    bool 
+    mousePressed(const  OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    
+    bool
+    mouseReleased(const  OIS::MouseEvent& arg, OIS::MouseButtonID id);
+  };
 
 
 	class Input : public BaseInput
 	{
-	public:
+	 public:
 
 		Input(sf::WindowHandle window);
 		Input() = default;
 		~Input() = default;
 
-	private:
+	 private:
 
 		/**
 		 * @brief      keyPressed function, to detect if a key is pressed

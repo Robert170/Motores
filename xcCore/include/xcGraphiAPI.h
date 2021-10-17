@@ -605,7 +605,7 @@ namespace xcEngineSDK {
      * @param      NumVertexShader parameter seven, number of the vertex shader
      * @param      NumPixelShader parameter eight, number of the pixel shader
      * @bug		     No know Bugs
-     * @return     Returns a pointer of CPixelShader
+     * @return     Returns a pointer of ShaderProgram
      */
     virtual SPtr<ShaderProgram>
     createShaderProgram(const String&,
@@ -616,6 +616,20 @@ namespace xcEngineSDK {
                         const String& = "",
                         int32 = 0,
                         int32 = 0) { return nullptr; }; //no va
+
+
+    /**
+     * @brief      createComputeProgram function, to create shader program
+     * @param      FileNameCS parameter one, name of the file of the vertex shader
+     * @param      EntryCS parameter three, point of entry in the file vertex shader
+     * @param      ShaderModelCS parameter five, shader model vertex shader
+     * @bug		     No know Bugs
+     * @return     Returns a pointer of ShaderProgram
+     */
+    virtual SPtr<ShaderProgram>
+    createComputeShader(const String&,
+                         const String& = "",
+                         const String& = "") { return nullptr; };
 
     /**
      * @brief      createPixelShaders function, to create pixel shader
