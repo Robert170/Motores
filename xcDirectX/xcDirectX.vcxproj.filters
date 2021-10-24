@@ -55,6 +55,9 @@
     <ClInclude Include="include\xcComputShaderDX.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcComputeBufferDX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcConstantBufferDX.cpp">
@@ -97,6 +100,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\xcComputShaderDX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcComputeBufferDX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

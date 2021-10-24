@@ -94,93 +94,25 @@ namespace xcEngineSDK {
   }
 
   void 
-  Camera::event(sf::Event INPUT) {
-
-    if (INPUT.key.code == sf::Keyboard::W &&
-        INPUT.type == sf::Event::KeyPressed) {
-      
-      m_fowarMove = true;
-      
-    }
-    else if (INPUT.key.code == sf::Keyboard::A &&
-             INPUT.type == sf::Event::KeyPressed) {
-
-      m_leftMove = true;
-    }
-    else if (INPUT.key.code == sf::Keyboard::S &&
-             INPUT.type == sf::Event::KeyPressed) {
-      
-      m_backMove = true;
-      
-    }
-    else if (INPUT.key.code == sf::Keyboard::D &&
-             INPUT.type == sf::Event::KeyPressed) {
-
-      m_rigthMove = true;
-    }
-    else if (INPUT.key.code == sf::Keyboard::Q &&
-             INPUT.type == sf::Event::KeyPressed) {
-
-      m_upMove = true;
-    }
-    else if (INPUT.key.code == sf::Keyboard::E &&
-             INPUT.type == sf::Event::KeyPressed) {
-
-      m_downtMove = true;
-    }
-    else if (INPUT.key.code == sf::Keyboard::W &&
-             INPUT.type == sf::Event::KeyReleased) {
-      
-      m_fowarMove = false;
-      
-    }
-    else if (INPUT.key.code == sf::Keyboard::A &&
-             INPUT.type == sf::Event::KeyReleased) {
-
-      m_leftMove = false;
-    }
-    else if (INPUT.key.code == sf::Keyboard::S &&
-             INPUT.type == sf::Event::KeyReleased) {
-      
-      m_backMove = false;
-      
-    }
-    else if (INPUT.key.code == sf::Keyboard::D &&
-             INPUT.type == sf::Event::KeyReleased) {
-
-      m_rigthMove = false;
-    }
-    else if (INPUT.key.code == sf::Keyboard::Q &&
-             INPUT.type == sf::Event::KeyReleased) {
-
-      m_upMove = false;
-    }
-    else if (INPUT.key.code == sf::Keyboard::E &&
-             INPUT.type == sf::Event::KeyReleased) {
-
-      m_downtMove = false;
-    }
-    if (INPUT.type == sf::Event::MouseButtonPressed) {
-
-      if (INPUT.mouseButton.button == sf::Mouse::Left) {
-        setInitialPosition({INPUT.mouseButton.x,
-                            INPUT.mouseButton.y,
-                            0 });
-        setClicked(true);
-      }
-    }
-    if (INPUT.type == sf::Event::MouseButtonReleased) {
-
-      if (INPUT.mouseButton.button == sf::Mouse::Left) {
-        setClicked(false);
-      }
-    }
-    if (INPUT.type == sf::Event::MouseMoved) {
-      
-    }
-    
-
+  Camera::setFowarMove(bool pressed) {
+    m_fowarMove = pressed;
   }
+
+  void 
+  Camera::setBackMove(bool pressed) {
+    m_backMove = pressed;
+  }
+
+  void 
+  Camera::setRigthMove(bool pressed) {
+    m_rigthMove = pressed;
+  }
+
+  void 
+  Camera::setLeftMove(bool pressed) {
+    m_leftMove = pressed;
+  }
+
 
   void 
   Camera::createViewMatrix() {

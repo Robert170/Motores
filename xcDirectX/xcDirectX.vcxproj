@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\xcComputeBufferDX.h" />
     <ClInclude Include="include\xcComputShaderDX.h" />
     <ClInclude Include="include\xcConstantBufferDX.h" />
     <ClInclude Include="include\xcDepthStencilStateDX.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="include\xcVertexShaderDX.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\xcComputeBufferDX.cpp" />
     <ClCompile Include="src\xcComputShaderDX.cpp" />
     <ClCompile Include="src\xcConstantBufferDX.cpp" />
     <ClCompile Include="src\xcDepthStencilStateDX.cpp" />

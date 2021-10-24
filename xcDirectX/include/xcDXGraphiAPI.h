@@ -197,6 +197,9 @@ namespace xcEngineSDK {
 			                   uint32 NumBuffer = 0,
 			                   const void* Data = nullptr) override;
 
+    SPtr<ComputeBuffer>
+    createComputeBuffer() override;
+
 
 		/**
 		 * @brief      createTexture1D function, to create a texture
@@ -268,7 +271,7 @@ namespace xcEngineSDK {
     SPtr<ShaderProgram>
     createComputeShader(const String& FileNameCS,
                         const String& EntryCS = "",
-                        const String& ShaderModelCS = "") { return nullptr; };
+                        const String& ShaderModelCS = "") override;
 
 		/**
 	   * @brief      createPixelShaders function, to create pixel shader

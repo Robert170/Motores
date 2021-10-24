@@ -36,20 +36,33 @@ namespace xcEngineSDK {
    public:
     EventHandler() { }
     ~EventHandler() { }
+
+    /**
+     * @brief      keyPressed function, to detect if a key is pressed
+     * @param      input parameter one, pressed key
+     * @bug		     No know Bugs
+     * @return     Returns a boll
+     */
     bool
-    keyPressed(const OIS::KeyEvent& arg);
+    keyPressed(const OIS::KeyEvent& input) override;
+    
+    /**
+     * @brief      keyReleased function, to detect if a key is released
+     * @param      input parameter one, released key
+     * @bug		     No know Bugs
+     * @return     Returns bool
+     */
+    bool 
+    keyReleased(const OIS::KeyEvent& input) override;
     
     bool 
-    keyReleased(const OIS::KeyEvent& arg);
-    
-    bool 
-    mouseMoved(const  OIS::MouseEvent& arg);
+    mouseMoved(const  OIS::MouseEvent& input);
 
     bool 
-    mousePressed(const  OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    mousePressed(const  OIS::MouseEvent& input, OIS::MouseButtonID id);
     
     bool
-    mouseReleased(const  OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    mouseReleased(const  OIS::MouseEvent& input, OIS::MouseButtonID id);
   };
 
 
@@ -61,32 +74,58 @@ namespace xcEngineSDK {
 		Input() = default;
 		~Input() = default;
 
-	 private:
 
-		/**
+    void
+    init(sf::WindowHandle window) override;
+
+    void
+    update() override;
+
+    /**
 		 * @brief      keyPressed function, to detect if a key is pressed
 		 * @param      input parameter one, pressed key
 		 * @bug		     No know Bugs
-		 * @return     Returns nothing
+		 * @return     Returns a bool
 		 */
-    void
-    keyPressed(KEY_BOARD::E input);
+    virtual bool
+    keyPress(KEY_BOARD::E input) override;
 
 		/**
 		 * @brief      keyReleased function, to detect if a key is released
 		 * @param      input parameter one, released key
 		 * @bug		     No know Bugs
-		 * @return     Returns nothing
+		 * @return     Returns a bool
 		 */
-		void
-    keyReleased(KEY_BOARD::E input);
+		virtual bool
+    keyRelease(KEY_BOARD::E input) override;
+
+    /**
+     * @brief      mouseKeyPress function, to detect if a key is pressed of mouse
+     * @param      input parameter one, pressed key
+     * @bug		     No know Bugs
+     * @return     Returns a bool
+     */
+    virtual bool
+    mouseKeyPress(MOUSE_KEY::E input) override;
+
+    /**
+     * @brief      mouseKeyRelease function, to detect if a key is released of mouse
+     * @param      input parameter one, released key
+     * @bug		     No know Bugs
+     * @return     Returns a bool
+     */
+    virtual bool
+    mouseKeyRelease(MOUSE_KEY::E input) override;
+
+	 private:
 
 
 
-    OIS::InputManager* m_InputManager = nullptr;		 //Our Input System
-    OIS::Keyboard* m_kb = nullptr;								   //Keyboard Device
-    OIS::Mouse* m_m = nullptr;                       //Mouse Device
+    OIS::InputManager* m_inputManager = nullptr;		 //Our Input System
+    OIS::Keyboard* m_keyboard = nullptr;								   //Keyboard Device
+    OIS::Mouse* m_mouse = nullptr;                       //Mouse Device
 
+    EventHandler m_eventHandler;
 
 	};
 

@@ -30,6 +30,7 @@
     <ClCompile Include="src\xcBasePhysics.cpp" />
     <ClCompile Include="src\xcBaseRenderer.cpp" />
     <ClCompile Include="src\xcBaseSound.cpp" />
+    <ClCompile Include="src\xcComputeBuffer.cpp" />
     <ClCompile Include="src\xcDepthStencilState.cpp" />
     <ClCompile Include="src\xcMaterial.cpp" />
     <ClCompile Include="src\xcResource.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="include\xcBaseInput.h" />
     <ClInclude Include="include\xcBasePhysics.h" />
     <ClInclude Include="include\xcBaseSound.h" />
+    <ClInclude Include="include\xcComputeBuffer.h" />
     <ClInclude Include="include\xcComputShader.h" />
     <ClInclude Include="include\xcDepthStencilState.h" />
     <ClInclude Include="include\xcMaterial.h" />
@@ -179,7 +181,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;$(SolutionDir)xcRenderer/include;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -202,7 +204,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -225,7 +227,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -249,7 +251,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>

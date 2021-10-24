@@ -170,11 +170,23 @@ namespace xcEngineSDK {
       KB_MEDIASELECT = 0xED, // Media Select
     };
   }
- 
+  namespace MOUSE_KEY {
+    enum E {
+      KMB_Left = 0,
+      KMB_Right,
+      KMB_Middle,
+      KMB_Button3,
+      KMB_Button4,
+      KMB_Button5,
+      KMB_Button6,
+      KMB_Button7
+    };
+  }
 
 	class BaseInput : public Module<BaseInput>
 	{
-	public:
+	 public:
+    
 		BaseInput() = default;
 		~BaseInput() = default;
 
@@ -182,26 +194,51 @@ namespace xcEngineSDK {
       setObject(BaseInput* input) {
 			BaseInput::_instance() = input;
     }
+    virtual void
+    init(sf::WindowHandle window) {};
 
-	private:
+    virtual void
+    update() {};
 
     /**
 		 * @brief      keyPressed function, to detect if a key is pressed
 		 * @param      input parameter one, pressed key
 		 * @bug		     No know Bugs
-		 * @return     Returns nothing
+		 * @return     Returns a bool
 		 */
-    virtual void
-    keyPressed(KEY_BOARD::E input) {};
+    virtual bool
+    keyPress(KEY_BOARD::E input) { return false; };
 
 		/**
 		 * @brief      keyReleased function, to detect if a key is released
 		 * @param      input parameter one, released key
 		 * @bug		     No know Bugs
-		 * @return     Returns nothing
+		 * @return     Returns a bool
 		 */
-		virtual void
-    keyReleased(KEY_BOARD::E input) {};
+		virtual bool
+    keyRelease(KEY_BOARD::E input) { return false; };
+
+    /**
+     * @brief      mouseKeyPress function, to detect if a key is pressed of mouse
+     * @param      input parameter one, pressed key
+     * @bug		     No know Bugs
+     * @return     Returns a bool
+     */
+    virtual bool
+    mouseKeyPress(MOUSE_KEY::E input) { return false; };
+
+    /**
+     * @brief      mouseKeyRelease function, to detect if a key is released of mouse
+     * @param      input parameter one, released key
+     * @bug		     No know Bugs
+     * @return     Returns a bool
+     */
+    virtual bool
+    mouseKeyRelease(MOUSE_KEY::E input) { return false; };
+
+	 private:
+
+    
 
 	};
 

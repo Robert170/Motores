@@ -29,12 +29,12 @@ namespace xcEngineSDK {
     //Separar los buffer en diferentes clases
 
     /**
-      * @brief protected variables member
-    */
+     * @brief protected variables member
+     */
 
     /**
-      * @Variable m_pIndexBuffer, is for an index buffer
-    */
+     * @Variable m_pIndexBuffer, is for an index buffer
+     */
     ID3D11Buffer* m_pIndexBuffer = nullptr;
 
     uint32 m_offset = 0;

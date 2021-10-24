@@ -4,6 +4,7 @@
 #include "xcStaticMesh.h"
 #include "xcActor.h"
 #include "xcSceneGraph.h"
+#include "xcBaseInput.h"
 
 //TODO ERRORES CRITICOS
   
@@ -39,6 +40,7 @@ GameAppUnitTest::onCreate() {
   //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
 
   SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Cayde6.fbx"));
 
   SPtr<Component> testComponent(new StaticMesh(exampleModel));
 
@@ -186,8 +188,13 @@ GameAppUnitTest::onUpdate(float deltaTime) {
 
   auto& sceneGraph = g_sceneGraph();
 
- 
-  //m_camera.update();
+  auto& inputs = g_input();
+
+  sceneGraph.m_mainCamera.setFowarMove(inputs.keyPress(KEY_BOARD::KB_W));
+  sceneGraph.m_mainCamera.setBackMove(inputs.keyPress(KEY_BOARD::KB_S));
+  sceneGraph.m_mainCamera.setLeftMove(inputs.keyPress(KEY_BOARD::KB_A));
+  sceneGraph.m_mainCamera.setRigthMove(inputs.keyPress(KEY_BOARD::KB_D));
+  
   
   //todo CONSTANBUFFER GENERICOS NO ESPECIFICOS
   /*m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());

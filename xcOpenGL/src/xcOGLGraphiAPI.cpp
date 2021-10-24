@@ -399,6 +399,15 @@ namespace xcEngineSDK {
 		return shaderProgram;
 	}
 
+	
+    SPtr<ShaderProgram>
+    createComputeShader(const String& FileNameCS,
+                        const String& EntryCS,
+                        const String& ShaderModelCS) {
+
+      return nullptr;
+		}
+
 	SPtr<PixelShader> 
 	OGLGraphiAPI::createPixelShaders(const String& FileName,
 		                               const String& Entry,

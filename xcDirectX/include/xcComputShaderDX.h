@@ -21,11 +21,12 @@
 
 
 namespace xcEngineSDK {
-  class ComputeShaderDX :public ComputeShader
+  class ComputeShaderDX : public ComputeShader
 	{
 	 public:
 		/// Destructor
 		~ComputeShaderDX();
+
 	 protected:
 
 		/**
@@ -49,17 +50,17 @@ namespace xcEngineSDK {
 		*/
 		bool 
 		compileComputeShaderFromFile(const WString& FileName,
-			                          const String& EntryPoint,
-			                          const String& ShaderModel,
-			                          ID3DBlob** ppBlobOut);
+			                           const String& EntryPoint,
+			                           const String& ShaderModel,
+			                           ID3DBlob** ppBlobOut);
 
 		/**
 			* @brief protected variables member
 		*/
 
 		/**
-			* @Variable m_VertexShader, pointer for the vertex shader
-		*/
+		 * @Variable m_VertexShader, pointer for the vertex shader
+		 */
 		ID3D11ComputeShader* m_computeShader = nullptr;
 
 		/**

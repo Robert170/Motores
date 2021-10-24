@@ -77,8 +77,17 @@ namespace xcEngineSDK {
     /*void
     rotation();*/
 
-    void
-    event(sf::Event INPUT);
+    void 
+    setFowarMove(bool pressed);
+
+    void 
+    setBackMove(bool pressed);
+
+    void 
+    setRigthMove(bool pressed);
+
+    void 
+    setLeftMove(bool pressed);
 
     //void
     //moveMouse(Vector3 Dir);

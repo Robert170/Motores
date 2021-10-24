@@ -9,6 +9,7 @@
 #include "xcIndexBufferDX.h"
 #include "xcVertexBufferDX.h"
 #include "xcConstantBufferDX.h"
+#include "xcComputeBufferDX.h"
 #include "xcShaderProgramDX.h"
 #include "xcVertexShaderDX.h"
 #include "xcPixelShaderDX.h"
@@ -372,6 +373,47 @@ namespace xcEngineSDK {
     return consBuffer;
   }
 
+  SPtr<ComputeBuffer> DXGraphiAPI::createComputeBuffer()
+  {
+
+    SPtr<ComputeBufferDX>comBuffer;
+    comBuffer.reset(new ComputeBufferDX());
+
+    D3D11_BUFFER_DESC computeBuffDesc;
+    computeBuffDesc.ByteWidth = sizeof(float) * 1024; //parametro
+    computeBuffDesc.Usage = D3D11_USAGE_DEFAULT;
+    computeBuffDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
+    computeBuffDesc.CPUAccessFlags = 0;
+    computeBuffDesc.MiscFlags = 0;
+    computeBuffDesc.StructureByteStride = sizeof(float);
+
+    HRESULT hr;
+
+    hr = m_pd3dDevice->CreateBuffer(&computeBuffDesc, 
+                                    nullptr, 
+                                    &comBuffer->m_pComputeBuffer);
+
+    if (FAILED(hr)) {
+      std::cout << "//Error fail the creation of compute buffer" << std::endl;
+      return nullptr;
+    }
+
+    /*D3D11_BUFFER_UAV uavBufferDesc;
+    uavBufferDesc.Flags = 0;
+    uavBufferDesc.FirstElement = 0;
+    uavBufferDesc.NumElements = 1024;
+
+    D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc;
+    uavDesc.Format = DXGI_FORMAT_R32_FLOAT;
+    uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
+    uavDesc.Buffer = uavBufferDesc;
+
+    hr = m_pd3dDevice->CreateUnorderedAccessView(comBuffer->m_pComputeBuffer,
+                                                 &uavDesc)*/
+
+    return comBuffer;
+  }
+
   void 
   DXGraphiAPI::createTexture1D() {
   }
@@ -469,11 +511,13 @@ namespace xcEngineSDK {
 
     }
     if (bindFlags & D3D11_BIND_UNORDERED_ACCESS) {//Crear UAV
+
       CD3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc(D3D11_UAV_DIMENSION_TEXTURE2D);
       m_pd3dDevice->CreateUnorderedAccessView(texture->m_pTexture,
                                               &uavDesc,
                                               &texture->m_pUAV);
     }
+
     return texture;
 
   }
@@ -564,9 +608,10 @@ namespace xcEngineSDK {
   }
 
   SPtr<ShaderProgram>
-   DXGraphiAPI::createComputeShader(const String& FileNameCS,
-                                    const String& EntryCS,
-                                    const String& ShaderModelCS) {
+  DXGraphiAPI::createComputeShader(const String& FileNameCS,
+                                   const String& EntryCS,
+                                   const String& ShaderModelCS) {
+
     SPtr<ShaderProgramDX> shaderProgram;
     shaderProgram.reset(new ShaderProgramDX());
     String Temp;
@@ -601,7 +646,7 @@ namespace xcEngineSDK {
       return nullptr;
     }
 
-    return nullptr;
+    return shaderProgram;
   };
 
   //function to create a pixel shader

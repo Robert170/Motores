@@ -34,6 +34,7 @@ namespace xcEngineSDK {
   class IndexBuffer;
   class VertexBuffer;
   class ConstantBuffer;
+  class ComputeBuffer;
   class PixelShader;
   class VertexShader;
   class SamplerState;
@@ -179,7 +180,7 @@ namespace xcEngineSDK {
     TEXTURE_BIND_SHADER_RESOURCE = 0x8L,
     TEXTURE_BIND_RENDER_TARGET = 0x20L,
     TEXTURE_BIND_DEPTH_STENCIL = 0x40L,
-    TEXTURE_BIND_UNORDERED_ACCESS = 0x80L,
+    TEXTURE_BIND_UNORDERED_ACCESS = 0x80L
   };
 
   using TYPE_USAGE = enum
@@ -555,6 +556,9 @@ namespace xcEngineSDK {
     createConstantBuffer(uint32,
                          uint32 = 0,
                          const void* = nullptr) { return nullptr; };
+
+    virtual SPtr<ComputeBuffer>
+    createComputeBuffer() { return nullptr; };
 
 
 

@@ -5,7 +5,7 @@
 #include "xcBaseRenderer.h"
 #include "xcBaseInput.h"
 #include "xcBaseApp.h"
-
+#include "xcBaseInput.h"
 
 namespace xcEngineSDK {
 
@@ -16,42 +16,47 @@ namespace xcEngineSDK {
 
     onCreate();
 
+    auto& myGraphicsApi = g_graphicsAPI();
+
     auto& renderer = g_renderer();
 
     auto& sceneGraph = g_sceneGraph();
 
+    auto& input = g_input();
+
     renderer.init();
-
     //renderer.setModels(sceneGraph.getModels());
-
+    
 
     sf::Clock delta;
 
     float deltaTime;
+    input.init(myGraphicsApi.m_window.getSystemHandle());
 
-    auto myGraphicsApi = g_graphicsAPI().instancePtr();
 
-    while (myGraphicsApi->m_window.isOpen()) {
+    while (myGraphicsApi.m_window.isOpen()) {
 
       sf::Event event;
       deltaTime = delta.getElapsedTime().asSeconds();
 
-      while (myGraphicsApi->m_window.pollEvent(event)) {
+      while (myGraphicsApi.m_window.pollEvent(event)) {
 
 
-        handleWindowEvent(event);
-
+        //handleWindowEvent(event);
+        
         if (event.type == sf::Event::Closed) {
-          myGraphicsApi->m_window.close();
+          myGraphicsApi.m_window.close();
           break;
+
         }
         
       }
 
-      sceneGraph.update(deltaTime);
-
+     
       //update
       update(deltaTime);
+      input.update();
+      sceneGraph.update(deltaTime);
       renderer.update();
 
 
@@ -72,7 +77,7 @@ namespace xcEngineSDK {
   void 
   BaseApp::handleWindowEvent(sf::Event eventInput){
     auto& sceneGraph = g_sceneGraph();
-    sceneGraph.m_mainCamera.event(eventInput);
+    //sceneGraph.m_mainCamera.event(eventInput);
     onEvents(eventInput);
     return;
   }
@@ -144,7 +149,7 @@ namespace xcEngineSDK {
     if (m_input.loadPlugin("xcInput_d.dll")) {
 
       auto createInput = reinterpret_cast<funProtoInput>
-        (m_input.getProcedureByName("create_Input"));
+                         (m_input.getProcedureByName("create_Input"));
 
 
       BaseInput::startUp();
