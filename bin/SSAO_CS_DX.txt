@@ -1,0 +1,128 @@
+
+RWTexture2D<float4> TextureSSAO : register(u0);
+
+
+Texture2D positionTexture : register( t0 ); 
+Texture2D normalTexture : register( t1 ); 
+
+//Sampler
+SamplerState samLinear : register( s0 );
+
+//Constant buffers
+cbuffer cbSSAO : register( b0 )
+{
+    float g_Sample_radius;
+    float g_Intensity;
+    float g_Scale;
+    float g_Bias;	
+};
+
+cbuffer cbSSAOTexture : register( b1 )
+{
+	float textureWidth;
+    float textureHeight;	
+};
+
+/*
+uint3 groupID : SV_GroupID
+- Index of the group within the dispatch for each dimension
+
+uint3 groupThreadID : SV_GroupThreadID
+- Index of the thread within the group for each dimension
+
+uint groupIndex : SV_GroupIndex
+- A sequential index within the group that starts from 0 top left back and goes on to bottom right front
+
+uint3 dispatchThreadID : SV_DispatchThreadID 
+- Global thread index within the whole dispatch, write and read a buffer
+*/
+
+struct CS_INPUT
+{
+  uint3 groupThreadID    : SV_GroupThreadID;
+  uint3 groupID           : SV_GroupID;
+  uint3 dispatchThreadID : SV_DispatchThreadID;
+  uint  groupIndex        : SV_GroupIndex;
+};
+
+//functions
+float3 
+GetPosition(in float2 uv) {
+
+  return positionTexture.SampleLevel(samLinear, uv, 0).xyz;
+  
+}
+
+float3 
+GetNormal(in float2 uv) {
+
+  return normalTexture.SampleLevel(samLinear, uv, 0).xyz;
+}
+
+float3 
+GetRandom(in float2 uv) {
+
+  float noiseX = (frac(sin(dot(uv, float2(15.8989f, 76.132f) * 1.0f)) * 46336.23745f));
+  float noiseY = (frac(sin(dot(uv, float2(11.9899f, 62.223f) * 2.0f)) * 34748.34744f));
+  float noiseZ = (frac(sin(dot(uv, float2(13.3238f, 63.122f) * 3.0f)) * 59998.47362f));
+
+  return normalize(float3(noiseX, noiseY, noiseZ));
+}
+
+float 
+DoAmbientOcclusion(in float2 tcoord, in float2 uv, in float3 p, in float3 cnorm) {
+
+  float3 diff = GetPosition(tcoord + uv) - p; //saca una coordenada en espacio de mundo
+  const float3 v = normalize(diff);
+  const float d = length(diff) * g_Scale;
+  return max(0.0f, dot(cnorm, v) - g_Bias) * (1.0 / (1.0 + d)) * g_Intensity;
+}
+
+
+[numthreads(32, 32, 1)]
+void 
+cs_ssao(CS_INPUT input) {
+
+  if(input.dispatchThreadID.x > textureWidth || input.dispatchThreadID.y > textureHeight) {
+    return;
+  }
+  
+  uint2 indexColor = (input.dispatchThreadID.xy);
+  
+  float2 index = (input.dispatchThreadID.xy / float2(textureWidth, textureHeight));
+  
+  TextureSSAO[indexColor] = float4(1, 1, 1, 1);
+
+  const float2 vec[4] =
+   {
+     float2(1, 0), float2(-1, 0), float2(0, 1), float2(0, -1),
+   };
+
+   float3 p = GetPosition(index);
+
+ 
+   float3 n = GetNormal(index);
+   float3 rand = GetRandom(index);
+
+   float ao = 0.0f;
+   float rad = g_Sample_radius / p.z;
+
+   int iterators = 4;
+
+   for (int j = 0; j < iterators; ++j)
+   {
+     float2 coord1 = reflect(vec[j], rand) * rad;
+     float2 coord2 = float2(coord1.x * 0.707 - coord1.y * 0.707,
+                             coord1.x * 0.707 + coord1.y * 0.707);
+
+     ao += DoAmbientOcclusion(index, coord1 * 0.25, p.xyz, n);
+     ao += DoAmbientOcclusion(index, coord2 * 0.5, p.xyz, n);
+     ao += DoAmbientOcclusion(index, coord1 * 0.75, p.xyz, n);
+     ao += DoAmbientOcclusion(index, coord2, p.xyz, n);
+   }
+
+   ao /= (iterators * 4);
+  
+   TextureSSAO[indexColor] = float4(1 - ao.xxx, 1);
+
+}

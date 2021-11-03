@@ -20,7 +20,7 @@ GameAppUnitTest::onCreate() {
   
 
   // Set primitive topology
-  graphicsApi.setPrimitiveTopology(PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  graphicsApi.setPrimitiveTopology(PRIMITIVE_TOPOLOGY::kPRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
   
   

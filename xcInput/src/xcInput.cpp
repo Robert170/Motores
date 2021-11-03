@@ -9,6 +9,13 @@ namespace xcEngineSDK {
     wnd << (size_t)window;
 
     pl.insert(std::make_pair(std::string("WINDOW"), wnd.str()));
+
+    pl.insert(std::make_pair(std::string("w32_mouse"), 
+                             std::string("DISCL_FOREGROUND")));
+
+    pl.insert(std::make_pair(std::string("w32_mouse"),
+                             std::string("DISCL_NONEXCLUSIVE")));
+
     m_inputManager = OIS::InputManager::createInputSystem(pl);
 
     //Lets enable all addons that were compiled in:
@@ -31,6 +38,13 @@ namespace xcEngineSDK {
     wnd << (size_t)window;
 
     pl.insert(std::make_pair(std::string("WINDOW"), wnd.str()));
+
+    pl.insert(std::make_pair(std::string("w32_mouse"), 
+                             std::string("DISCL_FOREGROUND")));
+
+    pl.insert(std::make_pair(std::string("w32_mouse"),
+                             std::string("DISCL_NONEXCLUSIVE")));
+
     m_inputManager = OIS::InputManager::createInputSystem(pl);
 
     //Lets enable all addons that were compiled in:

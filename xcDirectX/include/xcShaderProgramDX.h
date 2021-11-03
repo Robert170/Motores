@@ -16,7 +16,7 @@
 #include "xcShaderProgram.h"
 #include "xcPixelShaderDX.h"
 #include "xcVertexShaderDX.h"
-#include "xcComputShaderDX.h"
+#include "xcComputeShaderDX.h"
 namespace xcEngineSDK {
 	class ShaderProgramDX : public ShaderProgram
 	{

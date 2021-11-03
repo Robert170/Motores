@@ -138,14 +138,12 @@ float4 ps_main(PS_INPUT Input) : SV_TARGET0
   shadowClipPos /= shadowClipPos.w;
   float3 shadowTexCoords = 0.5f + (shadowClipPos.xyz * 0.5f);
    
-   //return shadowTest;
-   shadowTexCoords.y = 1 -shadowTexCoords.y;
-   float shadowDepth = DepthTexture.Sample(samLinear, shadowTexCoords).x;
-   float currentDepth = shadowTexCoords.z;
-   if(currentDepth + SHADOW_BIAS > shadowDepth){
+  shadowTexCoords.y = 1 -shadowTexCoords.y;
+  float shadowDepth = DepthTexture.Sample(samLinear, shadowTexCoords).x;
+  float currentDepth = shadowTexCoords.z;
+  if(currentDepth + SHADOW_BIAS > shadowDepth){
      shadow = 0.0f;
    }
-   //shadow = currentDepth + SHADOW_BIAS > shadowDepth ? 0.0f : 1.0f;
    /////////////
    
    // float3 ambientLighting;

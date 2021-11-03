@@ -1,0 +1,96 @@
+
+RWTexture2D<float4> TextureBlur : register(u0);
+
+
+Texture2D InputImage : register( t0 ); //Rougnes
+
+//Sampler
+SamplerState samLinear : register( s0 );
+
+cbuffer cbBlur : register( b0 )
+{
+    //float4 fViewportDimensions;
+	float fViewportDimensionsX;
+	float fViewportDimensionsY;
+	float textureWidth;
+    float textureHeight;	
+};
+
+/*
+uint3 groupID : SV_GroupID
+- Index of the group within the dispatch for each dimension
+
+uint3 groupThreadID : SV_GroupThreadID
+- Index of the thread within the group for each dimension
+
+uint groupIndex : SV_GroupIndex
+- A sequential index within the group that starts from 0 top left back and goes on to bottom right front
+
+uint3 dispatchThreadID : SV_DispatchThreadID 
+- Global thread index within the whole dispatch, write and read a buffer
+*/
+
+struct CS_INPUT
+{
+  uint3 groupThreadID    : SV_GroupThreadID;
+  uint3 groupID           : SV_GroupID;
+  uint3 dispatchThreadID : SV_DispatchThreadID;
+  uint  groupIndex        : SV_GroupIndex;
+};
+
+float gamma = 1.0f;  
+
+[numthreads(32, 32, 1)]
+void 
+cs_gaussian_blurH(CS_INPUT input) {
+
+  if(input.dispatchThreadID.x > textureWidth || input.dispatchThreadID.y > textureHeight) {
+    return;
+  }
+
+  uint2 indexColor = (input.dispatchThreadID.xy);
+  float2 index = (input.dispatchThreadID.xy / float2(textureWidth, textureHeight));
+
+  float offset[3] = {0.0, 1.3846153846, 3.2307692308};
+  float weight[3] = {0.2270270270, 0.316216162, 0.0702702703};
+  
+  float4 FragmentColor = pow(InputImage.SampleLevel(samLinear, index, 0), 1.0f) * weight[0];
+  
+  for(int i = 1; i < 3; i++)
+  {
+    FragmentColor += pow(InputImage.SampleLevel(samLinear, index + (float2(offset[i], 0.0f) / 
+	                       float2(fViewportDimensionsX,fViewportDimensionsY)), 0), 1.0f) * weight[i];
+	FragmentColor += pow(InputImage.SampleLevel(samLinear, index - (float2(offset[i], 0.0f) / 
+	                       float2(fViewportDimensionsX,fViewportDimensionsY)), 0), 1.0f) * weight[i];
+  }
+  
+  TextureBlur[indexColor] = pow(FragmentColor, 1.0f/1.0f);
+}
+
+
+[numthreads(32, 32, 1)]
+void 
+cs_gaussian_blurV(CS_INPUT input) {
+
+  if(input.dispatchThreadID.x > textureWidth || input.dispatchThreadID.y > textureHeight) {
+    return;
+  }
+
+  uint2 indexColor = (input.dispatchThreadID.xy);
+  float2 index = (input.dispatchThreadID.xy / float2(textureWidth, textureHeight));
+  
+  float offset[3] = {0.0, 1.3846153846, 3.2307692308};
+  float weight[3] = {0.2270270270, 0.316216162, 0.0702702703};
+  
+  float4 FragmentColor = pow(InputImage.SampleLevel(samLinear, index, 0), 1.0f) * weight[0];
+  
+  for(int i = 1; i < 3; i++)
+  {
+    FragmentColor += pow(InputImage.SampleLevel(samLinear, index + (float2(0.0f, offset[i]) / 
+	                      float2(fViewportDimensionsX,fViewportDimensionsY)), 0), 1.0f) * weight[i];
+	FragmentColor += pow(InputImage.SampleLevel(samLinear, index - (float2(0.0f, offset[i]) / 
+	                       float2(fViewportDimensionsX,fViewportDimensionsY)), 0), 1.0f) * weight[i];
+  }
+  
+  TextureBlur[indexColor] = pow(FragmentColor, 1.0f/1.0f);
+}

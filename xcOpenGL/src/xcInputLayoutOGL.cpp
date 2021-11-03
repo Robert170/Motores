@@ -3,21 +3,21 @@
 namespace xcEngineSDK {
 	InputLayoutOGL::InputLayoutOGL() {
 		m_mFormatSize.insert(std::pair<unsigned int, 
-		unsigned int>(TF_R32G32B32A32_FLOAT, 4));
+		unsigned int>(TEXTURE_FORMAT::kTF_R32G32B32A32_FLOAT, 4));
 		m_mFormatSize.insert(std::pair<unsigned int, 
-		unsigned int>(TF_R32G32B32A32_UINT, 4));
+		unsigned int>(TEXTURE_FORMAT::kTF_R32G32B32A32_UINT, 4));
 		m_mFormatSize.insert(std::pair<unsigned int, 
-		unsigned int>(TF_R32G32B32_FLOAT, 3));
+		unsigned int>(TEXTURE_FORMAT::kTF_R32G32B32_FLOAT, 3));
 		m_mFormatSize.insert(std::pair<unsigned int, 
-		unsigned int>(TF_R32G32B32_UINT, 3));
+		unsigned int>(TEXTURE_FORMAT::kTF_R32G32B32_UINT, 3));
 		m_mFormatSize.insert(std::pair<unsigned int, 
-		unsigned int>(TF_R32G32_FLOAT, 2));
+		unsigned int>(TEXTURE_FORMAT::kTF_R32G32_FLOAT, 2));
 		m_mFormatSize.insert(std::pair<unsigned int, 
-		unsigned int>(TF_R32G32_UINT, 2));
+		unsigned int>(TEXTURE_FORMAT::kTF_R32G32_UINT, 2));
 		m_mFormatSize.insert(std::pair<unsigned int, 
-		unsigned int>(TF_R32_FLOAT, 1));
+		unsigned int>(TEXTURE_FORMAT::kTF_R32_FLOAT, 1));
 		m_mFormatSize.insert(std::pair<unsigned int, 
-		unsigned int>(TF_R32_UINT, 1));
+		unsigned int>(TEXTURE_FORMAT::kTF_R32_UINT, 1));
 	}
 
 	unsigned int 

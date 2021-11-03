@@ -52,7 +52,7 @@
     <ClInclude Include="include\xcDepthStencilStateDX.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\xcComputShaderDX.h">
+    <ClInclude Include="include\xcComputeShaderDX.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\xcComputeBufferDX.h">
@@ -99,7 +99,7 @@
     <ClCompile Include="src\xcDepthStencilStateDX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\xcComputShaderDX.cpp">
+    <ClCompile Include="src\xcComputeShaderDX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\xcComputeBufferDX.cpp">

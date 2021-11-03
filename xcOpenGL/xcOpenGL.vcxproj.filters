@@ -49,6 +49,9 @@
     <ClInclude Include="include\xcVertexShaderOGL.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="xcComputeShaderOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcConstantBufferOGL.cpp">

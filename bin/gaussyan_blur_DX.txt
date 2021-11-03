@@ -5,7 +5,10 @@ SamplerState samLinear : register( s0 );
 
 cbuffer cbBlur : register( b0 )
 {
-    float4 fViewportDimensions;
+    float fViewportDimensionsX;
+	float fViewportDimensionsY;
+	float textureWidth;
+    float textureHeight;	
 };
 
 
@@ -28,8 +31,8 @@ float4 ps_gaussian_blurH(PS_INPUT input) : SV_TARGET0
   
   for(int i = 1; i < 3; i++)
   {
-    FragmentColor += pow(InputImage.Sample(samLinear, input.TexCoord + (float2(offset[i], 0.0f) / float2((fViewportDimensions).x,(fViewportDimensions).y))), 1.0f) * weight[i];
-	FragmentColor += pow(InputImage.Sample(samLinear, input.TexCoord - (float2(offset[i], 0.0f) / float2((fViewportDimensions).x,(fViewportDimensions).y))), 1.0f) * weight[i];
+    FragmentColor += pow(InputImage.Sample(samLinear, input.TexCoord + (float2(offset[i], 0.0f) / float2(fViewportDimensionsX,fViewportDimensionsY))), 1.0f) * weight[i];
+	FragmentColor += pow(InputImage.Sample(samLinear, input.TexCoord - (float2(offset[i], 0.0f) / float2(fViewportDimensionsX,fViewportDimensionsY))), 1.0f) * weight[i];
   }
   
   return pow(FragmentColor, 1.0f/1.0f);
@@ -45,8 +48,8 @@ float4 ps_gaussian_blurV(PS_INPUT input) : SV_TARGET0
   
   for(int i = 1; i < 3; i++)
   {
-    FragmentColor += pow(InputImage.Sample(samLinear, input.TexCoord + (float2(0.0f, offset[i]) / float2((fViewportDimensions).x,(fViewportDimensions).y))), 1.0f) * weight[i];
-	FragmentColor += pow(InputImage.Sample(samLinear, input.TexCoord - (float2(0.0f, offset[i]) / float2((fViewportDimensions).x,(fViewportDimensions).y))), 1.0f) * weight[i];
+    FragmentColor += pow(InputImage.Sample(samLinear, input.TexCoord + (float2(0.0f, offset[i]) / float2(fViewportDimensionsX,fViewportDimensionsY))), 1.0f) * weight[i];
+	FragmentColor += pow(InputImage.Sample(samLinear, input.TexCoord - (float2(0.0f, offset[i]) / float2(fViewportDimensionsX,fViewportDimensionsY))), 1.0f) * weight[i];
   }
   
   return pow(FragmentColor, 1.0f/1.0f);

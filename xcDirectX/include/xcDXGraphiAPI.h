@@ -198,7 +198,10 @@ namespace xcEngineSDK {
 			                   const void* Data = nullptr) override;
 
     SPtr<ComputeBuffer>
-    createComputeBuffer() override;
+    createComputeBuffer(uint32 size,
+			                  uint32 numElemnts,
+			                  TYPE_USAGE::E usage,
+			                  TEXTURE_FORMAT::E format) override;
 
 
 		/**
@@ -224,9 +227,9 @@ namespace xcEngineSDK {
 		createTexture2D(uint32 width,
 			              uint32 height,
 			              uint32 numberTexture, //deberia estar en la clase texture
-			              TEXTURE_FORMAT format,
+			              TEXTURE_FORMAT::E format,
 			              uint32 bindFlags,
-			              TYPE_USAGE Usage,
+			              TYPE_USAGE::E Usage,
 			              const void* Data) override;
 
 		/**
@@ -430,6 +433,30 @@ namespace xcEngineSDK {
 			                  uint32 NumBuffers) override;
 
 		/**
+     * @brief      setCSConstantBuffer function, to set constant 
+     *             buffer of the compute shader
+     * @param      ConstBuff parameter one, a pointer of CConstantBuffer
+     * @param      StartSlot parameter two, start slot for set constant buffer
+     * @param      NumBuffer parameter three, number of buffer
+     * @bug		     No know Bugs
+     * @return     Returns nothing
+     */
+    void 
+    setCSConstantBuffer(WeakSptr<ConstantBuffer> ConstBuff,
+                        uint32 StartSlot,
+                        uint32 NumBuffers) override;
+
+		void
+    setComputeBuffer(WeakSptr<ComputeBuffer> compBuff,
+                     uint32 StartSlot,
+                     uint32 NumBuffer) override;
+
+		void
+    setComputeBufferRTUAV(Texture* compBuffUAV,
+                          uint32 StartSlot,
+                          uint32 NumBuffer) override;
+
+		/**
 		 * @brief      setShaderProgram function, to set pixel and vertex shader
 		 * @param      Pixel parameter one, a pointer of CShaderProgram
 		 * @bug		     No know Bugs
@@ -437,6 +464,10 @@ namespace xcEngineSDK {
 		 */
 		void 
 		setShaderProgram(WeakSptr<ShaderProgram> shaderProgram) override;
+
+
+		void 
+    setComputeShader(WeakSptr<ShaderProgram> computeShade) override;
 
 
 		/**
@@ -480,6 +511,10 @@ namespace xcEngineSDK {
 		void 
 		setSamplerState(const Vector<SPtr<SamplerState>>& Sam,
 			              uint32 StartSlot) override; //
+
+		void
+    setSamplerStateCS(const Vector<SPtr<SamplerState>>& Sam,
+                      uint32 StartSlot) override;
 
     /**
 	   * @brief      setDepthStencil function, to set depth stencil
@@ -533,6 +568,11 @@ namespace xcEngineSDK {
 		setShaderResource(const Vector<Texture*>& pRTTex,
 			                uint32 StartSlot = 0) override;
 
+    void
+    setShaderResourceCS(const Vector<Texture*>& pRTTex,
+                        uint32 StartSlot = 0) override;
+
+
 		/**
 		 * @brief      setViewport function, to set viewport
 		 * @param      NumViewport parameter one, number of viewport
@@ -557,8 +597,8 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setPrimitiveTopology(PRIMITIVE_TOPOLOGY Topology =
-			                   PRIMITIVE_TOPOLOGY_TRIANGLELIST) override;
+		setPrimitiveTopology(PRIMITIVE_TOPOLOGY::E Topology =
+			PRIMITIVE_TOPOLOGY::kPRIMITIVE_TOPOLOGY_TRIANGLELIST) override;
 
 		/**
 		 * @brief      setDefaultRenderTarget function, to set default render taret
@@ -596,7 +636,7 @@ namespace xcEngineSDK {
      */
 		void 
 		clearDepthStencil(Texture* RT,
-			                uint32 ClerFlag = CLEAR_DEPTH,
+			                uint32 ClerFlag = CLEAR_FLAG::kCLEAR_DEPTH,
 			                float Depth = 1.0f,
 			                uint32 Stencil = 0) override;
 
@@ -630,6 +670,18 @@ namespace xcEngineSDK {
      */
     Texture*
     textureFromFile(String path) override;
+
+
+    void
+    dispatch(uint32 a, uint32 b, uint32 c) override;
+
+
+		void
+    desbindingUAV(uint32,
+                 uint32) override;
+
+		void
+	 desbindingRT() override;
 
 		//draw
 

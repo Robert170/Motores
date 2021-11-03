@@ -202,9 +202,9 @@ namespace xcEngineSDK {
 		createTexture2D(uint32 width,
 			              uint32 height,
 			              uint32 numberTexture, //deberia estar en la clase texture
-			              TEXTURE_FORMAT format,
+			              TEXTURE_FORMAT::E format,
 			              uint32 bindFlags,
-			              TYPE_USAGE Usage,
+			              TYPE_USAGE::E Usage,
 			              const void* Data) override;
 
 		/**
@@ -510,8 +510,8 @@ namespace xcEngineSDK {
 	   * @return     Returns nothing
      */
 		void 
-		setPrimitiveTopology(PRIMITIVE_TOPOLOGY Topology =
-			                   PRIMITIVE_TOPOLOGY_TRIANGLELIST) override;
+		setPrimitiveTopology(PRIMITIVE_TOPOLOGY::E Topology =
+			PRIMITIVE_TOPOLOGY::kPRIMITIVE_TOPOLOGY_TRIANGLELIST) override;
 
 		/**
 		 * @brief      setDefaultRenderTarget function, to set default render taret
@@ -548,7 +548,7 @@ namespace xcEngineSDK {
      */
 		void 
 		clearDepthStencil(Texture* RT,
-			                uint32 ClerFlag = CLEAR_DEPTH,
+			                uint32 ClerFlag = CLEAR_FLAG::kCLEAR_DEPTH,
 			                float Depth = 1.0f,
 			                uint32 Stencil = 0) override;
 

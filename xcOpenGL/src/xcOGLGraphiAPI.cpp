@@ -196,9 +196,9 @@ namespace xcEngineSDK {
 	OGLGraphiAPI::createTexture2D(uint32 width,
 			                          uint32 height,
 			                          uint32 numberTexture,
-			                          TEXTURE_FORMAT format,
+			                          TEXTURE_FORMAT::E format,
 			                          uint32 bindFlags,
-			                          TYPE_USAGE Usage,
+			                          TYPE_USAGE::E Usage,
 		                            const void* Data) {
 
 		XC_UNREFERENCED_PARAMETER(format);
@@ -209,11 +209,11 @@ namespace xcEngineSDK {
 
 		//Checar que interfaces se van a crear
 	  //se puede omitir
-	  if (bindFlags & TEXTURE_BIND_SHADER_RESOURCE) {//Crear SRV
+	  if (bindFlags & TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE) {//Crear SRV
 	  	//flata arreglar
 	  	glTextureView(0, 0, 0, 0, 0, 0, 0, 0);
 	  }
-	  if (bindFlags & TEXTURE_BIND_DEPTH_STENCIL) {//Crear DSV
+	  if (bindFlags & TEXTURE_BIND_FLAG::kTEXTURE_BIND_DEPTH_STENCIL) {//Crear DSV
 	  
 	  	glGenRenderbuffers(numberTexture,
 	  		                 &texture->m_dSV);
@@ -223,23 +223,23 @@ namespace xcEngineSDK {
 	  		                    width,
 	  		                    height);
 	  }
-	  if (bindFlags & TEXTURE_BIND_RENDER_TARGET) {//Crear RTV
+	  if (bindFlags & TEXTURE_BIND_FLAG::kTEXTURE_BIND_RENDER_TARGET) {//Crear RTV
 	  	
 	  	glGenFramebuffers(numberTexture, 
 	  		              &texture->m_rTV);
 	  }
-	  if (bindFlags & TEXTURE_BIND_UNORDERED_ACCESS) {//Crear UAV
+	  if (bindFlags & TEXTURE_BIND_FLAG::kTEXTURE_BIND_UNORDERED_ACCESS) {//Crear UAV
 	  	
 	  
 	  }
 	  unsigned int OglFormat;
-	  if (TF_R16_UINT == format) {
+	  if (TEXTURE_FORMAT::kTF_R16_UINT == format) {
 	  	OglFormat = GL_RED;
 	  }
-	  else if (TF_R32G32B32_UINT == format) {
+	  else if (TEXTURE_FORMAT::kTF_R32G32B32_UINT == format) {
 	  	OglFormat = GL_RGB;
 	  }
-	  else if (TF_R16G16B16A16_UINT == format) {
+	  else if (TEXTURE_FORMAT::kTF_R16G16B16A16_UINT == format) {
 	  	OglFormat = GL_RGBA;
 	  }
 	  glGenTextures(numberTexture, 
@@ -787,7 +787,7 @@ namespace xcEngineSDK {
 	}
 
 	void
-	OGLGraphiAPI::setPrimitiveTopology(PRIMITIVE_TOPOLOGY Topology) {
+	OGLGraphiAPI::setPrimitiveTopology(PRIMITIVE_TOPOLOGY::E Topology) {
 		XC_UNREFERENCED_PARAMETER(Topology);
 	}
 
@@ -869,26 +869,26 @@ namespace xcEngineSDK {
 			                              &nrComponents, 
 			                              0);
     if (data) {
-      TEXTURE_FORMAT format;
+      TEXTURE_FORMAT::E format;
       if (nrComponents == 1) {
 
-        format = TF_R16_UINT;
+        format = TEXTURE_FORMAT::kTF_R16_UINT;
       }
       else if (nrComponents == 3) {
 
-        format = TF_R32G32B32_UINT;
+        format = TEXTURE_FORMAT::kTF_R32G32B32_UINT;
       }
       else if (nrComponents == 4) {
 
-        format = TF_R16G16B16A16_UINT;
+        format = TEXTURE_FORMAT::kTF_R16G16B16A16_UINT;
       }
       //create texture
       texture = createTexture2D(width,
                                 height,
                                 1,
                                 format,
-                                TEXTURE_BIND_SHADER_RESOURCE,
-                                TYPE_USAGE_DEFAULT,
+				                        TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE,
+                                TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                 data);
       //m_texturesloaded.push_back(m_texture);
 

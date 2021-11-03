@@ -16,41 +16,21 @@
  * Includes
  */
  /*****************************************************************************/
-#include <xcComputeBuffer.h>
-#include "xcPrerequisitesDX.h"
+#include <xcComputShader.h>
+#include "xcPrerequisitesOGL.h"
 
 
 namespace xcEngineSDK {
-	class ComputeBufferDX : public ComputeBuffer
+	class ComputeShaderOGL : public ComputeShader
 	{
 	public:
 		/// Destructor
-		~ComputeBufferDX() = default;
+		~ComputeShaderOGL() = default;
 
 	protected:
+		ComputeShaderOGL() = default;
+		
 
-		/**
-     * @brief protected variables member
-     */
-
-    /**
-     * @Variable m_pComputeBuffer, is for an compute buffer
-     */
-    ID3D11Buffer* m_pComputeBuffer = nullptr;
-
-		/**
-		 * @Variable m_UAV, pointer for the unordered access view
-		 */
-		ID3D11UnorderedAccessView* m_pUAV = nullptr;
-
-		/**
-		 * @Variable m_SRV, pointer for the shader resource view
-		 */
-		ID3D11ShaderResourceView* m_pSRV = nullptr;
-
-
-    uint32 m_offset = 0;
-
-		friend class DXGraphiAPI;
+		friend class OGLGraphiAPI;
 	};
 }

@@ -13,7 +13,7 @@
 #include "xcShaderProgramDX.h"
 #include "xcVertexShaderDX.h"
 #include "xcPixelShaderDX.h"
-#include "xcComputShaderDX.h"
+#include "xcComputeShaderDX.h"
 #include "xcSamplerStateDX.h"
 #include "xcRasterizerStateDX.h"
 #include "xcDepthStencilStateDX.h"
@@ -373,15 +373,18 @@ namespace xcEngineSDK {
     return consBuffer;
   }
 
-  SPtr<ComputeBuffer> DXGraphiAPI::createComputeBuffer()
-  {
+  SPtr<ComputeBuffer> 
+  DXGraphiAPI::createComputeBuffer(uint32 size, 
+                                   uint32 numElemnts, 
+                                   TYPE_USAGE::E usage,
+                                   TEXTURE_FORMAT::E format) {
 
     SPtr<ComputeBufferDX>comBuffer;
     comBuffer.reset(new ComputeBufferDX());
 
     D3D11_BUFFER_DESC computeBuffDesc;
-    computeBuffDesc.ByteWidth = sizeof(float) * 1024; //parametro
-    computeBuffDesc.Usage = D3D11_USAGE_DEFAULT;
+    computeBuffDesc.ByteWidth = size * numElemnts; 
+    computeBuffDesc.Usage = static_cast<D3D11_USAGE>(usage);
     computeBuffDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
     computeBuffDesc.CPUAccessFlags = 0;
     computeBuffDesc.MiscFlags = 0;
@@ -398,18 +401,44 @@ namespace xcEngineSDK {
       return nullptr;
     }
 
-    /*D3D11_BUFFER_UAV uavBufferDesc;
+    D3D11_BUFFER_UAV uavBufferDesc;
     uavBufferDesc.Flags = 0;
     uavBufferDesc.FirstElement = 0;
-    uavBufferDesc.NumElements = 1024;
+    uavBufferDesc.NumElements = numElemnts;
 
     D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc;
-    uavDesc.Format = DXGI_FORMAT_R32_FLOAT;
+    uavDesc.Format = static_cast<DXGI_FORMAT>(format);;
     uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
     uavDesc.Buffer = uavBufferDesc;
 
     hr = m_pd3dDevice->CreateUnorderedAccessView(comBuffer->m_pComputeBuffer,
-                                                 &uavDesc)*/
+                                                 &uavDesc,
+                                                 &comBuffer->m_pUAV);
+
+    if (FAILED(hr)) {
+      std::cout << "//Error fail the creation of uav buffer" << std::endl;
+      return nullptr;
+    }
+
+    D3D11_BUFFER_SRV srvBuffer;
+    srvBuffer.FirstElement = 0;
+    srvBuffer.ElementOffset = 0;
+    srvBuffer.NumElements = 1;
+    srvBuffer.ElementWidth = numElemnts;
+
+    D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+    srvDesc.Format = static_cast<DXGI_FORMAT>(format);
+    srvDesc.ViewDimension = D3D_SRV_DIMENSION_BUFFER;
+    srvDesc.Buffer = srvBuffer;
+
+    hr = m_pd3dDevice->CreateShaderResourceView(comBuffer->m_pComputeBuffer,
+                                                &srvDesc,
+                                                &comBuffer->m_pSRV);
+
+    if (FAILED(hr)) {
+      std::cout << "//Error fail the creation of uav buffer" << std::endl;
+      return nullptr;
+    }
 
     return comBuffer;
   }
@@ -423,9 +452,9 @@ namespace xcEngineSDK {
   DXGraphiAPI::createTexture2D(uint32 width,
                                uint32 height,
                                uint32 numberTexture,
-                               TEXTURE_FORMAT format,
+                               TEXTURE_FORMAT::E format,
                                uint32 bindFlags,
-                               TYPE_USAGE Usage,
+                               TYPE_USAGE::E Usage,
                                const void* Data) {
     HRESULT hr;
     TextureDX* texture = new TextureDX();
@@ -971,8 +1000,6 @@ namespace xcEngineSDK {
     SPtr<SamplerStateDX> samplerState; 
     samplerState.reset(new SamplerStateDX());
 
-    
-   
     D3D11_SAMPLER_DESC SamDesc;
     SamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
     SamDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
@@ -1007,11 +1034,11 @@ namespace xcEngineSDK {
     ZeroMemory(&RasDesc, sizeof(RasDesc));
     switch (fillMode) {
 
-    case FILL_MODE::FILL_WIREFRAME:
+    case FILL_MODE::kFILL_WIREFRAME:
       RasDesc.FillMode = D3D11_FILL_WIREFRAME;
       break;
 
-    case FILL_MODE::FILL_SOLID:
+    case FILL_MODE::kFILL_SOLID:
       RasDesc.FillMode = D3D11_FILL_SOLID;
       break;
 
@@ -1020,13 +1047,13 @@ namespace xcEngineSDK {
     }
 
     switch (cullMode) {
-    case CULL_MODE::CULL_NONE:
+    case CULL_MODE::kCULL_NONE:
       RasDesc.CullMode = D3D11_CULL_NONE;
       break;
-    case CULL_MODE::CULL_FRONT:
+    case CULL_MODE::kCULL_FRONT:
       RasDesc.CullMode = D3D11_CULL_FRONT;
       break;
-    case CULL_MODE::CULL_BACK:
+    case CULL_MODE::kCULL_BACK:
       RasDesc.CullMode = D3D11_CULL_BACK;
       break;
     default:
@@ -1104,6 +1131,46 @@ namespace xcEngineSDK {
                                               &buffer->m_pConstantBuffer);
   }
 
+  void 
+  DXGraphiAPI::setCSConstantBuffer(WeakSptr<ConstantBuffer> ConstBuff, 
+                                   uint32 StartSlot, 
+                                   uint32 NumBuffers) {
+
+    ConstantBufferDX* buffer = 
+    reinterpret_cast<ConstantBufferDX*>(ConstBuff.lock().get());
+
+    m_pImmediateContext->CSSetConstantBuffers(StartSlot,
+                                              NumBuffers,
+                                              &buffer->m_pConstantBuffer);
+  }
+
+  void
+  DXGraphiAPI::setComputeBuffer(WeakSptr<ComputeBuffer> compBuff,
+                                uint32 StartSlot,
+                                uint32 NumBuffer) {
+    ComputeBufferDX* buffer = 
+    reinterpret_cast<ComputeBufferDX*>(compBuff.lock().get());
+
+    m_pImmediateContext->CSSetUnorderedAccessViews(StartSlot,
+                                                   NumBuffer,
+                                                   &buffer->m_pUAV,
+                                                   nullptr);
+  }
+
+  void 
+  DXGraphiAPI::setComputeBufferRTUAV(Texture* compBuffUAV, 
+                                     uint32 StartSlot, 
+                                     uint32 NumBuffer) {
+
+    TextureDX* buffer = 
+    reinterpret_cast<TextureDX*>(compBuffUAV);
+
+    m_pImmediateContext->CSSetUnorderedAccessViews(StartSlot,
+                                                   NumBuffer,
+                                                   &buffer->m_pUAV,
+                                                   nullptr);
+  }
+
 
 
   //function to set an index buffer 
@@ -1138,6 +1205,7 @@ namespace xcEngineSDK {
                                             &vertexBuff->m_pVertexBuffer,
                                             &vertexBuff->m_stride,
                                             &vertexBuff->m_offset);
+
   }
 
   void 
@@ -1153,6 +1221,17 @@ namespace xcEngineSDK {
 
     m_pImmediateContext->VSSetShader(ShaderPr->m_vertexShaderProgram->
                                      m_vertexShader,
+                                     nullptr,
+                                     0);
+  }
+
+  void 
+  DXGraphiAPI::setComputeShader(WeakSptr<ShaderProgram> computeShader) {
+
+    ShaderProgramDX* ShaderPr = 
+    reinterpret_cast<ShaderProgramDX*>(computeShader.lock().get());
+    m_pImmediateContext->CSSetShader(ShaderPr->m_computeShaderProgram->
+                                     m_computeShader,
                                      nullptr,
                                      0);
   }
@@ -1242,6 +1321,23 @@ namespace xcEngineSDK {
   }
 
   void 
+  DXGraphiAPI::setSamplerStateCS(const Vector<SPtr<SamplerState>>& Sam, 
+                                 uint32 StartSlot) {
+
+    for (uint32 i = 0; i < Sam.size(); ++i) {
+
+      SamplerStateDX* Sampler = 
+      reinterpret_cast<SamplerStateDX*>(Sam[i].get());
+
+      m_pImmediateContext->CSSetSamplers(i,
+                                         Sam.size(),
+                                         &Sampler->m_pSamplerLinear);
+    }
+    XC_UNREFERENCED_PARAMETER(StartSlot);
+
+  }
+
+  void 
   DXGraphiAPI::setDepthStencil(WeakSptr<Texture> pDSTex){
     XC_UNREFERENCED_PARAMETER(pDSTex);
   }
@@ -1264,6 +1360,22 @@ namespace xcEngineSDK {
     XC_UNREFERENCED_PARAMETER(StartSlot);
   }
 
+  void 
+  DXGraphiAPI::setShaderResourceCS(const Vector<Texture*>& pRTTex, 
+                                   uint32 StartSlot) {
+
+    for (uint32 i = 0; i < pRTTex.size(); ++i) {
+
+      TextureDX* pRTDX = reinterpret_cast<TextureDX*>(pRTTex[i]);
+
+      m_pImmediateContext->CSSetShaderResources(i,
+                                                1,
+                                                &pRTDX->m_pSRV);
+    }
+    XC_UNREFERENCED_PARAMETER(StartSlot);
+
+  }
+
 
   //TODO Prfundidad minima y maxima, cambiar el orden de los parametros
   // Poder crerar más de un viewport
@@ -1283,7 +1395,7 @@ namespace xcEngineSDK {
   }
 
   void 
-  DXGraphiAPI::setPrimitiveTopology(PRIMITIVE_TOPOLOGY Topology) {
+  DXGraphiAPI::setPrimitiveTopology(PRIMITIVE_TOPOLOGY::E Topology) {
     m_pImmediateContext->
     IASetPrimitiveTopology(static_cast<D3D_PRIMITIVE_TOPOLOGY>(Topology));
   }
@@ -1399,9 +1511,9 @@ namespace xcEngineSDK {
       texture = createTexture2D(width,
                                 height,
                                 1,
-                                TF_R8G8B8A8_UNORM,
-                                TEXTURE_BIND_SHADER_RESOURCE,
-                                TYPE_USAGE_DEFAULT,
+                                TEXTURE_FORMAT::kTF_R8G8B8A8_UNORM,
+                                TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE,
+                                TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                 data);
       //m_texturesloaded.push_back(m_texture);
 
@@ -1415,6 +1527,35 @@ namespace xcEngineSDK {
     }
 
     return texture;
+  }
+
+  void 
+  DXGraphiAPI::dispatch(uint32 a, uint32 b, uint32 c) {
+    m_pImmediateContext->Dispatch(a, b, c);
+  }
+
+  void 
+  DXGraphiAPI::desbindingUAV(uint32 StartSlot, uint32 NumBuffer) {
+
+    ID3D11UnorderedAccessView* NullUAV = nullptr;
+    m_pImmediateContext->CSSetUnorderedAccessViews(StartSlot,
+                                                   NumBuffer,
+                                                   &NullUAV,
+                                                   0);
+  }
+
+  void 
+  DXGraphiAPI::desbindingRT() {
+    static ID3D11RenderTargetView* tmpRTV[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
+
+
+    for (int32 i = 0; i < D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; ++i) {
+      tmpRTV[i] = nullptr;
+    }
+
+    m_pImmediateContext->OMSetRenderTargets(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT, 
+                                            tmpRTV, 
+                                            nullptr);
   }
 
   //function to draw

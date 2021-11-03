@@ -30,6 +30,7 @@ namespace xcEngineSDK {
   class InputLayout;
   class Pass;
   class Texture;
+  class SamplerState;
 
   struct ColorStruct;
   struct TextureDesc;
@@ -136,6 +137,9 @@ namespace xcEngineSDK {
     
     Camera m_shadowCamera;
 
+    SPtr<SamplerState> m_Sampler = nullptr;
+    Vector<SPtr<SamplerState>> m_vSamplers;
+
     //Shader
     SPtr<ShaderProgram> m_shaderProgramSSAO = nullptr;
 
@@ -160,6 +164,12 @@ namespace xcEngineSDK {
     //Constant buffer
     CBSSAO m_constantBufferSSAO;
     SPtr<ConstantBuffer> m_cbSSAO = nullptr;
+    CBSSAO_TEXTURE m_constantBufferSSAOTexture;
+    SPtr<ConstantBuffer> m_cbSSAOTexture = nullptr;
+
+
+    SPtr<ComputeBuffer> m_computeBuffSSAO;
+
     /////////////////////////////////////////////////////////////////
 
     //**BlurH**//
@@ -188,6 +198,9 @@ namespace xcEngineSDK {
     //Constant buffer
     CBBLUR m_constantBufferBlur;
     SPtr<ConstantBuffer> m_cbBlur = nullptr;
+
+    SPtr<ComputeBuffer> m_computeBuffBlur;
+
 
     //**BlurV**//
     //Shader

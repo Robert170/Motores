@@ -74,10 +74,13 @@ namespace xcEngineSDK {
     m_positionTexture = graphicsApi.createTexture2D(graphicsApi.m_width,
                                                     graphicsApi.m_height,
                                                     1,
-                                                    TF_R16G16B16A16_FLOAT,
-                                                    TEXTURE_BIND_SHADER_RESOURCE
-                                                    | TEXTURE_BIND_RENDER_TARGET,
-                                                    TYPE_USAGE_DEFAULT,
+                                                    TEXTURE_FORMAT::
+                                                    kTF_R16G16B16A16_FLOAT,
+                                                    TEXTURE_BIND_FLAG::
+                                                    kTEXTURE_BIND_SHADER_RESOURCE
+                                                    | TEXTURE_BIND_FLAG::
+                                                    kTEXTURE_BIND_RENDER_TARGET,
+                                                    TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                     nullptr);
 
     m_vRenderTargets.push_back(m_positionTexture);
@@ -86,10 +89,13 @@ namespace xcEngineSDK {
     m_normalTxture = graphicsApi.createTexture2D(graphicsApi.m_width,
                                                  graphicsApi.m_height,
                                                  1,
-                                                 TF_R16G16B16A16_FLOAT,
-                                                 TEXTURE_BIND_SHADER_RESOURCE
-                                                 | TEXTURE_BIND_RENDER_TARGET,
-                                                 TYPE_USAGE_DEFAULT,
+                                                 TEXTURE_FORMAT::
+                                                 kTF_R16G16B16A16_FLOAT,
+                                                 TEXTURE_BIND_FLAG::
+                                                 kTEXTURE_BIND_SHADER_RESOURCE
+                                                 | TEXTURE_BIND_FLAG::
+                                                 kTEXTURE_BIND_RENDER_TARGET,
+                                                 TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                  nullptr);
     m_vRenderTargets.push_back(m_normalTxture);
     m_vTexturesSSAO.push_back(m_normalTxture);
@@ -99,10 +105,13 @@ namespace xcEngineSDK {
     m_albedoTexture = graphicsApi.createTexture2D(graphicsApi.m_width,
                                                   graphicsApi.m_height,
                                                   1,
-                                                  TF_R16G16B16A16_FLOAT,
-                                                  TEXTURE_BIND_SHADER_RESOURCE
-                                                  | TEXTURE_BIND_RENDER_TARGET,
-                                                  TYPE_USAGE_DEFAULT,
+                                                  TEXTURE_FORMAT::
+                                                  kTF_R16G16B16A16_FLOAT,
+                                                  TEXTURE_BIND_FLAG::
+                                                  kTEXTURE_BIND_SHADER_RESOURCE
+                                                  | TEXTURE_BIND_FLAG::
+                                                  kTEXTURE_BIND_RENDER_TARGET,
+                                                  TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                   nullptr);
     m_vRenderTargets.push_back(m_albedoTexture);
 
@@ -148,12 +157,12 @@ namespace xcEngineSDK {
 
 
     ////create rasterizer
-    m_rasterizerGbuffer = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                            CULL_MODE::CULL_FRONT,
+    m_rasterizerGbuffer = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+                                                            CULL_MODE::kCULL_FRONT,
                                                             true);
 
-    m_rasterizerSAQ = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                        CULL_MODE::CULL_NONE,
+    m_rasterizerSAQ = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+                                                        CULL_MODE::kCULL_NONE,
                                                         false);
 
     
@@ -161,9 +170,11 @@ namespace xcEngineSDK {
     m_depthStencilView = graphicsApi.createTexture2D(graphicsApi.m_width,
                                                      graphicsApi.m_height,
                                                      1, 
-                                                     TF_D24_UNORM_S8_UINT, 
-                                                     TEXTURE_BIND_DEPTH_STENCIL, 
-                                                     TYPE_USAGE_DEFAULT,
+                                                     TEXTURE_FORMAT::
+                                                     kTF_D24_UNORM_S8_UINT, 
+                                                     TEXTURE_BIND_FLAG::
+                                                     kTEXTURE_BIND_DEPTH_STENCIL, 
+                                                     TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                      nullptr);
 
     ////create depth stencil state
@@ -175,31 +186,45 @@ namespace xcEngineSDK {
   void 
   Renderer::createSSAO() {
     auto& graphicsApi = g_graphicsAPI();
+    
+    m_Sampler = graphicsApi.createSamplerState();
+
+    m_vSamplers.push_back(m_Sampler);
 
     m_ssaoTexture = graphicsApi.createTexture2D(graphicsApi.m_width,
                                                 graphicsApi.m_height,
                                                 1,
-                                                TF_R16G16B16A16_FLOAT,
-                                                TEXTURE_BIND_SHADER_RESOURCE
-                                                | TEXTURE_BIND_RENDER_TARGET,
-                                                TYPE_USAGE_DEFAULT,
+                                                TEXTURE_FORMAT::
+                                                kTF_R16G16B16A16_FLOAT,
+                                                TEXTURE_BIND_FLAG::
+                                                kTEXTURE_BIND_SHADER_RESOURCE
+                                                | TEXTURE_BIND_FLAG::
+                                                kTEXTURE_BIND_RENDER_TARGET
+                                                | TEXTURE_BIND_FLAG::
+                                                kTEXTURE_BIND_UNORDERED_ACCESS,
+                                                TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                 nullptr);
 
     m_vRenderTargetsSSAO.push_back(m_ssaoTexture);
     m_vTexturesBlurH.push_back(m_ssaoTexture);
 
     //Shader program
-    m_shaderProgramSSAO = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
-                                                          "SSAO", //file name PS
-                                                          "vs_ssaligned", //Entry point vs
-                                                          "ps_ssao", //entry point ps
-                                                          "vs_4_0",
-                                                          "ps_4_0",
-                                                          1,
-                                                          1);
+    //m_shaderProgramSSAO = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
+    //                                                      "SSAO", //file name PS
+    //                                                      "vs_ssaligned", //Entry point vs
+    //                                                      "ps_ssao", //entry point ps
+    //                                                      "vs_5_0",
+    //                                                      "ps_5_0",
+    //                                                      1,
+    //                                                      1);
+
+    m_shaderProgramSSAO = graphicsApi.createComputeShader("SSAO_CS",
+                                                          "cs_ssao",
+                                                          "cs_5_0");
+
     //Input Layout
-    m_inputLayoutSSAO = graphicsApi.createAutomaticInputLayout
-                                    (*m_shaderProgramSSAO);
+    /*m_inputLayoutSSAO = graphicsApi.createAutomaticInputLayout
+                                    (*m_shaderProgramSSAO);*/
 
     // Create the constant buffers
     m_constantBufferSSAO.mBias = 0.08000f;
@@ -212,10 +237,26 @@ namespace xcEngineSDK {
                                                 1,
                                                 &m_constantBufferSSAO);
 
+    m_constantBufferSSAOTexture.mWidth = graphicsApi.m_width;
+    m_constantBufferSSAOTexture.mHeight = graphicsApi.m_height;
 
+    m_cbSSAOTexture = graphicsApi.createConstantBuffer(sizeof(CBSSAO),
+                                                       1,
+                                                       &m_constantBufferSSAOTexture);
+
+
+
+    m_computeBuffSSAO = graphicsApi.createComputeBuffer(sizeof(float),
+                                                        1024, 
+                                                        TYPE_USAGE::
+                                                        kTYPE_USAGE_DEFAULT, 
+                                                        TEXTURE_FORMAT::
+                                                        kTF_R32_FLOAT);
+
+    
     ////create rasterizer
-    m_rasterizerSSAO = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                         CULL_MODE::CULL_FRONT,
+    m_rasterizerSSAO = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+                                                         CULL_MODE::kCULL_FRONT,
                                                          true);
 
     ////create depth stencil state
@@ -231,10 +272,15 @@ namespace xcEngineSDK {
     m_blurOutTexture = graphicsApi.createTexture2D(graphicsApi.m_width,
                                                   graphicsApi.m_height,
                                                   1,
-                                                  TF_R16G16B16A16_FLOAT,
-                                                  TEXTURE_BIND_SHADER_RESOURCE
-                                                  | TEXTURE_BIND_RENDER_TARGET,
-                                                  TYPE_USAGE_DEFAULT,
+                                                  TEXTURE_FORMAT::
+                                                  kTF_R16G16B16A16_FLOAT,
+                                                  TEXTURE_BIND_FLAG::
+                                                  kTEXTURE_BIND_SHADER_RESOURCE
+                                                  | TEXTURE_BIND_FLAG::
+                                                  kTEXTURE_BIND_RENDER_TARGET,
+                                                  //| TEXTURE_BIND_FLAG::
+                                                  //kTEXTURE_BIND_UNORDERED_ACCESS,
+                                                  TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                   nullptr);
 
     m_vRenderTargetsBlurH.push_back(m_blurOutTexture);
@@ -245,10 +291,14 @@ namespace xcEngineSDK {
                                                            "gaussyan_blur", //file name PS
                                                            "vs_ssaligned", //Entry point vs
                                                            "ps_gaussian_blurH", //entry point ps
-                                                           "vs_4_0",
-                                                           "ps_4_0",
+                                                           "vs_5_0",
+                                                           "ps_5_0",
                                                            1,
                                                            1);
+
+    /*m_shaderProgramSSAO = graphicsApi.createComputeShader("gaussyan_blur_CS",
+                                                          "cs_gaussian_blurH",
+                                                          "cs_5_0");*/
 
 
     //Input Layout
@@ -256,20 +306,27 @@ namespace xcEngineSDK {
                                     (*m_shaderProgramBlurH);
 
     // Create the constant buffers
-    m_constantBufferBlur.mViewporDimension.x = graphicsApi.m_width;
-    m_constantBufferBlur.mViewporDimension.y = graphicsApi.m_width;
-    m_constantBufferBlur.mViewporDimension.z = 0;
-    m_constantBufferBlur.mViewporDimension.w = 0;
+    m_constantBufferBlur.mViewporDimensionX = graphicsApi.m_width;
+    m_constantBufferBlur.mViewporDimensionY = graphicsApi.m_width;
+    m_constantBufferBlur.mWidth = graphicsApi.m_width;
+    m_constantBufferBlur.mHeight = graphicsApi.m_height;
 
     //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
     m_cbBlur = graphicsApi.createConstantBuffer(sizeof(CBBLUR),
                                                 1,
                                                 &m_constantBufferBlur);
 
+    /*m_computeBuffBlur = graphicsApi.createComputeBuffer(sizeof(float),
+                                                        1024,
+                                                        TYPE_USAGE::
+                                                        kTYPE_USAGE_DEFAULT,
+                                                        TEXTURE_FORMAT::
+                                                        kTF_R32_FLOAT);*/
+
 
     ////create rasterizer
-    m_rasterizerBlurH = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                          CULL_MODE::CULL_FRONT,
+    m_rasterizerBlurH = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+                                                          CULL_MODE::kCULL_FRONT,
                                                           true);
 
     ////create depth stencil state
@@ -287,10 +344,13 @@ namespace xcEngineSDK {
                                                            "gaussyan_blur", //file name PS
                                                            "vs_ssaligned", //Entry point vs
                                                            "ps_gaussian_blurV", //entry point ps
-                                                           "vs_4_0",
-                                                           "ps_4_0",
+                                                           "vs_5_0",
+                                                           "ps_5_0",
                                                            1,
                                                            1);
+    /*m_shaderProgramSSAO = graphicsApi.createComputeShader("gaussyan_blur_CS",
+                                                          "cs_gaussian_blurV",
+                                                          "cs_5_0");*/
 
 
     //Input Layout
@@ -299,8 +359,8 @@ namespace xcEngineSDK {
 
 
     //create rasterizer
-    m_rasterizerBlurV = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                          CULL_MODE::CULL_FRONT,
+    m_rasterizerBlurV = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+                                                          CULL_MODE::kCULL_FRONT,
                                                           true);
 
     ////create depth stencil state
@@ -326,8 +386,8 @@ namespace xcEngineSDK {
                                                            "Light", //file name PS
                                                            "vs_ssaligned", //Entry point vs
                                                            "ps_main", //entry point ps
-                                                           "vs_4_0",
-                                                           "ps_4_0",
+                                                           "vs_5_0",
+                                                           "ps_5_0",
                                                             1,
                                                             1);
     //Input Layout
@@ -404,10 +464,12 @@ namespace xcEngineSDK {
     m_shadowTexture = graphicsApi.createTexture2D(graphicsApi.m_width,
                                                   graphicsApi.m_height,
                                                   1,
-                                                  TF_R16_FLOAT,
-                                                  TEXTURE_BIND_SHADER_RESOURCE
-                                                  | TEXTURE_BIND_RENDER_TARGET,
-                                                  TYPE_USAGE_DEFAULT,
+                                                  TEXTURE_FORMAT::kTF_R16_FLOAT,
+                                                  TEXTURE_BIND_FLAG::
+                                                  kTEXTURE_BIND_SHADER_RESOURCE
+                                                  | TEXTURE_BIND_FLAG::
+                                                  kTEXTURE_BIND_RENDER_TARGET,
+                                                  TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                   nullptr);
 
     m_vTexturesShadow.push_back(m_shadowTexture);
@@ -417,8 +479,8 @@ namespace xcEngineSDK {
                                                             "ShadowMapPS",
                                                             "ShadowVS",
                                                             "ShadowPS",
-                                                            "vs_4_0",
-                                                            "ps_4_0",
+                                                            "vs_5_0",
+                                                            "ps_5_0",
                                                             1,
                                                             1);
 
@@ -443,9 +505,9 @@ namespace xcEngineSDK {
                                                   &m_constantBufferShadow);
 
     ////create rasterizer
-    m_rasterizerDepth = graphicsApi.createRasterizerState(FILL_MODE::FILL_SOLID,
-                                                         CULL_MODE::CULL_FRONT,
-                                                         true);
+    m_rasterizerDepth = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+                                                          CULL_MODE::kCULL_FRONT,
+                                                          true);
 
     ////create depth stencil state
     m_depthStencilStateDepth = graphicsApi.createDepthStencilState(false, false);
@@ -492,6 +554,8 @@ namespace xcEngineSDK {
 
 
     sceneGraph.render();
+
+    graphicsApi.desbindingRT();
   }
 
   void 
@@ -501,11 +565,29 @@ namespace xcEngineSDK {
 
     auto& sceneGraph = g_sceneGraph();
 
-    //set render target
-    graphicsApi.setRenderTarget(m_vRenderTargetsSSAO, m_depthStencilView);
+    graphicsApi.setShaderResourceCS(m_vTexturesSSAO);
 
+    uint32 samplerSize = m_vSamplers.size();
 
+    //set sampler state
+    for (uint32 i = 0; i < samplerSize; ++i) {
+      graphicsApi.setSamplerStateCS(m_vSamplers,
+                                    1);
+    }
+
+    //graphicsApi.setComputeBuffer(m_computeBuffSSAO, 0, 1);
+    graphicsApi.setComputeBufferRTUAV(m_ssaoTexture, 0, 1);
     graphicsApi.clearRenderTarget(m_ssaoTexture, m_color);
+
+    graphicsApi.setComputeShader(m_shaderProgramSSAO);
+
+    graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
+
+    graphicsApi.desbindingUAV(0, 1);
+
+    //set render target
+    //graphicsApi.setRenderTarget(m_vRenderTargetsSSAO, m_depthStencilView);
+
 
     //graphicsApi.clearDepthStencil(m_depthStencilView);
 
@@ -518,22 +600,17 @@ namespace xcEngineSDK {
     graphicsApi.setDepthStencilState(m_depthStencilStateSAQ, 0);
 
     //set all vertex shader constant buffer
-
-    graphicsApi.setPSConstantBuffer(m_cbSSAO, 0, 1);
-
-    graphicsApi.setShaderResource(m_vTexturesSSAO);
+    graphicsApi.setCSConstantBuffer(m_cbSSAO, 0, 1);
+    graphicsApi.setCSConstantBuffer(m_cbSSAOTexture, 1, 1);
 
     //set input layout
-    graphicsApi.setInputLayout(m_inputLayoutSSAO);
-
-    
-
+    //graphicsApi.setInputLayout(m_inputLayoutSSAO);
     
     //shader program
-    graphicsApi.setShaderProgram(m_shaderProgramSSAO);
+    //graphicsApi.setShaderProgram(m_shaderProgramSSAO);
+    
 
-
-    m_SAQ->render();
+    //m_SAQ->render();
   }
 
   void 
@@ -571,9 +648,11 @@ namespace xcEngineSDK {
     
     //shader program
     graphicsApi.setShaderProgram(m_shaderProgramBlurH);
+    //graphicsApi.setComputeShader(m_shaderProgramBlurH);
 
     graphicsApi.clearRenderTarget(m_blurOutTexture, m_color);
 
+    //graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
 
     m_SAQ->render();
   }
@@ -611,8 +690,10 @@ namespace xcEngineSDK {
 
     
     //shader program
-    graphicsApi.setShaderProgram(m_shaderProgramBlurV);
+    //graphicsApi.setShaderProgram(m_shaderProgramBlurV);
+    //graphicsApi.setComputeShader(m_shaderProgramBlurV);
 
+    //graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
 
 
     m_SAQ->render();
@@ -660,7 +741,7 @@ namespace xcEngineSDK {
     graphicsApi.setPSConstantBuffer(m_cbInverseMatrix, 2, 1);
 
     //set input layout
-    graphicsApi.setInputLayout(m_inputLayoutSSAO);
+    graphicsApi.setInputLayout(m_inputLayoutLight);
 
     //shader program
     graphicsApi.setShaderProgram(m_shaderProgramLight);

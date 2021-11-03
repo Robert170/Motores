@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /**
- * @file    xcComputShaderDX.h
+ * @file    xcComputeShaderDX.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
  * @date    17/10/2021
  * @brief   This class is to use the pointers of compute shader that directX needs

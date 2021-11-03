@@ -32,6 +32,7 @@
     <ClInclude Include="include\xcTextureOGL.h" />
     <ClInclude Include="include\xcVertexBufferOGL.h" />
     <ClInclude Include="include\xcVertexShaderOGL.h" />
+    <ClInclude Include="xcComputeShaderOGL.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\glad.c" />

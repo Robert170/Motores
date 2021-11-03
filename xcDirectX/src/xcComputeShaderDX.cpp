@@ -1,4 +1,4 @@
-#include "xcComputShaderDX.h"
+#include "xcComputeShaderDX.h"
 
 namespace xcEngineSDK {
 
@@ -14,10 +14,10 @@ namespace xcEngineSDK {
   }
 
   bool 
-  ComputeShaderDX::compileComputeShaderFromFile(const WString& FileName,
-                                               const String& EntryPoint, 
-                                               const String& ShaderModel, 
-                                               ID3DBlob** ppBlobOut) {
+    ComputeShaderDX::compileComputeShaderFromFile(const WString& FileName,
+                                                  const String& EntryPoint, 
+                                                  const String& ShaderModel, 
+                                                  ID3DBlob** ppBlobOut) {
     HRESULT hr = S_OK;
 
     DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
