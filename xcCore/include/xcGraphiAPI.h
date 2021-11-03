@@ -1053,10 +1053,13 @@ namespace xcEngineSDK {
 
     virtual void
     desbindingUAV(uint32,
-                 uint32) { };
+                  uint32) { };
 
     virtual void
-      desbindingRT() { };
+    desbindingRT() { };
+
+    virtual void
+    desbindingSR(const Vector<Texture*>&, uint32) { };
 
 
     //draw

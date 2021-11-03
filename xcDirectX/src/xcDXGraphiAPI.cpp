@@ -1558,6 +1558,42 @@ namespace xcEngineSDK {
                                             nullptr);
   }
 
+  void 
+  DXGraphiAPI::desbindingSR(const Vector<Texture*>& pRTTex, uint32 tipeShader) {
+
+    ID3D11ShaderResourceView* pRTDX = nullptr;
+
+    switch (tipeShader)
+    {
+    case 0:
+      for (uint32 i = 0; i < pRTTex.size(); ++i) {
+
+
+        m_pImmediateContext->VSSetShaderResources(i,
+                                                  1,
+                                                  &pRTDX);
+      }
+    case 1:
+      for (uint32 i = 0; i < pRTTex.size(); ++i) {
+
+
+        m_pImmediateContext->PSSetShaderResources(i,
+                                                  1,
+                                                  &pRTDX);
+      }
+    case 2:
+      for (uint32 i = 0; i < pRTTex.size(); ++i) {
+
+
+        m_pImmediateContext->CSSetShaderResources(i,
+                                                  1,
+                                                  &pRTDX);
+      }
+    default:
+      break;
+    }
+  }
+
   //function to draw
   void 
   DXGraphiAPI::drawIndexed(uint32 NumIndex,

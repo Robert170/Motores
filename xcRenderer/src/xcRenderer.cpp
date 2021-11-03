@@ -277,9 +277,9 @@ namespace xcEngineSDK {
                                                   TEXTURE_BIND_FLAG::
                                                   kTEXTURE_BIND_SHADER_RESOURCE
                                                   | TEXTURE_BIND_FLAG::
-                                                  kTEXTURE_BIND_RENDER_TARGET,
-                                                  //| TEXTURE_BIND_FLAG::
-                                                  //kTEXTURE_BIND_UNORDERED_ACCESS,
+                                                  kTEXTURE_BIND_RENDER_TARGET
+                                                  | TEXTURE_BIND_FLAG::
+                                                  kTEXTURE_BIND_UNORDERED_ACCESS,
                                                   TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                   nullptr);
 
@@ -287,23 +287,23 @@ namespace xcEngineSDK {
     m_vTexturesBlurV.push_back(m_blurOutTexture);
 
     //Shader program
-    m_shaderProgramBlurH = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
-                                                           "gaussyan_blur", //file name PS
-                                                           "vs_ssaligned", //Entry point vs
-                                                           "ps_gaussian_blurH", //entry point ps
-                                                           "vs_5_0",
-                                                           "ps_5_0",
-                                                           1,
-                                                           1);
+    //m_shaderProgramBlurH = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
+    //                                                       "gaussyan_blur", //file name PS
+    //                                                       "vs_ssaligned", //Entry point vs
+    //                                                       "ps_gaussian_blurH", //entry point ps
+    //                                                       "vs_5_0",
+    //                                                       "ps_5_0",
+    //                                                       1,
+    //                                                       1);
 
-    /*m_shaderProgramSSAO = graphicsApi.createComputeShader("gaussyan_blur_CS",
+    m_shaderProgramBlurH = graphicsApi.createComputeShader("gaussyan_blur_CS",
                                                           "cs_gaussian_blurH",
-                                                          "cs_5_0");*/
+                                                          "cs_5_0");
 
 
     //Input Layout
-    m_inputLayoutBlurH = graphicsApi.createAutomaticInputLayout
-                                    (*m_shaderProgramBlurH);
+    /*m_inputLayoutBlurH = graphicsApi.createAutomaticInputLayout
+                                    (*m_shaderProgramBlurH);*/
 
     // Create the constant buffers
     m_constantBufferBlur.mViewporDimensionX = graphicsApi.m_width;
@@ -316,12 +316,12 @@ namespace xcEngineSDK {
                                                 1,
                                                 &m_constantBufferBlur);
 
-    /*m_computeBuffBlur = graphicsApi.createComputeBuffer(sizeof(float),
+    m_computeBuffBlur = graphicsApi.createComputeBuffer(sizeof(float),
                                                         1024,
                                                         TYPE_USAGE::
                                                         kTYPE_USAGE_DEFAULT,
                                                         TEXTURE_FORMAT::
-                                                        kTF_R32_FLOAT);*/
+                                                        kTF_R32_FLOAT);
 
 
     ////create rasterizer
@@ -340,22 +340,24 @@ namespace xcEngineSDK {
     
 
     //Shader program
-    m_shaderProgramBlurV = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
+    /*m_shaderProgramBlurV = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
                                                            "gaussyan_blur", //file name PS
                                                            "vs_ssaligned", //Entry point vs
                                                            "ps_gaussian_blurV", //entry point ps
                                                            "vs_5_0",
                                                            "ps_5_0",
                                                            1,
-                                                           1);
-    /*m_shaderProgramSSAO = graphicsApi.createComputeShader("gaussyan_blur_CS",
+                                                           1);*/
+
+
+    m_shaderProgramBlurV = graphicsApi.createComputeShader("gaussyan_blur_CS",
                                                           "cs_gaussian_blurV",
-                                                          "cs_5_0");*/
+                                                          "cs_5_0");
 
 
     //Input Layout
-    m_inputLayoutBlurV = graphicsApi.createAutomaticInputLayout
-                                    (*m_shaderProgramBlurV);
+    /*m_inputLayoutBlurV = graphicsApi.createAutomaticInputLayout
+                                    (*m_shaderProgramBlurV);*/
 
 
     //create rasterizer
@@ -581,9 +583,15 @@ namespace xcEngineSDK {
 
     graphicsApi.setComputeShader(m_shaderProgramSSAO);
 
+    //set all vertex shader constant buffer
+    graphicsApi.setCSConstantBuffer(m_cbSSAO, 0, 1);
+    graphicsApi.setCSConstantBuffer(m_cbSSAOTexture, 1, 1);
+
     graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
 
     graphicsApi.desbindingUAV(0, 1);
+    //graphicsApi.desbindingRT();
+    graphicsApi.desbindingSR(m_vTexturesLight, 2);
 
     //set render target
     //graphicsApi.setRenderTarget(m_vRenderTargetsSSAO, m_depthStencilView);
@@ -592,16 +600,14 @@ namespace xcEngineSDK {
     //graphicsApi.clearDepthStencil(m_depthStencilView);
 
     //set rasterizer
-    graphicsApi.setRasterizerState(m_rasterizerSSAO);
-    graphicsApi.setRasterizerState(m_rasterizerSAQ);
+    //graphicsApi.setRasterizerState(m_rasterizerSSAO);
+    //graphicsApi.setRasterizerState(m_rasterizerSAQ);
 
     //set depth stencil state
-    graphicsApi.setDepthStencilState(m_depthStencilStateSSAO, 0);
-    graphicsApi.setDepthStencilState(m_depthStencilStateSAQ, 0);
+    //graphicsApi.setDepthStencilState(m_depthStencilStateSSAO, 0);
+    //graphicsApi.setDepthStencilState(m_depthStencilStateSAQ, 0);
 
-    //set all vertex shader constant buffer
-    graphicsApi.setCSConstantBuffer(m_cbSSAO, 0, 1);
-    graphicsApi.setCSConstantBuffer(m_cbSSAOTexture, 1, 1);
+
 
     //set input layout
     //graphicsApi.setInputLayout(m_inputLayoutSSAO);
@@ -611,6 +617,7 @@ namespace xcEngineSDK {
     
 
     //m_SAQ->render();
+   
   }
 
   void 
@@ -620,41 +627,40 @@ namespace xcEngineSDK {
 
     auto& sceneGraph = g_sceneGraph();
 
+    graphicsApi.setShaderResourceCS(m_vTexturesBlurH);
+
+    graphicsApi.setComputeBufferRTUAV(m_blurOutTexture, 0, 1);
+    graphicsApi.clearRenderTarget(m_blurOutTexture, m_color);
+
+    graphicsApi.setComputeShader(m_shaderProgramBlurH);
+
+    graphicsApi.setCSConstantBuffer(m_cbBlur, 0, 1);
+
+    graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
+
+    graphicsApi.desbindingUAV(0, 1);
+    //graphicsApi.desbindingRT();
+    graphicsApi.desbindingSR(m_vTexturesLight, 2);
+
     //set render target
 
-    graphicsApi.setRenderTarget(m_vRenderTargetsBlurH, m_depthStencilView);
+    //graphicsApi.setRenderTarget(m_vRenderTargetsBlurH, m_depthStencilView);
 
     //graphicsApi.clearDepthStencil(m_depthStencilView);
 
     //set rasterizer
-    graphicsApi.setRasterizerState(m_rasterizerBlurH);
+    //graphicsApi.setRasterizerState(m_rasterizerBlurH);
 
 
     //set depth stencil state
-    graphicsApi.setDepthStencilState(m_depthStencilStateBlurH, 0);
+    //graphicsApi.setDepthStencilState(m_depthStencilStateBlurH, 0);
 
     //set all vertex shader constant buffer
-
-    graphicsApi.setPSConstantBuffer(m_cbBlur,
-                                    0,
-                                    1);
-
-    graphicsApi.setShaderResource(m_vTexturesBlurH);
-
     //set input layout
-    graphicsApi.setInputLayout(m_inputLayoutBlurH);
+    //graphicsApi.setInputLayout(m_inputLayoutBlurH);
 
+    //m_SAQ->render();
 
-    
-    //shader program
-    graphicsApi.setShaderProgram(m_shaderProgramBlurH);
-    //graphicsApi.setComputeShader(m_shaderProgramBlurH);
-
-    graphicsApi.clearRenderTarget(m_blurOutTexture, m_color);
-
-    //graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
-
-    m_SAQ->render();
   }
 
   void 
@@ -664,39 +670,45 @@ namespace xcEngineSDK {
 
     auto& sceneGraph = g_sceneGraph();
 
-    //set render target
-    graphicsApi.setRenderTarget(m_vRenderTargetsSSAO, m_depthStencilView);
 
+    graphicsApi.setShaderResourceCS(m_vTexturesBlurV);
 
+    graphicsApi.setComputeBufferRTUAV(m_ssaoTexture, 0, 1);
     graphicsApi.clearRenderTarget(m_ssaoTexture, m_color);
+
+    graphicsApi.setComputeShader(m_shaderProgramBlurV);
+
+    graphicsApi.setCSConstantBuffer(m_cbBlur, 0, 1);
+
+    graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
+
+    graphicsApi.desbindingUAV(0, 1);
+    //graphicsApi.desbindingRT();
+    graphicsApi.desbindingSR(m_vTexturesLight, 2);
 
     //graphicsApi.clearDepthStencil(m_depthStencilView);
 
     //set rasterizer
-    graphicsApi.setRasterizerState(m_rasterizerBlurV);
+    //graphicsApi.setRasterizerState(m_rasterizerBlurV);
 
 
     //set depth stencil state
-    graphicsApi.setDepthStencilState(m_depthStencilStateBlurV, 0);
+    //graphicsApi.setDepthStencilState(m_depthStencilStateBlurV, 0);
 
     //set all vertex shader constant buffer
 
-    graphicsApi.setPSConstantBuffer(m_cbBlur, 0, 1);
-
-    graphicsApi.setShaderResource(m_vTexturesBlurV);
 
     //set input layout
-    graphicsApi.setInputLayout(m_inputLayoutBlurV);
+
 
     
     //shader program
-    //graphicsApi.setShaderProgram(m_shaderProgramBlurV);
-    //graphicsApi.setComputeShader(m_shaderProgramBlurV);
-
-    //graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
 
 
-    m_SAQ->render();
+    //m_SAQ->render();
+    
+
+
   }
 
   void 
@@ -708,13 +720,6 @@ namespace xcEngineSDK {
     graphicsApi.setRenderTarget(m_vTexturesShadow, m_depthStencilView);
     graphicsApi.clearRenderTarget(m_shadowTexture, m_color);
 
-
-    //set rasterizer
-    //graphicsApi.setRasterizerState(m_rasterizerDepth);
-
-    //set depth stencil state
-    //graphicsApi.setDepthStencilState(m_depthStencilStateDepth, 0);
-
     graphicsApi.setVSConstantBuffer(m_cbShadow, 0, 1);
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutShadow);
@@ -723,6 +728,9 @@ namespace xcEngineSDK {
     graphicsApi.setShaderProgram(m_shaderProgramShadow);
 
     sceneGraph.render();
+
+    graphicsApi.desbindingRT();
+
   }
 
   void 
@@ -747,6 +755,8 @@ namespace xcEngineSDK {
     graphicsApi.setShaderProgram(m_shaderProgramLight);
 
     m_SAQ->render();
+
+    graphicsApi.desbindingSR(m_vTexturesLight, 1);
 
   }
 

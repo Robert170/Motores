@@ -681,7 +681,10 @@ namespace xcEngineSDK {
                  uint32) override;
 
 		void
-	 desbindingRT() override;
+	  desbindingRT() override;
+
+		void
+    desbindingSR(const Vector<Texture*>& pRTTex, uint32 tipeShader)override;
 
 		//draw
 
