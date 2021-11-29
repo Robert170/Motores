@@ -329,6 +329,105 @@ namespace xcEngineSDK {
       return std::logf(val);
     }
 
+    /**
+     * @brief      round function, value of Round to nearest int 
+     * @param      val parameter one, a template for round
+     * @bug	       No know Bugs
+     * @return     Returns an int
+     */
+    template<typename Type>
+    static Type
+    round(Type val) {
+      return std::round(val);
+    }
+
+    /**
+     * @brief      round function, value of Round to nearest float
+     * @param      val parameter one, a template for round
+     * @bug	       No know Bugs
+     * @return     Returns an int
+     */
+    template<typename>
+    static float
+    round(float val) {
+      return std::roundf(val);
+    }
+
+    /**
+     * @brief      floor function, value of Round to nearest lower int 
+     * @param      val parameter one, a template for round
+     * @bug	       No know Bugs
+     * @return     Returns an int
+     */
+    template<typename Type>
+    static Type
+    floor(Type val) {
+      return std::floor(val);
+    }
+
+    /**
+     * @brief      floor function, value of Round to nearest lower float
+     * @param      val parameter one, a template for round
+     * @bug	       No know Bugs
+     * @return     Returns an int
+     */
+    template<typename>
+    static float
+    floor(float val) {
+      return std::floorf(val);
+    }
+
+    /**
+     * @brief      ceil function, value of Round to nearest upper int 
+     * @param      val parameter one, a template for round
+     * @bug	       No know Bugs
+     * @return     Returns an int
+     */
+    template<typename Type>
+    static Type
+    ceil(Type val) {
+      return std::ceil(val);
+    }
+
+    /**
+     * @brief      ceil function, value of Round to nearest upper float
+     * @param      val parameter one, a template for round
+     * @bug	       No know Bugs
+     * @return     Returns an int
+     */
+    template<typename>
+    static float
+    ceil(float val) {
+      return std::ceilf(val);
+    }
+
+
+    /**
+     * @brief      trunc function, value of Round to next upper int 
+     * @param      val parameter one, a template for round
+     * @bug	       No know Bugs
+     * @return     Returns an int
+     */
+    template<typename Type>
+    static Type
+    trunc(Type val) {
+      return std::trunc(val);
+    }
+
+    /**
+     * @brief      trunc function, value of Round to next lower float
+     * @param      val parameter one, a template for round
+     * @bug	       No know Bugs
+     * @return     Returns an int
+     */
+    template<typename>
+    static float
+    trunc(float val) {
+      return std::truncf(val);
+    }
+
+
+    
     static bool
     equalFloat(float a, float b);
 

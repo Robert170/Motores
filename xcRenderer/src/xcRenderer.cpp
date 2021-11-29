@@ -255,12 +255,12 @@ namespace xcEngineSDK {
 
     
     ////create rasterizer
-    m_rasterizerSSAO = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+    /*m_rasterizerSSAO = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
                                                          CULL_MODE::kCULL_FRONT,
-                                                         true);
+                                                         true);*/
 
     ////create depth stencil state
-    m_depthStencilStateSSAO = graphicsApi.createDepthStencilState(false, false);
+   //m_depthStencilStateSSAO = graphicsApi.createDepthStencilState(false, false);
 
   }
 
@@ -299,8 +299,6 @@ namespace xcEngineSDK {
     m_shaderProgramBlurH = graphicsApi.createComputeShader("gaussyan_blur_CS",
                                                           "cs_gaussian_blurH",
                                                           "cs_5_0");
-
-
     //Input Layout
     /*m_inputLayoutBlurH = graphicsApi.createAutomaticInputLayout
                                     (*m_shaderProgramBlurH);*/
@@ -325,12 +323,12 @@ namespace xcEngineSDK {
 
 
     ////create rasterizer
-    m_rasterizerBlurH = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
-                                                          CULL_MODE::kCULL_FRONT,
-                                                          true);
+    //m_rasterizerBlurH = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+                                                          //CULL_MODE::kCULL_FRONT,
+                                                          //true);
 
     ////create depth stencil state
-    m_depthStencilStateBlurH = graphicsApi.createDepthStencilState(false, false);
+    //m_depthStencilStateBlurH = graphicsApi.createDepthStencilState(false, false);
   }
 
   void 
@@ -361,12 +359,12 @@ namespace xcEngineSDK {
 
 
     //create rasterizer
-    m_rasterizerBlurV = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
-                                                          CULL_MODE::kCULL_FRONT,
-                                                          true);
+    //m_rasterizerBlurV = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
+                                                          //CULL_MODE::kCULL_FRONT,
+                                                          //true);
 
     ////create depth stencil state
-    m_depthStencilStateBlurV = graphicsApi.createDepthStencilState(false, false);
+    //m_depthStencilStateBlurV = graphicsApi.createDepthStencilState(false, false);
   }
 
   void 
@@ -587,36 +585,13 @@ namespace xcEngineSDK {
     graphicsApi.setCSConstantBuffer(m_cbSSAO, 0, 1);
     graphicsApi.setCSConstantBuffer(m_cbSSAOTexture, 1, 1);
 
-    graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
+    graphicsApi.dispatch(Math::ceil(graphicsApi.m_width / 32), 
+                         Math::ceil(graphicsApi.m_height / 32), 
+                         1);
 
     graphicsApi.desbindingUAV(0, 1);
     //graphicsApi.desbindingRT();
     graphicsApi.desbindingSR(m_vTexturesLight, 2);
-
-    //set render target
-    //graphicsApi.setRenderTarget(m_vRenderTargetsSSAO, m_depthStencilView);
-
-
-    //graphicsApi.clearDepthStencil(m_depthStencilView);
-
-    //set rasterizer
-    //graphicsApi.setRasterizerState(m_rasterizerSSAO);
-    //graphicsApi.setRasterizerState(m_rasterizerSAQ);
-
-    //set depth stencil state
-    //graphicsApi.setDepthStencilState(m_depthStencilStateSSAO, 0);
-    //graphicsApi.setDepthStencilState(m_depthStencilStateSAQ, 0);
-
-
-
-    //set input layout
-    //graphicsApi.setInputLayout(m_inputLayoutSSAO);
-    
-    //shader program
-    //graphicsApi.setShaderProgram(m_shaderProgramSSAO);
-    
-
-    //m_SAQ->render();
    
   }
 
@@ -636,30 +611,13 @@ namespace xcEngineSDK {
 
     graphicsApi.setCSConstantBuffer(m_cbBlur, 0, 1);
 
-    graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
+    graphicsApi.dispatch(Math::ceil(graphicsApi.m_width / 32), 
+                         Math::ceil(graphicsApi.m_height / 32), 
+                         1);
 
     graphicsApi.desbindingUAV(0, 1);
     //graphicsApi.desbindingRT();
     graphicsApi.desbindingSR(m_vTexturesLight, 2);
-
-    //set render target
-
-    //graphicsApi.setRenderTarget(m_vRenderTargetsBlurH, m_depthStencilView);
-
-    //graphicsApi.clearDepthStencil(m_depthStencilView);
-
-    //set rasterizer
-    //graphicsApi.setRasterizerState(m_rasterizerBlurH);
-
-
-    //set depth stencil state
-    //graphicsApi.setDepthStencilState(m_depthStencilStateBlurH, 0);
-
-    //set all vertex shader constant buffer
-    //set input layout
-    //graphicsApi.setInputLayout(m_inputLayoutBlurH);
-
-    //m_SAQ->render();
 
   }
 
@@ -680,35 +638,14 @@ namespace xcEngineSDK {
 
     graphicsApi.setCSConstantBuffer(m_cbBlur, 0, 1);
 
-    graphicsApi.dispatch(graphicsApi.m_width / 32, graphicsApi.m_height / 32, 1);
+    graphicsApi.dispatch(Math::ceil(graphicsApi.m_width / 32), 
+                         Math::ceil(graphicsApi.m_height / 32), 
+                         1);
 
     graphicsApi.desbindingUAV(0, 1);
     //graphicsApi.desbindingRT();
     graphicsApi.desbindingSR(m_vTexturesLight, 2);
-
-    //graphicsApi.clearDepthStencil(m_depthStencilView);
-
-    //set rasterizer
-    //graphicsApi.setRasterizerState(m_rasterizerBlurV);
-
-
-    //set depth stencil state
-    //graphicsApi.setDepthStencilState(m_depthStencilStateBlurV, 0);
-
-    //set all vertex shader constant buffer
-
-
-    //set input layout
-
-
     
-    //shader program
-
-
-    //m_SAQ->render();
-    
-
-
   }
 
   void 
