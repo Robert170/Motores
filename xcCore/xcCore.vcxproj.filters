@@ -124,6 +124,9 @@
     <ClCompile Include="src\xcComputeBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xcParticleSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcCamera.h">
@@ -244,6 +247,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\xcComputeBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcParticle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcParticleSystem.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
