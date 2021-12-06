@@ -44,6 +44,7 @@ namespace xcEngineSDK {
   class RasterizerState;
   class ShaderProgram;
   class DepthStencilState;
+  class BlendState;
   
   namespace TEXTURE_FORMAT {
     enum E {
@@ -175,6 +176,14 @@ namespace xcEngineSDK {
     };
   }
 
+  namespace CPU_ACCESS_FLAG {
+    enum E {
+      kCPU_ACCESS_DEFAULT = 0,
+      kCPU_ACCESS_WRITE = 0x10000L,
+      kCPU_ACCESS_READ = 0x20000L
+    };
+  }
+
   namespace TEXTURE_BIND_FLAG {
     enum E {
       kTEXTURE_BIND_SHADER_RESOURCE = 0x8L,
@@ -261,6 +270,19 @@ namespace xcEngineSDK {
       kCULL_NONE = 1,
       kCULL_FRONT = 2,
       kCULL_BACK = 3
+    };
+  }
+
+  namespace COMPARISON_FUNC {
+    enum E {
+      kCOMPARISON_NEVER = 1,
+      kCOMPARISON_LESS = 2,
+      kCOMPARISON_EQUAL = 3,
+      kCOMPARISON_LESS_EQUAL = 4,
+      kCOMPARISON_GREATER = 5,
+      kCOMPARISON_NOT_EQUAL = 6,
+      kCOMPARISON_GREATER_EQUAL = 7,
+      kCOMPARISON_ALWAYS = 8
     };
   }
 
@@ -568,7 +590,11 @@ namespace xcEngineSDK {
     virtual SPtr<ConstantBuffer>
     createConstantBuffer(uint32,
                          uint32 = 0,
-                         const void* = nullptr) { return nullptr; };
+                         const void* = nullptr,
+                         TYPE_USAGE::E usage = TYPE_USAGE::kTYPE_USAGE_DEFAULT,
+                         CPU_ACCESS_FLAG::E cpu_acces = 
+                         CPU_ACCESS_FLAG::kCPU_ACCESS_DEFAULT)
+                         { return nullptr; };
 
     virtual SPtr<ComputeBuffer>
     createComputeBuffer(uint32 size,
@@ -712,7 +738,7 @@ namespace xcEngineSDK {
     /**
      * @brief      createAutomaticInputLayout function, to create an automatic 
      *             input layout
-     * @param      Vertex parameter one, a pointer of vertex shader for use his blop
+     * @param      ShaderProgram parameter one, a pointer of ShaderProgram for use his blop
      * @bug		     No know Bugs
      * @return     Returns a pointer of CInputLayout
      */
@@ -727,7 +753,9 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CSamplerState
      */
     virtual SPtr<SamplerState>
-    createSamplerState(uint32 = 0) { return nullptr; }; //no va
+    createSamplerState(uint32 = 0,
+                       COMPARISON_FUNC::E = COMPARISON_FUNC::kCOMPARISON_NEVER) 
+                      { return nullptr; }; //no va
 
     /**
      * @brief      createRasterizerState function, to create the rasterizer state
@@ -750,6 +778,8 @@ namespace xcEngineSDK {
     virtual SPtr<DepthStencilState>
     createDepthStencilState(bool stencilEnable, bool depthEnable) { return nullptr; };
 
+    virtual SPtr<BlendState>
+    createBlendState() { return nullptr; };
 
     //set
 

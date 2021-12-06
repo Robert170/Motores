@@ -55,7 +55,7 @@ GameAppUnitTest::onCreate() {
   testActor2->addComponent(testComponent2);
 
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
- sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
+  sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
 
   m_meshColor.x = 1;
   m_meshColor.y = 1;

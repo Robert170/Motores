@@ -2,7 +2,7 @@
 /**
  * @file    xcActor.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
- * @date    19/08/2021
+ * @date    1/12/2021
  * @brief   Represents the actor of the scene 
  *
  * Represent the actor of the scene

@@ -17,6 +17,7 @@
 #include "xcSamplerStateDX.h"
 #include "xcRasterizerStateDX.h"
 #include "xcDepthStencilStateDX.h"
+#include "xcBlendStateDX.h"
 #include "resource.h"
 
 
@@ -337,7 +338,9 @@ namespace xcEngineSDK {
   SPtr<ConstantBuffer> 
   DXGraphiAPI::createConstantBuffer(uint32 BufferSize,
                                     uint32 NumBuffer,
-                                    const void* Data) {
+                                    const void* Data,
+                                    TYPE_USAGE::E usage,
+                                    CPU_ACCESS_FLAG::E cpu_acces) {
 
     XC_UNREFERENCED_PARAMETER(NumBuffer);
     
@@ -345,8 +348,13 @@ namespace xcEngineSDK {
     SPtr<ConstantBufferDX>consBuffer;
     consBuffer.reset(new ConstantBufferDX());
 
-    CD3D11_BUFFER_DESC BufferDesc(BufferSize,
-                                  D3D11_BIND_CONSTANT_BUFFER);
+    D3D11_BUFFER_DESC BufferDesc;
+    BufferDesc.ByteWidth = BufferSize;
+    BufferDesc.Usage = static_cast<D3D11_USAGE>(usage);
+    BufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+    BufferDesc.CPUAccessFlags = static_cast<D3D11_CPU_ACCESS_FLAG>(cpu_acces);
+    BufferDesc.MiscFlags = 0;
+    
 
     HRESULT hr;
     if (nullptr !=  Data) {
@@ -994,7 +1002,8 @@ namespace xcEngineSDK {
 
   //faltan parametros
   SPtr<SamplerState> 
-  DXGraphiAPI::createSamplerState(uint32 NumSamplerState) {
+  DXGraphiAPI::createSamplerState(uint32 NumSamplerState, 
+                                  COMPARISON_FUNC::E comparasionFunc) {
 
     XC_UNREFERENCED_PARAMETER(NumSamplerState);
     SPtr<SamplerStateDX> samplerState; 
@@ -1007,7 +1016,7 @@ namespace xcEngineSDK {
     SamDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
     SamDesc.MipLODBias = 0;
     SamDesc.MaxAnisotropy = 1;
-    SamDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+    SamDesc.ComparisonFunc = static_cast<D3D11_COMPARISON_FUNC>(comparasionFunc);
     SamDesc.BorderColor[0] = 1.0f;
     SamDesc.BorderColor[1] = 1.0f;
     SamDesc.BorderColor[2] = 1.0f;
@@ -1097,6 +1106,28 @@ namespace xcEngineSDK {
 
     m_pd3dDevice->CreateDepthStencilState(&depthDesc,
                                           &depthState->m_pDepthStencilState);
+    return depthState;
+  }
+
+  SPtr<BlendState> 
+  DXGraphiAPI::createBlendState() {
+
+    SPtr<BlendStateDX> depthState;
+    depthState.reset(new BlendStateDX());
+
+    D3D11_BLEND_DESC desc;
+    ZeroMemory(&desc, sizeof(desc));
+    desc.AlphaToCoverageEnable = false;
+    desc.RenderTarget[0].BlendEnable = true;
+    desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+    desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+    desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+    desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+    desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
+    desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+    desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+    m_pd3dDevice->CreateBlendState(&desc, &depthState->m_pBlendState);
+
     return depthState;
   }
 

@@ -175,7 +175,10 @@ namespace xcEngineSDK {
 		SPtr<ConstantBuffer> 
 		createConstantBuffer(uint32 BufferSize,
 			                   uint32 NumBuffer = 0,
-			                   const void* Data = nullptr) override;
+			                   const void* Data = nullptr,
+                         TYPE_USAGE::E usage = TYPE_USAGE::kTYPE_USAGE_DEFAULT,
+                         CPU_ACCESS_FLAG::E cpu_acces =
+                         CPU_ACCESS_FLAG::kCPU_ACCESS_DEFAULT) override;
 
 
 		/**
@@ -324,7 +327,8 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CSamplerState
      */
 		SPtr<SamplerState> 
-		createSamplerState(uint32 NumSamplerState = 0) override; //no va
+		createSamplerState(uint32 NumSamplerState, 
+			                 COMPARISON_FUNC::E comparasionFunc) override; //no va
 
 		/**
 		 * @brief      createRasterizerState function, to create the sampler state
@@ -335,6 +339,9 @@ namespace xcEngineSDK {
     createRasterizerState(FILL_MODE::E fillMode,
                           CULL_MODE::E cullMode,
                           bool counterClockwise) override; //falta parametros
+
+    SPtr<BlendState>
+    createBlendState() override;
 
 
 		//set

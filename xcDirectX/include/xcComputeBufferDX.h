@@ -21,15 +21,15 @@
 
 
 namespace xcEngineSDK {
-	class ComputeBufferDX : public ComputeBuffer
-	{
-	public:
-		/// Destructor
-		~ComputeBufferDX() = default;
+  class ComputeBufferDX : public ComputeBuffer
+  {
+   public:
+    /// Destructor
+    ~ComputeBufferDX() = default;
 
-	protected:
+   protected:
 
-		/**
+    /**
      * @brief protected variables member
      */
 
@@ -38,19 +38,19 @@ namespace xcEngineSDK {
      */
     ID3D11Buffer* m_pComputeBuffer = nullptr;
 
-		/**
-		 * @Variable m_UAV, pointer for the unordered access view
-		 */
-		ID3D11UnorderedAccessView* m_pUAV = nullptr;
+    /**
+     * @Variable m_UAV, pointer for the unordered access view
+     */
+    ID3D11UnorderedAccessView* m_pUAV = nullptr;
 
-		/**
-		 * @Variable m_SRV, pointer for the shader resource view
-		 */
-		ID3D11ShaderResourceView* m_pSRV = nullptr;
+    /**
+     * @Variable m_SRV, pointer for the shader resource view
+     */
+    ID3D11ShaderResourceView* m_pSRV = nullptr;
 
 
     uint32 m_offset = 0;
 
-		friend class DXGraphiAPI;
-	};
+    friend class DXGraphiAPI;
+  };
 }

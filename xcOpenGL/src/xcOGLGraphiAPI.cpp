@@ -164,7 +164,9 @@ namespace xcEngineSDK {
 	SPtr<ConstantBuffer>
 	OGLGraphiAPI::createConstantBuffer(uint32 BufferSize,//2
 			                               uint32 NumBuffer, //1
-			                               const void* Data) {//3
+			                               const void* Data,//3
+                                     TYPE_USAGE::E usage,
+                                     CPU_ACCESS_FLAG::E cpu_acces) {
 
     SPtr<ConstantBufferOGL> constantBuffer = std::make_shared<ConstantBufferOGL>();
     
@@ -586,7 +588,8 @@ namespace xcEngineSDK {
 
 	//mas parametros para diferentes samplers
 	SPtr<SamplerState>
-	OGLGraphiAPI::createSamplerState(uint32 NumSamplerState) {
+	OGLGraphiAPI::createSamplerState(uint32 NumSamplerState, 
+		                               COMPARISON_FUNC::E comparasionFunc) {
 
     //new SamplerStateOGL();
     SPtr<SamplerStateOGL> samplerState = std::make_shared<SamplerStateOGL>();
@@ -618,6 +621,11 @@ namespace xcEngineSDK {
                                        CULL_MODE::E cullMode,
                                        bool counterClockwise) {
 		return nullptr;
+	}
+
+	SPtr<BlendState> 
+	OGLGraphiAPI::createBlendState() {
+		return SPtr<BlendState>();
 	}
 
 	void
