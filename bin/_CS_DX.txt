@@ -1,0 +1,75 @@
+#define maxValue 256
+
+struct countRG{
+  unsigned int countR[maxValue];
+  unsigned int countG[maxValue];
+};
+
+struct countB{
+
+  unsigned int countB[maxValue];	
+};
+
+
+
+RWStructuredBuffer<countRGB> countOutData : register(u0);
+
+
+Texture2D InputTexture : register( t0 ); 
+
+//Constant buffers
+
+cbuffer cbTexture : register( b0 )
+{
+	float textureWidth;
+    float textureHeight;	
+};
+
+
+
+/*
+uint3 groupID : SV_GroupID
+- Index of the group within the dispatch for each dimension
+
+uint3 groupThreadID : SV_GroupThreadID
+- Index of the thread within the group for each dimension
+
+uint groupIndex : SV_GroupIndex
+- A sequential index within the group that starts from 0 top left back and goes on to bottom right front
+
+uint3 dispatchThreadID : SV_DispatchThreadID 
+- Global thread index within the whole dispatch, write and read a buffer
+*/
+
+
+struct CS_INPUT
+{
+  uint3 groupThreadID    : SV_GroupThreadID;
+  uint3 groupID           : SV_GroupID;
+  uint3 dispatchThreadID : SV_DispatchThreadID;
+  uint  groupIndex        : SV_GroupIndex;
+};
+
+
+
+//functions
+[numthreads(32, 32, 1)]
+void 
+cs_histo(CS_INPUT input) {
+
+  if(input.dispatchThreadID.x > textureWidth || input.dispatchThreadID.y > textureHeight) {
+    return;
+  }
+  
+  uint2 indexColor = (input.dispatchThreadID.xy);
+  unsigned int index = (input.dispatchThreadID.x);
+  
+  //float2 index = (input.dispatchThreadID.xy / float2(textureWidth, textureHeight));
+  
+  InterlockedAdd(countOutData[index].countR[InputTexture[indexColor].r],1);
+  InterlockedAdd(countOutData[index].countG[InputTexture[indexColor].g],1);
+  InterlockedAdd(countOutData[index].countB[InputTexture[indexColor].b],1);
+  
+  
+
+}

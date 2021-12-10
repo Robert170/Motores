@@ -5,6 +5,7 @@
 #include "xcActor.h"
 #include "xcSceneGraph.h"
 #include "xcBaseInput.h"
+#include "ImGuiImmplementation.h"
 
 //TODO ERRORES CRITICOS
   
@@ -17,6 +18,8 @@ GameAppUnitTest::onCreate() {
 
   graphicsApi.init(graphicsApi.m_window.getSystemHandle());
   
+  //ImGuiImplementation::init();
+
   
 
   // Set primitive topology

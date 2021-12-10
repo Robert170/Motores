@@ -286,6 +286,57 @@ namespace xcEngineSDK {
     };
   }
 
+  namespace TEXTURE_ADDRESS_MODE {
+    enum E {
+      kTEXTURE_ADDRESS_WRAP = 1,
+      kTEXTURE_ADDRESS_MIRROR = 2,
+      kTEXTURE_ADDRESS_CLAMP = 3,
+      kTEXTURE_ADDRESS_BORDER = 4,
+      kTEXTURE_ADDRESS_MIRROR_ONCE = 5
+    };
+  }
+
+  namespace FILTER {
+    enum E {
+      kFILTER_MIN_MAG_MIP_POINT = 0,
+      kFILTER_MIN_MAG_POINT_MIP_LINEAR = 0x1,
+      kFILTER_MIN_POINT_MAG_LINEAR_MIP_POINT = 0x4,
+      kFILTER_MIN_POINT_MAG_MIP_LINEAR = 0x5,
+      kFILTER_MIN_LINEAR_MAG_MIP_POINT = 0x10,
+      kFILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 0x11,
+      kFILTER_MIN_MAG_LINEAR_MIP_POINT = 0x14,
+      kFILTER_MIN_MAG_MIP_LINEAR = 0x15,
+      kFILTER_ANISOTROPIC = 0x55,
+      kFILTER_COMPARISON_MIN_MAG_MIP_POINT = 0x80,
+      kFILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR = 0x81,
+      kFILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT = 0x84,
+      kFILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR = 0x85,
+      kFILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT = 0x90,
+      kFILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 0x91,
+      kFILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT = 0x94,
+      kFILTER_COMPARISON_MIN_MAG_MIP_LINEAR = 0x95,
+      kFILTER_COMPARISON_ANISOTROPIC = 0xd5,
+      kFILTER_MINIMUM_MIN_MAG_MIP_POINT = 0x100,
+      kFILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR = 0x101,
+      kFILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT = 0x104,
+      kFILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR = 0x105,
+      kFILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT = 0x110,
+      kFILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 0x111,
+      kFILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT = 0x114,
+      kFILTER_MINIMUM_MIN_MAG_MIP_LINEAR = 0x115,
+      kFILTER_MINIMUM_ANISOTROPIC = 0x155,
+      kFILTER_MAXIMUM_MIN_MAG_MIP_POINT = 0x180,
+      kFILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR = 0x181,
+      kFILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT = 0x184,
+      kFILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR = 0x185,
+      kFILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT = 0x190,
+      kFILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 0x191,
+      kFILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT = 0x194,
+      kFILTER_MAXIMUM_MIN_MAG_MIP_LINEAR = 0x195,
+      kFILTER_MAXIMUM_ANISOTROPIC = 0x1d5
+    };
+  }
+
   struct TextureDesc
   {
     uint32 width;
@@ -321,6 +372,26 @@ namespace xcEngineSDK {
     float mScale;
     float mBias;
   };
+
+  struct CBHISTOGRAM
+  {
+    uint32 countR[256];
+    uint32 countG[256];
+    uint32 countB[256];
+    Vector2 fViewportDimensions;
+
+  };
+
+  struct COUNTRG {
+    uint32 countR[256];
+    uint32 countG[256];
+  };
+
+  struct COUNTB {
+
+    uint32 countB[256];
+  };
+
 
   struct CBSSAO_TEXTURE
   {
@@ -482,6 +553,9 @@ namespace xcEngineSDK {
      */
 
 
+    virtual void
+    getDataComputeBuffer(WeakSptr<ComputeBuffer> computeBuffer) {};
+
     /**
       * @brief      init function, to init the api
       * @param      width parameter one, width of the window
@@ -600,7 +674,8 @@ namespace xcEngineSDK {
     createComputeBuffer(uint32 size,
                         uint32 numElemnts,
                         TYPE_USAGE::E usage,
-                        TEXTURE_FORMAT::E format) { return nullptr; };
+                        TEXTURE_FORMAT::E format,
+                        const void* data) { return nullptr; };
 
 
 
@@ -754,7 +829,13 @@ namespace xcEngineSDK {
      */
     virtual SPtr<SamplerState>
     createSamplerState(uint32 = 0,
-                       COMPARISON_FUNC::E = COMPARISON_FUNC::kCOMPARISON_NEVER) 
+                       float mipLoDBias = 0.0f,
+                       float mionLOD = -3.402823466e+38F,
+                       float maxLOD = 3.402823466e+38F,
+                       COMPARISON_FUNC::E = COMPARISON_FUNC::kCOMPARISON_NEVER,
+                       TEXTURE_ADDRESS_MODE::E = 
+                       TEXTURE_ADDRESS_MODE::kTEXTURE_ADDRESS_CLAMP,
+                       FILTER::E = FILTER::kFILTER_MIN_MAG_MIP_LINEAR)
                       { return nullptr; }; //no va
 
     /**

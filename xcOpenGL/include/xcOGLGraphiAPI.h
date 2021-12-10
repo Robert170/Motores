@@ -328,7 +328,12 @@ namespace xcEngineSDK {
      */
 		SPtr<SamplerState> 
 		createSamplerState(uint32 NumSamplerState, 
-			                 COMPARISON_FUNC::E comparasionFunc) override; //no va
+			                 float mipLoDBias,
+                       float mionLOD,
+                       float maxLOD,
+                       COMPARISON_FUNC::E comparisonFun,
+                       TEXTURE_ADDRESS_MODE::E textureAddressMode,
+                       FILTER::E filter) override; //no va
 
 		/**
 		 * @brief      createRasterizerState function, to create the sampler state

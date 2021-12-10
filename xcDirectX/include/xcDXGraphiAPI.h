@@ -62,6 +62,8 @@ namespace xcEngineSDK {
 			* @brief protected functions
 		*/
 
+    void
+    getDataComputeBuffer(WeakSptr<ComputeBuffer> computeBuffer) override;
 
 		/**
 		 * @brief      initWindow function, to create window for the api
@@ -204,7 +206,8 @@ namespace xcEngineSDK {
     createComputeBuffer(uint32 size,
 			                  uint32 numElemnts,
 			                  TYPE_USAGE::E usage,
-			                  TEXTURE_FORMAT::E format) override;
+			                  TEXTURE_FORMAT::E format,
+			                  const void* data) override;
 
 
 		/**
@@ -353,7 +356,12 @@ namespace xcEngineSDK {
      */
 		SPtr<SamplerState>
 		createSamplerState(uint32 NumSamplerState, 
-			                 COMPARISON_FUNC::E comparasionFunc) override; //no va
+			                 float mipLoDBias,
+                       float mionLOD,
+                       float maxLOD,
+                       COMPARISON_FUNC::E comparisonFun,
+                       TEXTURE_ADDRESS_MODE::E textureAddressMode,
+                       FILTER::E filter) override; //no va
 
 		/**
 		 * @brief      createRasterizerState function, to create the sampler state

@@ -20,6 +20,7 @@ namespace xcEngineSDK {
     createSSAO();
     createBlurH();
     createBlurV();
+    //createHistogram();
     createLigth();
 
   }
@@ -39,7 +40,7 @@ namespace xcEngineSDK {
   }
 
   void
-  Renderer::render() {
+    Renderer::render() {
 
     auto& sceneGraph = g_sceneGraph();
 
@@ -50,6 +51,7 @@ namespace xcEngineSDK {
     setBlurV();
     setBlurH();
     setBlurV();
+    //setHistogram();
     setLigth();
 
   }
@@ -114,6 +116,7 @@ namespace xcEngineSDK {
                                                   TYPE_USAGE::kTYPE_USAGE_DEFAULT,
                                                   nullptr);
     m_vRenderTargets.push_back(m_albedoTexture);
+    m_vTexturesHisto.push_back(m_albedoTexture);
 
 
     //Shader program
@@ -251,16 +254,8 @@ namespace xcEngineSDK {
                                                         TYPE_USAGE::
                                                         kTYPE_USAGE_DEFAULT, 
                                                         TEXTURE_FORMAT::
-                                                        kTF_R32_FLOAT);
-
-    
-    ////create rasterizer
-    /*m_rasterizerSSAO = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
-                                                         CULL_MODE::kCULL_FRONT,
-                                                         true);*/
-
-    ////create depth stencil state
-   //m_depthStencilStateSSAO = graphicsApi.createDepthStencilState(false, false);
+                                                        kTF_R32_FLOAT,
+                                                        nullptr);
 
   }
 
@@ -319,7 +314,8 @@ namespace xcEngineSDK {
                                                         TYPE_USAGE::
                                                         kTYPE_USAGE_DEFAULT,
                                                         TEXTURE_FORMAT::
-                                                        kTF_R32_FLOAT);
+                                                        kTF_R32_FLOAT,
+                                                        nullptr);
 
 
     ////create rasterizer
@@ -351,20 +347,6 @@ namespace xcEngineSDK {
     m_shaderProgramBlurV = graphicsApi.createComputeShader("gaussyan_blur_CS",
                                                           "cs_gaussian_blurV",
                                                           "cs_5_0");
-
-
-    //Input Layout
-    /*m_inputLayoutBlurV = graphicsApi.createAutomaticInputLayout
-                                    (*m_shaderProgramBlurV);*/
-
-
-    //create rasterizer
-    //m_rasterizerBlurV = graphicsApi.createRasterizerState(FILL_MODE::kFILL_SOLID,
-                                                          //CULL_MODE::kCULL_FRONT,
-                                                          //true);
-
-    ////create depth stencil state
-    //m_depthStencilStateBlurV = graphicsApi.createDepthStencilState(false, false);
   }
 
   void 
@@ -511,6 +493,76 @@ namespace xcEngineSDK {
 
     ////create depth stencil state
     m_depthStencilStateDepth = graphicsApi.createDepthStencilState(false, false);
+
+  }
+
+  void 
+  Renderer::createHistogram() {
+    auto& graphicsApi = g_graphicsAPI();
+    
+
+    m_histoTexture = graphicsApi.createTexture2D(graphicsApi.m_width,
+                                                 graphicsApi.m_height,
+                                                 1,
+                                                 TEXTURE_FORMAT::
+                                                 kTF_R16G16B16A16_FLOAT,
+                                                 TEXTURE_BIND_FLAG::
+                                                 kTEXTURE_BIND_SHADER_RESOURCE
+                                                 | TEXTURE_BIND_FLAG::
+                                                 kTEXTURE_BIND_RENDER_TARGET
+                                                 | TEXTURE_BIND_FLAG::
+                                                 kTEXTURE_BIND_UNORDERED_ACCESS,
+                                                 TYPE_USAGE::kTYPE_USAGE_DEFAULT,
+                                                 nullptr);
+
+    m_vRenderTargetsHisto.push_back(m_histoTexture);
+
+    //Shader program
+    m_shaderProgramHisto = graphicsApi.createShaderProgram("screnAlignedQuad", //file name VS
+                                                           "Histgram", //file name PS
+                                                           "vs_ssaligned", //Entry point vs
+                                                           "histo", //entry point ps
+                                                           "vs_5_0",
+                                                           "ps_5_0",
+                                                           1,
+                                                           1);
+
+    m_shaderProgramHistoCS = graphicsApi.createComputeShader("Count_CS",
+                                                             "cs_count",
+                                                             "cs_5_0");
+
+    //Input Layout
+    m_inputLayoutHisto = graphicsApi.createAutomaticInputLayout
+                                     (*m_shaderProgramHisto);
+
+    //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
+    m_cbHistogram = graphicsApi.createConstantBuffer(sizeof(CBHISTOGRAM),
+                                                     1,
+                                                     nullptr);
+
+    for (uint32 i = 0; i < 256; i++) {
+
+      m_countRG.countR[i] = 0;
+      m_countRG.countG[i] = 0;
+      m_countB.countB[i] = 0;
+    }
+
+    m_computeBuffHistoRG = graphicsApi.createComputeBuffer(sizeof(COUNTRG),
+                                                           1024, 
+                                                           TYPE_USAGE::
+                                                           kTYPE_USAGE_DEFAULT, 
+                                                           TEXTURE_FORMAT::
+                                                           kTF_R32G32B32_FLOAT,
+                                                           &m_countRG);
+
+    m_computeBuffHistoB = graphicsApi.createComputeBuffer(sizeof(COUNTB),
+                                                           1024, 
+                                                           TYPE_USAGE::
+                                                           kTYPE_USAGE_DEFAULT, 
+                                                           TEXTURE_FORMAT::
+                                                           kTF_R32G32B32_FLOAT,
+                                                           &m_countB);
+
 
   }
 
@@ -665,6 +717,60 @@ namespace xcEngineSDK {
     graphicsApi.setShaderProgram(m_shaderProgramShadow);
 
     sceneGraph.render();
+
+    graphicsApi.desbindingRT();
+
+  }
+
+  void 
+  Renderer::setHistogram() {
+    auto& graphicsApi = g_graphicsAPI();
+
+    graphicsApi.setShaderResourceCS(m_vTexturesHisto);
+
+    uint32 samplerSize = m_vSamplers.size();
+
+    //set sampler state
+    for (uint32 i = 0; i < samplerSize; ++i) {
+      graphicsApi.setSamplerStateCS(m_vSamplers,
+                                    1);
+    }
+
+    graphicsApi.setComputeBuffer(m_computeBuffHistoRG, 0, 1);
+    graphicsApi.setComputeBuffer(m_computeBuffHistoB, 1, 1);
+    graphicsApi.setComputeBufferRTUAV(m_histoTexture, 0, 1);
+    graphicsApi.clearRenderTarget(m_histoTexture, m_color);
+
+    graphicsApi.setComputeShader(m_shaderProgramHisto);
+
+    //set all vertex shader constant buffer
+    graphicsApi.setCSConstantBuffer(m_cbSSAOTexture, 0, 1);
+
+    graphicsApi.dispatch(Math::ceil(graphicsApi.m_width / 32), 
+                         Math::ceil(graphicsApi.m_height / 32), 
+                         1);
+
+    graphicsApi.desbindingUAV(0, 1);
+
+
+
+    //graphicsApi.desbindingRT();
+    graphicsApi.desbindingSR(m_vTexturesLight, 2);
+
+    
+
+    graphicsApi.setPSConstantBuffer(m_cbNeverChanges,
+                                    0,
+                                    1);
+
+    //set input layout
+    graphicsApi.setInputLayout(m_inputLayoutHisto);
+
+    
+    //shader program
+    graphicsApi.setShaderProgram(m_shaderProgramHisto);
+
+    m_SAQ->render();
 
     graphicsApi.desbindingRT();
 

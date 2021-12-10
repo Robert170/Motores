@@ -78,6 +78,9 @@ namespace xcEngineSDK {
     createShadowMap();
 
     void
+    createHistogram();
+
+    void
     setGbuffer();
 
     void
@@ -94,6 +97,9 @@ namespace xcEngineSDK {
 
     void
     setShadowMap();
+
+    void
+    setHistogram();
 
    private:
 
@@ -282,6 +288,21 @@ namespace xcEngineSDK {
     SPtr<Model> m_SAQ;
 
 
+    //**Histo**//
+    Texture* m_histoTexture;
+    Vector<Texture*> m_vTexturesHisto;
+    Vector<Texture*> m_vRenderTargetsHisto;
+    SPtr<ShaderProgram> m_shaderProgramHisto = nullptr;
+    SPtr<ShaderProgram> m_shaderProgramHistoCS = nullptr;
+    SPtr<InputLayout> m_inputLayoutHisto = nullptr;
+
+    CBHISTOGRAM m_constantBufferHisto;
+    SPtr<ConstantBuffer> m_cbHistogram = nullptr;
+
+    COUNTRG m_countRG;
+    SPtr<ComputeBuffer> m_computeBuffHistoRG;
+    COUNTB m_countB;
+    SPtr<ComputeBuffer> m_computeBuffHistoB;
   };
 
   extern "C" XC_PLUGIN_EXPORT Renderer * create_Renderer() {

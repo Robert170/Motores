@@ -100,6 +100,15 @@ namespace xcEngineSDK {
 
   
 
+  void 
+  DXGraphiAPI::getDataComputeBuffer(WeakSptr<ComputeBuffer> computeBuffer) {
+    ComputeBufferDX* buffer = 
+    reinterpret_cast<ComputeBufferDX*>(computeBuffer.lock().get());
+
+    //buffer->m_pComputeBuffer->GetPrivateData()
+
+  }
+
   //function to create a window
   void 
   DXGraphiAPI::initWindow(uint32 width,
@@ -385,7 +394,8 @@ namespace xcEngineSDK {
   DXGraphiAPI::createComputeBuffer(uint32 size, 
                                    uint32 numElemnts, 
                                    TYPE_USAGE::E usage,
-                                   TEXTURE_FORMAT::E format) {
+                                   TEXTURE_FORMAT::E format,
+                                   const void* data) {
 
     SPtr<ComputeBufferDX>comBuffer;
     comBuffer.reset(new ComputeBufferDX());
@@ -393,16 +403,32 @@ namespace xcEngineSDK {
     D3D11_BUFFER_DESC computeBuffDesc;
     computeBuffDesc.ByteWidth = size * numElemnts; 
     computeBuffDesc.Usage = static_cast<D3D11_USAGE>(usage);
-    computeBuffDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
+    computeBuffDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | 
+                                D3D11_BIND_UNORDERED_ACCESS;
     computeBuffDesc.CPUAccessFlags = 0;
     computeBuffDesc.MiscFlags = 0;
+
     computeBuffDesc.StructureByteStride = sizeof(float);
 
     HRESULT hr;
 
-    hr = m_pd3dDevice->CreateBuffer(&computeBuffDesc, 
-                                    nullptr, 
-                                    &comBuffer->m_pComputeBuffer);
+    if (nullptr != data) {
+
+      D3D11_SUBRESOURCE_DATA dataBuffer;
+      ZeroMemory(&dataBuffer, sizeof(dataBuffer));
+      dataBuffer.pSysMem = data;
+
+      hr = m_pd3dDevice->CreateBuffer(&computeBuffDesc,
+                                      &dataBuffer,
+                                      &comBuffer->m_pComputeBuffer);
+    }
+    else {
+
+      hr = m_pd3dDevice->CreateBuffer(&computeBuffDesc, 
+                                      nullptr, 
+                                      &comBuffer->m_pComputeBuffer);
+    }
+    
 
     if (FAILED(hr)) {
       std::cout << "//Error fail the creation of compute buffer" << std::endl;
@@ -1003,26 +1029,34 @@ namespace xcEngineSDK {
   //faltan parametros
   SPtr<SamplerState> 
   DXGraphiAPI::createSamplerState(uint32 NumSamplerState, 
-                                  COMPARISON_FUNC::E comparasionFunc) {
+                                  float mipLoDBias,
+                                  float mionLOD,
+                                  float maxLOD,
+                                  COMPARISON_FUNC::E comparisonFun,
+                                  TEXTURE_ADDRESS_MODE::E textureAddressMode,
+                                  FILTER::E filter) {
 
     XC_UNREFERENCED_PARAMETER(NumSamplerState);
     SPtr<SamplerStateDX> samplerState; 
     samplerState.reset(new SamplerStateDX());
 
     D3D11_SAMPLER_DESC SamDesc;
-    SamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-    SamDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-    SamDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-    SamDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-    SamDesc.MipLODBias = 0;
+    SamDesc.Filter = static_cast<D3D11_FILTER> (filter);
+    SamDesc.AddressU = 
+   static_cast<D3D11_TEXTURE_ADDRESS_MODE> (textureAddressMode);
+    SamDesc.AddressV = 
+    static_cast<D3D11_TEXTURE_ADDRESS_MODE> (textureAddressMode);
+    SamDesc.AddressW = 
+    static_cast<D3D11_TEXTURE_ADDRESS_MODE> (textureAddressMode);
+    SamDesc.MipLODBias = mipLoDBias;
     SamDesc.MaxAnisotropy = 1;
-    SamDesc.ComparisonFunc = static_cast<D3D11_COMPARISON_FUNC>(comparasionFunc);
+    SamDesc.ComparisonFunc = static_cast<D3D11_COMPARISON_FUNC>(comparisonFun);
     SamDesc.BorderColor[0] = 1.0f;
     SamDesc.BorderColor[1] = 1.0f;
     SamDesc.BorderColor[2] = 1.0f;
     SamDesc.BorderColor[3] = 1.0f;
-    SamDesc.MinLOD = -3.402823466e+38F; // -FLT_MAX
-    SamDesc.MaxLOD = 3.402823466e+38F; // FLT_MAX
+    SamDesc.MinLOD = mionLOD; // -FLT_MAX
+    SamDesc.MaxLOD = maxLOD; // FLT_MAX
 
     m_pd3dDevice->CreateSamplerState(&SamDesc,
                                      &samplerState->m_pSamplerLinear);

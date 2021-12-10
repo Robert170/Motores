@@ -589,7 +589,12 @@ namespace xcEngineSDK {
 	//mas parametros para diferentes samplers
 	SPtr<SamplerState>
 	OGLGraphiAPI::createSamplerState(uint32 NumSamplerState, 
-		                               COMPARISON_FUNC::E comparasionFunc) {
+                                  float mipLoDBias,
+                                  float mionLOD,
+                                  float maxLOD,
+                                  COMPARISON_FUNC::E comparisonFun,
+                                  TEXTURE_ADDRESS_MODE::E textureAddressMode,
+                                  FILTER::E filter) {
 
     //new SamplerStateOGL();
     SPtr<SamplerStateOGL> samplerState = std::make_shared<SamplerStateOGL>();

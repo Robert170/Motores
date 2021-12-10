@@ -3,20 +3,10 @@
 #include <xcBaseApp.h>
 #include <xcModel.h>
 
-
-//struct CBNeverChanges
-//{
-//  Matrix4x4 mView;
-//  Matrix4x4 mProjection;
-//  Matrix4x4 mWorld;
-//  Vector4 vMeshColor;
-//};
-
 struct CBBones
 {
   Matrix4x4 Bones_CB[200];
 };
-
 
 class GameAppUnitTest : public BaseApp
 {

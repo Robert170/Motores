@@ -16,12 +16,6 @@
  */
  /*****************************************************************************/
 #include <xcPrerequisitesCore.h>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/System/Time.hpp>
-#include <SFML/Window/Joystick.hpp>
-#include <SFML/Window/Window.hpp>
 #include "xcIndexBuffer.h"
 #include "xcVertexBuffer.h"
 #include "xcDepthStencilState.h"
@@ -33,19 +27,18 @@
 #include "xcTexture.h"
 #include "xcBlendState.h"
 
-struct VERTEX_CONSTANT_BUFFER
-{
-  float   mvp[4][4];
-};
+
 
 using namespace xcEngineSDK;
 
-class ImGuiImplementatio
+struct CONSTANT_BUFFER
 {
-  
- public:
-  ImGuiImplementatio() = default;
-  ~ImGuiImplementatio() = default;
+  Matrix4x4 mvp;
+};
+
+namespace ImGuiImplementation
+{
+
 
   void
   init();
@@ -55,29 +48,10 @@ class ImGuiImplementatio
 
   void
   render();
+ 
+
+
   
-
- private:
-
-  SPtr<IndexBuffer> m_IB;
-  SPtr<VertexBuffer> m_VB;
-  SPtr<ShaderProgram> m_shaderProgramImGui;
-  SPtr<InputLayout> m_inputLayout;
-  SPtr<ConstantBuffer> m_vertexConstantBuffer;
-  VERTEX_CONSTANT_BUFFER m_cbVertex;
-  Vector<SPtr<SamplerState>> m_vfontSampler;
-  SPtr<RasterizerState> m_rasterizerState;
-  SPtr<DepthStencilState> m_depthStencilState;
-  SPtr<BlendState> m_blendState;
-  Texture* m_fontTextureView;
-
-
-  uint32 VertexBufferSize = 5000;
-  uint32 IndexBufferSize = 10000;
-
-  unsigned char* m_pixels;
-  int32 m_width;
-  int32 m_height;
 
 };
 
