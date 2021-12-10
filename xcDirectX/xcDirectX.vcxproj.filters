@@ -8,6 +8,9 @@
     <Filter Include="Source Files\Prerequisites">
       <UniqueIdentifier>{b79d1ba4-d5f7-42f0-a374-ee2552a8830d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\CUda">
+      <UniqueIdentifier>{812bb7ff-bec3-4aca-af75-72283a6f5211}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcConstantBufferDX.h">
@@ -58,6 +61,15 @@
     <ClInclude Include="include\xcComputeBufferDX.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\xcParticleSystem.h">
+      <Filter>Source Files\CUda</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcParticle.h">
+      <Filter>Source Files\CUda</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcParticleSystem.cuh">
+      <Filter>Source Files\CUda</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xcConstantBufferDX.cpp">
@@ -105,5 +117,13 @@
     <ClCompile Include="src\xcComputeBufferDX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xcParticleSystem.cpp">
+      <Filter>Source Files\CUda</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="src\xcParticleSystem.cu">
+      <Filter>Source Files\CUda</Filter>
+    </CudaCompile>
   </ItemGroup>
 </Project>

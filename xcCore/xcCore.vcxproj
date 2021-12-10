@@ -33,7 +33,6 @@
     <ClCompile Include="src\xcComputeBuffer.cpp" />
     <ClCompile Include="src\xcDepthStencilState.cpp" />
     <ClCompile Include="src\xcMaterial.cpp" />
-    <ClCompile Include="src\xcParticleSystem.cpp" />
     <ClCompile Include="src\xcResource.cpp" />
     <ClCompile Include="src\xcSceneNode.cpp" />
     <ClCompile Include="src\xcApi.cpp" />
@@ -76,8 +75,6 @@
     <ClInclude Include="include\xcDepthStencilState.h" />
     <ClInclude Include="include\xcMaterial.h" />
     <ClInclude Include="include\xcBaseRenderer.h" />
-    <ClInclude Include="include\xcParticle.h" />
-    <ClInclude Include="include\xcParticleSystem.h" />
     <ClInclude Include="include\xcResource.h" />
     <ClInclude Include="include\xcSceneNode.h" />
     <ClInclude Include="include\xcBaseApp.h" />

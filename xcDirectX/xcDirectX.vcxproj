@@ -27,6 +27,9 @@
     <ClInclude Include="include\xcDXGraphiAPI.h" />
     <ClInclude Include="include\xcIndexBufferDX.h" />
     <ClInclude Include="include\xcInputLayoutDX.h" />
+    <ClInclude Include="include\xcParticle.h" />
+    <ClInclude Include="include\xcParticleSystem.cuh" />
+    <ClInclude Include="include\xcParticleSystem.h" />
     <ClInclude Include="include\xcPixelShaderDX.h" />
     <ClInclude Include="include\xcPrerequisitesDX.h" />
     <ClInclude Include="include\xcRasterizerStateDX.h" />
@@ -45,6 +48,7 @@
     <ClCompile Include="src\xcDXGraphiAPI.cpp" />
     <ClCompile Include="src\xcIndexBufferDX.cpp" />
     <ClCompile Include="src\xcInputLayoutDX.cpp" />
+    <ClCompile Include="src\xcParticleSystem.cpp" />
     <ClCompile Include="src\xcPixelShaderDX.cpp" />
     <ClCompile Include="src\xcRasterizerStateDX.cpp" />
     <ClCompile Include="src\xcSamplerStateDX.cpp" />
@@ -52,6 +56,9 @@
     <ClCompile Include="src\xcTextureDX.cpp" />
     <ClCompile Include="src\xcVertexBufferDX.cpp" />
     <ClCompile Include="src\xcVertexShaderDX.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="src\xcParticleSystem.cu" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -135,7 +142,7 @@
       <PreprocessorDefinitions>XC_CORE_EXPORTS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Stb_image/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Stb_image/include/;$(CudaToolkitIncludeDir)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -143,7 +150,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;$(CudaToolkitBinDir);$(CudaToolkitIncludeDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cudart_static.lib;xcUtilities_d.lib;d3d11.lib;d3dcompiler.lib;dxguid.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
