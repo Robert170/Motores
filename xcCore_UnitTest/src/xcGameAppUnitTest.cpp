@@ -191,12 +191,12 @@ GameAppUnitTest::onUpdate(float deltaTime) {
 
   auto& sceneGraph = g_sceneGraph();
 
-  auto& inputs = g_input();
+  //auto& inputs = g_input();
 
-  sceneGraph.m_mainCamera.setFowarMove(inputs.keyPress(KEY_BOARD::KB_W));
+  /*sceneGraph.m_mainCamera.setFowarMove(inputs.keyPress(KEY_BOARD::KB_W));
   sceneGraph.m_mainCamera.setBackMove(inputs.keyPress(KEY_BOARD::KB_S));
   sceneGraph.m_mainCamera.setLeftMove(inputs.keyPress(KEY_BOARD::KB_A));
-  sceneGraph.m_mainCamera.setRigthMove(inputs.keyPress(KEY_BOARD::KB_D));
+  sceneGraph.m_mainCamera.setRigthMove(inputs.keyPress(KEY_BOARD::KB_D));*/
   
   
   //todo CONSTANBUFFER GENERICOS NO ESPECIFICOS

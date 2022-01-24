@@ -170,6 +170,7 @@ namespace xcEngineSDK {
       KB_MEDIASELECT = 0xED, // Media Select
     };
   }
+
   namespace MOUSE_KEY {
     enum E {
       KMB_Left = 0,
@@ -183,39 +184,40 @@ namespace xcEngineSDK {
     };
   }
 
-	class BaseInput : public Module<BaseInput>
-	{
-	 public:
-    
-		BaseInput() = default;
-		~BaseInput() = default;
+  class BaseInput : public Module<BaseInput>
+  {
+   public:
+  
+    BaseInput() = default;
+    ~BaseInput() = default;
 
     FORCEINLINE void
-      setObject(BaseInput* input) {
-			BaseInput::_instance() = input;
+    setObject(BaseInput* input) {
+      BaseInput::_instance() = input;
     }
+
     virtual void
     init(sf::WindowHandle window) {};
-
+    
     virtual void
     update() {};
 
     /**
-		 * @brief      keyPressed function, to detect if a key is pressed
-		 * @param      input parameter one, pressed key
-		 * @bug		     No know Bugs
-		 * @return     Returns a bool
-		 */
+	 * @brief      keyPressed function, to detect if a key is pressed
+	 * @param      input parameter one, pressed key
+	 * @bug		     No know Bugs
+	 * @return     Returns a bool
+	 */
     virtual bool
     keyPress(KEY_BOARD::E input) { return false; };
 
-		/**
-		 * @brief      keyReleased function, to detect if a key is released
-		 * @param      input parameter one, released key
-		 * @bug		     No know Bugs
-		 * @return     Returns a bool
-		 */
-		virtual bool
+    /**
+     * @brief      keyReleased function, to detect if a key is released
+     * @param      input parameter one, released key
+     * @bug		     No know Bugs
+     * @return     Returns a bool
+     */
+    virtual bool
     keyRelease(KEY_BOARD::E input) { return false; };
 
     /**
@@ -226,7 +228,7 @@ namespace xcEngineSDK {
      */
     virtual bool
     mouseKeyPress(MOUSE_KEY::E input) { return false; };
-
+    
     /**
      * @brief      mouseKeyRelease function, to detect if a key is released of mouse
      * @param      input parameter one, released key
@@ -236,21 +238,21 @@ namespace xcEngineSDK {
     virtual bool
     mouseKeyRelease(MOUSE_KEY::E input) { return false; };
 
-	 private:
+   private:
 
-    
+  
 
-	};
+  };
 
-	/**
-	 * @brief export the instance
-	 */
-	XC_CORE_EXPORT BaseInput&
+  /**
+   * @brief export the instance
+   */
+  XC_CORE_EXPORT BaseInput&
   g_input();
 
-	/**
-	 * @Variable funProtoGraphiAPI, instance of the class
-	 */
-	using funProtoInput = BaseInput * (*)();
+  /**
+   * @Variable funProtoGraphiAPI, instance of the class
+   */
+  using funProtoInput = BaseInput * (*)();
 }
 

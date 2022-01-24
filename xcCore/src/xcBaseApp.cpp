@@ -6,6 +6,7 @@
 #include "xcBaseInput.h"
 #include "xcBaseApp.h"
 #include "xcBaseInput.h"
+#include "xcBaseOmvniverse.h"
 
 namespace xcEngineSDK {
 
@@ -24,14 +25,17 @@ namespace xcEngineSDK {
 
     auto& input = g_input();
 
+    auto& omvniverse = g_omvniverse();
+
     renderer.init();
+    omvniverse.init();
     //renderer.setModels(sceneGraph.getModels());
     
 
     sf::Clock delta;
 
     float deltaTime;
-    input.init(myGraphicsApi.m_window.getSystemHandle());
+    //input.init(myGraphicsApi.m_window.getSystemHandle());
 
 
     while (myGraphicsApi.m_window.isOpen()) {
@@ -55,7 +59,7 @@ namespace xcEngineSDK {
      
       //update
       update(deltaTime);
-      input.update();
+      //input.update();
       sceneGraph.update(deltaTime);
       renderer.update();
 
@@ -85,7 +89,7 @@ namespace xcEngineSDK {
   void 
   BaseApp::createWindow() {
 
-    auto myGraphicsApi = g_graphicsAPI().instancePtr();
+    auto myGraphicsApi = g_graphicsAPI().instancePtr();                                  
 
     myGraphicsApi->m_window.create(sf::VideoMode(myGraphicsApi->m_width,
                                                  myGraphicsApi->m_height),
@@ -182,6 +186,14 @@ namespace xcEngineSDK {
 
 
     }*/
+    if (m_omvniverse.loadPlugin("xcOmvniverse_d.dll")) {
+
+      auto createOmvniverse = reinterpret_cast<funProtoOmvniverse>
+      (m_omvniverse.getProcedureByName("create_Omvniverse"));
+      
+      BaseInput::startUp();
+      g_omvniverse().setObject(createOmvniverse());
+    }
 
   }
 

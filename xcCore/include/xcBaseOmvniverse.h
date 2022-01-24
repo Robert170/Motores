@@ -1,11 +1,11 @@
 /*****************************************************************************/
 /**
- * @file    xcBasePhysics.h
+ * @file    xcBaseOmvniverse.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
- * @date    12/09/2021
- * @brief   Base program to use the physics
+ * @date    18/01/2022
+ * @brief   Base program to use the Omvniverse
  *
- * This .h is for the use of the physics in the engine
+ * This .h is for the use of the Omvniverse in the engine
  * @bug	    No known bugs.
  */
  /*****************************************************************************/
@@ -19,17 +19,27 @@
 #include <xcPrerequisitesCore.h>
 
 namespace xcEngineSDK {
-  class BasePhysics : public Module<BasePhysics>
+
+  class BaseOmvniverse : public Module<BaseOmvniverse>
   {
    public:
-    BasePhysics() = default;
-    ~BasePhysics() = default;
+    BaseOmvniverse() = default;
+    ~BaseOmvniverse() = default;
 
     FORCEINLINE void
-    setObject(BasePhysics* input) {
-              BasePhysics::_instance() = input;
+    setObject(BaseOmvniverse* omvniverse) {
+              BaseOmvniverse::_instance() = omvniverse;
     }
   
+    virtual void
+    init() {};
+
+    virtual void
+    update() {};
+
+    virtual void
+    createUSD(String& destinationPath, String& file) {};
+
    private:
   
   };
@@ -37,11 +47,11 @@ namespace xcEngineSDK {
   /**
    * @brief export the instance
    */
-  XC_CORE_EXPORT BasePhysics&
-  g_physics();
+  XC_CORE_EXPORT BaseOmvniverse&
+  g_omvniverse();
   
   /**
    * @Variable funProtoGraphiAPI, instance of the class
    */
-  using funProtoPhysics = BasePhysics * (*)();
+  using funProtoOmvniverse = BaseOmvniverse * (*)();
 }

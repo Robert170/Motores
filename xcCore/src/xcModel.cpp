@@ -337,4 +337,16 @@ namespace xcEngineSDK {
       m_vMeshes[i].render();
     }
   }
+
+  Vector<Vector3> 
+  Model::getVertexes() {
+
+      return Vector<Vector3>();
+  }
+
+  Vector<Vector3> 
+  Model::getNormals() {
+
+      return Vector<Vector3>();
+  }
 }

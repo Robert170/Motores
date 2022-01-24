@@ -48,6 +48,14 @@ namespace xcEngineSDK {
     void
     render();
 
+    Vector<Vector3>
+    getVertexes();
+
+    Vector<Vector3> 
+    getNormals();
+
+
+
    public:
     Vector<Mesh> m_vMeshes;
     String m_directory;

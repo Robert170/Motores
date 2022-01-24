@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\Dev\Imgui\include\imgui_widgets.cpp" />
     <ClCompile Include="src\xcActor.cpp" />
     <ClCompile Include="src\xcBaseInput.cpp" />
+    <ClCompile Include="src\xcBaseOmvniverse.cpp" />
     <ClCompile Include="src\xcBasePhysics.cpp" />
     <ClCompile Include="src\xcBaseRenderer.cpp" />
     <ClCompile Include="src\xcBaseSound.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="..\..\Dev\Imgui\include\imstb_truetype.h" />
     <ClInclude Include="include\xcActor.h" />
     <ClInclude Include="include\xcBaseInput.h" />
+    <ClInclude Include="include\xcBaseOmvniverse.h" />
     <ClInclude Include="include\xcBasePhysics.h" />
     <ClInclude Include="include\xcBaseSound.h" />
     <ClInclude Include="include\xcBlendState.h" />
@@ -229,7 +231,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>

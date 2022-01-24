@@ -31,12 +31,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcOpenGL", "xcOpenGl\xcOpen
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcRenderer", "xcRenderer\xcRenderer.vcxproj", "{1C1214AB-4845-409D-BADD-E7F70EBD3C78}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB405C0E-08A3-4D28-A841-056BA07D408D} = {AB405C0E-08A3-4D28-A841-056BA07D408D}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcInput", "xcInput\xcInput.vcxproj", "{753652E9-4603-46A4-B40D-57DA095D118C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcSound", "xcSound\xcSound.vcxproj", "{89BA7B59-AB50-41E8-864E-49BFD78E6DD9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcPhysics", "xcPhysics\xcPhysics.vcxproj", "{DCC9B6C3-7B55-4C34-B778-95DC200B658F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcOmvniverse", "xcOmvniverse\xcOmvniverse.vcxproj", "{26A420A0-FF2B-407B-A0F6-EA7125F1D927}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -210,6 +215,22 @@ Global
 		{DCC9B6C3-7B55-4C34-B778-95DC200B658F}.Release|x64.Build.0 = Release|x64
 		{DCC9B6C3-7B55-4C34-B778-95DC200B658F}.Release|x86.ActiveCfg = Release|Win32
 		{DCC9B6C3-7B55-4C34-B778-95DC200B658F}.Release|x86.Build.0 = Release|Win32
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Debug_DLL|x64.ActiveCfg = Debug|x64
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Debug_DLL|x64.Build.0 = Debug|x64
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Debug_DLL|x86.ActiveCfg = Debug|Win32
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Debug_DLL|x86.Build.0 = Debug|Win32
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Debug|x64.ActiveCfg = Debug|x64
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Debug|x64.Build.0 = Debug|x64
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Debug|x86.ActiveCfg = Debug|Win32
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Debug|x86.Build.0 = Debug|Win32
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Release_DLL|x64.ActiveCfg = Release|x64
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Release_DLL|x64.Build.0 = Release|x64
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Release_DLL|x86.ActiveCfg = Release|Win32
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Release_DLL|x86.Build.0 = Release|Win32
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Release|x64.ActiveCfg = Release|x64
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Release|x64.Build.0 = Release|x64
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Release|x86.ActiveCfg = Release|Win32
+		{26A420A0-FF2B-407B-A0F6-EA7125F1D927}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

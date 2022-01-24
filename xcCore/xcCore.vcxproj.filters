@@ -127,6 +127,9 @@
     <ClCompile Include="src\xcBlendState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xcBaseOmvniverse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\xcCamera.h">
@@ -250,6 +253,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\xcBlendState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcBaseOmvniverse.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
