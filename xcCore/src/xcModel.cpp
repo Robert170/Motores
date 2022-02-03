@@ -15,6 +15,7 @@ namespace xcEngineSDK {
   void
   processMeshData(aiMesh* pMesh, Mesh& myMesh) {
 
+    myMesh.m_FaceVertexCount = pMesh->mNumFaces;
     // walk through each of the mesh's vertices
     for (uint32 i = 0; i < pMesh->mNumVertices; ++i) {
 
@@ -338,15 +339,64 @@ namespace xcEngineSDK {
     }
   }
 
-  Vector<Vector3> 
+  Vector<Vector3>
   Model::getVertexes() {
+    
+    Vector<Vector3> temp;
 
-      return Vector<Vector3>();
+    uint32 numVertexes = m_vMeshes[0].m_Vertices.size();
+
+    for (uint32 i = 0; i < numVertexes; ++i) {
+
+     temp.push_back(m_vMeshes[0].m_Vertices[i].vertex);
+
+    }
+
+    return temp;
   }
 
-  Vector<Vector3> 
+  Vector<uint32> 
+  Model::getIndexes() {
+    
+    return m_vMeshes[0].m_Indices;
+  }
+
+  Vector<Vector3>
   Model::getNormals() {
 
-      return Vector<Vector3>();
+    Vector<Vector3> temp;
+
+	uint32 numNormals = m_vMeshes[0].m_Vertices.size();
+
+    for (uint32 i = 0; i < numNormals; ++i) {
+
+      temp.push_back(m_vMeshes[0].m_Vertices[0].normal);
+      
+    }
+
+
+    return temp;
+
+  }
+
+  Vector<Vector2> 
+  Model::getUV() {
+
+    Vector<Vector2> temp;
+
+	uint32 numUV = m_vMeshes[0].m_Vertices.size();
+
+    for (uint32 i = 0; i < numUV; ++i) {
+        
+      temp.push_back(m_vMeshes[0].m_Vertices[0].texCoords);
+    }
+
+    return temp;
+  }
+
+  uint32 
+  Model::getFaceVertexCount() {
+
+      return m_vMeshes[0].m_FaceVertexCount;
   }
 }

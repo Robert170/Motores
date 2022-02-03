@@ -51,8 +51,17 @@ namespace xcEngineSDK {
     Vector<Vector3>
     getVertexes();
 
-    Vector<Vector3> 
+    Vector<uint32>
+    getIndexes();
+
+    Vector<Vector3>
     getNormals();
+
+    Vector<Vector2>
+    getUV();
+
+    uint32
+    getFaceVertexCount();
 
 
 

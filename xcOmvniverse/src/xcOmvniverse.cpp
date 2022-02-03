@@ -24,6 +24,9 @@
 #include <pxr/usd/usdShade/shader.h>
 #include <pxr/usd/usd/modelAPI.h>
 
+#include <xcSceneGraph.h>
+
+
 #include "xcOmvniverse.h"
 
 namespace xcEngineSDK { 
@@ -39,60 +42,267 @@ namespace xcEngineSDK {
   // Global for making the logging reasonable
   static std::mutex gLogMutex;
 
+#define HW_ARRAY_COUNT(array) (sizeof(array) / sizeof(array[0]))
+
+
   TF_DEFINE_PRIVATE_TOKENS(
-	  _tokens,
-	  (box)
-	  (Light)
-	  (Looks)
-	  (Root)
-	  (Shader)
-	  (st)
+      _tokens,
+      (box)
+      (Light)
+      (Looks)
+      (Root)
+      (Shader)
+      (st)
 
-	  // These tokens will be reworked or replaced by the official MDL schema for USD.
-	  // https://developer.nvidia.com/usd/MDLschema
-	  (Material)
-	  ((_module, "module"))
-	  (name)
-	  (out)
-	  ((shaderId, "mdlMaterial"))
-	  (mdl)
+      // These tokens will be reworked or replaced by the official MDL schema for USD.
+      // https://developer.nvidia.com/usd/MDLschema
+      (Material)
+      ((_module, "module"))
+      (name)
+      (out)
+      ((shaderId, "mdlMaterial"))
+      (mdl)
 
-	  // Tokens used for USD Preview Surface
-	  (diffuseColor)
-	  (normal)
-	  (file)
-	  (result)
-	  (varname)
-	  (rgb)
-	  (RAW)
-	  (sRGB)
-	  (surface)
-	  (PrimST)
-	  (UsdPreviewSurface)
-	  ((UsdShaderId, "UsdPreviewSurface"))
-	  ((PrimStShaderId, "UsdPrimvarReader_float2"))
-	  (UsdUVTexture)
+      // Tokens used for USD Preview Surface
+      (diffuseColor)
+      (normal)
+      (file)
+      (result)
+      (varname)
+      (rgb)
+      (RAW)
+      (sRGB)
+      (surface)
+      (PrimST)
+      (UsdPreviewSurface)
+      ((UsdShaderId, "UsdPreviewSurface"))
+      ((PrimStShaderId, "UsdPrimvarReader_float2"))
+      (UsdUVTexture)
   );
 
-  static UsdGeomMesh createModel(int ModelNumber = 0) {
+  double h = 50.0;
+
+  int gBoxVertexIndices[] = { 0, 1, 2, 1, 3, 2, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 11, 12, 13, 14, 12, 14, 15, 16, 17, 18, 16, 18, 19, 20, 21, 22, 20, 22, 23 };
+  double gBoxNormals[][3] = { {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, -1, 0}, {0, -1, 0}, {0, -1, 0}, {0, -1, 0}, {1, 0, 0}, {1, 0, 0}, {1, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {-1, 0, 0}, {-1, 0, 0}, {-1, 0, 0}, {-1, 0, 0} };
+  double gBoxPoints[][3] = { {h, -h, -h}, {-h, -h, -h}, {h, h, -h}, {-h, h, -h}, {h, h, h}, {-h, h, h}, {-h, -h, h}, {h, -h, h}, {h, -h, h}, {-h, -h, h}, {-h, -h, -h}, {h, -h, -h}, {h, h, h}, {h, -h, h}, {h, -h, -h}, {h, h, -h}, {-h, h, h}, {h, h, h}, {h, h, -h}, {-h, h, -h}, {-h, -h, h}, {-h, h, h}, {-h, h, -h}, {-h, -h, -h} };
+  float gBoxUV[][2] = { {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0} };
+
+  static UsdGeomMesh createBox(int boxNumber = 0)
+  {
+
+	  auto& sceneGraph = g_sceneGraph();
+	  Vector<SPtr<Model>> models = sceneGraph.getModels();
+	  // Keep the model contained inside of "Root", only need to do this once per model
+	  SdfPath rootPrimPath = SdfPath::AbsoluteRootPath().AppendChild(_tokens->Root);
+	  UsdGeomXform::Define(gStage, rootPrimPath);
+
+	  // Create the geometry inside of "Root"
+	  std::string boxName("box_");
+	  boxName.append(std::to_string(boxNumber));
+	  SdfPath boxPrimPath = rootPrimPath.AppendChild(TfToken(boxName));//_tokens->box);
+	  UsdGeomMesh mesh = UsdGeomMesh::Define(gStage, boxPrimPath);
+
+	  if (!mesh)
+		  return mesh;
+
+	  // Set orientation
+	  mesh.CreateOrientationAttr(VtValue(UsdGeomTokens->rightHanded));
+
+	 uint32 i = 0;
+      //// Add all of the vertices
+      Vector<Vector3> vertexes = models[i]->getVertexes();
+      uint32 num_vertices = vertexes.size();
+	  //int num_vertices = HW_ARRAY_COUNT(gBoxPoints);
+	  VtArray<GfVec3f> points;
+	  points.resize(num_vertices);
+	  for (uint32 i = 0; i < num_vertices; i++)
+	  {
+		  points[i] = GfVec3f(vertexes[i].x,
+                              vertexes[i].y,
+                              vertexes[i].z);
+	  }
+	  mesh.CreatePointsAttr(VtValue(points));
+
+	  // Calculate indices for each triangle
+	  Vector<uint32> indexes = models[i]->getIndexes();
+	  int32 num_indices = indexes.size(); // 2 Triangles per face * 3 Vertices per Triangle * 6 Faces
+	  //int num_indices = HW_ARRAY_COUNT(gBoxVertexIndices); // 2 Triangles per face * 3 Vertices per Triangle * 6 Faces
+	  VtArray<int32> vecIndices;
+	  vecIndices.resize(num_indices);
+	  for (int32 i = 0; i < num_indices; i++)
+	  {
+		  //vecIndices[i] = gBoxVertexIndices[i];
+		  vecIndices[i] = indexes[i];
+
+	  }
+	  mesh.CreateFaceVertexIndicesAttr(VtValue(vecIndices));
+
+	  // Add vertex normals
+	  Vector<Vector3> normals = models[i]->getNormals();
+	  uint32 num_normals = normals.size();
+	  //int num_normals = HW_ARRAY_COUNT(gBoxNormals);
+	  VtArray<GfVec3f> meshNormals;
+	  meshNormals.resize(num_vertices);
+	  for (int32 i = 0; i < num_vertices; i++)
+	  {
+		  //meshNormals[i] = GfVec3f((float)gBoxNormals[i][0], (float)gBoxNormals[i][1], (float)gBoxNormals[i][2]);
+          meshNormals[i] = GfVec3f((float)normals[i].x,
+                                   (float)normals[i].y,
+                                   (float)normals[i].z);
+	  }
+	  mesh.CreateNormalsAttr(VtValue(meshNormals));
+
+	  // Add face vertex count
+	  VtArray<int> faceVertexCounts;
+	  //faceVertexCounts.resize(12); // 2 Triangles per face * 6 faces
+	  faceVertexCounts.resize(models[i]->getFaceVertexCount()); // 2 Triangles per face * 6 faces
+	  std::fill(faceVertexCounts.begin(), faceVertexCounts.end(), 3);
+	  mesh.CreateFaceVertexCountsAttr(VtValue(faceVertexCounts));
+
+	  // Set the color on the mesh
+	  UsdPrim meshPrim = mesh.GetPrim();
+	  UsdAttribute displayColorAttr = mesh.CreateDisplayColorAttr();
+	  {
+		  VtVec3fArray valueArray;
+		  GfVec3f rgbFace(0.463f, 0.725f, 0.0f);
+		  valueArray.push_back(rgbFace);
+		  displayColorAttr.Set(valueArray);
+	  }
+
+	  // Set the UV (st) values for this mesh
+	  UsdGeomPrimvar attr2 = mesh.CreatePrimvar(_tokens->st, SdfValueTypeNames->TexCoord2fArray);
+	  {
+		  Vector<Vector2> uv = models[i]->getUV();
+		  uint32 uv_count = uv.size();
+		  //int uv_count = HW_ARRAY_COUNT(gBoxUV);
+		  VtVec2fArray valueArray;
+		  valueArray.resize(uv_count);
+		  for (int32 i = 0; i < uv_count; ++i)
+		  {
+			  //valueArray[i].Set(gBoxUV[i]);
+			  valueArray[i].Set(uv[i].x, uv[i].y);
+
+		  }
+
+		  bool status = attr2.Set(valueArray);
+	  }
+	  attr2.SetInterpolation(UsdGeomTokens->vertex);
+
+	  // Commit the changes to the USD
+	  gStage->Save();
+	  omniUsdLiveProcess();
+
+	  return mesh;
+  }
+
+  static UsdGeomMesh createModel(uint32 ModelNumber = 0) {
+
+    auto& sceneGraph = g_sceneGraph();
+    Vector<SPtr<Model>> models = sceneGraph.getModels();
+
     // Keep the model contained inside of "Root", only need to do this once per model
     SdfPath rootPrimPath = SdfPath::AbsoluteRootPath().AppendChild(_tokens->Root);
     UsdGeomXform::Define(gStage, rootPrimPath);
 
-	// Create the geometry inside of "Root"
-	String boxName("Model");
-	boxName.append(std::to_string(ModelNumber));
-	SdfPath boxPrimPath = rootPrimPath.AppendChild(TfToken(boxName));
-	UsdGeomMesh mesh = UsdGeomMesh::Define(gStage, boxPrimPath);
-
+    // Create the geometry inside of "Root"
+    String boxName("Model");
+    boxName.append(std::to_string(ModelNumber));
+    SdfPath boxPrimPath = rootPrimPath.AppendChild(TfToken(boxName));
+    UsdGeomMesh mesh = UsdGeomMesh::Define(gStage, boxPrimPath);
+  
     if (!mesh) {
-		return mesh;
+        return mesh;
     }
 
-	// Set orientation
+    // Set orientation
     mesh.CreateOrientationAttr(VtValue(UsdGeomTokens->rightHanded));
 
+    uint32 numModels = models.size();
 
+    //for (uint32 i = 0; i < numModels; ++i) {
+    uint32 i = 0;
+      //// Add all of the vertices
+      Vector<Vector3> vertexes = models[i]->getVertexes();
+      uint32 num_vertices = vertexes.size();
+      VtArray<GfVec3f> points;
+      points.resize(num_vertices);
+      for (uint32 j = 0; j < num_vertices; ++j) {
+
+        points[j] = GfVec3f(vertexes[j].x,
+                            vertexes[j].y,
+                            vertexes[j].z);
+
+      }
+      mesh.CreatePointsAttr(VtValue(points));
+
+      // Calculate indices for each triangle
+      Vector<uint32> indexes = models[i]->getIndexes();
+      uint32 num_indices = indexes.size(); // 2 Triangles per face * 3 Vertices per Triangle * 6 Faces
+      VtArray<uint32> vecIndices;
+      vecIndices.resize(num_indices);
+      for (uint32 k = 0; k < num_indices; ++k)
+      {
+        vecIndices[i] = indexes[i];
+      }
+      mesh.CreateFaceVertexIndicesAttr(VtValue(vecIndices));
+
+	  // Add vertex normals
+      Vector<Vector3> normals = models[i]->getNormals();
+      uint32 num_normals = normals.size();
+	  VtArray<GfVec3f> meshNormals;
+	  meshNormals.resize(num_vertices);
+	  for (uint32 l = 0; l < num_vertices; ++l)
+	  {
+		  meshNormals[l] = GfVec3f((float)normals[l].x,
+                                   (float)normals[l].y,
+                                   (float)normals[l].z);
+		  
+	  }           
+	  mesh.CreateNormalsAttr(VtValue(meshNormals));
+
+	  // Add face vertex count
+	  VtArray<uint32> faceVertexCounts;
+      faceVertexCounts.resize(models[i]->getFaceVertexCount()); // 2 Triangles per face * 6 faces
+	  std::fill(faceVertexCounts.begin(), faceVertexCounts.end(), 3);
+	  mesh.CreateFaceVertexCountsAttr(VtValue(faceVertexCounts));
+
+	  // Set the color on the mesh
+	  UsdPrim meshPrim = mesh.GetPrim();
+	  UsdAttribute displayColorAttr = mesh.CreateDisplayColorAttr();
+	  {
+		  VtVec3fArray valueArray;
+		  GfVec3f rgbFace(0.463f, 0.725f, 0.0f);
+		  valueArray.push_back(rgbFace);
+		  displayColorAttr.Set(valueArray);
+	  }
+
+	  // Set the UV (st) values for this mesh
+	  UsdGeomPrimvar attr2 = mesh.CreatePrimvar(_tokens->st, 
+                                                SdfValueTypeNames->TexCoord2fArray);
+	  {
+        Vector<Vector2> uv = models[i]->getUV();
+        uint32 uv_count = uv.size();
+	    VtVec2fArray valueArray;
+	    valueArray.resize(uv_count);
+
+	    for (uint32 m = 0; m < uv_count; ++m) {
+            valueArray[m].Set(uv[m].x, uv[m].y);
+
+	    }
+
+	    bool status = attr2.Set(valueArray);
+	  }
+	  attr2.SetInterpolation(UsdGeomTokens->vertex);
+
+	  // Commit the changes to the USD
+	  gStage->Save();
+	  omniUsdLiveProcess();
+
+	  return mesh;
+
+    //}
+
+    
   }
 
   static void OmniClientConnectionStatusCallbackImpl(void* userData, 
@@ -125,10 +335,10 @@ namespace xcEngineSDK {
 
   // Create a new connection for this model in Omniverse, 
   //returns the created stage URL
-  static std::string createOmniverseModel(const std::string& destinationPath,
+  static String createOmniverseModel(const std::string& destinationPath,
                                           const std::string& fileName)
   {
-      std::string stageUrl = destinationPath + "/" + fileName;
+      String stageUrl = destinationPath + "/" + fileName;
 
       // Delete the old version of this file on Omniverse and wait for the operation to complete
       {
@@ -219,7 +429,7 @@ namespace xcEngineSDK {
   Omvniverse::init() {
 
     String path ="omniverse://localhost/Users/testHomework";
-    String name = "Prueba2.usd";
+    String name = "Cube2.usd";
     createUSD(path, name);
 
 
@@ -246,7 +456,9 @@ namespace xcEngineSDK {
       createOmniverseModel(destinationPath, file);
 
       // Create geometry in the model
-      model = createModel();
+      //model = 
+      //createModel();
+      createBox();
 
     }
 

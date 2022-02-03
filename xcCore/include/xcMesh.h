@@ -103,6 +103,8 @@ namespace xcEngineSDK {
 
      Vector<Matrix4x4> m_bonesTransforms;
 
+     uint32 m_FaceVertexCount;
+
 
    private:
     // render data 

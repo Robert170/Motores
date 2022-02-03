@@ -137,14 +137,14 @@
       <PreprocessorDefinitions>XC_OMVNIVERSE_EXPORTS;_DEBUG;_CONSOLE;BOOST_ALL_DYN_LINK;TBB_USE_DEBUG=1;_CRT_SECURE_NO_WARNINGS;DEBUG;NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/OMNI/include/nv_usd/$(ConfigurationName);$(DEVLIBS)/OMNI/include/omni_client_library/$(ConfigurationName)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)xcUtilities/include;$(SolutionDir)xcCore/include;$(DEVLIBS)/OMNI/include/nv_usd/$(ConfigurationName);$(DEVLIBS)/OMNI/include/omni_client_library/$(ConfigurationName);$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Assimp/include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DEVLIBS)/OMNI/lib/$(PlatformTarget)/$(Configuration);$(DEVLIBS)/OMNI/lib/$(PlatformTarget)/$(Configuration)/windows-x86_64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ar.lib;arch.lib;gf.lib;js.lib;kind.lib;pcp.lib;plug.lib;sdf.lib;tf.lib;trace.lib;usd.lib;usdGeom.lib;vt.lib;work.lib;usdShade.lib;usdLux.lib;omniclient.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DEVLIBS)/OMNI/lib/$(PlatformTarget)/$(Configuration);$(DEVLIBS)/OMNI/lib/$(PlatformTarget)/$(Configuration)/windows-x86_64/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;$(SolutionDir)lib/$(PlatformShortName)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ar.lib;arch.lib;gf.lib;js.lib;kind.lib;pcp.lib;plug.lib;sdf.lib;tf.lib;trace.lib;usd.lib;usdGeom.lib;vt.lib;work.lib;usdShade.lib;usdLux.lib;omniclient.lib;shlwapi.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;assimp-vc142-mtd.lib;xcCore_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

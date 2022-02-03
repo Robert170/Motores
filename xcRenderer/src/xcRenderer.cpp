@@ -20,7 +20,6 @@ namespace xcEngineSDK {
     createSSAO();
     createBlurH();
     createBlurV();
-    //createHistogram();
     createLigth();
 
   }
@@ -51,7 +50,6 @@ namespace xcEngineSDK {
     setBlurV();
     setBlurH();
     setBlurV();
-    //setHistogram();
     setLigth();
 
   }

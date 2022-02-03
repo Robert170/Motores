@@ -137,7 +137,8 @@ namespace xcEngineSDK {
     RECT rc = { 0, 0, LONG(width), LONG(height) };
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
     m_hWnd = CreateWindow("DirectxWindow", 
-                          "Direct3D 11 Tutorial 7", 
+             
+        "Direct3D 11 Tutorial 7", 
                           WS_OVERLAPPEDWINDOW,
                           CW_USEDEFAULT, 
                           CW_USEDEFAULT, 

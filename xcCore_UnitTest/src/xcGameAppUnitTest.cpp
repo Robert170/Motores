@@ -28,13 +28,15 @@ GameAppUnitTest::onCreate() {
   
   
   //load model
-
+  SPtr<Model> exampleModel(new Model("Models/BattleDroid.fbx"));
+  
+  SPtr<Component> testComponent(new StaticMesh(exampleModel));
   //SPtr<Model> exampleModel(new Model("Models/s/silly_dancing.fbx")); //
 
   //SPtr<Model> exampleModel(new Model("Models/Agnaktor/idle2.fbx"));
 
-  //SPtr<Model> exampleModel2(new Model("Models/Bea/bea_geo.fbx")); //
- // SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
+  ///SPtr<Model> exampleModel0(new Model("Models/Bea/bea_geo.fbx")); //
+  ///SPtr<Component> testComponent0(new StaticMesh(exampleModel0));
 
   //SPtr<Model> exampleModel(new Model("Models/Gwen/Angry.fbx")); //
 
@@ -42,23 +44,27 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
 
-  SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
+  ///SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
   //SPtr<Model> exampleModel(new Model("Models/Cayde6.fbx"));
 
-  SPtr<Component> testComponent(new StaticMesh(exampleModel));
+ /// SPtr<Component> testComponent(new StaticMesh(exampleModel));
 
-  SPtr<Model> exampleModel2(new Model("Models/Plane/plano.fbx")); 
-  SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
+  ///SPtr<Model> exampleModel2(new Model("Models/Plane/plano.fbx")); 
+  ///SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
   
+
+ /// SPtr<Actor> testActor0(new Actor("test0"));
+  ///testActor0->addComponent(testComponent0);
 
   SPtr<Actor> testActor(new Actor("test"));
   testActor->addComponent(testComponent);
 
-  SPtr<Actor> testActor2(new Actor("test2"));
-  testActor2->addComponent(testComponent2);
+  ///SPtr<Actor> testActor2(new Actor("test2"));
+  ///testActor2->addComponent(testComponent2);
 
+  ///sceneGraph.addActor(testActor0, SPtr<SceneNode>(nullptr));
   sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
-  sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
+  ///sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
 
   m_meshColor.x = 1;
   m_meshColor.y = 1;
@@ -66,27 +72,27 @@ GameAppUnitTest::onCreate() {
   
   //Create render Target
   /*g_pRenderTarget = g_graphicsAPI().CreateTexture2D(800,
-  	                                   600,
-  	                                   1,
-  	                                   TF_R8G8B8A8_UNORM,
-  	                                   TEXTURE_BIND_RENDER_TARGET);*/
+                                       600,
+                                       1,
+                                       TF_R8G8B8A8_UNORM,
+                                       TEXTURE_BIND_RENDER_TARGET);*/
   
   //m_renderTargets.push_back(g_pRenderTarget);
   
   //// Create the depth stencil 
   /*m_depthStencil = g_graphicsAPI().CreateTexture2D(800,
-  	                                   600,
-  	                                   1,
-  	                                   TF_D24_UNORM_S8_UINT,
-  	                                   TEXTURE_BIND_DEPTH_STENCIL,
-  	                                   TYPE_USAGE_DEFAULT);*/
+                                       600,
+                                       1,
+                                       TF_D24_UNORM_S8_UINT,
+                                       TEXTURE_BIND_DEPTH_STENCIL,
+                                       TYPE_USAGE_DEFAULT);*/
   
   ////create shader resource
   /*g_pShaderResource = g_graphicsAPI().CreateTexture2D(800,
-  	                                     600,
-  	                                     1,
-  	                                     TF_R8G8B8A8_UNORM,
-  	                                     TEXTURE_BIND_SHADER_RESOURCE);
+                                         600,
+                                         1,
+                                         TF_R8G8B8A8_UNORM,
+                                         TEXTURE_BIND_SHADER_RESOURCE);
   
   g_vShaderResources.push_back(g_pShaderResource);*/
  
@@ -146,13 +152,13 @@ GameAppUnitTest::onCreate() {
   //                                                     Up);*/
  
   //m_constantBuffer.mProjection = graphicsApi.
-	 //                            matri4x4Context(m_camera.getProyeccion());
+     //                            matri4x4Context(m_camera.getProyeccion());
   ///*m_constantBuffer.mProjection = g_graphicsAPI().initMatrixProjection(m_projection,
- 	//                                                               Data.fov,
- 	//                                                               Data.height,
- 	//                                                               Data.width,
- 	//                                                               Data.Near,
- 	//                                                               Data.Far);*/
+    //                                                               Data.fov,
+    //                                                               Data.height,
+    //                                                               Data.width,
+    //                                                               Data.Near,
+    //                                                               Data.Far);*/
  
   //m_constantBuffer.mWorld = graphicsApi.initMatrixWorld(m_world);
  
@@ -161,8 +167,8 @@ GameAppUnitTest::onCreate() {
 
   //TODO checar parametros y funciones para que funcionen en D3d11 y Ogl
   /*m_cbNeverChanges = graphicsApi.createConstantBuffer(sizeof(CBNeverChanges),
- 	                                                      1, 
- 	                                                      &m_constantBuffer);*/
+                                                          1, 
+                                                          &m_constantBuffer);*/
 
   
 
@@ -202,7 +208,7 @@ GameAppUnitTest::onUpdate(float deltaTime) {
   //todo CONSTANBUFFER GENERICOS NO ESPECIFICOS
   /*m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());
   graphicsApi.updateSubresource(&m_constantBuffer,
-      		                      *m_cbNeverChanges);*/
+                                  *m_cbNeverChanges);*/
 
   
 }
@@ -213,7 +219,7 @@ GameAppUnitTest::onRender() {
   auto& graphicsApi = g_graphicsAPI();
  
   /*g_graphicsAPI().SetRenderTarget(m_renderTargets,
- 	                  m_depthStencil);*/
+                      m_depthStencil);*/
  
   ////set vertex buffer
   //g_graphicsAPI().setVertexBuffer(g_pVertexBuffer,
@@ -231,7 +237,7 @@ GameAppUnitTest::onRender() {
  
   //// Clear the render target
   /*g_graphicsAPI().ClearRenderTarget(g_pRenderTarget,
- 	                    m_color);*/
+                        m_color);*/
  
   //// Clear the depth stencil
   /*g_graphicsAPI().ClearDepthStencil(m_depthStencil, CLEAR_DEPTH,1.0f,0);*/
@@ -242,8 +248,8 @@ GameAppUnitTest::onRender() {
   //set all vertex shader constant buffer
   
   //graphicsApi.setVSConstantBuffer(m_cbNeverChanges,
- 	//                                0,
- 	//                                1);
+    //                                0,
+    //                                1);
  
   ////set pixel shader constant buffer
  
@@ -252,20 +258,20 @@ GameAppUnitTest::onRender() {
   //                                1);
 
   //graphicsApi.setVSConstantBuffer(m_cbBonesAnimation,
- 	//                                1,
- 	//                                1);
+    //                                1,
+    //                                1);
  
   ////set pixel shader constant buffer
  
   //graphicsApi.setPSConstantBuffer(m_cbBonesAnimation,
- 	//                                1,
- 	//                                1);
+    //                                1,
+    //                                1);
  
   /*g_graphicsAPI().SetShaderResource(g_vShaderResources,
- 	                                     0);*/
+                                         0);*/
  
   /*g_graphicsAPI().SetSamplerState(g_vSamplers,
- 	                 0);*/
+                     0);*/
 
 
   /*g_graphicsAPI().drawIndexed(36,
@@ -280,24 +286,24 @@ GameAppUnitTest::onDestroy() {
   //sampler state
   /*for (int i = g_vSamplers.size() - 1; i >= 0; i--)
   {
-  	if (nullptr != g_vSamplers.at(i))
-  	{
-  		delete g_vSamplers.at(i);
-  	}
+    if (nullptr != g_vSamplers.at(i))
+    {
+        delete g_vSamplers.at(i);
+    }
   }*/
  
   //ShaderResource
   /*for (int i = g_vShaderResources.size() - 1; i >= 0; i--) {
- 	  if (nullptr != g_vShaderResources.at(i)) {
- 		delete g_vShaderResources.at(i);
- 	 }
+      if (nullptr != g_vShaderResources.at(i)) {
+        delete g_vShaderResources.at(i);
+     }
   }
  */
   //constant Buffers
   /*for (int i = m_constantBuffers.size() - 1; i >= 0; --i) {
- 	  if (nullptr != m_constantBuffers.at(i)) {
- 		  delete m_constantBuffers.at(i);
- 	  }
+      if (nullptr != m_constantBuffers.at(i)) {
+          delete m_constantBuffers.at(i);
+      }
   }*/
  
   //vertex buffer
