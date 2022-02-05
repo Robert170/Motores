@@ -339,6 +339,33 @@ namespace xcEngineSDK {
     }
   }
 
+  void 
+  Model::setData(Vector<BoneVertex>& vertexData, 
+                 Vector<int32>& indexData,
+                 uint32 numMeshes) {
+
+      m_vMeshes.resize(numMeshes);
+
+
+
+	  for (uint32 i = 0; i < numMeshes; ++i) {
+		  
+		  auto& myMesh = m_vMeshes[i];
+          myMesh.m_Vertices = vertexData;
+          myMesh.m_Indices = indexData;
+		  
+	  }
+
+	  auto& graphicsApi = g_graphicsAPI();
+
+	  SPtr<SamplerState> Samplers = graphicsApi.createSamplerState();
+
+	  for (uint32 i = 0; i < numMeshes; ++i) {
+		  m_vMeshes[i].m_vSamplers.push_back(Samplers);
+		  m_vMeshes[i].setUpGPUMesh();
+	  }
+  }
+
   Vector<Vector3>
   Model::getVertexes() {
     
@@ -355,7 +382,7 @@ namespace xcEngineSDK {
     return temp;
   }
 
-  Vector<uint32> 
+  Vector<int32>
   Model::getIndexes() {
     
     return m_vMeshes[0].m_Indices;

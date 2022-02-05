@@ -5,7 +5,7 @@ namespace xcEngineSDK {
 
 
   Mesh::Mesh(Vector<BoneVertex> Vertices,
-             Vector<uint32> indices,
+             Vector<int32> indices,
              Vector<Texture*> Textures,
              Vector<SamplerState*> Samplers,
              BONES_INFO* skeletal) {

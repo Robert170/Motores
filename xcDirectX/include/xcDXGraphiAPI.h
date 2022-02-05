@@ -182,7 +182,7 @@ namespace xcEngineSDK {
 		 * @return     Returns a pointer of CBuffer
 		 */
 		SPtr<IndexBuffer> 
-		createIndexBuffer(const Vector<uint32_t>& Ind,
+		createIndexBuffer(const Vector<int32_t>& Ind,
 			                uint32 NumBuffer = 0) override;
 
 		/**

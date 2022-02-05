@@ -48,10 +48,15 @@ namespace xcEngineSDK {
     void
     render();
 
+    void
+    setData(Vector<BoneVertex>& vertexData, 
+            Vector<int32>& indexData, 
+            uint32 numMeshes = 1);
+
     Vector<Vector3>
     getVertexes();
 
-    Vector<uint32>
+    Vector<int32>
     getIndexes();
 
     Vector<Vector3>

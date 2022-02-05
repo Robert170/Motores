@@ -649,7 +649,7 @@ namespace xcEngineSDK {
      * @return     Returns a pointer of CBuffer
      */
     virtual SPtr<IndexBuffer>
-    createIndexBuffer(const Vector<uint32_t>&,
+    createIndexBuffer(const Vector<int32>&,
                       uint32 = 0) { return nullptr; };
 
     /**

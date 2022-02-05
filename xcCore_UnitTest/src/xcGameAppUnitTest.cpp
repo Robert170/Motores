@@ -28,7 +28,7 @@ GameAppUnitTest::onCreate() {
   
   
   //load model
-  SPtr<Model> exampleModel(new Model("Models/BattleDroid.fbx"));
+  SPtr<Model> exampleModel(new Model("Models/Box_v2.fbx"));
   
   SPtr<Component> testComponent(new StaticMesh(exampleModel));
   //SPtr<Model> exampleModel(new Model("Models/s/silly_dancing.fbx")); //

@@ -141,7 +141,7 @@ namespace xcEngineSDK {
 	}
 
 	SPtr<IndexBuffer>
-	OGLGraphiAPI::createIndexBuffer(const Vector<uint32>& Ind,
+	OGLGraphiAPI::createIndexBuffer(const Vector<int32>& Ind,
 			                            uint32 NumBuffer) {
 
 		SPtr<IndexBufferOGL> indexBuffer = std::make_shared<IndexBufferOGL>();

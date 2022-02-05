@@ -319,7 +319,7 @@ namespace xcEngineSDK {
 
   //function to create an index buffer 
   SPtr<IndexBuffer> 
-  DXGraphiAPI::createIndexBuffer(const Vector<uint32>& Ind,
+  DXGraphiAPI::createIndexBuffer(const Vector<int32>& Ind,
                                  uint32 NumBuffer) {
 
 
