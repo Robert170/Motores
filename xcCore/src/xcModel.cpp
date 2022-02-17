@@ -424,6 +424,13 @@ namespace xcEngineSDK {
   uint32 
   Model::getFaceVertexCount() {
 
-      return m_vMeshes[0].m_FaceVertexCount;
+    return m_vMeshes[0].m_FaceVertexCount;
   }
+
+  Vector<Mesh>
+  Model::getMeshes() {
+
+    return m_vMeshes;
+  }
+
 }

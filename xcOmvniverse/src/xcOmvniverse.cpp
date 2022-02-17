@@ -96,12 +96,122 @@ namespace xcEngineSDK {
   }
 
 
-  double h = 50.0;
+ 
+  static void createModels() {
 
-  int gBoxVertexIndices[] = { 0, 1, 2, 1, 3, 2, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 11, 12, 13, 14, 12, 14, 15, 16, 17, 18, 16, 18, 19, 20, 21, 22, 20, 22, 23 };
-  double gBoxNormals[][3] = { {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, -1, 0}, {0, -1, 0}, {0, -1, 0}, {0, -1, 0}, {1, 0, 0}, {1, 0, 0}, {1, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {-1, 0, 0}, {-1, 0, 0}, {-1, 0, 0}, {-1, 0, 0} };
-  double gBoxPoints[][3] = { {h, -h, -h}, {-h, -h, -h}, {h, h, -h}, {-h, h, -h}, {h, h, h}, {-h, h, h}, {-h, -h, h}, {h, -h, h}, {h, -h, h}, {-h, -h, h}, {-h, -h, -h}, {h, -h, -h}, {h, h, h}, {h, -h, h}, {h, -h, -h}, {h, h, -h}, {-h, h, h}, {h, h, h}, {h, h, -h}, {-h, h, -h}, {-h, -h, h}, {-h, h, h}, {-h, h, -h}, {-h, -h, -h} };
-  float gBoxUV[][2] = { {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}, {1, 0} };
+    auto& sceneGraph = g_sceneGraph();
+    Vector<SPtr<Model>> models = sceneGraph.getModels();
+    uint32 modelNumber = 0;
+
+    for (auto& actualModel : models) {
+      // Keep the model contained inside of "Root", only need to do this once per model
+      SdfPath rootPrimPath = SdfPath::AbsoluteRootPath().AppendChild(_tokens->Root);
+      UsdGeomXform::Define(gStage, rootPrimPath);
+
+      // Create the geometry inside of "Root"
+      String modelName("model_");
+      modelName.append(std::to_string(modelNumber));
+      SdfPath modelPrimPath = rootPrimPath.AppendChild(TfToken(modelName));//_tokens->box);
+      UsdGeomMesh model = UsdGeomMesh::Define(gStage, modelPrimPath);
+
+      if (!model) {
+        return;
+      }
+      uint32 meshNumber = 0;
+      Vector<Mesh> meshes = actualModel->getMeshes();
+
+      for (auto& meshOfModdel : meshes) {
+
+        // Create the geometry inside of "Root"
+        String meshName("mesh_");
+        meshName.append(std::to_string(meshNumber));
+        SdfPath meshPrimPath = rootPrimPath.AppendChild(TfToken(meshName));//_tokens->box);
+        UsdGeomMesh mesh = UsdGeomMesh::Define(gStage, meshPrimPath);
+
+        if (!mesh) {
+          return;
+        }
+		mesh.CreateOrientationAttr(VtValue(UsdGeomTokens->rightHanded));
+
+
+        meshNumber++;
+		//// Add all of the vertices
+		Vector<Vector3> vertexes = meshOfModdel.getVertexes();
+		uint32 num_vertices = vertexes.size();
+		VtArray<GfVec3f> points;
+		points.resize(num_vertices);
+		for (uint32 i = 0; i < num_vertices; i++) {
+	      points[i] = GfVec3f(vertexes[i].x,
+				              vertexes[i].y,
+				              vertexes[i].z);
+		}
+		mesh.CreatePointsAttr(VtValue(points));
+
+		// Calculate indices for each triangle
+		Vector<int32> indexes = meshOfModdel.getIndexes();
+		int32 num_indices = indexes.size(); // 2 Triangles per face * 3 Vertices per Triangle * 6 Faces
+		VtArray<int32> vecIndices;
+		vecIndices.resize(num_indices);
+		for (int32 i = 0; i < num_indices; i++) {
+		  vecIndices[i] = indexes[i];
+
+		}
+		mesh.CreateFaceVertexIndicesAttr(VtValue(vecIndices));
+
+		// Add vertex normals
+		Vector<Vector3> normals = meshOfModdel.getNormals();
+		uint32 num_normals = normals.size();
+		VtArray<GfVec3f> meshNormals;
+		meshNormals.resize(num_vertices);
+		for (int32 i = 0; i < num_vertices; i++) {
+		  meshNormals[i] = GfVec3f((float)normals[i].x,
+				                   (float)normals[i].y,
+				                   (float)normals[i].z);
+		}
+		mesh.CreateNormalsAttr(VtValue(meshNormals));
+
+		// Add face vertex count
+		VtArray<int> faceVertexCounts;
+		faceVertexCounts.resize(meshOfModdel.getFaceVertexCount()); // 2 Triangles per face * 6 faces
+		std::fill(faceVertexCounts.begin(), faceVertexCounts.end(), 3);
+		mesh.CreateFaceVertexCountsAttr(VtValue(faceVertexCounts));
+
+		// Set the color on the mesh
+		UsdPrim meshPrim = mesh.GetPrim();
+		UsdAttribute displayColorAttr = mesh.CreateDisplayColorAttr();
+		{
+		  VtVec3fArray valueArray;
+		  GfVec3f rgbFace(0.463f, 0.725f, 0.0f);
+		  valueArray.push_back(rgbFace);
+		  displayColorAttr.Set(valueArray);
+		}
+
+		// Set the UV (st) values for this mesh
+		UsdGeomPrimvar attr2 = mesh.CreatePrimvar(_tokens->st, SdfValueTypeNames->TexCoord2fArray);
+		{
+	      Vector<Vector2> uv = meshOfModdel.getUV();
+	      uint32 uv_count = uv.size();
+	      VtVec2fArray valueArray;
+	      valueArray.resize(uv_count);
+	      for (int32 i = 0; i < uv_count; ++i) {
+	           valueArray[i].Set(uv[i].x, uv[i].y);
+          
+	      }
+          
+	      bool status = attr2.Set(valueArray);
+		}
+		attr2.SetInterpolation(UsdGeomTokens->vertex);
+
+		// Commit the changes to the USD
+		gStage->Save();
+		omniUsdLiveProcess();
+      }
+
+      modelNumber++;
+    }
+
+
+  }
 
   static UsdGeomMesh createBox(int boxNumber = 0)
   {
@@ -213,7 +323,7 @@ namespace xcEngineSDK {
   // Opens an existing stage and finds the first UsdGeomMesh
   static UsdGeomMesh findGeomMesh(const String& existingStage)
   {
-	  auto& sceneGraph = g_sceneGraph();
+      auto& sceneGraph = g_sceneGraph();
       // Open this file from Omniverse
       gStage = UsdStage::Open(existingStage);
       if (!gStage)
@@ -316,7 +426,7 @@ namespace xcEngineSDK {
       for (uint32 i = 0; i < numVertex; ++i) {
         BoneVertex temp;
         temp.vertex = modelVertex[i];
-		temp.normal = modelNormals[i];
+        temp.normal = modelNormals[i];
         temp.texCoords = Vector2::ZERO;
 
         modelData.push_back(temp);
@@ -324,11 +434,11 @@ namespace xcEngineSDK {
           
       SPtr<Model> exampleModelUsd (new Model());
       exampleModelUsd->setData(modelData, modelIndex);
-	  SPtr<Component> testComponent(new StaticMesh(exampleModelUsd));
-	  SPtr<Actor> testActor(new Actor("testUsd"));
-	  testActor->addComponent(testComponent);
+      SPtr<Component> testComponent(new StaticMesh(exampleModelUsd));
+      SPtr<Actor> testActor(new Actor("testUsd"));
+      testActor->addComponent(testComponent);
 
-	  sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
+      sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
 
 
       // No UsdGeomMesh found in stage (what kind of stage is this anyway!?)
@@ -336,116 +446,6 @@ namespace xcEngineSDK {
       return UsdGeomMesh();
   }
 
-
-  static UsdGeomMesh createModel(uint32 ModelNumber = 0) {
-
-    auto& sceneGraph = g_sceneGraph();
-    Vector<SPtr<Model>> models = sceneGraph.getModels();
-
-    // Keep the model contained inside of "Root", only need to do this once per model
-    SdfPath rootPrimPath = SdfPath::AbsoluteRootPath().AppendChild(_tokens->Root);
-    UsdGeomXform::Define(gStage, rootPrimPath);
-
-    // Create the geometry inside of "Root"
-    String boxName("Model");
-    boxName.append(std::to_string(ModelNumber));
-    SdfPath boxPrimPath = rootPrimPath.AppendChild(TfToken(boxName));
-    UsdGeomMesh mesh = UsdGeomMesh::Define(gStage, boxPrimPath);
-  
-    if (!mesh) {
-        return mesh;
-    }
-
-    // Set orientation
-    mesh.CreateOrientationAttr(VtValue(UsdGeomTokens->rightHanded));
-
-    uint32 numModels = models.size();
-
-    //for (uint32 i = 0; i < numModels; ++i) {
-    uint32 i = 0;
-      //// Add all of the vertices
-      Vector<Vector3> vertexes = models[i]->getVertexes();
-      uint32 num_vertices = vertexes.size();
-      VtArray<GfVec3f> points;
-      points.resize(num_vertices);
-      for (uint32 j = 0; j < num_vertices; ++j) {
-
-        points[j] = GfVec3f(vertexes[j].x,
-                            vertexes[j].y,
-                            vertexes[j].z);
-
-      }
-      mesh.CreatePointsAttr(VtValue(points));
-
-      // Calculate indices for each triangle
-      Vector<int32> indexes = models[i]->getIndexes();
-      uint32 num_indices = indexes.size(); // 2 Triangles per face * 3 Vertices per Triangle * 6 Faces
-      VtArray<uint32> vecIndices;
-      vecIndices.resize(num_indices);
-      for (uint32 k = 0; k < num_indices; ++k)
-      {
-        vecIndices[i] = indexes[i];
-      }
-      mesh.CreateFaceVertexIndicesAttr(VtValue(vecIndices));
-
-      // Add vertex normals
-      Vector<Vector3> normals = models[i]->getNormals();
-      uint32 num_normals = normals.size();
-      VtArray<GfVec3f> meshNormals;
-      meshNormals.resize(num_vertices);
-      for (uint32 l = 0; l < num_vertices; ++l)
-      {
-          meshNormals[l] = GfVec3f((float)normals[l].x,
-                                   (float)normals[l].y,
-                                   (float)normals[l].z);
-          
-      }           
-      mesh.CreateNormalsAttr(VtValue(meshNormals));
-
-      // Add face vertex count
-      VtArray<uint32> faceVertexCounts;
-      faceVertexCounts.resize(models[i]->getFaceVertexCount()); // 2 Triangles per face * 6 faces
-      std::fill(faceVertexCounts.begin(), faceVertexCounts.end(), 3);
-      mesh.CreateFaceVertexCountsAttr(VtValue(faceVertexCounts));
-
-      // Set the color on the mesh
-      UsdPrim meshPrim = mesh.GetPrim();
-      UsdAttribute displayColorAttr = mesh.CreateDisplayColorAttr();
-      {
-          VtVec3fArray valueArray;
-          GfVec3f rgbFace(0.463f, 0.725f, 0.0f);
-          valueArray.push_back(rgbFace);
-          displayColorAttr.Set(valueArray);
-      }
-
-      // Set the UV (st) values for this mesh
-      UsdGeomPrimvar attr2 = mesh.CreatePrimvar(_tokens->st, 
-                                                SdfValueTypeNames->TexCoord2fArray);
-      {
-        Vector<Vector2> uv = models[i]->getUV();
-        uint32 uv_count = uv.size();
-        VtVec2fArray valueArray;
-        valueArray.resize(uv_count);
-
-        for (uint32 m = 0; m < uv_count; ++m) {
-            valueArray[m].Set(uv[m].x, uv[m].y);
-
-        }
-
-        bool status = attr2.Set(valueArray);
-      }
-      attr2.SetInterpolation(UsdGeomTokens->vertex);
-
-      // Commit the changes to the USD
-      gStage->Save();
-      omniUsdLiveProcess();
-
-      return mesh;
-
-    //}
-
-    
-  }
 
   static void OmniClientConnectionStatusCallbackImpl(void* userData, 
                                                      const char* url, 
@@ -590,8 +590,8 @@ namespace xcEngineSDK {
 
       // Create geometry in the model
       //model = 
-      //createModel();
-      createBox();
+      createModels();
+      //createBox();
       String pathUSD = "Models/Cube2.usd";
 
        findGeomMesh(pathUSD);

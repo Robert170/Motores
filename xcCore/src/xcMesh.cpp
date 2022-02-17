@@ -361,5 +361,65 @@ namespace xcEngineSDK {
 
   }
 
+  Vector<Vector3>
+  Mesh::getVertexes() {
+    
+    Vector<Vector3> temp;
+
+    uint32 numVertexes = m_Vertices.size();
+
+    for (uint32 i = 0; i < numVertexes; ++i) {
+
+     temp.push_back(m_Vertices[i].vertex);
+
+    }
+
+    return temp;
+  }
+
+  Vector<int32>
+  Mesh::getIndexes() {
+    
+    return m_Indices;
+  }
+
+  Vector<Vector3>
+  Mesh::getNormals() {
+
+    Vector<Vector3> temp;
+
+	uint32 numNormals = m_Vertices.size();
+
+    for (uint32 i = 0; i < numNormals; ++i) {
+
+      temp.push_back(m_Vertices[i].normal);
+      
+    }
+
+
+    return temp;
+
+  }
+
+  Vector<Vector2> 
+  Mesh::getUV() {
+
+    Vector<Vector2> temp;
+
+	uint32 numUV = m_Vertices.size();
+
+    for (uint32 i = 0; i < numUV; ++i) {
+        
+      temp.push_back(m_Vertices[i].texCoords);
+    }
+
+    return temp;
+  }
+
+  uint32 
+  Mesh::getFaceVertexCount() {
+
+    return m_FaceVertexCount;
+  }
 
 }

@@ -151,6 +151,22 @@ namespace xcEngineSDK {
     calcInterpolatedScaling(void* Out, 
                             float AnimationTime, 
                             void* pNodeAnim);
+
+    Vector<Vector3>
+    getVertexes();
+
+    Vector<int32>
+    getIndexes();
+
+    Vector<Vector3>
+    getNormals();
+
+    Vector<Vector2>
+    getUV();
+
+    uint32
+    getFaceVertexCount();
+
   };
 
 }

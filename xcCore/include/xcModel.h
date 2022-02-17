@@ -68,6 +68,9 @@ namespace xcEngineSDK {
     uint32
     getFaceVertexCount();
 
+    Vector<Mesh>
+    getMeshes();
+
 
 
    public:
