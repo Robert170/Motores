@@ -28,7 +28,7 @@ namespace xcEngineSDK {
     auto& omvniverse = g_omvniverse();
 
     renderer.init();
-    omvniverse.init();
+    //omvniverse.init();
     //renderer.setModels(sceneGraph.getModels());
     
 
