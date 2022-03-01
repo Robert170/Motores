@@ -676,7 +676,7 @@ namespace xcEngineSDK {
                         TYPE_USAGE::E usage,
                         TEXTURE_FORMAT::E format,
                         const void* data) { return nullptr; };
-
+    //TODO Pasar parametro dentro de la función
 
 
     /**
@@ -1157,6 +1157,10 @@ namespace xcEngineSDK {
      */
     virtual Texture*
     textureFromFile(String path) {return nullptr;};
+
+    virtual Vector<Texture*> 
+    creaturTextureFromRGB(String path) { Vector<Texture*> temp;  return temp; };
+
 
 
     virtual void

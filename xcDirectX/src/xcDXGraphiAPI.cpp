@@ -1,7 +1,9 @@
 #include <xcMatrix4x4.h>
 #include <vector>
 #define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image.h>
+#include <stb_image_write.h>
 
 #include "xcDXGraphiAPI.h"
 //#include "TextureDX.h"
@@ -281,6 +283,8 @@ namespace xcEngineSDK {
       return;
 
     m_depthStencil.reset(DepthStencil);
+
+    creaturTextureFromRGB("Models/MergeActive.png");
 
   }
 
@@ -1564,7 +1568,9 @@ namespace xcEngineSDK {
     Texture* texture = new Texture();
 
 
-    int width, height, nrComponents;
+    int32 width;
+    int32 height; 
+    int32 nrComponents;
    
     unsigned char* data = stbi_load(path.c_str(),
                                     &width, 
@@ -1593,6 +1599,53 @@ namespace xcEngineSDK {
     }
 
     return texture;
+  }
+
+  Vector<Texture*> 
+  DXGraphiAPI::creaturTextureFromRGB(String path) {
+
+    Texture* texture = new Texture();
+
+
+    int32 width;
+    int32 height;
+    int32 nrComponents;
+
+    unsigned char* data = stbi_load(path.c_str(),
+                                    &width,
+                                    &height,
+                                    &nrComponents,
+                                    3);
+    int32 value = width * height * 3;
+    Vector<unsigned char> newTextureR;
+    newTextureR.resize(value);
+    Vector<unsigned char> newTextureG;
+    newTextureG.resize(value);
+    Vector<unsigned char> newTextureB;
+    newTextureB.resize(value);
+    /*Vector<unsigned char> newTextureA;
+    newTextureA.resize(width * height * 4);*/
+    for (uint32 i = 0; i < width * height; ++i) {
+		newTextureR[(3 * i)] = data[(3 * i)];
+		newTextureR[(3 * i) + 1] = data[(3 * i)];
+		newTextureR[(3 * i) + 2] = data[(3 * i)];
+
+		newTextureG[(3 * i)] = data[(3 * i) + 1];
+		newTextureG[(3 * i) + 1] = data[(3 * i) + 1];
+		newTextureG[(3 * i) + 2] = data[(3 * i) + 1];
+
+		newTextureB[(3 * i)] = data[(3 * i) + 2];
+		newTextureB[(3 * i) + 1] = data[(3 * i) + 2];
+		newTextureB[(3 * i) + 2] = data[(3 * i) + 2];
+
+      /*newTextureA[4 * i + 3] = data[4 * i + 3];*/
+    }
+
+    stbi_write_png("ImageR", width, height, 3, &newTextureR.data()[0], width * 3);
+    stbi_write_png("ImageG", width, height, 3, &newTextureG.data()[0], width * 3);
+    stbi_write_png("ImageB", width, height, 3, &newTextureB.data()[0], width * 3);
+
+      return Vector<Texture*>();
   }
 
   void 

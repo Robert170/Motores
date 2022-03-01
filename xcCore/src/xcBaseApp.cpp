@@ -25,7 +25,7 @@ namespace xcEngineSDK {
 
     auto& input = g_input();
 
-    auto& omvniverse = g_omvniverse();
+    //auto& omvniverse = g_omvniverse();
 
     renderer.init();
     //omvniverse.init();
@@ -186,14 +186,14 @@ namespace xcEngineSDK {
 
 
     }*/
-    if (m_omvniverse.loadPlugin("xcOmvniverse_d.dll")) {
+	/*if (m_omvniverse.loadPlugin("xcOmvniverse_d.dll")) {
 
-      auto createOmvniverse = reinterpret_cast<funProtoOmvniverse>
-      (m_omvniverse.getProcedureByName("create_Omvniverse"));
-      
-      BaseInput::startUp();
-      g_omvniverse().setObject(createOmvniverse());
-    }
+	  auto createOmvniverse = reinterpret_cast<funProtoOmvniverse>
+	  (m_omvniverse.getProcedureByName("create_Omvniverse"));
+
+	  BaseInput::startUp();
+	  g_omvniverse().setObject(createOmvniverse());
+	}*/
 
   }
 

@@ -8,7 +8,7 @@
 #include "ImGuiImmplementation.h"
 
 //TODO ERRORES CRITICOS
-  
+
 void 
 GameAppUnitTest::onCreate() {
 
@@ -28,9 +28,9 @@ GameAppUnitTest::onCreate() {
   
   
   //load model
-  SPtr<Model> exampleModel(new Model("Models/Box_v2.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Box_v2.fbx"));
   
-  SPtr<Component> testComponent(new StaticMesh(exampleModel));
+  //SPtr<Component> testComponent(new StaticMesh(exampleModel));
   //SPtr<Model> exampleModel(new Model("Models/s/silly_dancing.fbx")); //
 
   //SPtr<Model> exampleModel(new Model("Models/Agnaktor/idle2.fbx"));
@@ -44,10 +44,10 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
 
-  ///SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
+  SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
   //SPtr<Model> exampleModel(new Model("Models/Cayde6.fbx"));
 
- /// SPtr<Component> testComponent(new StaticMesh(exampleModel));
+  SPtr<Component> testComponent(new StaticMesh(exampleModel));
 
   ///SPtr<Model> exampleModel2(new Model("Models/Plane/plano.fbx")); 
   ///SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
@@ -69,6 +69,7 @@ GameAppUnitTest::onCreate() {
   m_meshColor.x = 1;
   m_meshColor.y = 1;
   m_meshColor.z = 1;
+  
   
   //Create render Target
   /*g_pRenderTarget = g_graphicsAPI().CreateTexture2D(800,

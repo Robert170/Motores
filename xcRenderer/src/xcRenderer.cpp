@@ -39,7 +39,7 @@ namespace xcEngineSDK {
   }
 
   void
-    Renderer::render() {
+  Renderer::render() {
 
     auto& sceneGraph = g_sceneGraph();
 
