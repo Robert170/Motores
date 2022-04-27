@@ -218,25 +218,26 @@ namespace xcEngineSDK {
         void 
         createTexture1D() override;
 
-        /**
-         * @brief      createTexture2D function, to create a texture 2D
-         * @param      width parameter one, width of the texture
-         * @param      height parameter two, height of the texture
-         * @param      numberTexture parameter three, Number of the texture we are create
-         * @param      format parameter four, format for the desc of the texture
-         * @param      bindFlags parameter five, bind Flags for the desc of the texture
-         * @param      Usage parameter six, Usage for the desc of the texture
-         * @bug		     No know Bugs
-         * @return     Returns a pointer of CTexture
-         */
-        Texture*
-        createTexture2D(uint32 width,
-                          uint32 height,
-                          uint32 numberTexture, //deberia estar en la clase texture
-                          TEXTURE_FORMAT::E format,
-                          uint32 bindFlags,
-                          TYPE_USAGE::E Usage,
-                          const void* Data) override;
+      /**
+        * @brief      createTexture2D function, to create a texture 2D
+        * @param      width parameter one, width of the texture
+        * @param      height parameter two, height of the texture
+        * @param      numberTexture parameter three, Number of the texture we are create
+        * @param      format parameter four, format for the desc of the texture
+        * @param      bindFlags parameter five, bind Flags for the desc of the texture
+        * @param      Usage parameter six, Usage for the desc of the texture
+        * @bug		  No know Bugs
+        * @return     Returns a pointer of CTexture
+        */
+      Texture*
+      createTexture2D(uint32 width,
+                      uint32 height,
+                      uint32 numberTexture, //deberia estar en la clase texture
+                      TEXTURE_FORMAT::E format,
+                      uint32 bindFlags,
+                      TYPE_USAGE::E Usage,
+                      const void* Data,
+                      uint32 numChanels = 4) override;
 
         /**
          * @brief      createTexture3D function, to create a texture 3D
@@ -685,6 +686,16 @@ namespace xcEngineSDK {
        */
       Texture*
       textureFromFile(String path) override;
+
+      Texture*
+	  textureFromData(uint32 width,
+                      uint32 height,
+                      uint32 numberTexture, //deberia estar en la clase texture
+                      TEXTURE_FORMAT::E format,
+                      uint32 bindFlags,
+                      TYPE_USAGE::E Usage,
+		              const void* Data,
+		              uint32 numChanels) override;
 
       virtual Vector<Texture*>
       creaturTextureFromRGB(String path) override;

@@ -44,7 +44,8 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
 
-  SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
+  //SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
+  SPtr<Model> exampleModel(new Model("Models/Cube2.xc"));
   //SPtr<Model> exampleModel(new Model("Models/Cayde6.fbx"));
 
   SPtr<Component> testComponent(new StaticMesh(exampleModel));

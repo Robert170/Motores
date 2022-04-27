@@ -705,7 +705,8 @@ namespace xcEngineSDK {
                     TEXTURE_FORMAT::E = TEXTURE_FORMAT::kTF_R8G8B8A8_UNORM,
                     uint32 = TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE,
                     TYPE_USAGE::E = TYPE_USAGE::kTYPE_USAGE_DEFAULT,
-                    const void* Data = nullptr) { Data; return nullptr; };
+                    const void* Data = nullptr,
+                    uint32 numChanels = 4) { Data; return nullptr; };
 
     /**
      * @brief      createTexture3D function, to create a texture 3D
@@ -1157,6 +1158,18 @@ namespace xcEngineSDK {
      */
     virtual Texture*
     textureFromFile(String path) {return nullptr;};
+
+    virtual Texture*
+	textureFromData(uint32,
+			        uint32,
+			        uint32, //deberia estar en la clase texture
+			        TEXTURE_FORMAT::E = TEXTURE_FORMAT::kTF_R8G8B8A8_UNORM,
+			        uint32 = TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE,
+			        TYPE_USAGE::E = TYPE_USAGE::kTYPE_USAGE_DEFAULT,
+		            const void* Data = nullptr,
+		            uint32 numChanels = 4) {
+		return nullptr;
+	};
 
     virtual Vector<Texture*> 
     creaturTextureFromRGB(String path) { Vector<Texture*> temp;  return temp; };

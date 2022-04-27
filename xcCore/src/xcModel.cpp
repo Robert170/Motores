@@ -1,14 +1,22 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
+#include <iostream>
+#include <filesystem>
+#include <fstream>
 #include "xcModel.h"
 
 namespace xcEngineSDK {
 
 
-  Model::Model(const String& path) {
+  Model::Model(const String& pathofModel) {
 
-    loadFromFile(path);
+    if (std::filesystem::path(pathofModel).extension() == ".xc") {
+      loadXcFile(pathofModel);
+    }
+    else {
+      loadFromFile(pathofModel);
+    }
 
   }
 
@@ -259,6 +267,7 @@ namespace xcEngineSDK {
       auto assipMesh = pScene->mMeshes[i];
       auto& myMesh = pModel->m_vMeshes[i];
       processMeshData(assipMesh, myMesh);
+
       //processMeeshAnimation(assipMesh, myMesh);
       processMeeshTexture(pScene, assipMesh, myMesh, pModel->m_directory);
     }
@@ -310,6 +319,68 @@ namespace xcEngineSDK {
     return false;
   }
 
+  bool 
+  Model::loadXcFile(const String& filePath) {
+    std::ifstream xcModel;
+    String lineBuffer;
+    bool readFileOk = true;
+    char* token = nullptr;
+    char* tokenNor = nullptr;
+    char* tokenUV = nullptr;
+    char* nextToken = nullptr;
+    const char* delimiterToken = " \t";
+    const char* delimiterData = ")";
+    int32 lineNumber = 0;
+    uint32 numFaces = 0;
+
+
+    xcModel.open(filePath);
+
+
+    while (!xcModel.eof()) {
+      getline(xcModel, lineBuffer);
+      lineNumber++;
+
+      token = strtok_s((char*)lineBuffer.c_str(), delimiterToken, &nextToken);
+      if (nullptr == token) {
+        continue;
+      }
+
+      if (0 == strcmp(token, "Mesh_info")) {
+
+        Mesh myMesh;
+        getline(xcModel, lineBuffer);
+        lineNumber++;
+
+        token = strtok_s((char*)lineBuffer.c_str(), delimiterToken, &nextToken);
+        numFaces = std::stoi(nextToken);
+        numFaces *= 4;
+        for (uint32 i = 0; i < 2; ++i) {
+          getline(xcModel, lineBuffer);
+          lineNumber++;
+          token = strtok_s((char*)lineBuffer.c_str(), delimiterToken, &nextToken);
+        }
+        BoneVertex meshInfo;
+        for (uint32 i = 0; i < numFaces; ++i) {
+          getline(xcModel, lineBuffer);
+          lineNumber++;
+          token = strtok_s((char*)lineBuffer.c_str(), delimiterToken, &nextToken);
+          tokenNor = nextToken;
+        }
+        /*if (!(this->parseObjLine(lineBuffer, countOnly, lineNumber) {
+          readFileOk = false;
+          break;
+        }*/
+      }
+
+      
+      // cout << lineBuffer << endl;
+    }
+
+
+    return true;
+  }
+
   void 
   Model::unload() {
   }
@@ -348,22 +419,22 @@ namespace xcEngineSDK {
 
 
 
-	  for (uint32 i = 0; i < numMeshes; ++i) {
-		  
-		  auto& myMesh = m_vMeshes[i];
+    for (uint32 i = 0; i < numMeshes; ++i) {
+      
+      auto& myMesh = m_vMeshes[i];
           myMesh.m_Vertices = vertexData;
           myMesh.m_Indices = indexData;
-		  
-	  }
+      
+    }
 
-	  auto& graphicsApi = g_graphicsAPI();
+    auto& graphicsApi = g_graphicsAPI();
 
-	  SPtr<SamplerState> Samplers = graphicsApi.createSamplerState();
+    SPtr<SamplerState> Samplers = graphicsApi.createSamplerState();
 
-	  for (uint32 i = 0; i < numMeshes; ++i) {
-		  m_vMeshes[i].m_vSamplers.push_back(Samplers);
-		  m_vMeshes[i].setUpGPUMesh();
-	  }
+    for (uint32 i = 0; i < numMeshes; ++i) {
+      m_vMeshes[i].m_vSamplers.push_back(Samplers);
+      m_vMeshes[i].setUpGPUMesh();
+    }
   }
 
   Vector<Vector3>
@@ -393,7 +464,7 @@ namespace xcEngineSDK {
 
     Vector<Vector3> temp;
 
-	uint32 numNormals = m_vMeshes[0].m_Vertices.size();
+  uint32 numNormals = m_vMeshes[0].m_Vertices.size();
 
     for (uint32 i = 0; i < numNormals; ++i) {
 
@@ -411,7 +482,7 @@ namespace xcEngineSDK {
 
     Vector<Vector2> temp;
 
-	uint32 numUV = m_vMeshes[0].m_Vertices.size();
+  uint32 numUV = m_vMeshes[0].m_Vertices.size();
 
     for (uint32 i = 0; i < numUV; ++i) {
         

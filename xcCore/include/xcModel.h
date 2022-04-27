@@ -28,12 +28,16 @@ namespace xcEngineSDK {
     Model() = default;
     ~Model() = default;
 
-    Model(const String& path);
+    Model(const String& pathofModel);
 
     bool 
     loadFromFile(const String& filePath) override;
     bool 
     loadFromMemory(const char* pData, size_t sizeOfData) override;
+    bool 
+    loadXcFile(const String& filePath) override;
+    /*bool
+    parseXcModel()*/
 
     void 
     unload() override;

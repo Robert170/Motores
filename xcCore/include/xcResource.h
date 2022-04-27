@@ -41,6 +41,7 @@ namespace xcEngineSDK {
     //Functions to load data
     virtual bool loadFromFile(const String& filePath) = 0;
     virtual bool loadFromMemory(const char* pData, size_t sizeOfData) = 0;
+    virtual bool loadXcFile(const String& filePath) = 0;
 
     //Functions to unload data
     virtual void unload() = 0;

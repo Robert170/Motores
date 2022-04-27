@@ -494,7 +494,8 @@ namespace xcEngineSDK {
                                TEXTURE_FORMAT::E format,
                                uint32 bindFlags,
                                TYPE_USAGE::E Usage,
-                               const void* Data) {
+                               const void* Data,
+                               uint32 numChanels) {
     HRESULT hr;
     TextureDX* texture = new TextureDX();
 
@@ -509,7 +510,7 @@ namespace xcEngineSDK {
     if (nullptr != Data ) {
       D3D11_SUBRESOURCE_DATA ResourceDataDesc;
       ResourceDataDesc.pSysMem = Data;
-      ResourceDataDesc.SysMemPitch = desc.Width * 4;
+      ResourceDataDesc.SysMemPitch = desc.Width * numChanels;
       ResourceDataDesc.SysMemSlicePitch = 0;
 
       //create texture
@@ -1601,6 +1602,31 @@ namespace xcEngineSDK {
     return texture;
   }
 
+  Texture* 
+  DXGraphiAPI::textureFromData(uint32 width,
+                               uint32 height,
+                               uint32 numberTexture, //deberia estar en la clase texture
+                               TEXTURE_FORMAT::E format,
+                               uint32 bindFlags,
+                               TYPE_USAGE::E Usage,
+                               const void* Data,
+                               uint32 numChannels) {
+
+    Texture* texture = new Texture();
+
+    //create texture
+      texture = createTexture2D(width,
+                                height,
+                                1,
+                                format,
+                                bindFlags,
+                                Usage,
+                                Data,
+                                numChannels);
+    
+    return texture;
+  }
+
   Vector<Texture*> 
   DXGraphiAPI::creaturTextureFromRGB(String path) {
 
@@ -1616,7 +1642,10 @@ namespace xcEngineSDK {
                                     &height,
                                     &nrComponents,
                                     3);
-    int32 value = width * height * 3;
+
+    Vector<Texture*> textures;
+
+    int32 value = width * height;
     Vector<unsigned char> newTextureR;
     newTextureR.resize(value);
     Vector<unsigned char> newTextureG;
@@ -1625,25 +1654,53 @@ namespace xcEngineSDK {
     newTextureB.resize(value);
     /*Vector<unsigned char> newTextureA;
     newTextureA.resize(width * height * 4);*/
+
     for (uint32 i = 0; i < width * height; ++i) {
-		newTextureR[(3 * i)] = data[(3 * i)];
-		newTextureR[(3 * i) + 1] = data[(3 * i)];
-		newTextureR[(3 * i) + 2] = data[(3 * i)];
+		newTextureR[(i)] = data[(3 * i)];
+		//newTextureR[(3 * i) + 1] = data[(3 * i)];
+		//newTextureR[(3 * i) + 2] = data[(3 * i)];
 
-		newTextureG[(3 * i)] = data[(3 * i) + 1];
-		newTextureG[(3 * i) + 1] = data[(3 * i) + 1];
-		newTextureG[(3 * i) + 2] = data[(3 * i) + 1];
+		newTextureG[(i)] = data[(3 * i) + 1];
+		//newTextureG[(3 * i) + 1] = data[(3 * i) + 1];
+		//newTextureG[(3 * i) + 2] = data[(3 * i) + 1];
 
-		newTextureB[(3 * i)] = data[(3 * i) + 2];
-		newTextureB[(3 * i) + 1] = data[(3 * i) + 2];
-		newTextureB[(3 * i) + 2] = data[(3 * i) + 2];
+		newTextureB[(i)] = data[(3 * i) + 2];
+		//newTextureB[(3 * i) + 1] = data[(3 * i) + 2];
+		//newTextureB[(3 * i) + 2] = data[(3 * i) + 2];
 
       /*newTextureA[4 * i + 3] = data[4 * i + 3];*/
     }
 
-    stbi_write_png("ImageR", width, height, 3, &newTextureR.data()[0], width * 3);
-    stbi_write_png("ImageG", width, height, 3, &newTextureG.data()[0], width * 3);
-    stbi_write_png("ImageB", width, height, 3, &newTextureB.data()[0], width * 3);
+    ///stbi_write_png("ImageR", width, height, 3, &newTextureR.data()[0], width * 3);
+    ///stbi_write_png("ImageG", width, height, 3, &newTextureG.data()[0], width * 3);
+   /// stbi_write_png("ImageB", width, height, 3, &newTextureB.data()[0], width * 3);
+
+	textures.push_back(textureFromData(width, 
+                                       height, 
+                                       1, 
+                                       TEXTURE_FORMAT::kTF_R8_UNORM, 
+                                       TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE, 
+                                       TYPE_USAGE::kTYPE_USAGE_DEFAULT, 
+                                       newTextureR.data(),
+                                       1));
+
+    textures.push_back(textureFromData(width, 
+                                       height, 
+                                       1, 
+                                       TEXTURE_FORMAT::kTF_R8_UNORM,
+                                       TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE, 
+                                       TYPE_USAGE::kTYPE_USAGE_DEFAULT, 
+                                       newTextureG.data(),
+                                       1));
+
+    textures.push_back(textureFromData(width, 
+                                       height, 
+                                       1, 
+                                       TEXTURE_FORMAT::kTF_R8_UNORM,
+                                       TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE, 
+                                       TYPE_USAGE::kTYPE_USAGE_DEFAULT, 
+                                       newTextureB.data(),
+                                       1));
 
       return Vector<Texture*>();
   }
