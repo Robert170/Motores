@@ -1,0 +1,79 @@
+//--------------------------------------------------------------------------------------
+// Constant Buffer Variables
+//--------------------------------------------------------------------------------------
+#define MAX_BONES 200
+
+//Constant buffers
+cbuffer cbNeverChanges : register( b0 )
+{
+    matrix View;
+    matrix Projection;
+    matrix World;
+};
+
+// cbuffer cbTransform : register( b1 )
+// {
+    // float3 ObjectPosition;
+// };
+
+cbuffer CBBones : register(b1)
+{
+    matrix Bones_CB[MAX_BONES];
+};
+
+
+
+//--------------------------------------------------------------------------------------
+//Inputlayout
+struct VS_INPUT
+{
+    float3 Position : POSITION0;
+	float2 Texcoord : TEXCOORD0;
+	float3 Normal   : NORMAL0;
+    float3 Tangent  : TANGENT0;
+	float3 Binormal : BINORMAL0;
+	
+	//Animation
+    float4 BoneW : BLENDWEIGHT;
+    int4 IdBone  : BLENDINDICES;
+};
+
+struct VS_OUTPUT
+{
+  float4 Position : SV_POSITION;
+  float2 Texcoord : TEXCOORD0;
+  float3 PosView  : TEXCOORD1;
+  float3x3 TBN    : TEXCOORD2;
+ 
+};
+
+//--------------------------------------------------------------------------------------
+// Vertex Shader
+//--------------------------------------------------------------------------------------
+VS_OUTPUT vs_gbuffer(VS_INPUT Input)
+{
+  VS_OUTPUT Output;
+  
+  matrix matWV = mul(World, View);
+
+  //Posview
+  Output.PosView = mul(float4(Input.Position.xyz, 1.0f), matWV).xyz;
+  
+  //positipon
+  Output.Position = mul(float4(Output.PosView, 1.0f), Projection);
+  
+  //Normal
+  float3 normal = normalize(mul(float4(Input.Normal.xyz, 0.0f), matWV).xyz);
+  
+  //Binormal
+  float3 binormal = normalize(mul(float4(Input.Binormal.xyz, 0.0f), matWV).xyz);
+  
+  //Tangent
+  float3 tangent = normalize(mul(float4(Input.Tangent.xyz, 0.0f), matWV).xyz);
+  
+  Output.Texcoord = Input.Texcoord;
+  Output.TBN = float3x3(tangent.xyz, binormal.xyz, normal.xyz);
+
+  return(Output);
+
+}

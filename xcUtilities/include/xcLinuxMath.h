@@ -3,8 +3,11 @@
 #include "xcPrerequisitesUtilities.h"
 #include "xcPlatformMath.h"
 
-struct LinuxMath : public PlatformMath {
+
+namespace xcEngineSDK {
+  struct XC_UTILITY_EXPORT LinuxMath : public PlatformMath {
 
 
 
-};
+  };
+}

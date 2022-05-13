@@ -1,0 +1,39 @@
+#define maxValue 256
+
+cbuffer cbBlur : register( b0 )
+{
+  uint countR[maxValue];
+  uint countG[maxValue];
+  uint countB[maxValue];
+  float2 fViewportDimensions;
+  
+};
+
+
+struct PS_INPUT
+{
+  float4 Position : SV_POSITION;
+  float2 TexCoord : TEXCOORD0;
+};
+
+float4 
+histo(PS_INPUT input) : SV_TARGET0 {
+  
+  // Normalized pixel coordinates (from 0 to 1)
+  float2 uv = input.TexCoord/fViewportDimensions.xy;
+  
+  int Index = int(floor(uv.x * float(maxValue)));
+  
+  float3 freq = float3(countR[Index],countG[Index],countB[Index]);
+  
+  float val = uv.y * float(1000.0);
+  
+  float rResult = step(val, freq.X);
+  float gResult = step(val, freq.Y);
+  float bResult = step(val, freq.Z);
+  
+  // Output to screen
+  fragColor = float4(rResult, gResult, bResult, 1.0);
+
+  
+}

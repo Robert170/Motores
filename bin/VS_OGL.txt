@@ -1,0 +1,24 @@
+#version 420 core
+
+layout (location = 0) in vec3 Pos;
+layout (location = 1) in vec2 Tex;
+
+layout (std140, binding = 0) uniform cbNeverChanges 
+{
+    mat4 View;
+    mat4 Projection;
+    mat4 World;
+    vec4 vMeshColor;
+};
+
+out vec4 OutPos;
+out vec2 OutTexCoords;
+
+void main()
+{
+    OutTexCoords = Tex;
+    OutPos = World * vec4(Pos.xyz, 1.0);
+    OutPos= View * OutPos;
+    gl_Position = Projection * OutPos;
+}
+

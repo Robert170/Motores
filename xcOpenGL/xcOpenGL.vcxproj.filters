@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Prerequisites">
+      <UniqueIdentifier>{b79d1ba4-d5f7-42f0-a374-ee2552a8830d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\xcPrerequisitesOGL.h">
+      <Filter>Source Files\Prerequisites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcConstantBufferOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcDepthStencilViewOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcIndexBufferOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcInputLayoutOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcOGLGraphiAPI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcPixelShaderOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcRasterizerStateOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcSamplerStateOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcShaderProgramOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcTextureOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVertexBufferOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVertexShaderOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xcComputeShaderOGL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\xcConstantBufferOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcDepthStencilViewOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcIndexBufferOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcInputLayoutOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcOGLGraphiAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcPixelShaderOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcRasterizerStateOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcSamplerStateOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcShaderProgramOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcTextureOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVertexBufferOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVertexShaderOGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

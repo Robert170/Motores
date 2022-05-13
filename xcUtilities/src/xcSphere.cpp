@@ -3,20 +3,16 @@
 
 namespace xcEngineSDK {
 
-  Sphere::Sphere() {
-  }
-
-  Sphere::~Sphere() {
-  }
-
   bool
   Sphere::intersec(Vector3& vector) {
+    XC_UNREFERENCED_PARAMETER(vector);
     return false;
   }
 
 
   bool
   Sphere::intersec(AABB& box) {
+    XC_UNREFERENCED_PARAMETER(box);
     return false;
   }
 }

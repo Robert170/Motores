@@ -1,3 +1,16 @@
+/*****************************************************************************/
+/**
+ * @file    xcVector4.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/28
+ * @brief   Vector4 of float
+ *
+ * This class has all necessary math for vector4 of float, like sum, rest,
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
 #pragma once
 
 #include "xcPrerequisitesUtilities.h"
@@ -10,19 +23,34 @@ namespace xcEngineSDK {
 	{
 
 	 public:
-		Vector4(float x, float y = 0.f, float z = 0.0f, float w = 0.0f)
-			      :m_x(x), m_y(y), m_z(z), m_w(w) { };
 
-		Vector4(Vector2 v, float z = 0.0f, float w = 0.0f)
-			      :m_x(v.m_x), m_y(v.m_y), m_z(z), m_w(w) { };
+		/**
+		 * @brief default constructor
+		 */
+		Vector4() = default;
 
-		Vector4(Vector3 v, float w = 0.0f)
-			      :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
-
-		Vector4()
-			      :m_x(0.f), m_y(0.f), m_z(0.f), m_w(0.f) { };
-
+		/**
+		 * @brief default destructor
+		 */
 		~Vector4() = default;
+
+		/**
+		 * @brief constructor of float
+		 */
+		Vector4(float _x, float _y = 0.f, float _z = 0.0f, float _w = 0.0f)
+			      :x(_x), y(_y), z(_z), w(_w) { };
+
+		/**
+		 * @brief constructor of a vectorI2 and float
+		 */
+		Vector4(Vector2 v, float _z = 0.0f, float _w = 0.0f)
+			      :x(v.x), y(v.y), z(_z), w(_w) { };
+
+		/**
+		 * @brief constructor of a VectorI4 and float
+		 */
+		Vector4(Vector3 v, float _w = 0.0f)
+			      :x(v.x), y(v.y), z(v.z), w(_w) { };
 
 		/**
 		 * @brief      + operator overload
@@ -52,22 +80,13 @@ namespace xcEngineSDK {
 		operator * (const Vector4& V);
 
 		/**
-		 * @brief      / operator overload
-		 * @param      V parameter one, vector for divide
-		 * @bug	       No know Bugs
-		 * @return     Returns division of two vectors
-		 */
-		Vector4
-		operator / (const Vector4& V);
-
-		/**
 		 * @brief      = operator overload
 		 * @param      V parameter one, vector for equal
 		 * @bug	       No know Bugs
 		 * @return     Returns the value of the equal of
 		 *             your vector whit other
 		 */
-		Vector4
+		Vector4&
 		operator = (const Vector4& V);
 
 		/**
@@ -145,15 +164,45 @@ namespace xcEngineSDK {
 		Vector4
 		operator *= (const Vector4& V);
 
-		/**
-		 * @brief      /= operator overload
-		 * @param      V parameter one, vector for sum
-		 * @bug	       No know Bugs
-		 * @return     Returns the value of the division of
-		 *             your vector whit pother
-		 */
-		Vector4
-		operator /= (const Vector4& V);
+    float
+		operator[](uint32 index) const {
+			switch (index)
+			{
+			case 0:
+				return x;
+				break;
+			case 1:
+				return y;
+				break;
+			case 2:
+				return z;
+			case 3:
+				return w;
+			default:
+				return x;
+				break;
+			}
+		}
+
+    float&
+    operator[](uint32 index) {
+      switch (index)
+      {
+      case 0:
+        return x;
+        break;
+      case 1:
+        return y;
+        break;
+      case 2:
+        return z;
+      case 3:
+        return w;
+      default:
+        return x;
+        break;
+      }
+    }
 
 		/**
 		 * @brief      normalize function
@@ -183,39 +232,40 @@ namespace xcEngineSDK {
 
 		/**
 		 * @brief      Dot function
-		 * @param      VectorA parameter one, for dot product
 		 * @param      VetorB parameter two, for dot product
 		 * @bug	       No know Bugs
 		 * @return     Returns a scalar
 		 */
 		float
-		Dot(Vector4& VectorA,
-				Vector4& VetorB);
+		dot(Vector4& VectorB);
 
-	public:
+	 public:
 		/**
 		 * @brief Public variable member
 		 */
 
 		/**
-		 * @Variable m_x
+		 * @Variable x
 		 */
-		float m_x;
+		float x;
 
 		/**
-		 * @Variable m_y
+		 * @Variable y
 		 */
-		float m_y;
+		float y;
 
 		/**
-		 * @Variable m_z
+		 * @Variable z
 		 */
-		float m_z;
+		float z;
 
 		/**
-		 * @Variable m_z
+		 * @Variable z
 		 */
-		float m_w;
+		float w;
+
+    static const Vector4 ZERO;
+    static const Vector4 UNIT;
 
 	};
 }

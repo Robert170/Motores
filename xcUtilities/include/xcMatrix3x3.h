@@ -34,9 +34,9 @@ namespace xcEngineSDK {
     Matrix3x3() = default;
 
     ~Matrix3x3() = default;
-    Matrix3x3(float _00, float _01, float _02,
-              float _10, float _11, float _12,
-              float _20, float _21, float _22);
+    Matrix3x3(float _xx, float _yx, float _zx,
+              float _xy, float _yy, float _zy,
+              float _xz, float _yz, float _zz);
 
     Matrix3x3(const Vector3& XVector, 
               const Vector3& YVector,
@@ -53,13 +53,21 @@ namespace xcEngineSDK {
     transpose();
 
     /**
+     * @brief      determinant  function, to inverse a matrix
+     * @bug	       No know Bugs
+     * @return     Returns the determinant of a matrix3x3
+     */
+    float
+    determinant(const Matrix3x3& matrix);
+
+    /**
      * @brief      + operator overload
      * @param      M parameter one, matrix for sum
      * @bug	       No know Bugs
      * @return     Returns sum of two matrix 3x3
      */
     Matrix3x3
-    operator + (const Matrix3x3& M);
+    operator+(const Matrix3x3& M);
 
     /**
      * @brief      - operator overload
@@ -68,16 +76,7 @@ namespace xcEngineSDK {
      * @return     Returns rest of two matrix 3x3
      */
     Matrix3x3
-    operator - (const Matrix3x3& M);
-
-    /**
-     * @brief      / operator overload
-     * @param      M parameter one, matrix for divide
-     * @bug	       No know Bugs
-     * @return     Returns divide of two matrix 3x3
-     */
-    Matrix3x3
-    operator / (const Matrix3x3& M);
+    operator-(const Matrix3x3& M);
 
 
     /**
@@ -87,7 +86,7 @@ namespace xcEngineSDK {
      * @return     Returns multiple of two matrix 3x3
      */
     Matrix3x3
-    operator * (Matrix3x3 M);
+    operator*(const Matrix3x3& M);
 
     /**
      * @brief      = operator overload
@@ -96,7 +95,16 @@ namespace xcEngineSDK {
      * @return     Returns a equals between matrix 
      */
     Matrix3x3&
-    operator = (const Matrix3x3& M);
+    operator=(const Matrix3x3& M);
+
+    /**
+     * @brief      == operator overload
+     * @param      M parameter one, matrix equal
+     * @bug	       No know Bugs
+     * @return     Returns if two matrix are equals
+     */
+    bool
+    operator==(const Matrix3x3& M);
 
     /**
      * @brief      = operator overload
@@ -105,7 +113,7 @@ namespace xcEngineSDK {
      * @return     Returns a equals between matrix
      */
     Matrix3x3&
-    operator += (const Matrix3x3& M);
+    operator+=(const Matrix3x3& M);
 
     /**
      * @brief      = operator overload
@@ -114,7 +122,7 @@ namespace xcEngineSDK {
      * @return     Returns a equals between matrix
      */
     Matrix3x3&
-    operator -= (const Matrix3x3& M);
+    operator-=(const Matrix3x3& M);
 
     /**
      * @brief      = operator overload
@@ -123,16 +131,16 @@ namespace xcEngineSDK {
      * @return     Returns a equals between matrix
      */
     Matrix3x3&
-    operator /= (const Matrix3x3& M);
+    operator*=(const Matrix3x3& M);
 
     /**
-     * @brief      = operator overload
-     * @param      M parameter one, matrix equal
+     * @brief      != operator overload
+     * @param      M parameter one, matrix
      * @bug	       No know Bugs
-     * @return     Returns a equals between matrix
+     * @return     Returns a true if the matrix are different 
      */
-    Matrix3x3&
-    operator *= (const Matrix3x3& M);
+    bool
+    operator!=(const Matrix3x3& M);
 
    public:
 

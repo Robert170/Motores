@@ -1,3 +1,16 @@
+/*****************************************************************************/
+/**
+ * @file    xcVectorI2.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/27
+ * @brief   Vector2 of int32
+ *
+ * This class has all necessary math for vector2 of int32, like sum, rest,
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
 #pragma once
 #include <cmath>
 
@@ -9,13 +22,22 @@ namespace xcEngineSDK {
 	class XC_UTILITY_EXPORT VectorI2 
 	{
 	 public:
-		VectorI2(int32 x, int32 y = 0)
-			       :m_x(x), m_y(y) { };
 
-		VectorI2()
-			       :m_x(0), m_y(0) { };
+		/**
+		 * @brief default constructor
+		 */
+		VectorI2() = default;
 
+		/**
+		 * @brief default destructor
+		 */
 		~VectorI2() = default;
+
+		/**
+		 * @brief constructor of  int32
+		 */
+		VectorI2(int32 _x, int32 _y = 0)
+			       :x(_x), y(_y) { };
 
 		/**
 		 * @brief      + operator overload
@@ -24,7 +46,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum of two vectors
 		 */
 		VectorI2
-		operator + (const VectorI2& V);
+		operator+(const VectorI2& V);
 
 		/**
 		 * @brief      - operator overload
@@ -33,7 +55,7 @@ namespace xcEngineSDK {
 		 * @return     Returns rest of two vectors
 		 */
 		VectorI2
-		operator - (const VectorI2& V);
+		operator-(const VectorI2& V);
 
 		/**
 		 * @brief      * operator overload
@@ -42,16 +64,7 @@ namespace xcEngineSDK {
 		 * @return     Returns multiplication of two vectors
 		 */
 		VectorI2
-		operator * (const VectorI2& V);
-
-		/**
-		 * @brief      / operator overload
-		 * @param      V parameter one, vector for divide
-		 * @bug	       No know Bugs
-		 * @return     Returns division of two vectors
-		 */
-		VectorI2
-			operator / (const VectorI2& V);
+		operator*(const VectorI2& V);
 
 		/**
 		 * @brief      = operator overload
@@ -61,7 +74,7 @@ namespace xcEngineSDK {
 		 *             your vector whit other
 		 */
 		VectorI2
-		operator = (const VectorI2& V);
+		operator=(const VectorI2& V);
 
 		/**
 		 * @brief      + operator overload
@@ -70,7 +83,7 @@ namespace xcEngineSDK {
 		 * @return     Returns true if both vectors are equal
 		 */
 		bool
-		operator == (const VectorI2& V);
+		operator==(const VectorI2& V);
 
 		/**
 		 * @brief      + operator overload
@@ -79,7 +92,7 @@ namespace xcEngineSDK {
 		 * @return     Returns sum between a vector and a float
 		 */
 		VectorI2
-		operator + (const int32& V);
+		operator+(const int32& V);
 
 		/**
 		 * @brief      + operator overload
@@ -88,7 +101,7 @@ namespace xcEngineSDK {
 		 * @return     Returns rest between a vector and a float
 		 */
 		VectorI2
-		operator - (const int32& V);
+		operator-(const int32& V);
 
 		/**
 		 * @brief      + operator overload
@@ -97,7 +110,7 @@ namespace xcEngineSDK {
 		 * @return     Returns multiplication between a vector and a float
 		 */
 		VectorI2
-		operator * (const int32& V);
+		operator*(const int32& V);
 
 		/**
 		 * @brief      + operator overload
@@ -106,7 +119,7 @@ namespace xcEngineSDK {
 		 * @return     Returns division between a vector and a float
 		 */
 		VectorI2
-		operator / (const int32& V);
+		operator/(const int32& V);
 
 		/**
 		 * @brief      += operator overload
@@ -116,7 +129,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		VectorI2&
-		operator += (const VectorI2& V);
+		operator+=(const VectorI2& V);
 
 		/**
 		 * @brief      -= operator overload
@@ -126,7 +139,7 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		VectorI2&
-		operator -= (const VectorI2& V);
+		operator-=(const VectorI2& V);
 
 		/**
 		 * @brief      *= operator overload
@@ -136,18 +149,18 @@ namespace xcEngineSDK {
 		 *             your vector whit pother
 		 */
 		VectorI2&
-		operator *= (const VectorI2& V);
+		operator*=(const VectorI2& V);
 
 		/**
-		 * @brief      /= operator overload
-		 * @param      V parameter one, vector for sum
+		 * @brief      != operator overload
+		 * @param      V parameter one, matrix equal
 		 * @bug	       No know Bugs
-		 * @return     Returns the value of the division of
-		 *             your vector whit pother
+		 * @return     Returns a true if the vectors are different
 		 */
-		VectorI2&
-		operator /= (const VectorI2& V);
+		bool
+		operator!=(const VectorI2& V);
 
+		
 		/**
 		 * @brief      normalize function
 		 * @bug	       No know Bugs
@@ -177,14 +190,12 @@ namespace xcEngineSDK {
 
 		/**
 		 * @brief      Dot function
-		 * @param      VectorA parameter one, for dot product
 		 * @param      VetorB parameter two, for dot product
 		 * @bug	       No know Bugs
 		 * @return     Returns a scalar
 	   */
 		int32
-		Dot(VectorI2& VectorA,
-			  VectorI2& VetorB);
+		dot(VectorI2& VetorB);
 
 
 	public:
@@ -193,14 +204,14 @@ namespace xcEngineSDK {
 		 */
 
 	  /**
-		 * @Variable m_x
+		 * @Variable x
 		 */
-		int32 m_x;
+		int32 x;
 
 		/**
-		 * @Variable m_y
+		 * @Variable y
 		 */
-		int32 m_y;
+		int32 y;
 
 	};
 }

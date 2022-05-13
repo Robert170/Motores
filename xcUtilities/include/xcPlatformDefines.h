@@ -204,3 +204,13 @@
 # define XC_DEBUG_ONLY(x) 
 # define XC_ASSERT(x)
 #endif
+
+/*****************************************************************************/
+/**
+ * Parameter utilities.
+ * There is a UNREFERENCED_PARAMETER in WinNT, but is not compliant
+ */
+ /*****************************************************************************/
+#ifndef XC_UNREFERENCED_PARAMETER
+# define XC_UNREFERENCED_PARAMETER(P) (void)P
+#endif

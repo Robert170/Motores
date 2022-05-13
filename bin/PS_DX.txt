@@ -1,0 +1,40 @@
+//--------------------------------------------------------------------------------------
+// Constant Buffer Variables
+//--------------------------------------------------------------------------------------
+#define MAX_BONES 200
+Texture2D txDiffuse : register( t0 );
+SamplerState samLinear : register( s0 );
+
+cbuffer cbNeverChanges : register( b0 )
+{
+    matrix View;
+    matrix Projection;
+    matrix World;
+    float4 vMeshColor;
+};
+
+cbuffer CBBones : register(b1)
+{
+    matrix Bones_CB[MAX_BONES];
+};
+
+//--------------------------------------------------------------------------------------
+
+
+struct PS_INPUT
+{
+    float4 Pos : SV_POSITION;
+    float2 Tex : TEXCOORD0;
+};
+
+
+//--------------------------------------------------------------------------------------
+// Pixel Shader
+//--------------------------------------------------------------------------------------
+float4 PS( PS_INPUT input) : SV_Target
+{
+///
+    return txDiffuse.Sample( samLinear, input.Tex );
+//
+    return vMeshColor;
+}

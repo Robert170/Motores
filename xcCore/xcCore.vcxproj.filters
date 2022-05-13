@@ -5,13 +5,258 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Source Files\Prerequisites">
+      <UniqueIdentifier>{2ebd056e-6d44-4bcf-9362-856f9b27c418}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Source Files\Imgui">
+      <UniqueIdentifier>{9a296adf-09ee-48d0-a39f-d0ff11bf8cde}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\xcApi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcConstantBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcDepthStencilView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcGraphiAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcIndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcInputLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcPixelShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcRasterizerState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcSamplerState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcVertexShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcBaseApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcActor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcSceneGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcSceneNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcStaticMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcDepthStencilState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcBaseRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_draw.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_impl_dx11.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_impl_win32.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_tables.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_widgets.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcBaseInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcBaseSound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcBasePhysics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcComputeBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcBlendState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xcBaseOmvniverse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\xcCamera.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcConstantBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcDepthStencilView.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcGraphiAPI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcIndexBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcInputLayout.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcMesh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcModel.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcPixelShader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcRasterizerState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcSamplerState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcShaderProgram.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcTexture.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVertexBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcVertexShader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcPrerequisitesCore.h">
+      <Filter>Source Files\Prerequisites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcBaseApp.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcActor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcSceneGraph.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcSceneNode.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcComponent.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcGameObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcResource.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcMaterial.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcStaticMesh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcDepthStencilState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcBaseRenderer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcBasePhysics.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dev\Imgui\include\imconfig.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_impl_dx11.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_impl_win32.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_internal.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_rectpack.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_textedit.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_truetype.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcBaseInput.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcBaseSound.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcComputShader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcComputeBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcBlendState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xcBaseOmvniverse.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

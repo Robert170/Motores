@@ -1,6 +1,19 @@
+/*****************************************************************************/
+/**
+ * @file    xcVectorI4.h
+ * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
+ * @date    2021/01/29
+ * @brief   Vector4 of int32
+ *
+ * This class has all necessary math for vector4 of int32, like sum, rest, 
+ * dot product, cross product, etc.
+ *
+ * @bug	    No known bugs.
+ */
+ /*****************************************************************************/
+
 #pragma once
 #include "xcVectorI3.h"
-
 
 #include "xcPrerequisitesUtilities.h"
 
@@ -13,18 +26,38 @@ namespace xcEngineSDK {
 	{
 
 	 public:
-		VectorI4(int32 x, int32 y = 0, int32 z = 0, int32 w = 0)
-		         :m_x(x), m_y(y), m_z(z), m_w(w) { };
 
-		VectorI4(VectorI2 v, int32 z = 0, int32 w = 0)
-			       :m_x(v.m_x), m_y(v.m_y), m_z(z), m_w(w) { };
-
-		VectorI4(VectorI3 v, int32 w = 0)
-			       :m_x(v.m_x), m_y(v.m_y), m_z(v.m_z), m_w(w) { };
-
+		/**
+		 * @brief default constructor
+		 */
 		VectorI4() = default;
 
+		/**
+		 * @brief default destructor
+		 */
 		~VectorI4() = default;
+
+		/**
+		 * @brief constructor of int32
+		 */
+		VectorI4(int32 _x, int32 _y = 0, int32 _z = 0, int32 _w = 0)
+		         :x(_x), y(_y), z(_z), w(_w) { };
+
+		/**
+		 * @brief constructor of a vectorI2 and int32
+		 */
+		VectorI4(VectorI2 v, int32 _z = 0, int32 _w = 0)
+			       :x(v.x), y(v.y), z(_z), w(_w) { };
+
+		/**
+		 * @brief constructor of a VectorI4 and int32
+		 */
+		VectorI4(VectorI3 v, int32 _w = 0)
+			       :x(v.x), y(v.y), z(v.z), w(_w) { };
+
+		/**
+		 * @brief public functions
+		 */
 
 		/**
 		 * @brief      + operator overload
@@ -52,15 +85,6 @@ namespace xcEngineSDK {
 		 */
 		VectorI4
 		operator * (const VectorI4& V);
-
-		/**
-		 * @brief      / operator overload
-		 * @param      V parameter one, vector for divide
-		 * @bug	       No know Bugs
-		 * @return     Returns division of two vectors
-		 */
-		VectorI4
-		operator / (const VectorI4& V);
 
 		/**
 		 * @brief      = operator overload
@@ -148,14 +172,13 @@ namespace xcEngineSDK {
 		operator *= (const VectorI4& V);
 
 		/**
-		 * @brief      /= operator overload
-		 * @param      V parameter one, vector for sum
-		 * @bug	       No know Bugs
-		 * @return     Returns the value of the division of
-		 *             your vector whit pother
-		 */
-		VectorI4
-		operator /= (const VectorI4& V);
+     * @brief      != operator overload
+     * @param      V parameter one, matrix equal
+     * @bug	       No know Bugs
+     * @return     Returns a true if the vectors are different
+     */
+    bool
+    operator!=(const VectorI4& V);
 
 		/**
 		 * @brief      normalize function
@@ -181,19 +204,16 @@ namespace xcEngineSDK {
 		 * @return     Returns a perpendicular vector
 		 */
 		VectorI4
-		proyection(VectorI4& VectorA, 
-			         VectorI4& VetorB);
+		proyection(VectorI4& VectorA, VectorI4& VetorB);
 
 		/**
 		 * @brief      Dot function
-		 * @param      VectorA parameter one, for dot product
 		 * @param      VetorB parameter two, for dot product
 		 * @bug	       No know Bugs
 		 * @return     Returns a scalar
 		 */
 		int32
-		Dot(VectorI4& VectorA,
-			  VectorI4& VetorB);
+		dot(VectorI4& VetorB);
 
 
 	public:
@@ -201,25 +221,25 @@ namespace xcEngineSDK {
 		 * @brief Public variable member
 		 */
 
-		 /**
-			* @Variable m_x
-			*/
-		int32 m_x;
+		/**
+		 * @Variable x
+		 */
+    int32 x;
 
 		/**
-		 * @Variable m_y
+		 * @Variable y
 		 */
-		int32 m_y;
+		int32 y;
 
 		/**
-		 * @Variable m_z
+		 * @Variable z
 		 */
-		int32 m_z;
+		int32 z;
 
 		/**
-		 * @Variable m_z
+		 * @Variable z
 		 */
-		int32 m_w;
+		int32 w;
 
 	};
 }

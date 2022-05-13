@@ -2,43 +2,40 @@
 
 namespace xcEngineSDK {
 
+  const Vector4 Vector4::ZERO = Vector4(0.f, 0.f, 0.f, 0.0f);
+  const Vector4 Vector4::UNIT = Vector4(1.f, 1.f, 1.f, 1.0f);
+
   Vector4
   Vector4::operator + (const Vector4& V) {
 
-    return Vector4(m_x + V.m_x, m_y + V.m_y, m_z + V.m_z, m_w + V.m_w);
+    return Vector4(x + V.x, y + V.y, z + V.z, w + V.w);
   }
 
   Vector4
   Vector4::operator - (const Vector4& V) {
 
-    return Vector4(m_x - V.m_x, m_y - V.m_y, m_z - V.m_z, m_w - V.m_w);
+    return Vector4(x - V.x, y - V.y, z - V.z, w - V.w);
   }
 
   Vector4
   Vector4::operator * (const Vector4& V) {
 
-    return Vector4(m_x * V.m_x, m_y * V.m_y, m_z * V.m_z, m_w * V.m_w);
+    return Vector4(x * V.x, y * V.y, z * V.z, w * V.w);
   }
 
-  Vector4
-  Vector4::operator / (const Vector4& V) {
-
-    return Vector4(m_x / V.m_x, m_y / V.m_y, m_z / V.m_z, m_w / V.m_w);
-  }
-
-  Vector4
+  Vector4&
   Vector4::operator = (const Vector4& V) {
-    m_x = V.m_x;
-    m_y = V.m_y;
-    m_z = V.m_z;
-    m_w = V.m_w;
+    x = V.x;
+    y = V.y;
+    z = V.z;
+    w = V.w;
     return *this;;
   }
 
   bool
   Vector4::operator == (const Vector4& V) {
 
-    if (m_x == V.m_x && m_y == V.m_y && m_z == V.m_z && m_w == V.m_w) {
+    if (x == V.x && y == V.y && z == V.z && w == V.w) {
       return true;
     }
     else {
@@ -49,78 +46,63 @@ namespace xcEngineSDK {
   Vector4
   Vector4::operator + (const float& V) {
 
-    return Vector4(m_x + V, 
-                   m_y + V, 
-                   m_z + V,
-                   m_w + V);
+    return Vector4(x + V, 
+                   y + V, 
+                   z + V,
+                   w + V);
   }
 
   Vector4
   Vector4::operator - (const float& V) {
 
-    return Vector4(m_x - V, 
-                   m_y - V, 
-                   m_z - V,
-                   m_w - V);
+    return Vector4(x - V, 
+                   y - V, 
+                   z - V,
+                   w - V);
   }
 
   Vector4
   Vector4::operator * (const float& V) {
 
-    return Vector4(m_x * V, 
-                   m_y * V, 
-                   m_z * V, 
-                   m_w * V);
+    return Vector4(x * V, 
+                   y * V, 
+                   z * V, 
+                   w * V);
   }
 
   Vector4
   Vector4::operator / (const float& V) {
 
-    return Vector4(m_x / V, 
-                   m_y / V, 
-                   m_z / V,
-                   m_w / V);
+    return Vector4(x / V, 
+                   y / V, 
+                   z / V,
+                   w / V);
   }
 
   Vector4
   Vector4::operator += (const Vector4& V) {
 
-    m_x += V.m_x;
-    m_y += V.m_y;
-    m_z += V.m_z;
-    m_w += V.m_w;
+    *this = this->operator+(V);
+
     return *this;
   }
 
   Vector4
   Vector4::operator -= (const Vector4& V) {
 
-    m_x -= V.m_x;
-    m_y -= V.m_y;
-    m_z -= V.m_z;
-    m_w -= V.m_w;
+    *this = this->operator-(V);
+
     return *this;
   }
 
   Vector4
-  Vector4::operator *= (const Vector4& V) {
+  Vector4::operator*=(const Vector4& V) {
 
-    m_x *= V.m_x;
-    m_y *= V.m_y;
-    m_z *= V.m_z;
-    m_w *= V.m_w;
+    *this = this->operator*(V);
+
     return *this;
   }
 
-  Vector4
-  Vector4::operator /= (const Vector4& V) {
-
-    m_x /= V.m_x;
-    m_y /= V.m_y;
-    m_z /= V.m_z;
-    m_w /= V.m_w;
-    return *this;
-  }
 
   Vector4&
   Vector4::normalize() {
@@ -129,10 +111,10 @@ namespace xcEngineSDK {
     if (Temp != 0) {
       //divide the vector whit temp
       
-      this->m_x = m_x / Temp;
-      this->m_y = m_y / Temp;
-      this->m_z = m_z / Temp;
-      this->m_w = m_w / Temp;
+      this->x = x / Temp;
+      this->y = y / Temp;
+      this->z = z / Temp;
+      this->w = w / Temp;
       return *this; 
     }
     else {
@@ -142,7 +124,7 @@ namespace xcEngineSDK {
 
   float
   Vector4::magnitud() {
-    return sqrtf(powf(m_x, 2) + powf(m_y, 2) + powf(m_z, 2));
+    return sqrtf(powf(x, 2) + powf(y, 2) + powf(z, 2));
   }
 
   Vector4
@@ -151,12 +133,13 @@ namespace xcEngineSDK {
     return ((VectorA * VetorB) / powf(VetorB.magnitud(), 2) * VetorB);
   }
   float 
-  Vector4::Dot(Vector4& VectorA, 
-               Vector4& VetorB) {
-    return (VectorA.m_x * VetorB.m_x) +
-           (VectorA.m_y * VetorB.m_y) +
-           (VectorA.m_z * VetorB.m_z) +
-           (VectorA.m_w * VetorB.m_z);
+  Vector4::dot(Vector4& VectorB) {
+
+    return (this->x * VectorB.x) +
+           (this->y * VectorB.y) +
+           (this->z * VectorB.z) +
+           (this->w * VectorB.w);
   }
+
 }
 

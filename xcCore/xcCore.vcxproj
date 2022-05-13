@@ -1,149 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
+    <ProjectConfiguration Include="Debug_DLL|Win32">
+      <Configuration>Debug_DLL</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
+    <ProjectConfiguration Include="Release_DLL|Win32">
+      <Configuration>Release_DLL</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
+    <ProjectConfiguration Include="Debug_DLL|x64">
+      <Configuration>Debug_DLL</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
+    <ProjectConfiguration Include="Release_DLL|x64">
+      <Configuration>Release_DLL</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_draw.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_tables.cpp" />
+    <ClCompile Include="..\..\Dev\Imgui\include\imgui_widgets.cpp" />
+    <ClCompile Include="src\xcActor.cpp" />
+    <ClCompile Include="src\xcBaseInput.cpp" />
+    <ClCompile Include="src\xcBaseOmvniverse.cpp" />
+    <ClCompile Include="src\xcBasePhysics.cpp" />
+    <ClCompile Include="src\xcBaseRenderer.cpp" />
+    <ClCompile Include="src\xcBaseSound.cpp" />
+    <ClCompile Include="src\xcBlendState.cpp" />
+    <ClCompile Include="src\xcComputeBuffer.cpp" />
+    <ClCompile Include="src\xcDepthStencilState.cpp" />
+    <ClCompile Include="src\xcMaterial.cpp" />
+    <ClCompile Include="src\xcResource.cpp" />
+    <ClCompile Include="src\xcSceneNode.cpp" />
+    <ClCompile Include="src\xcApi.cpp" />
+    <ClCompile Include="src\xcBaseApp.cpp" />
+    <ClCompile Include="src\xcCamera.cpp" />
+    <ClCompile Include="src\xcComponent.cpp" />
+    <ClCompile Include="src\xcConstantBuffer.cpp" />
+    <ClCompile Include="src\xcDepthStencilView.cpp" />
+    <ClCompile Include="src\xcGameObject.cpp" />
+    <ClCompile Include="src\xcGraphiAPI.cpp" />
+    <ClCompile Include="src\xcIndexBuffer.cpp" />
+    <ClCompile Include="src\xcInputLayout.cpp" />
+    <ClCompile Include="src\xcMesh.cpp" />
+    <ClCompile Include="src\xcModel.cpp" />
+    <ClCompile Include="src\xcPixelShader.cpp" />
+    <ClCompile Include="src\xcRasterizerState.cpp" />
+    <ClCompile Include="src\xcSamplerState.cpp" />
+    <ClCompile Include="src\xcSceneGraph.cpp" />
+    <ClCompile Include="src\xcShaderProgram.cpp" />
+    <ClCompile Include="src\xcStaticMesh.cpp" />
+    <ClCompile Include="src\xcTexture.cpp" />
+    <ClCompile Include="src\xcVertexBuffer.cpp" />
+    <ClCompile Include="src\xcVertexShader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Dev\Imgui\include\imconfig.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_impl_dx11.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imgui_internal.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_rectpack.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_textedit.h" />
+    <ClInclude Include="..\..\Dev\Imgui\include\imstb_truetype.h" />
+    <ClInclude Include="include\xcActor.h" />
+    <ClInclude Include="include\xcBaseInput.h" />
+    <ClInclude Include="include\xcBaseOmvniverse.h" />
+    <ClInclude Include="include\xcBasePhysics.h" />
+    <ClInclude Include="include\xcBaseSound.h" />
+    <ClInclude Include="include\xcBlendState.h" />
+    <ClInclude Include="include\xcComputeBuffer.h" />
+    <ClInclude Include="include\xcComputShader.h" />
+    <ClInclude Include="include\xcDepthStencilState.h" />
+    <ClInclude Include="include\xcMaterial.h" />
+    <ClInclude Include="include\xcBaseRenderer.h" />
+    <ClInclude Include="include\xcResource.h" />
+    <ClInclude Include="include\xcSceneNode.h" />
+    <ClInclude Include="include\xcBaseApp.h" />
+    <ClInclude Include="include\xcCamera.h" />
+    <ClInclude Include="include\xcComponent.h" />
+    <ClInclude Include="include\xcConstantBuffer.h" />
+    <ClInclude Include="include\xcDepthStencilView.h" />
+    <ClInclude Include="include\xcGameObject.h" />
+    <ClInclude Include="include\xcGraphiAPI.h" />
+    <ClInclude Include="include\xcIndexBuffer.h" />
+    <ClInclude Include="include\xcInputLayout.h" />
+    <ClInclude Include="include\xcMesh.h" />
+    <ClInclude Include="include\xcModel.h" />
+    <ClInclude Include="include\xcPixelShader.h" />
+    <ClInclude Include="include\xcPrerequisitesCore.h" />
+    <ClInclude Include="include\xcRasterizerState.h" />
+    <ClInclude Include="include\xcSamplerState.h" />
+    <ClInclude Include="include\xcSceneGraph.h" />
+    <ClInclude Include="include\xcShaderProgram.h" />
+    <ClInclude Include="include\xcStaticMesh.h" />
+    <ClInclude Include="include\xcTexture.h" />
+    <ClInclude Include="include\xcVertexBuffer.h" />
+    <ClInclude Include="include\xcVertexShader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a5d1b328-d36c-4a5e-a984-a5a163d3cce4}</ProjectGuid>
+    <ProjectGuid>{ab405c0e-08a3-4d28-a841-056ba07d408d}</ProjectGuid>
     <RootNamespace>xcCore</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared" >
+  <ImportGroup Label="Shared">
   </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin/$(PlatformShortName)/</OutDir>
+    <IntDir>$(SolutionDir)intermediate/$(ProjectName)/$(PlatformShortName)/$(Configuration)/</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin/$(PlatformShortName)/</OutDir>
+    <IntDir>$(SolutionDir)intermediate/$(ProjectName)/$(PlatformShortName)/$(Configuration)/</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin/$(PlatformShortName)/</OutDir>
+    <IntDir>$(SolutionDir)intermediate/$(ProjectName)/$(PlatformShortName)/$(Configuration)/</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin/$(PlatformShortName)/</OutDir>
+    <IntDir>$(SolutionDir)intermediate/$(ProjectName)/$(PlatformShortName)/$(Configuration)/</IntDir>
   </PropertyGroup>
-
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>XC_CORE_EXPORTS;WIN32;_DEBUG;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>xcUtilities_d.lib;assimp-vc142-mtd.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies);sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>XC_CORE_EXPORTS;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>xcUtilities.lib;assimp-vc142-mtd.lib;sfml-window.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>XC_CORE_EXPORTS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/;$(INTELOCLSDKROOT)lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>xcUtilities_d.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies);sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>XC_CORE_EXPORTS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/Assimp/include;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;%(AdditionalIncludeDirectories);$(DEVLIBS)/Imgui/include;$(SolutionDir)xcRenderer/include;$(SolutionDir)xcInput/include</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformShortName)/;$(DEVLIBS)/Assimp/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories);$(DEVLIBS)/SFML/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>xcUtilities.lib;assimp-vc142-mtd.lib;sfml-window.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-
-  <ItemGroup></ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

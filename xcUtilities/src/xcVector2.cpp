@@ -3,41 +3,40 @@
 using xcEngineSDK::Vector2;
 
 namespace xcEngineSDK {
+
+  const Vector2 Vector2::ZERO = Vector2(0.f, 0.f);
+  const Vector2 Vector2::UNIT = Vector2(1.f, 1.f);
+
 	Vector2
 	Vector2::operator + (const Vector2& V) {
 
-		return Vector2(m_x + V.m_x, m_y + V.m_y);
+		return Vector2(x + V.x, y + V.y);
 	}
 
 	Vector2
-	Vector2::operator - (const Vector2& V) {
+	Vector2::operator-(const Vector2& V) {
 
-		return Vector2(m_x - V.m_x, m_y - V.m_y);
+		return Vector2(x - V.x, y - V.y);
 	}
 
 	Vector2
-	Vector2::operator * (const Vector2& V) {
+	Vector2::operator*(const Vector2& V) {
 
-		return Vector2(m_x * V.m_x, m_y * V.m_y);
+		return Vector2(x * V.x, y * V.y);
 	}
 
-	Vector2
-	Vector2::operator / (const Vector2& V) {
 
-		return Vector2(m_x / V.m_x, m_y / V.m_y);
-	}
-
-	Vector2
-	Vector2::operator = (const Vector2& V) {
-		m_x = V.m_x;
-		m_y = V.m_y;
+	Vector2&
+	Vector2::operator=(const Vector2& V) {
+		x = V.x;
+		y = V.y;
 		return *this;
 	}
 
 	bool
 	Vector2::operator == (const Vector2& V) {
 
-		if (m_x == V.m_x && m_y == V.m_y) {
+		if (x == V.x && y == V.y) {
 			return true;
 		}
 		else {
@@ -48,56 +47,48 @@ namespace xcEngineSDK {
 	Vector2
 	Vector2::operator + (const float& V) {
 
-		return Vector2(m_x + V, m_y + V);
+		return Vector2(x + V, y + V);
 	}
 
 	Vector2
 	Vector2::operator - (const float& V) {
 
-		return Vector2(m_x - V, m_y - V);
+		return Vector2(x - V, y - V);
 	}
 
 	Vector2
 	Vector2::operator * (const float& V) {
 
-		return Vector2(m_x * V, m_y * V);
+		return Vector2(x * V, y * V);
 	}
 
 	Vector2
 	Vector2::operator / (const float& V) {
 
-		return Vector2(m_x / V, m_y / V);
+		return Vector2(x / V, y / V);
 	}
 
 	Vector2&
 	Vector2::operator += (const Vector2& V) {
 
-		m_x += V.m_x;
-		m_y += V.m_y;
+		x += V.x;
+		y += V.y;
 		return *this;
 	}
 
 	Vector2&
 	Vector2::operator -= (const Vector2& V) {
 
-		m_x -= V.m_x;
-		m_y -= V.m_y;
+		x -= V.x;
+		y -= V.y;
 		return *this;
 	}
 
 	Vector2&
 	Vector2::operator *= (const Vector2& V) {
 
-		m_x *= V.m_x;
-		m_y *= V.m_y;
-		return *this;
-	}
-
-	Vector2&
-	Vector2::operator /= (const Vector2& V) {
-
-		m_x /= V.m_x;
-		m_y /= V.m_y;
+		x *= V.x;
+		y *= V.y;
 		return *this;
 	}
 
@@ -107,8 +98,8 @@ namespace xcEngineSDK {
 
 		if (Temp != 0) {
 			//divide the vector whit temp
-			this->m_x = m_x / Temp;
-			this->m_y = m_y / Temp;
+			this->x = x / Temp;
+			this->y = y / Temp;
 			return *this;
 		}
 		else {
@@ -116,9 +107,9 @@ namespace xcEngineSDK {
 		}
 	}
 
-	float Vector2::magnitud() {
-		float x= sqrtf(powf(m_x, 2) + powf(m_y, 2));
-		return x;
+	float 
+	Vector2::magnitud() {
+		return sqrtf(powf(x, 2) + powf(y, 2));
 	}
 
 	Vector2
@@ -129,9 +120,14 @@ namespace xcEngineSDK {
 	}
 
 	float 
-	Vector2::Dot(Vector2& VectorA, 
-		           Vector2& VetorB) {
+	Vector2::dot(Vector2& VectorB) {
 
-		return (VectorA.m_x * VetorB.m_x) + (VectorA.m_y * VetorB.m_y);
+		return (this->x * VectorB.x) + (this->y * VectorB.y);
+	}
+
+	float
+	Vector2::cross(Vector2& VectorB) {
+
+		return (this->x * VectorB.y) - (this->y * VectorB.x);
 	}
 }
