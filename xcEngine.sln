@@ -39,6 +39,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcRenderer", "xcRenderer\xc
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcInput", "xcInput\xcInput.vcxproj", "{753652E9-4603-46A4-B40D-57DA095D118C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB405C0E-08A3-4D28-A841-056BA07D408D} = {AB405C0E-08A3-4D28-A841-056BA07D408D}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcSound", "xcSound\xcSound.vcxproj", "{89BA7B59-AB50-41E8-864E-49BFD78E6DD9}"
 EndProject

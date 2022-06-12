@@ -13,7 +13,7 @@ namespace xcEngineSDK {
 
     auto& graphicsApi = g_graphicsAPI();
     //Vector3(0.0f, 1.0f, -10.0f)
-    m_mainCamera.setPosition(Vector3(0.0f, 15.0f, 0.0f));
+    m_mainCamera.setPosition(Vector3(0.0f, 0.0f, -250.0f));
     m_mainCamera.setLookAt(Vector3(0.0f, 0.0f, -5.0f));
     m_mainCamera.setUp(Vector3(0.0f, 1.0f, 0.0f));
     m_mainCamera.setfar(30000);

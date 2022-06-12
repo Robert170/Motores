@@ -56,6 +56,9 @@ namespace xcEngineSDK {
 
     void
     setModel(SPtr<Model> model) override;
+
+    void
+    setActorTransformCB(Matrix4x4 transform) override;
     
    private:
     
@@ -101,6 +104,8 @@ namespace xcEngineSDK {
     void
     setHistogram();
 
+    
+
    private:
 
     Vector<SPtr<Model>> m_vModels;
@@ -133,6 +138,8 @@ namespace xcEngineSDK {
     //Constant buffer
     CBNeverChanges m_constantBuffer;
     SPtr<ConstantBuffer> m_cbNeverChanges = nullptr;
+
+    SPtr<ConstantBuffer> m_cbModelsTransform = nullptr;
 
     CBTransform m_constantBufferTransform;
     SPtr<ConstantBuffer> m_cbTransform = nullptr;

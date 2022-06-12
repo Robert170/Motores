@@ -558,11 +558,31 @@ namespace xcEngineSDK {
     return true;
   }
 
+  static void
+  printConnectedUsername(const String& stageUrl) {
+    // Get the username for the connection
+    String userName("_none_");
+    omniClientWait(omniClientGetServerInfo(stageUrl.c_str(),
+      &userName,
+      [](void* userData,
+        OmniClientResult result,
+        struct OmniClientServerInfo const* info) noexcept {
+          String* userName = static_cast<String*>(userData);
+          if (userData && userName && info && info->username) {
+            userName->assign(info->username);
+          }
+      }));
+    {
+      std::unique_lock<std::mutex> lk(gLogMutex);
+      std::cout << "Connected username: " << userName << std::endl;
+    }
+  }
+
   void 
   Omvniverse::init() {
 
-    String path ="omniverse://localhost/Users/testHomework";
-    String name = "Cube2.usd";
+    String path ="omniverse://localhost/Users/xc170";
+    String name = "plano.usd";
     createUSD(path, name);
 
 
@@ -593,8 +613,8 @@ namespace xcEngineSDK {
       createModels();
       //createBox();
       String pathUSD = "Models/Cube2.usd";
-
-       findGeomMesh(pathUSD);
+      pathUSD = "http://localhost:8080/omniverse://127.0.0.1/Users/xc170/Vela.usd";
+      findGeomMesh(pathUSD);
 
     }
 

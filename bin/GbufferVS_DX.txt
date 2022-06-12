@@ -8,18 +8,18 @@ cbuffer cbNeverChanges : register( b0 )
 {
     matrix View;
     matrix Projection;
+    //matrix World;
+};
+
+cbuffer cbTransform : register( b1 )
+{
     matrix World;
 };
 
-// cbuffer cbTransform : register( b1 )
-// {
-    // float3 ObjectPosition;
-// };
-
-cbuffer CBBones : register(b1)
-{
-    matrix Bones_CB[MAX_BONES];
-};
+//cbuffer CBBones : register(b1)
+//{
+//    matrix Bones_CB[MAX_BONES];
+//};
 
 
 

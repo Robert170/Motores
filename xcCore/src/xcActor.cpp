@@ -1,8 +1,14 @@
 #include "xcActor.h"
 #include "xcStaticMesh.h"
+#include "xcBaseRenderer.h"
 namespace xcEngineSDK {
     Actor::Actor(String name) {
       m_actorName = name;
+      m_actorPosition = Vector3(-5.0f,10.0f,0.0f);
+      m_actorRotation = Vector3::ZERO;
+      m_actorScale = Vector3(0.5f, 0.5f, 0.5f);
+      m_actorTrasform = Matrix4x4::IDENTITY_MATRIX;
+
     }
 
     void 
@@ -27,6 +33,7 @@ namespace xcEngineSDK {
     void
     Actor::renderComponent() {
 
+      g_renderer().setActorTransformCB(m_actorTrasform);
       for (auto component : m_vComponents) {
         component->render();
       }
@@ -35,6 +42,18 @@ namespace xcEngineSDK {
 
     void 
     Actor::update(const float& deltaTime) {
+      
+      m_actorTrasform = Matrix4x4::IDENTITY_MATRIX;
+
+      //Scale
+      m_actorTrasform.m_matrix[0].x = m_actorScale.x;
+      m_actorTrasform.m_matrix[1].y = m_actorScale.y;
+      m_actorTrasform.m_matrix[2].z = m_actorScale.z;
+
+      //Position
+      m_actorTrasform.m_matrix[3].x = m_actorPosition.x;
+      m_actorTrasform.m_matrix[3].y = m_actorPosition.y;
+      m_actorTrasform.m_matrix[3].z = m_actorPosition.z;
 
       for (auto component : m_vComponents) {
         component->update(deltaTime);
@@ -58,7 +77,7 @@ namespace xcEngineSDK {
       }
     }
 
-    Vector3& 
+    /*Vector3& 
     Actor::getTraslation() {
 
       return m_actorTrasform.getTraslation();
@@ -72,5 +91,5 @@ namespace xcEngineSDK {
     Actor::getScale() {
 
       return m_actorTrasform.getScale();
-    }
+    }*/
 }

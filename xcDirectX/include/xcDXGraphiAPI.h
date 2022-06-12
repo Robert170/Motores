@@ -688,14 +688,14 @@ namespace xcEngineSDK {
       textureFromFile(String path) override;
 
       Texture*
-	  textureFromData(uint32 width,
+    textureFromData(uint32 width,
                       uint32 height,
                       uint32 numberTexture, //deberia estar en la clase texture
                       TEXTURE_FORMAT::E format,
                       uint32 bindFlags,
                       TYPE_USAGE::E Usage,
-		              const void* Data,
-		              uint32 numChanels) override;
+                  const void* Data,
+                  uint32 numChanels) override;
 
       virtual Vector<Texture*>
       creaturTextureFromRGB(String path) override;

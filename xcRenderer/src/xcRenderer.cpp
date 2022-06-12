@@ -138,10 +138,10 @@ namespace xcEngineSDK {
     m_constantBuffer.mProjection = 
     graphicsApi.matri4x4Context(sceneGraph.m_mainCamera.getProyeccion()); 
 
-    m_constantBuffer.mWorld = Matrix4x4(Vector4(0.05f, 0.f, 0.f, 0.f),
+    /*m_constantBuffer.mWorld = Matrix4x4(Vector4(0.05f, 0.f, 0.f, 0.f),
                                         Vector4(0.f, 0.05f, 0.f, 0.f),
                                         Vector4(0.f, 0.f, 0.05f, 0.f),
-                                        Vector4(0.f, 0.f, 0.f, 1.f));
+                                        Vector4(0.f, 0.f, 0.f, 1.f));*/
 
     //m_constantBufferTransform.mObjectPosition;
 
@@ -152,6 +152,9 @@ namespace xcEngineSDK {
                                                         1,
                                                         &m_constantBuffer);
 
+    m_cbModelsTransform = graphicsApi.createConstantBuffer(sizeof(Matrix4x4),
+                                                           1,
+                                                           nullptr);
     /*m_cbTransform = graphicsApi.createConstantBuffer(sizeof(CBTransform),
                                                      1,
                                                      &m_constantBufferTransform);*/
@@ -475,10 +478,10 @@ namespace xcEngineSDK {
     m_constantBufferShadow.mProjection =
     graphicsApi.matri4x4Context(m_shadowCamera.getProyeccion());
 
-    m_constantBufferShadow.mWorld = Matrix4x4(Vector4(0.05f, 0.f, 0.f, 0.f),
+    /*m_constantBufferShadow.mWorld = Matrix4x4(Vector4(0.05f, 0.f, 0.f, 0.f),
                                               Vector4(0.f, 0.05f, 0.f, 0.f),
                                               Vector4(0.f, 0.f, 0.05f, 0.f),
-                                              Vector4(0.f, 0.f, 0.f, 1.f));
+                                              Vector4(0.f, 0.f, 0.f, 1.f));*/
 
     m_cbShadow = graphicsApi.createConstantBuffer(sizeof(CBNeverChanges),
                                                   1,
@@ -591,6 +594,11 @@ namespace xcEngineSDK {
     graphicsApi.setVSConstantBuffer(m_cbNeverChanges,
                                     0,
                                     1);
+
+    graphicsApi.setVSConstantBuffer(m_cbModelsTransform,
+                                    1,
+                                    1);
+
 
     /*graphicsApi.setVSConstantBuffer(m_cbTransform,
                                     1,
@@ -708,6 +716,7 @@ namespace xcEngineSDK {
     graphicsApi.clearRenderTarget(m_shadowTexture, m_color);
 
     graphicsApi.setVSConstantBuffer(m_cbShadow, 0, 1);
+    graphicsApi.setVSConstantBuffer(m_cbModelsTransform, 1, 1);
     //set input layout
     graphicsApi.setInputLayout(m_inputLayoutShadow);
 
@@ -772,6 +781,14 @@ namespace xcEngineSDK {
 
     graphicsApi.desbindingRT();
 
+  }
+
+  void 
+  Renderer::setActorTransformCB(Matrix4x4 transform) {
+    auto& graphicsApi = g_graphicsAPI();
+    Matrix4x4 TransformTrans = transform.transpose();
+    graphicsApi.updateSubresource(&TransformTrans,
+                                  *m_cbModelsTransform);
   }
 
   void 

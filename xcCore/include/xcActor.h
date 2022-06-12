@@ -3,7 +3,7 @@
  * @file    xcActor.h
  * @author  Roberto Ramírez (idv18c.rramirez@uartesdigitales.edu.mx)
  * @date    1/12/2021
- * @brief   Represents the actor of the scene 
+ * @brief   Represents the actor of the scene
  *
  * Represent the actor of the scene
  * @bug	    No known bugs.
@@ -15,7 +15,7 @@
  * Includes
  */
  /*****************************************************************************/
- 
+
 #include <xcTransform.h>
 #include "xcPrerequisitesCore.h"
 #include "xcGameObject.h"
@@ -27,30 +27,30 @@
 namespace xcEngineSDK {
 
 
-	class XC_CORE_EXPORT Actor : public GameObject
-	{
-	 public:
-		Actor() = default;
+  class XC_CORE_EXPORT Actor : public GameObject
+  {
+   public:
+    Actor() = default;
 
-		Actor(String name);
+    Actor(String name);
 
-		virtual ~Actor() = default;
-		
+    virtual ~Actor() = default;
 
-		void
-		addComponent(WeakSptr<Component> component);
+
+    void
+    addComponent(WeakSptr<Component> component);
 
     void
     removeComponent(WeakSptr<Component>& component);
 
-		void
-		setName(String name);
+    void
+    setName(String name);
 
     void
     setSelect(bool selected);
 
-		void
-		renderComponent();
+    void
+    renderComponent();
 
     void
     update(const float& deltaTime);
@@ -59,30 +59,35 @@ namespace xcEngineSDK {
     void
     getModels(Vector<SPtr<Model>>& model);
 
-    Vector3&
+    /*Vector3&
     getTraslation();
 
     Quaternion&
     getRotation();
 
     Vector3&
-    getScale();
+    getScale();*/
 
 
 
-	 public:
+   public:
 
-		bool m_isSelected = false;
-	  String m_actorName;
+    bool m_isSelected = false;
+    String m_actorName;
 
-	 private:
+   private:
 
-		
-		Transfom m_actorTrasform;
-		//TODO cambiar a map
-		Vector<SPtr<Component>> m_vComponents;
+    Vector3 m_actorPosition;
+    Vector3 m_actorRotation;
+    Vector3 m_actorScale;
 
-	};
+    Matrix4x4 m_actorTrasform;
+    //Transfom m_actorTrasform;
+
+    //TODO cambiar a map
+    Vector<SPtr<Component>> m_vComponents;
+
+  };
 
 
 }

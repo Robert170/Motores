@@ -93,8 +93,8 @@ namespace xcEngineSDK {
 
     if (!m_instance) {
 
-			//DWORD err = GetLastError();
-			
+			DWORD err = GetLastError();
+			wprintf(L"Couldn't load dll. Error #%d.\n", err);
 			destroy();
 
       return false;

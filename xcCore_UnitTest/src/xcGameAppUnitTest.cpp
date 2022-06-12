@@ -35,7 +35,7 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Agnaktor/idle2.fbx"));
 
-  ///SPtr<Model> exampleModel0(new Model("Models/Bea/bea_geo.fbx")); //
+  //SPtr<Model> exampleModel(new Model("Models/Plane/plano.fbx")); //
   ///SPtr<Component> testComponent0(new StaticMesh(exampleModel0));
 
   //SPtr<Model> exampleModel(new Model("Models/Gwen/Angry.fbx")); //
@@ -44,8 +44,7 @@ GameAppUnitTest::onCreate() {
 
   //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
 
-  //SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
-  SPtr<Model> exampleModel(new Model("Models/Cube2.xc"));
+  SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
   //SPtr<Model> exampleModel(new Model("Models/Cayde6.fbx"));
 
   SPtr<Component> testComponent(new StaticMesh(exampleModel));
@@ -199,12 +198,12 @@ GameAppUnitTest::onUpdate(float deltaTime) {
 
   auto& sceneGraph = g_sceneGraph();
 
-  //auto& inputs = g_input();
+  auto& inputs = g_input();
 
-  /*sceneGraph.m_mainCamera.setFowarMove(inputs.keyPress(KEY_BOARD::KB_W));
-  sceneGraph.m_mainCamera.setBackMove(inputs.keyPress(KEY_BOARD::KB_S));
-  sceneGraph.m_mainCamera.setLeftMove(inputs.keyPress(KEY_BOARD::KB_A));
-  sceneGraph.m_mainCamera.setRigthMove(inputs.keyPress(KEY_BOARD::KB_D));*/
+  sceneGraph.m_mainCamera.setFowarMove(inputs.isKeyPressed(KEY_BOARD::kKB_W));
+  sceneGraph.m_mainCamera.setBackMove(inputs.isKeyPressed(KEY_BOARD::kKB_S));
+  sceneGraph.m_mainCamera.setLeftMove(inputs.isKeyPressed(KEY_BOARD::kKB_A));
+  sceneGraph.m_mainCamera.setRigthMove(inputs.isKeyPressed(KEY_BOARD::kKB_D));
   
   
   //todo CONSTANBUFFER GENERICOS NO ESPECIFICOS

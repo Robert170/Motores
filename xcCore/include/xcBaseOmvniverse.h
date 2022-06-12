@@ -40,6 +40,18 @@ namespace xcEngineSDK {
     virtual void
     createUSD(String& destinationPath, String& file) {};
 
+    virtual bool
+    connectFromOmni(const String& fileName) {
+      XC_UNREFERENCED_PARAMETER(fileName);
+      return false;
+    }
+
+    virtual bool
+    connectToOmni(const String& fileName) {
+      XC_UNREFERENCED_PARAMETER(fileName);
+      return false;
+    }
+
    private:
   
   };

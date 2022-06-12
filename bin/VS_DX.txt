@@ -49,8 +49,11 @@ PS_INPUT VS( VS_INPUT input )
     //BoneTransform += mul(Bones_CB[input.IdBone.z], input.BoneW.z);
     //BoneTransform += mul(Bones_CB[input.IdBone.w], input.BoneW.w);
     //output.Pos = mul(float4(input.Pos.xyz, 1.0),BoneTransform);
-    //output.Pos = mul( output.Pos, World );
-	output.Pos = mul( float4(input.Pos.xyz, 1.0), World );
+
+	
+	output.Pos = mul( float4(input.Pos, 1.0), World );
+	
+	output.Pos = mul( output.Pos, World );
     output.Pos = mul( output.Pos, View );
     output.Pos = mul( output.Pos, Projection );
 	output.Tex = input.Texcoord;

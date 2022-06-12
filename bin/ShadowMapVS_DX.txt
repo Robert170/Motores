@@ -5,6 +5,11 @@ cbuffer cbNeverChanges : register( b0 )
 {
     matrix View;
     matrix Projection;
+    //matrix World;
+};
+
+cbuffer cbTransform : register( b1 )
+{
     matrix World;
 };
 

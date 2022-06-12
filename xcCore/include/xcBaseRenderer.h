@@ -17,6 +17,7 @@
  /*****************************************************************************/
 #include <xcModule.h>
 #include <xcPrerequisitesCore.h>
+#include <xcMatrix4x4.h>
 
 namespace xcEngineSDK {
   class Model;
@@ -47,6 +48,10 @@ namespace xcEngineSDK {
 
     virtual void
     setModel(SPtr<Model> model) {};
+
+    virtual void
+    setActorTransformCB(Matrix4x4 transform) {};
+
 	private:
 
 	};

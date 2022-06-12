@@ -357,12 +357,12 @@ namespace xcEngineSDK {
   {
     Matrix4x4 mView;
     Matrix4x4 mProjection;
-    Matrix4x4 mWorld;
+    //Matrix4x4 mWorld;
   };
 
   struct CBTransform
   {
-    Vector3 mObjectPosition;
+    Matrix4x4 mObjectTransform;
   };
 
   struct CBSSAO
