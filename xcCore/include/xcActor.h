@@ -59,6 +59,9 @@ namespace xcEngineSDK {
     void
     getModels(Vector<SPtr<Model>>& model);
 
+    void 
+    setPosition(float xPosition, float yPosition, float zPosition);
+
     /*Vector3&
     getTraslation();
 
@@ -74,18 +77,21 @@ namespace xcEngineSDK {
 
     bool m_isSelected = false;
     String m_actorName;
-
-   private:
-
+    String m_omniPath;
     Vector3 m_actorPosition;
     Vector3 m_actorRotation;
     Vector3 m_actorScale;
 
     Matrix4x4 m_actorTrasform;
-    //Transfom m_actorTrasform;
 
     //TODO cambiar a map
     Vector<SPtr<Component>> m_vComponents;
+
+   private:
+
+    
+    //Transfom m_actorTrasform;
+
 
   };
 

@@ -39,6 +39,14 @@ namespace xcEngineSDK {
     std::map<String, uint32> BonesMap;
   };
 
+  struct XC_CORE_EXPORT MeshTexture
+  {
+  public:
+    String Type;
+    String Path;
+    Texture* TextureMesh;
+  };
+
 
   class XC_CORE_EXPORT Mesh
   {
@@ -51,6 +59,11 @@ namespace xcEngineSDK {
           Vector<Texture*> Textures,
           Vector<SamplerState*> Samplers,
           BONES_INFO* skeletal);
+
+    Mesh(Vector<BoneVertex> vertex,
+         Vector<int32> index,
+         Vector<Texture*> texture,
+         SPtr<SamplerState> Samplers);
 
      //Mesh(ModelData data);
 
@@ -166,6 +179,12 @@ namespace xcEngineSDK {
 
     uint32
     getFaceVertexCount();
+
+    void 
+    getMeshInfo(Vector<Vector3>& vertices,
+                Vector<uint32>& indices,
+                Vector<Vector3>& normals,
+                Vector<Vector2>& uvs);
 
   };
 

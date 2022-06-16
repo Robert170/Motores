@@ -1566,40 +1566,59 @@ namespace xcEngineSDK {
 
   Texture* 
   DXGraphiAPI::textureFromFile(String path) {
-    Texture* texture = new Texture();
-
-
-    int32 width;
-    int32 height; 
-    int32 nrComponents;
-   
-    unsigned char* data = stbi_load(path.c_str(),
-                                    &width, 
-                                    &height, 
-                                    &nrComponents, 
-                                    4);
+    int32 width, height, components;
+    uint8* data = stbi_load(path.c_str(), &width, &height, &components, 4);
     if (data) {
-  
-      //create texture
-      texture = createTexture2D(width,
-                                height,
-                                1,
-                                TEXTURE_FORMAT::kTF_R8G8B8A8_UNORM,
-                                TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE,
-                                TYPE_USAGE::kTYPE_USAGE_DEFAULT,
-                                data);
-      //m_texturesloaded.push_back(m_texture);
+      D3D11_TEXTURE2D_DESC desc;
+      ZeroMemory(&desc, sizeof(desc));
 
+      desc.Width = width;
+      desc.Height = height;
+      desc.MipLevels = 1;
+      desc.ArraySize = 1;
+      desc.SampleDesc.Count = 1;
+      desc.SampleDesc.Quality = 0;
+      desc.Usage = D3D11_USAGE_DEFAULT;
+      desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+      desc.MiscFlags = 0;
+      desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 
+      //Texture data
+      D3D11_SUBRESOURCE_DATA initData;
+      ZeroMemory(&initData, sizeof(initData));
+      initData.pSysMem = data;
+      initData.SysMemPitch = width * 4;
 
+      TextureDX* texture = new TextureDX();
+
+      HRESULT hr;
+
+      hr = m_pd3dDevice->CreateTexture2D(&desc,
+                                         &initData,
+                                         &texture->m_pTexture);
+      if (FAILED(hr)) {
+        stbi_image_free(data);
+        return nullptr;
+      }
+
+      //Shader resource data
+      D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc;
+      ZeroMemory(&viewDesc, sizeof(viewDesc));
+      viewDesc.Format = desc.Format;
+      viewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+      viewDesc.Texture2D.MostDetailedMip = 0;
+      viewDesc.Texture2D.MipLevels = 1;
+      hr = m_pd3dDevice->CreateShaderResourceView(texture->m_pTexture,
+                                                        &viewDesc,
+                                                        &texture->m_pSRV);
+      if (FAILED(hr)) {
+        stbi_image_free(data);
+        return nullptr;
+      }
       stbi_image_free(data);
+      return texture;
     }
-    else {
-      std::cout << "Texture failed to load at path: " << path << std::endl;
-      stbi_image_free(data);
-    }
-
-    return texture;
+    return nullptr;
   }
 
   Texture* 

@@ -18,6 +18,9 @@
  */
  /*****************************************************************************/
 #include <xcBaseOmvniverse.h>
+#include <filesystem>
+#include <conio.h>
+
 #include <OmniClient.h>
 #include <OmniUsdLive.h>
 #include <pxr/usd/usd/stage.h>
@@ -42,17 +45,60 @@
 
 #include "xcPrerequisitesOmvniverse.h"
 
+PXR_NAMESPACE_USING_DIRECTIVE
+
+// Private tokens for building up SdfPaths. We recommend
+  // constructing SdfPaths via tokens, as there is a performance
+  // cost to constructing them directly via strings (effectively,
+  // a table lookup per path element). Similarly, any API which
+  // takes a token as input should use a predefined token
+  // rather than one created on the fly from a string.
+  TF_DEFINE_PRIVATE_TOKENS(
+    _tokens,
+    (box)
+    (Light)
+    (Looks)
+    (Root)
+    (Shader)
+    (st)
+
+    // These tokens will be reworked or replaced by the official MDL schema for USD.
+    // https://developer.nvidia.com/usd/MDLschema
+    (Material)
+    ((_module, "module"))
+    (name)
+    (out)
+    ((shaderId, "mdlMaterial"))
+    (mdl)
+
+    // Tokens used for USD Preview Surface
+    (diffuseColor)
+    (normal)
+    (file)
+    (result)
+    (varname)
+    (rgb)
+    (RAW)
+    (sRGB)
+    (surface)
+    (PrimST)
+    (UsdPreviewSurface)
+    ((UsdShaderId, "UsdPreviewSurface"))
+    ((PrimStShaderId, "UsdPrimvarReader_float2"))
+    (UsdUVTexture)
+  );
+
 
 namespace xcEngineSDK {
-
-
+  
+  #define HW_ARRAY_COUNT(array) (sizeof(array) / sizeof(array[0]))
   class Omvniverse : public BaseOmvniverse
   {
    public:
 
       
     Omvniverse() = default;
-    ~Omvniverse() = default;
+    ~Omvniverse();
 
 
     void
@@ -61,25 +107,51 @@ namespace xcEngineSDK {
     void
     update() override;
 
+    bool
+    loadUSD(const String& fileName) override;
+
     void
     createUSD(String& destinationPath, String& file) override;
 
-    /*bool
-    connectToOmni(const String& fileName) override;*/
+    bool
+    connectFromOmni(const String& fileName) override;
 
-    /* void
-     liveEdit(Vector<UsdPrim> primVector);*/
+    bool
+    connectToOmni(const String& fileName) override;
+
+    void
+    createEmptyUSD(const String projectName);
+
+    void
+    liveEdit();
+
+    void
+    setTransformOp(Vector3 data,
+                   OMNI_OP::E operation,
+                   OMNI_PRECISION::E precision,
+                   String omniPath)                                   override;
+    
+    bool
+    getLiveEdit()                                                     override;
+
     String m_existingExample;
+    String m_destinationPath = "http://localhost:8080/omniverse://127.0.0.1/Users/xc170/";
    private:
 
     const uint64 kOmniClientVersion = (uint64)OMNICLIENT_VERSION_MAJOR << 48 |
                                       (uint64)OMNICLIENT_VERSION_MINOR << 32 |
                                       (uint64)OMNICLIENT_VERSION_PATCH;
-    bool m_liveEditActive = false;
+    bool m_doLiveEdit = false;
+
+
 
 
 
   };
+
+  static UsdStageRefPtr gStage;
+  static std::mutex gLogMutex;
+  static bool gOmniverseLoggingEnabled = false;
 
   extern "C" XC_PLUGIN_EXPORT Omvniverse * create_Omvniverse() {
 

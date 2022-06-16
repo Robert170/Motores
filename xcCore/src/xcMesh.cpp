@@ -22,6 +22,19 @@ namespace xcEngineSDK {
     setUpGPUMesh();
   }
 
+  Mesh::Mesh(Vector<BoneVertex> vertex, 
+             Vector<int32> index, 
+             Vector<Texture*> texture, 
+             SPtr<SamplerState> Samplers) {
+
+    this->m_Vertices = vertex;
+    this->m_Indices = index;
+    this->m_vTextures = texture;
+    this->m_vSamplers.push_back(Samplers);
+
+    setUpGPUMesh();
+  }
+
   void 
   Mesh::render() {
 
@@ -35,7 +48,7 @@ namespace xcEngineSDK {
     //set shader resource
     for (uint32 i = 0; i < textureSize; ++i) {
       graphicsApi->setShaderResource(m_vTextures,
-                                       1);
+        1);
     }
 
     uint32 samplerSize = m_vSamplers.size();
@@ -420,6 +433,23 @@ namespace xcEngineSDK {
   Mesh::getFaceVertexCount() {
 
     return m_FaceVertexCount;
+  }
+
+  void
+  Mesh::getMeshInfo(Vector<Vector3>& vertices,
+                    Vector<uint32>& indices,
+                    Vector<Vector3>& normals,
+                    Vector<Vector2>& uvs) {
+
+    for (auto& vertex : m_Vertices) {
+      vertices.push_back(vertex.vertex);
+      normals.push_back(vertex.normal);
+      uvs.push_back(vertex.texCoords);
+    }
+
+    for (auto& index : m_Indices) {
+      indices.push_back(index);
+    }
   }
 
 }

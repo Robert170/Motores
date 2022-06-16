@@ -50,15 +50,20 @@ namespace xcEngineSDK {
 
 		Vector<SPtr<Model>>
 		getModels();
-	
+	  
+		uint32 
+	  getNumActors();
+
+    SPtr<SceneNode>
+    getRoot();
 
 	 public:
 
 		SPtr<SceneNode> m_pRoot;
 		Vector<SPtr<Model>> m_models;
     Camera m_mainCamera;
-
 	 private:
+     uint32 m_numActors;
 
 	};
 

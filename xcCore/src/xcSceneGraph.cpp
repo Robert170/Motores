@@ -24,13 +24,16 @@ namespace xcEngineSDK {
 
     m_mainCamera.init();
 
+    m_numActors = 0;
+
+
   }
 
   void
   SceneGraph::addActor(SPtr<Actor> actor, WeakSptr<SceneNode> parent) {
 
     m_pRoot->addChild(actor, parent.lock() ? parent : m_pRoot);
-    
+    m_numActors++;
   }
 
   void
@@ -65,6 +68,16 @@ namespace xcEngineSDK {
     m_pRoot->getModels(m_models);
 
     return m_models;
+  }
+
+  uint32 
+  SceneGraph::getNumActors() {
+    return m_numActors;
+  }
+
+  SPtr<SceneNode> 
+  SceneGraph::getRoot() {
+    return m_pRoot;
   }
 
   void 

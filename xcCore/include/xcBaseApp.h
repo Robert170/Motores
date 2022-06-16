@@ -119,7 +119,7 @@ namespace xcEngineSDK {
      protected:
 
      //TODO Cambiar al la clase base
-     Plugin m_plugin;
+     Plugin m_graphicsAPI;
      Plugin m_renderer;
      Plugin m_input;
      Plugin m_sound;

@@ -77,6 +77,13 @@ namespace xcEngineSDK {
       }
     }
 
+    void 
+    Actor::setPosition(float xPosition, float yPosition, float zPosition) {
+      m_actorPosition.x = xPosition;
+      m_actorPosition.y = yPosition;
+      m_actorPosition.z = zPosition;
+    }
+
     /*Vector3& 
     Actor::getTraslation() {
 

@@ -13,7 +13,7 @@ namespace xcEngineSDK {
     //SPtr<Model> saqModel(new Model("Models/ScreenAlignedQuad.3ds"));
     m_SAQ = std::make_shared<Model>();
     m_SAQ->loadFromFile("Models/ScreenAlignedQuad.3ds");
-    m_color.setColor(0.0f, 0.0f, 1.0f, 1.0f);
+    m_color.setColor(1.0f, 0.0f, 0.0f, 1.0f);
 
     createShadowMap();
     createGbuffer();
@@ -43,7 +43,7 @@ namespace xcEngineSDK {
 
     auto& sceneGraph = g_sceneGraph();
 
-    setShadowMap();
+    //setShadowMap();
     setGbuffer();
     setSSAO();
     setBlurH();

@@ -29,13 +29,14 @@ namespace xcEngineSDK {
 
     renderer.init();
     //omvniverse.init();
+    input.init(myGraphicsApi.m_window.getSystemHandle());
     //renderer.setModels(sceneGraph.getModels());
     
 
     sf::Clock delta;
 
     float deltaTime;
-    input.init(myGraphicsApi.m_window.getSystemHandle());
+   
 
 
     while (myGraphicsApi.m_window.isOpen()) {
@@ -58,9 +59,10 @@ namespace xcEngineSDK {
 
      
       //update
-      update(deltaTime);
       input.update();
       sceneGraph.update(deltaTime);
+      omvniverse.update();
+      update(deltaTime);
       renderer.update();
      
 
@@ -121,7 +123,7 @@ namespace xcEngineSDK {
     //ImGui::StyleColorsDark();
 
     //debug
-    if (m_plugin.loadPlugin("xcDirectX_d.dll")) {
+    if (m_graphicsAPI.loadPlugin("xcDirectX_d.dll")) {
     //if (m_plugin.loadPlugin("xcOpenGL_d.dll")) {
 
     //release
@@ -129,7 +131,7 @@ namespace xcEngineSDK {
     //if (m_plugin.loadPlugin("xcOpenGL.dll")) {
 
       auto createGraphiAPI = reinterpret_cast<funProtoGraphiAPI>
-                             (m_plugin.getProcedureByName("createGraphisAPI"));
+                             (m_graphicsAPI.getProcedureByName("createGraphisAPI"));
 
       GraphicsAPI::startUp();
       SceneGraph::startUp();
@@ -199,8 +201,11 @@ namespace xcEngineSDK {
 
   void 
   BaseApp::destroySystems() {
-    m_plugin.destroy();
+    m_graphicsAPI.destroy();
     m_renderer.destroy();
+    m_omvniverse.destroy();
+    m_input.destroy();
+    
   }
 
 }

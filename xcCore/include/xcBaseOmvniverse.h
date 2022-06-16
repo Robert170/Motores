@@ -16,9 +16,26 @@
  */
  /*****************************************************************************/
 #include <xcModule.h>
+#include <xcVector3.h>
 #include <xcPrerequisitesCore.h>
 
 namespace xcEngineSDK {
+
+  namespace OMNI_OP {
+    enum E {
+      kTRANSLATE,
+      kROTATE,
+      kSCALE
+    };
+  }
+
+  namespace OMNI_PRECISION {
+    enum E {
+      kDOUBLE,
+      kFLOAT
+    };
+  }
+
 
   class BaseOmvniverse : public Module<BaseOmvniverse>
   {
@@ -41,6 +58,12 @@ namespace xcEngineSDK {
     createUSD(String& destinationPath, String& file) {};
 
     virtual bool
+      loadUSD(const String& fileName) {
+      XC_UNREFERENCED_PARAMETER(fileName);
+      return false;
+    };
+
+    virtual bool
     connectFromOmni(const String& fileName) {
       XC_UNREFERENCED_PARAMETER(fileName);
       return false;
@@ -51,6 +74,20 @@ namespace xcEngineSDK {
       XC_UNREFERENCED_PARAMETER(fileName);
       return false;
     }
+
+    virtual void
+    setTransformOp(Vector3 data,
+                   OMNI_OP::E operation,
+                   OMNI_PRECISION::E precision,
+                   String omniPath) {
+      /*XC_UNREFERENCED_PARAMETER(data);
+      XC_UNREFERENCED_PARAMETER(operation);
+      XC_UNREFERENCED_PARAMETER(precision);
+      XC_UNREFERENCED_PARAMETER(omniPath);*/
+    }
+
+    virtual bool
+    getLiveEdit() { return false; }
 
    private:
   
