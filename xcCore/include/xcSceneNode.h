@@ -53,6 +53,9 @@ namespace xcEngineSDK {
 		void
 	  getModels(Vector<SPtr<Model>>& model);
 
+		Vector<SPtr<SceneNode>>&
+    getNodesByParent(WeakSptr<SceneNode> inParent);
+
 
 	 public:
 

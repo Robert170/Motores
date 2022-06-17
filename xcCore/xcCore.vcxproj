@@ -19,12 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Dev\Imgui\include\imgui.cpp" />
-    <ClCompile Include="..\..\Dev\Imgui\include\imgui_draw.cpp" />
-    <ClCompile Include="..\..\Dev\Imgui\include\imgui_impl_dx11.cpp" />
-    <ClCompile Include="..\..\Dev\Imgui\include\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\..\Dev\Imgui\include\imgui_tables.cpp" />
-    <ClCompile Include="..\..\Dev\Imgui\include\imgui_widgets.cpp" />
     <ClCompile Include="src\xcActor.cpp" />
     <ClCompile Include="src\xcBaseInput.cpp" />
     <ClCompile Include="src\xcBaseOmvniverse.cpp" />
@@ -60,14 +54,6 @@
     <ClCompile Include="src\xcVertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Dev\Imgui\include\imconfig.h" />
-    <ClInclude Include="..\..\Dev\Imgui\include\imgui.h" />
-    <ClInclude Include="..\..\Dev\Imgui\include\imgui_impl_dx11.h" />
-    <ClInclude Include="..\..\Dev\Imgui\include\imgui_impl_win32.h" />
-    <ClInclude Include="..\..\Dev\Imgui\include\imgui_internal.h" />
-    <ClInclude Include="..\..\Dev\Imgui\include\imstb_rectpack.h" />
-    <ClInclude Include="..\..\Dev\Imgui\include\imstb_textedit.h" />
-    <ClInclude Include="..\..\Dev\Imgui\include\imstb_truetype.h" />
     <ClInclude Include="include\xcActor.h" />
     <ClInclude Include="include\xcBaseInput.h" />
     <ClInclude Include="include\xcBaseOmvniverse.h" />

@@ -77,6 +77,9 @@ namespace xcEngineSDK {
 
     bool m_isSelected = false;
     String m_actorName;
+
+    int32 m_actorId;
+
     String m_omniPath;
     Vector3 m_actorPosition;
     Vector3 m_actorRotation;

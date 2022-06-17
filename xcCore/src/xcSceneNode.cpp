@@ -109,4 +109,23 @@ namespace xcEngineSDK {
     }
   }
 
+  Vector<SPtr<SceneNode>>&
+  SceneNode::getNodesByParent(WeakSptr<SceneNode> inParent) {
+    if (inParent.lock() == m_pParent.lock()) {
+      return m_pParent.lock()->m_pChild;
+    }
+    else {
+      for (auto nodes : m_pChild) {
+        auto tmpListNodes = nodes->getNodesByParent(inParent);
+
+        if (!tmpListNodes.empty() && (inParent.lock()->m_pParent.lock() == nodes->m_pParent.lock())) {
+          return tmpListNodes;
+        }
+
+      }
+    }
+    return m_pChild;
+  }
+  
+
 }

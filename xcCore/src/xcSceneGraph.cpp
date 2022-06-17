@@ -31,7 +31,7 @@ namespace xcEngineSDK {
 
   void
   SceneGraph::addActor(SPtr<Actor> actor, WeakSptr<SceneNode> parent) {
-
+    actor->m_actorId = m_numActors;
     m_pRoot->addChild(actor, parent.lock() ? parent : m_pRoot);
     m_numActors++;
   }
@@ -73,6 +73,18 @@ namespace xcEngineSDK {
   uint32 
   SceneGraph::getNumActors() {
     return m_numActors;
+  }
+
+
+  Vector<SPtr<SceneNode>>&
+    SceneGraph::getNodesByParent(WeakSptr<SceneNode> inParent) {
+    if (SPtr<SceneNode>(nullptr) == inParent.lock()) {
+      Vector<SPtr<SceneNode>> tmpList;
+      tmpList.push_back(m_pRoot);
+      return tmpList;
+    }
+
+    return m_pRoot->getNodesByParent(inParent);
   }
 
   SPtr<SceneNode> 

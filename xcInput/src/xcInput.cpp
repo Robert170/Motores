@@ -53,7 +53,13 @@ namespace xcEngineSDK {
 
   bool
   Input::isKeyReleased(KEY_BOARD::E key) {
-    return m_keyState[key] == STATUS_KEY::kRELEASED ? true : false;
+    if (m_keyState[key] == STATUS_KEY::kRELEASED) {
+      m_keyState[key] == STATUS_KEY::kIDLE;
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   bool
@@ -63,7 +69,13 @@ namespace xcEngineSDK {
 
   bool
   Input::isMouseKeyReleased(MOUSE_KEY::E key) {
-    return m_mouseState[key] == STATUS_KEY::kRELEASED ? true : false;
+    if(m_mouseState[key] == STATUS_KEY::kRELEASED) {
+      m_mouseState[key] == STATUS_KEY::kIDLE;
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   void
@@ -190,10 +202,10 @@ namespace xcEngineSDK {
 
   bool
   Input::keyPressed(const OIS::KeyEvent& arg) {
-    std::cout << " KeyPressed {" << std::hex << arg.key << std::dec
-				  << "} || Character (" << (char)arg.text << ")" << std::endl;
-    m_keyState[m_keys[arg.key]] = STATUS_KEY::kPRESSED;
-    return true;
+    if (m_keyState[m_keys[arg.key]] = STATUS_KEY::kPRESSED) {
+      return true;
+    }
+    return false;
   }
 
   bool
@@ -216,12 +228,12 @@ namespace xcEngineSDK {
 
   bool
   Input::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id) {
-    //XC_UNREFERENCED_PARAMETER(arg);
+    XC_UNREFERENCED_PARAMETER(arg);
 
-    const OIS::MouseState& s = arg.state;
-    std::cout << "\nMouse button #" << id << " pressed. Abs(" << s.X.abs << ", "
+    //const OIS::MouseState& s = arg.state;
+   /* std::cout << "\nMouse button #" << id << " pressed. Abs(" << s.X.abs << ", "
               << s.Y.abs << ", " << s.Z.abs << ") Rel(" << s.X.rel << ", " << s.Y.rel
-              << ", " << s.Z.rel << ")";
+              << ", " << s.Z.rel << ")";*/
     m_mouseState[m_mouseKeys[id]] = STATUS_KEY::kPRESSED;
     return false;
   }

@@ -628,6 +628,12 @@ namespace xcEngineSDK {
     Matrix4x4
     matri4x4Context(const Matrix4x4& matrix) override;
 
+    void*
+    getDevice() override;;
+
+    void*
+    getDeviceContext() override;
+
         //clear
 
         /**

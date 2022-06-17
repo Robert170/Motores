@@ -133,6 +133,10 @@ namespace xcEngineSDK {
   createOmniverseModel(const std::string& destinationPath,
                        const std::string& fileName) {
 
+    /*if (!startOmniverse(false)) {
+      exit(1);
+    }*/
+
     String stageUrl = destinationPath + fileName;
     std::cout << "\nDestination path -> " << stageUrl + "\n";
 
@@ -719,8 +723,7 @@ namespace xcEngineSDK {
                                            (float)scale.GetArray()[1],
                                            (float)scale.GetArray()[2] };
 
-          std::cout << position.GetArray()[0]<<","<< position.GetArray()[1] 
-                    << "," << position.GetArray()[2] << "," "\n";
+       
         }
       }
     }

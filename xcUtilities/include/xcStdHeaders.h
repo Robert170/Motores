@@ -14,6 +14,26 @@
  */
 #pragma once
 
+ /*****************************************************************************/
+  /*
+  * C type objects
+  */
+  /*****************************************************************************/
+#include <cassert>
+#include <cstdio>
+#include <cstdlib>
+#include <ctime>
+#include <cstring>
+#include <cstdarg>
+
+
+/*****************************************************************************/
+/*
+* Memory management
+*/
+/*****************************************************************************/
+#include <memory>
+
 /*****************************************************************************/
 /**
  *Containers includes
@@ -30,9 +50,20 @@
 #include <queue>
 #include <bitset>
 #include <array>
-
 #include <unordered_map>
 #include <unordered_set>
+
+/*****************************************************************************/
+/*
+* STL algorithms and functions
+*/
+/*****************************************************************************/
+#include <algorithm>
+#include <functional>
+#include <limits>
+#include <iterator>
+#include <numeric>
+
 
 /*****************************************************************************/
 /**
@@ -43,6 +74,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <filesystem>
 
 
 //#include <windows.h>
@@ -166,6 +198,10 @@ namespace xcEngineSDK {
    */
   template <typename T>
   using UPtr = std::unique_ptr<T>;
+
+  namespace fsys = std::filesystem;
+
+  using Path = std::filesystem::path;
 
 
 }

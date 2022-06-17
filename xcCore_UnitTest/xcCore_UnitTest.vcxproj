@@ -141,7 +141,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/GoogleTest/include/;$(SolutionDir)xcCore/include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Assimp/include/;%(AdditionalIncludeDirectories);$(SolutionDir)xcRenderer/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)/GoogleTest/include/;$(SolutionDir)xcCore/include/;$(SolutionDir)xcUtilities/include;$(DEVLIBS)/SFML/include/;$(DEVLIBS)/Assimp/include/;%(AdditionalIncludeDirectories);$(SolutionDir)xcRenderer/include;$(DEVLIBS)/Imgui/include/;$(DEVLIBS)/ImguiSamples/</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -177,23 +177,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\imgui.cpp" />
-    <ClCompile Include="include\imgui_draw.cpp" />
-    <ClCompile Include="include\imgui_tables.cpp" />
-    <ClCompile Include="include\imgui_widgets.cpp" />
-    <ClCompile Include="src\ImGuiImmplementation.cpp" />
+    <ClCompile Include="..\..\..\Downloads\imgui.cpp" />
+    <ClCompile Include="..\..\..\Downloads\imgui_demo.cpp" />
+    <ClCompile Include="..\..\..\Downloads\imgui_draw.cpp" />
+    <ClCompile Include="..\..\..\Downloads\imgui_tables.cpp" />
+    <ClCompile Include="..\..\..\Downloads\imgui_widgets.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\xcContentBrowser.cpp" />
+    <ClCompile Include="src\xcDetails.cpp" />
+    <ClCompile Include="src\xcEditor.cpp" />
     <ClCompile Include="src\xcGameAppUnitTest.cpp" />
+    <ClCompile Include="src\xcHierarchy.cpp" />
+    <ClCompile Include="src\xcImGui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\imconfig.h" />
-    <ClInclude Include="include\imgui.h" />
-    <ClInclude Include="include\ImGuiImmplementation.h" />
-    <ClInclude Include="include\imgui_internal.h" />
     <ClInclude Include="include\imstb_rectpack.h" />
     <ClInclude Include="include\imstb_textedit.h" />
     <ClInclude Include="include\imstb_truetype.h" />
+    <ClInclude Include="include\xcContentBrowser.h" />
+    <ClInclude Include="include\xcDetails.h" />
+    <ClInclude Include="include\xcEditor.h" />
     <ClInclude Include="include\xcGameAppUnitTest.h" />
+    <ClInclude Include="include\xcHierarchy.h" />
+    <ClInclude Include="include\xcImGui.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

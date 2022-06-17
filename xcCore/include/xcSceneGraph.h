@@ -54,12 +54,28 @@ namespace xcEngineSDK {
 		uint32 
 	  getNumActors();
 
+
+		Vector<SPtr<SceneNode>>&
+    getNodesByParent(WeakSptr<SceneNode> inParent);
+
     SPtr<SceneNode>
     getRoot();
+
+		SPtr<Actor>
+      getSelectedActor() {
+      return m_selectedActor;
+    }
+
+		void
+    setSelectedActor(SPtr<Actor> inActor) {
+      m_selectedActor = inActor;
+    }
 
 	 public:
 
 		SPtr<SceneNode> m_pRoot;
+		SPtr<Actor> m_selectedActor;
+
 		Vector<SPtr<Model>> m_models;
     Camera m_mainCamera;
 	 private:

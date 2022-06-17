@@ -2,6 +2,7 @@
 #include <xcPrerequisitesCore.h>
 #include <xcBaseApp.h>
 #include <xcModel.h>
+#include <xcEditor.h>
 
 struct CBBones
 {
@@ -11,7 +12,7 @@ struct CBBones
 class GameAppUnitTest : public BaseApp
 {
  public:
-  GameAppUnitTest() = default;
+  GameAppUnitTest();
 	~GameAppUnitTest() = default;
 
  public:
@@ -92,6 +93,8 @@ class GameAppUnitTest : public BaseApp
   //CBNeverChanges m_constantBuffer;
 
   CBBones m_bonesBuffer;
+
+  SPtr<Editor> m_editorUI;
 
 };
 

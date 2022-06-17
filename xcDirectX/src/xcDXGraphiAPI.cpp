@@ -1488,6 +1488,16 @@ namespace xcEngineSDK {
     return temp.transpose();
   }
 
+  void* 
+  DXGraphiAPI::getDevice(){
+    return m_pd3dDevice;
+  }
+
+  void* 
+  DXGraphiAPI::getDeviceContext() {
+    return m_pImmediateContext;
+  }
+
   //function to set a rasterizer state
   void 
   DXGraphiAPI::setRasterizerState(WeakSptr<RasterizerState> RasState) {

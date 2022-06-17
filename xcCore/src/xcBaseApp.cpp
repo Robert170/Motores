@@ -1,5 +1,5 @@
-#include <imgui_impl_win32.h>
-#include <imgui_impl_dx11.h>
+//#include <imgui_impl_win32.h>
+//#include <imgui_impl_dx11.h>
 #include "xcSceneGraph.h"
 #include "xcGraphiAPI.h"
 #include "xcBaseRenderer.h"
@@ -47,7 +47,7 @@ namespace xcEngineSDK {
       while (myGraphicsApi.m_window.pollEvent(event)) {
 
 
-        //handleWindowEvent(event);
+        handleWindowEvent(event);
         
         if (event.type == sf::Event::Closed) {
           myGraphicsApi.m_window.close();

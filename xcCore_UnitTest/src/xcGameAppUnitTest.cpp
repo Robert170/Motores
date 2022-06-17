@@ -6,11 +6,15 @@
 #include "xcSceneGraph.h"
 #include "xcBaseInput.h"
 #include "xcBaseOmvniverse.h"
-#include "ImGuiImmplementation.h"
+
 
 //TODO ERRORES CRITICOS
 
-void 
+GameAppUnitTest::GameAppUnitTest(){
+  m_editorUI.reset(new Editor);
+}
+
+void
 GameAppUnitTest::onCreate() {
 
   auto& graphicsApi = g_graphicsAPI();
@@ -20,70 +24,50 @@ GameAppUnitTest::onCreate() {
   auto& omniverse = g_omvniverse();
 
   graphicsApi.init(graphicsApi.m_window.getSystemHandle());
-  
-  //ImGuiImplementation::init();
 
-  
+  Vector2 tmpSize(graphicsApi.m_window.getSize().x, graphicsApi.m_window.getSize().y);
 
+  m_editorUI->init(graphicsApi.m_window.getSystemHandle(), tmpSize);
+ 
   // Set primitive topology
   graphicsApi.setPrimitiveTopology(PRIMITIVE_TOPOLOGY::kPRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-  
-  
-  //load model
-  //SPtr<Model> exampleModel(new Model("Models/Box_v2.fbx"));
-  
-  //SPtr<Component> testComponent(new StaticMesh(exampleModel));
-  //SPtr<Model> exampleModel(new Model("Models/s/silly_dancing.fbx")); //
+ 
 
-  //SPtr<Model> exampleModel(new Model("Models/Agnaktor/idle2.fbx"));
+  ///////////////////////////SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
 
-  //SPtr<Model> exampleModel(new Model("Models/Plane/plano.fbx")); //
-  ///SPtr<Component> testComponent0(new StaticMesh(exampleModel0));
+  //////////////SPtr<Component> testComponent(new StaticMesh(exampleModel));
 
-  //SPtr<Model> exampleModel(new Model("Models/Gwen/Angry.fbx")); //
 
-  //SPtr<Model> exampleModel(new Model("Models/Alien/Xenomorphs_Queen.fbx"));
-
-  //SPtr<Model> exampleModel(new Model("Models/Grimoires/grimoires.fbx"));
-
-  ////////////////////////SPtr<Model> exampleModel(new Model("Models/Vela2/Vela2.fbx"));
-  //SPtr<Model> exampleModel(new Model("Models/Cayde6.fbx"));
-
-  //////////////////////SPtr<Component> testComponent(new StaticMesh(exampleModel));
-
-  ///SPtr<Model> exampleModel2(new Model("Models/Plane/plano.fbx")); 
-  ///SPtr<Component> testComponent2(new StaticMesh(exampleModel2));
-  
-
- /// SPtr<Actor> testActor0(new Actor("test0"));
-  ///testActor0->addComponent(testComponent0);
-
-  ///////////////////////SPtr<Actor> testActor(new Actor("test"));
-  ///////////////////////testActor->addComponent(testComponent);
+  /////////////////////SPtr<Actor> testActor(new Actor("test"));
+  ///////////////////testActor->addComponent(testComponent);
 
   ///SPtr<Actor> testActor2(new Actor("test2"));
   ///testActor2->addComponent(testComponent2);
 
-  ///sceneGraph.addActor(testActor0, SPtr<SceneNode>(nullptr));
-  ///////////////sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
-  ///sceneGraph.addActor(testActor2, SPtr<SceneNode>(nullptr));
+  ///////////////////sceneGraph.addActor(testActor, SPtr<SceneNode>(nullptr));
+
   
   graphicsApi.setViewport(1,
                           graphicsApi.m_width,
                           graphicsApi.m_height,
                           0,
                           0);
+  //omniverse.loadUSD("http://localhost:8080/omniverse://127.0.0.1/Users/xc170/Example.usd");
 
-  omniverse.connectFromOmni("http://localhost:8080/omniverse://127.0.0.1/Users/xc170/Example.usd");
+  //String path = "http://localhost:8080/omniverse://127.0.0.1/Users/xc170/";
+  //String fileName = "NEW_USD";
+  //omniverse.createUSD(path, fileName);
 
+  ////omniverse.connectFromOmni("http://localhost:8080/omniverse://127.0.0.1/Users/xc170/Example.usd");
+  //omniverse.connectFromOmni("http://localhost:8080/omniverse://26.17.153.84/Users/giProjects/giTestProject/sceneSphere.usd");
 
 }
 
 void
 GameAppUnitTest::onEvents(sf::Event event) {
 
-
+  m_editorUI->callBack();
 }
 void 
 GameAppUnitTest::onUpdate(float deltaTime) {
@@ -110,6 +94,8 @@ GameAppUnitTest::onUpdate(float deltaTime) {
   /*m_constantBuffer.mView = graphicsApi.matri4x4Context(m_camera.getView());
   graphicsApi.updateSubresource(&m_constantBuffer,
                                   *m_cbNeverChanges);*/
+
+  m_editorUI->update(deltaTime);
 
   
 }
@@ -179,11 +165,13 @@ GameAppUnitTest::onRender() {
                            0,
                            0,
                            nullptr);*/
+  m_editorUI->render();
   graphicsApi.present();
 }
 
 void 
 GameAppUnitTest::onDestroy() {
+  m_editorUI->destroy();
   //sampler state
   /*for (int i = g_vSamplers.size() - 1; i >= 0; i--)
   {

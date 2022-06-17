@@ -1099,6 +1099,17 @@ namespace xcEngineSDK {
     virtual Matrix4x4
     matri4x4Context(const Matrix4x4&) { return Matrix4x4(); }
 
+
+    virtual void*
+    getDevice() {
+      return nullptr;
+    };
+
+    virtual void*
+    getDeviceContext() {
+      return nullptr;
+    };
+
     //clear
 
     /**
