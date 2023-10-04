@@ -38,8 +38,6 @@ namespace xcEngineSDK {
   class PixelShader;
   class VertexShader;
   class SamplerState;
-  class PixelShader;
-  class VertexShader;
   class InputLayout;
   class RasterizerState;
   class ShaderProgram;
@@ -566,7 +564,7 @@ namespace xcEngineSDK {
     //init(sf::WindowHandle window)
     virtual void 
     init(sf::WindowHandle window) {
-
+      
       //initWindow(width, height);
       createDeviceandSwap(window);
     }
@@ -1178,9 +1176,7 @@ namespace xcEngineSDK {
 			        uint32 = TEXTURE_BIND_FLAG::kTEXTURE_BIND_SHADER_RESOURCE,
 			        TYPE_USAGE::E = TYPE_USAGE::kTYPE_USAGE_DEFAULT,
 		            const void* Data = nullptr,
-		            uint32 numChanels = 4) {
-		return nullptr;
-	};
+		            uint32 numChanels = 4) {return nullptr;};
 
     virtual Vector<Texture*> 
     creaturTextureFromRGB(String path) { Vector<Texture*> temp;  return temp; };
@@ -1202,15 +1198,6 @@ namespace xcEngineSDK {
 
 
     //draw
-
-    /**
-      * @brief      DrawModel function, to draw model
-      * @param      ShaderPro parameter one, shader program for the model
-      * @bug		    No know Bugs
-      * @return     Returns nothing
-    */
-    //virtual void DrawModel(CShaderProgram& ShaderPro) { };
-
     /**
      * @brief      drawIndexed function, to draw
      * @param      SizeIndex parameter one, num of index

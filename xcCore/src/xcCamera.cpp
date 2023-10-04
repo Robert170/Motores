@@ -293,6 +293,8 @@ namespace xcEngineSDK {
   Vector3 
   Camera::getFront() {
 
+    
+
     return m_front;
   }
 

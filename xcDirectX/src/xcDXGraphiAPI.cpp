@@ -223,6 +223,7 @@ namespace xcEngineSDK {
                                          &featureLevel,
                                          &m_pImmediateContext);
       if (SUCCEEDED(hr)) {
+        std::cout << "//creacion del device y swapchain fue exitosa" << std::endl;
         break;
       }
     }
@@ -272,6 +273,7 @@ namespace xcEngineSDK {
     if (FAILED(hr))
       return;
 
+    
     // Create the depth stencil view
     D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
     ZeroMemory(&descDSV, sizeof(descDSV));

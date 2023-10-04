@@ -29,10 +29,9 @@ namespace xcEngineSDK {
     auto& graphicsApi = g_graphicsAPI();
     auto& sceneGraph = g_sceneGraph();
 
-    m_constantBuffer.mView = 
-    graphicsApi.matri4x4Context(sceneGraph.m_mainCamera.getView());
-                                graphicsApi.updateSubresource(&m_constantBuffer,
-                                *m_cbNeverChanges); 
+    m_constantBuffer.mView = graphicsApi.matri4x4Context(sceneGraph.m_mainCamera.getView());
+
+    graphicsApi.updateSubresource(&m_constantBuffer, *m_cbNeverChanges); 
 
     m_CBufferInverse.matInverseView =
     graphicsApi.matri4x4Context(sceneGraph.m_mainCamera.getView()).inverse();

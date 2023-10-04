@@ -17,6 +17,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 namespace xcEngineSDK {
+
   class IndexBufferDX : public IndexBuffer
   {
    public:
@@ -25,8 +26,6 @@ namespace xcEngineSDK {
    protected:
     /// Default Constructor
     IndexBufferDX() = default;
-
-    //Separar los buffer en diferentes clases
 
     /**
      * @brief protected variables member

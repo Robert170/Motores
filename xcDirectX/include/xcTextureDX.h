@@ -33,8 +33,6 @@ namespace xcEngineSDK {
 		/// Default Constructor
 		TextureDX() = default;
 
-
-
 		/**
 		 * @brief protected variables member
 		 */

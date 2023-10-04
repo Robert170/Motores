@@ -28,10 +28,6 @@ namespace xcEngineSDK {
     /// Default Constructor
     VertexBufferDX() = default;
 
-
-
-    //Separar los buffer en diferentes clases
-
     /**
      * @brief protected variables member
      */
@@ -41,8 +37,8 @@ namespace xcEngineSDK {
      */
     ID3D11Buffer* m_pVertexBuffer = nullptr;
 
-    unsigned int m_stride = 0;
-    unsigned int m_offset = 0;
+    uint32 m_stride = 0;
+    uint32 m_offset = 0;
 
     friend class DXGraphiAPI;
   };

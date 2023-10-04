@@ -14,6 +14,7 @@
  */
 #pragma once
 namespace xcEngineSDK {
+
 	class Texture
 	{
 	public:
@@ -22,8 +23,6 @@ namespace xcEngineSDK {
 
 		/// Destructor
 		virtual ~Texture() = default;
-
-	 public:
 
 	};
 }

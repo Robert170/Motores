@@ -28,8 +28,6 @@ namespace xcEngineSDK {
     /// Default Constructor
     ConstantBufferDX() = default;
 
-    //Separar los buffer en diferentes clases
-
     /**
      * @brief protected variables member
      */

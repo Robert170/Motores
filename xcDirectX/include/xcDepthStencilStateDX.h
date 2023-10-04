@@ -29,16 +29,16 @@ namespace xcEngineSDK {
     /// Default Constructor
     DepthStencilStateDX() = default;
 
-    //Separar los buffer en diferentes clases
-
     /**
      * @brief protected variables member
      */
 
      /**
-      * @Variable m_pConstantBuffer, is for a constant buffer
-      */
+    * @Variable m_pDepthStencilState, pointer for the depth stencil STATE
+    */
     ID3D11DepthStencilState* m_pDepthStencilState = nullptr;
+
+    
 
     friend class DXGraphiAPI;
   };
